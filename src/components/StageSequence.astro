@@ -1,0 +1,142 @@
+---
+// The one deliberate scrollytelling moment on the site (see docs/content-brief.md's
+// Design → Build → Run narrative). Used only on the two pillar pages, where the
+// content is genuinely a three-stage sequence with real, substantial copy per stage.
+interface Props {
+  stages: string[];
+}
+
+const { stages } = Astro.props;
+---
+
+<section class="stage-sequence" data-stage-sequence>
+  <div class="stage-rail" aria-hidden="true">
+    <ol class="stage-rail__steps">
+      {stages.map((label) => (
+        <li>{label}</li>
+      ))}
+    </ol>
+    <p class="stage-rail__progress mono-tag"><span data-progress>033</span>%</p>
+  </div>
+
+  <div class="stage-panels">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .stage-sequence {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+  }
+
+  .stage-rail {
+    position: sticky;
+    top: 8rem;
+    align-self: start;
+    height: fit-content;
+  }
+
+  .stage-rail__steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .stage-rail__steps li {
+    font-family: var(--font-display);
+    font-size: var(--step-0);
+    font-weight: 600;
+    color: var(--gunmetal-line);
+    transition: color 200ms ease;
+  }
+
+  .stage-rail__steps li.is-active {
+    color: var(--aquamarine);
+  }
+
+  .stage-rail__progress {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gunmetal-line);
+  }
+
+  .stage-panels :global(.stage-panel) {
+    padding-block: clamp(3rem, 8vw, 6rem);
+    border-top: 1px solid var(--gunmetal-line);
+  }
+
+  .stage-panels :global(.stage-panel:first-child) {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .stage-panels :global(.stage-number) {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: clamp(3rem, 9vw, 6rem);
+    color: var(--gunmetal-raised);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stage-panels :global(.stage-panel h3) {
+    font-size: var(--step-2);
+  }
+
+  .stage-panels :global(.stage-panel p) {
+    margin-top: 1.25rem;
+    color: var(--silver);
+    max-width: 58ch;
+  }
+
+  .stage-panels :global(.stage-panel p:first-of-type) {
+    margin-top: 1.5rem;
+  }
+
+  @media (max-width: 860px) {
+    .stage-sequence {
+      display: block;
+    }
+
+    .stage-rail {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const sequences = document.querySelectorAll<HTMLElement>('[data-stage-sequence]');
+
+  sequences.forEach((seq) => {
+    const panels = Array.from(seq.querySelectorAll<HTMLElement>('.stage-panel'));
+    const steps = Array.from(seq.querySelectorAll<HTMLLIElement>('.stage-rail__steps li'));
+    const progressEl = seq.querySelector<HTMLElement>('[data-progress]');
+
+    if (!panels.length || !steps.length) return;
+
+    const setActive = (index: number) => {
+      steps.forEach((step, i) => step.classList.toggle('is-active', i === index));
+      if (progressEl) {
+        const pct = Math.round(((index + 1) / panels.length) * 100);
+        progressEl.textContent = String(pct).padStart(3, '0');
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = panels.indexOf(entry.target as HTMLElement);
+            if (index !== -1) setActive(index);
+          }
+        });
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+    );
+
+    panels.forEach((panel) => observer.observe(panel));
+    setActive(0);
+  });
+</script>

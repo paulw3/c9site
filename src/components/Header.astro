@@ -1,0 +1,187 @@
+---
+const navItems = [
+  { href: '/cloud-migration', label: 'Cloud Migration & Transformation' },
+  { href: '/google-distributed-cloud', label: 'Google Distributed Cloud' },
+  { href: '/case-studies', label: 'Case Studies' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const { pathname } = Astro.url;
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="/" class="wordmark">C-9INE</a>
+
+    <details class="nav-mobile">
+      <summary aria-label="Open menu">
+        <span class="nav-mobile__icon" aria-hidden="true"></span>
+      </summary>
+      <nav class="nav-mobile__panel" aria-label="Primary">
+        <ul>
+          {navItems.map((item) => (
+            <li>
+              <a href={item.href} aria-current={pathname.startsWith(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </details>
+
+    <nav class="nav-desktop" aria-label="Primary">
+      <ul>
+        {navItems.map((item) => (
+          <li>
+            <a href={item.href} aria-current={pathname.startsWith(item.href) ? 'page' : undefined}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: color-mix(in srgb, var(--gunmetal) 92%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--gunmetal-line);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4.5rem;
+  }
+
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-1);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    color: var(--white-smoke);
+  }
+
+  .nav-desktop ul {
+    display: flex;
+    gap: clamp(1.25rem, 2.2vw, 2.25rem);
+  }
+
+  .nav-desktop a {
+    font-size: var(--step--1);
+    text-decoration: none;
+    color: var(--silver);
+    border-bottom: 1px solid transparent;
+    padding-block: 0.3rem;
+    transition: color 160ms ease, border-color 160ms ease;
+  }
+
+  .nav-desktop a:hover,
+  .nav-desktop a[aria-current='page'] {
+    color: var(--white-smoke);
+    border-color: var(--aquamarine);
+  }
+
+  .nav-mobile {
+    display: none;
+  }
+
+  @media (max-width: 860px) {
+    .nav-desktop {
+      display: none;
+    }
+
+    .nav-mobile {
+      display: block;
+      position: relative;
+    }
+
+    .nav-mobile summary {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      cursor: pointer;
+    }
+
+    .nav-mobile summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .nav-mobile__icon,
+    .nav-mobile__icon::before,
+    .nav-mobile__icon::after {
+      display: block;
+      width: 1.4rem;
+      height: 2px;
+      background: var(--white-smoke);
+    }
+
+    .nav-mobile__icon {
+      position: relative;
+    }
+
+    .nav-mobile__icon::before,
+    .nav-mobile__icon::after {
+      content: '';
+      position: absolute;
+      left: 0;
+    }
+
+    .nav-mobile__icon::before {
+      top: -6px;
+    }
+
+    .nav-mobile__icon::after {
+      top: 6px;
+    }
+
+    .nav-mobile[open] .nav-mobile__icon {
+      background: transparent;
+    }
+
+    .nav-mobile[open] .nav-mobile__icon::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+
+    .nav-mobile[open] .nav-mobile__icon::after {
+      top: 0;
+      transform: rotate(-45deg);
+    }
+
+    .nav-mobile__panel {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 0.75rem);
+      background: var(--gunmetal-raised);
+      border: 1px solid var(--gunmetal-line);
+      border-radius: var(--border-radius);
+      padding: 0.5rem;
+      min-width: 15rem;
+    }
+
+    .nav-mobile__panel a {
+      display: block;
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+      color: var(--white-smoke);
+      font-size: var(--step--1);
+    }
+
+    .nav-mobile__panel a[aria-current='page'] {
+      color: var(--aquamarine);
+    }
+  }
+</style>

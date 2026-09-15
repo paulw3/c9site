@@ -1,0 +1,101 @@
+---
+const navItems = [
+  { href: '/cloud-migration', label: 'Cloud Migration & Transformation' },
+  { href: '/google-distributed-cloud', label: 'Google Distributed Cloud' },
+  { href: '/case-studies', label: 'Case Studies' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <a href="/" class="wordmark">C-9INE</a>
+      <p class="mono-tag">Google Cloud Premier Partner</p>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Footer">
+      <ul>
+        {navItems.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <address class="site-footer__address">
+      Sahaba Tissa (Cloud 9)<br />
+      7586 King Fahad Road, Ar Rahmaniyah<br />
+      Riyadh 12341, Saudi Arabia
+      <!-- TODO: confirm current company registration number (two conflicting numbers on file) and add it here -->
+    </address>
+  </div>
+
+  <div class="container site-footer__bottom">
+    <p class="mono-tag">&copy; {year} C-9INE. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--gunmetal-line);
+    background: var(--gunmetal);
+    padding-block: clamp(2.5rem, 6vw, 4rem) 1.5rem;
+  }
+
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(2rem, 5vw, 4rem);
+  }
+
+  .site-footer__brand .wordmark {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-1);
+    text-decoration: none;
+    color: var(--white-smoke);
+  }
+
+  .site-footer__brand p {
+    margin-top: 0.75rem;
+  }
+
+  .site-footer__nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .site-footer__nav a {
+    text-decoration: none;
+    color: var(--silver);
+    font-size: var(--step--1);
+  }
+
+  .site-footer__nav a:hover {
+    color: var(--aquamarine);
+  }
+
+  .site-footer__address {
+    font-style: normal;
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.7;
+  }
+
+  .site-footer__bottom {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--gunmetal-line);
+  }
+
+  @media (max-width: 700px) {
+    .site-footer__grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

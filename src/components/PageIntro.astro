@@ -1,0 +1,40 @@
+---
+interface Props {
+  eyebrow?: string;
+}
+
+const { eyebrow } = Astro.props;
+---
+
+<section class="page-intro">
+  <div class="container page-intro__inner">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .page-intro {
+    border-bottom: 1px solid var(--gunmetal-line);
+    background:
+      radial-gradient(ellipse 60% 50% at 85% 0%, color-mix(in srgb, var(--aquamarine) 10%, transparent), transparent 70%),
+      var(--gunmetal);
+  }
+
+  .page-intro__inner {
+    padding-block: clamp(4.5rem, 10vw, 7.5rem) clamp(3rem, 6vw, 5rem);
+    max-width: 46rem;
+  }
+
+  .page-intro :global(h1) {
+    max-width: 18ch;
+  }
+
+  .page-intro :global(.lede) {
+    margin-top: 1.5rem;
+  }
+
+  .page-intro :global(.page-intro__cta) {
+    margin-top: 2.25rem;
+  }
+</style>

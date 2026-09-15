@@ -1,0 +1,147 @@
+---
+import { Image } from 'astro:assets';
+import heroDesert from '../assets/hero-desert.jpg';
+
+interface Props {
+  heading: string;
+  subheading: string;
+  ctaText: string;
+  ctaHref: string;
+  trustText: string;
+}
+
+const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
+---
+
+<section class="hero">
+  <Image
+    src={heroDesert}
+    alt="Aerial view of rippled sand dunes in the Saudi desert at golden hour, a small camel caravan crossing in the distance"
+    class="hero__image"
+    widths={[640, 1024, 1600, 2200]}
+    sizes="100vw"
+    format="avif"
+    quality={82}
+    priority
+  />
+  <div class="hero__scrim" aria-hidden="true"></div>
+
+  <div class="container hero__content">
+    <h1>{heading}</h1>
+    <p class="lede">{subheading}</p>
+  </div>
+
+  <a href={ctaHref} class="hero__badge">
+    <span>{ctaText}</span>
+  </a>
+
+  <p class="hero__trust mono-tag">{trustText}</p>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(to bottom, color-mix(in srgb, var(--gunmetal) 80%, transparent) 0%, transparent 34%, transparent 60%, var(--gunmetal) 100%),
+      linear-gradient(to right, color-mix(in srgb, var(--gunmetal) 72%, transparent) 0%, color-mix(in srgb, var(--gunmetal) 30%, transparent) 48%, transparent 68%);
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    padding-block: 6rem 8rem;
+    max-width: 42rem;
+  }
+
+  .hero__content h1 {
+    font-size: clamp(2.5rem, 1.6rem + 3.4vw, 4.25rem);
+    max-width: 15ch;
+  }
+
+  .hero__content .lede {
+    margin-block: 1.5rem 2.25rem;
+    color: var(--white-smoke);
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .hero__badge {
+    position: absolute;
+    z-index: 2;
+    right: clamp(1.5rem, 12vw, 14rem);
+    bottom: clamp(6rem, 18vh, 10rem);
+    width: 7.5rem;
+    height: 7.5rem;
+    border-radius: 50%;
+    background: var(--aquamarine);
+    color: var(--gunmetal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    padding: 0.5rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step--1);
+    line-height: 1.15;
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--aquamarine) 40%, transparent),
+      0 0 50px 6px color-mix(in srgb, var(--aquamarine) 45%, transparent);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .hero__badge:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--aquamarine) 55%, transparent),
+      0 0 64px 10px color-mix(in srgb, var(--aquamarine) 60%, transparent);
+  }
+
+  .hero__trust {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    bottom: 1.75rem;
+    max-width: none;
+    padding-inline: var(--gutter);
+    text-align: center;
+    color: var(--white-smoke);
+  }
+
+  @media (max-width: 860px) {
+    .hero {
+      min-height: 100vh;
+      align-items: flex-start;
+    }
+
+    .hero__content {
+      padding-block: 7rem 4rem;
+    }
+
+    .hero__badge {
+      width: 6rem;
+      height: 6rem;
+      right: 1.5rem;
+      bottom: 5rem;
+      font-size: var(--step--1);
+    }
+  }
+</style>
