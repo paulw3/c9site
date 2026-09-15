@@ -2,18 +2,24 @@
 // The one deliberate scrollytelling moment on the site (see docs/content-brief.md's
 // Design → Engineer → Run narrative). Used only on the two pillar pages, where the
 // content is genuinely a three-stage sequence with real, substantial copy per stage.
+import StageIcon from './StageIcon.astro';
+
 interface Props {
   stages: string[];
 }
 
 const { stages } = Astro.props;
+const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' | 'run';
 ---
 
 <section class="stage-sequence" data-stage-sequence>
   <div class="stage-rail" aria-hidden="true">
     <ol class="stage-rail__steps">
       {stages.map((label) => (
-        <li>{label}</li>
+        <li>
+          <StageIcon stage={iconFor(label)} />
+          <span>{label}</span>
+        </li>
       ))}
     </ol>
     <p class="stage-rail__progress mono-tag"><span data-progress>033</span>%</p>
@@ -45,6 +51,9 @@ const { stages } = Astro.props;
   }
 
   .stage-rail__steps li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
     font-family: var(--font-display);
     font-size: var(--step-0);
     font-weight: 600;
@@ -52,8 +61,19 @@ const { stages } = Astro.props;
     transition: color 200ms ease;
   }
 
+  .stage-rail__steps li :global(.stage-icon) {
+    width: 1.35rem;
+    height: 1.35rem;
+    stroke: var(--gunmetal-line);
+    transition: stroke 200ms ease;
+  }
+
   .stage-rail__steps li.is-active {
     color: var(--aquamarine);
+  }
+
+  .stage-rail__steps li.is-active :global(.stage-icon) {
+    stroke: var(--aquamarine);
   }
 
   .stage-rail__progress {
