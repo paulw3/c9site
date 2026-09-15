@@ -8,6 +8,12 @@ const navItems = [
 ];
 
 const year = new Date().getFullYear();
+
+// TODO: replace with C-9INE's real social URLs
+const socialLinks = [
+  { label: 'LinkedIn', href: '#' },
+  { label: 'X', href: '#' },
+];
 ---
 
 <footer class="site-footer">
@@ -35,6 +41,28 @@ const year = new Date().getFullYear();
 
   <div class="container site-footer__bottom">
     <p class="mono-tag">&copy; {year} C-9INE. All rights reserved.</p>
+
+    <ul class="site-footer__social">
+      {socialLinks.map((social) => (
+        <li>
+          <a href={social.href} aria-label={social.label} target="_blank" rel="noopener noreferrer">
+            {social.label === 'LinkedIn' ? (
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.94v5.666H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.56V9h3.554v11.452z"
+                ></path>
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                ></path>
+              </svg>
+            )}
+          </a>
+        </li>
+      ))}
+    </ul>
   </div>
 </footer>
 
@@ -90,6 +118,36 @@ const year = new Date().getFullYear();
     margin-top: clamp(2.5rem, 6vw, 4rem);
     padding-top: 1.5rem;
     border-top: 1px solid var(--gunmetal-line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .site-footer__social {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .site-footer__social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    color: var(--silver);
+    transition: color 160ms ease;
+  }
+
+  .site-footer__social a:hover {
+    color: var(--aquamarine);
+  }
+
+  .site-footer__social svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    fill: currentColor;
   }
 
   @media (max-width: 700px) {
