@@ -217,11 +217,12 @@ button {
 /* ---------------------------------------------------------------
    Section texture — used sparingly (never on every section in a row)
    to break up otherwise-flat gunmetal panels on the interior pages.
-   Both textures are the brand guide's own Graphic Elements (§5), not
-   invented decoration: GE4 (a scattered cumulus-cloud outline motif —
-   a quiet nod to "Cloud 9", same as it appears in the guide) and GE1
-   (the brand mark tiled in its brick-offset grid). .section-raised is
-   the plain fallback for sections with nothing else to read as a
+   Both textures are drawn from the brand guide itself, not invented
+   decoration: GE4 is the large, sparse scattered-ring/arc motif the
+   guide uses as a background wash on its own dark panels (cover, back
+   cover) — open partial-circle strokes, not filled shapes — and GE1
+   is the brand mark tiled in its brick-offset grid (§5). .section-raised
+   is the plain fallback for sections with nothing else to read as a
    panel against the page background.
 ------------------------------------------------------------------ */
 
@@ -235,8 +236,8 @@ button {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='180'%3E%3Cg fill='none' stroke='%23f4f4f4' stroke-opacity='0.14' stroke-width='1.5'%3E%3Ccircle cx='40' cy='90' r='16'/%3E%3Ccircle cx='62' cy='74' r='20'/%3E%3Ccircle cx='90' cy='80' r='14'/%3E%3Ccircle cx='112' cy='92' r='10'/%3E%3Ccircle cx='52' cy='104' r='12'/%3E%3Ccircle cx='78' cy='106' r='10'/%3E%3Ccircle cx='220' cy='40' r='11'/%3E%3Ccircle cx='238' cy='30' r='14'/%3E%3Ccircle cx='254' cy='40' r='9'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 280px 180px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cg fill='none' stroke='%23f4f4f4' stroke-opacity='0.12' stroke-width='1.5'%3E%3Ccircle cx='70' cy='90' r='70' stroke-dasharray='300 140' transform='rotate(15 70 90)'/%3E%3Ccircle cx='260' cy='50' r='45' stroke-dasharray='190 93' transform='rotate(190 260 50)'/%3E%3Ccircle cx='330' cy='230' r='110' stroke-dasharray='460 231' transform='rotate(70 330 230)'/%3E%3Ccircle cx='90' cy='320' r='55' stroke-dasharray='230 116' transform='rotate(300 90 320)'/%3E%3Ccircle cx='300' cy='360' r='35' stroke-dasharray='145 75' transform='rotate(110 300 360)'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 400px 400px;
   mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
   -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
 }
