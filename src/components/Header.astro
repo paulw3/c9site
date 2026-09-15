@@ -46,14 +46,18 @@ const { pathname } = Astro.url;
 </header>
 
 <style>
+  /* No backdrop-filter here: blur on a position: sticky element forces
+     a per-frame repaint of everything behind it while scrolling, which
+     is a known source of dark rendering artifacts on external/secondary
+     monitors (GPU-compositing differences the built-in display doesn't
+     show). The background alone is opaque enough for legibility. */
   .site-header {
     position: sticky;
     top: 0;
     z-index: 40;
     background: color-mix(in srgb, var(--gunmetal) 92%, transparent);
-    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--gunmetal-line);
-    transition: background-color 240ms ease, border-color 240ms ease, backdrop-filter 240ms ease;
+    transition: background-color 240ms ease, border-color 240ms ease;
   }
 
   /* While the hero photo is still visible directly behind it (Home only —
@@ -63,7 +67,6 @@ const { pathname } = Astro.url;
      instead. */
   .site-header.is-transparent {
     background: transparent;
-    backdrop-filter: none;
     border-bottom-color: transparent;
   }
 
