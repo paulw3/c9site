@@ -25,7 +25,13 @@ const { eyebrow } = Astro.props;
   }
 
   /* GE4: the brand guide's own cumulus-cloud scene (brand guide §5),
-     cropped from the guide as a real image asset rather than redrawn. */
+     cropped from the guide as a real image asset rather than redrawn.
+     No mask-image: stacking opacity with mask-image on a
+     negative-z-index layer inside an isolated stacking context is a
+     known trigger for GPU-compositing failures on some hardware,
+     where the masked layer renders as a solid block instead of a
+     fade — this sits directly behind the page's H1, so a failure here
+     is maximally visible. Plain opacity alone is the robust choice. */
   .page-intro__texture {
     position: absolute;
     inset: 0;
@@ -35,8 +41,6 @@ const { eyebrow } = Astro.props;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
-    -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
   }
 
   .page-intro__inner {
