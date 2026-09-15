@@ -14,47 +14,59 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
 ---
 
 <!--
-  The one deliberate motion moment on Home: at rest, the sky is a clean,
-  clear blue — no clouds — over the sharp dunes, and the copy hasn't
-  arrived yet. Scrolling in lets the real clouds (already in the photo)
-  drift into that clear sky; after a brief pause once they've fully
-  arrived, the copy follows. A quiet nod to "Cloud 9" in the company
-  name. The image itself never moves — this is a normal section in the
-  page's flow, not a pinned/sticky one, so scrolling feels completely
-  ordinary except for the two things that are deliberately animated.
-  Skipped entirely (full hero shown at once) for prefers-reduced-motion
-  and for anyone without JS.
+  The one deliberate motion moment on Home: the image itself never
+  moves. It's pinned in place (directly below the sticky nav — same
+  top offset, so there's no collision/snap between the two) while the
+  user scrolls through it. At rest, the sky is clean and clear — no
+  clouds — and the copy hasn't arrived. Scrolling drifts the real
+  clouds (already in the photo) into that sky; after a brief pause
+  once they've fully arrived, the copy fades in. A quiet nod to
+  "Cloud 9" in the company name. Skipped entirely (full hero shown at
+  once, unpinned) for prefers-reduced-motion and for anyone without JS.
 -->
-<section class="hero">
-  <Image
-    src={heroDesert}
-    alt="Aerial view of rippled sand dunes in the Saudi desert at golden hour, a small camel caravan crossing in the distance"
-    class="hero__image"
-    widths={[640, 1024, 1600, 2200]}
-    sizes="100vw"
-    format="avif"
-    quality={82}
-    priority
-  />
-  <div class="hero__clear-sky" aria-hidden="true"></div>
-  <div class="hero__scrim" aria-hidden="true"></div>
+<section class="hero-pin-wrap">
+  <div class="hero">
+    <Image
+      src={heroDesert}
+      alt="Aerial view of rippled sand dunes in the Saudi desert at golden hour, a small camel caravan crossing in the distance"
+      class="hero__image"
+      widths={[640, 1024, 1600, 2200]}
+      sizes="100vw"
+      format="avif"
+      quality={82}
+      priority
+    />
+    <div class="hero__clear-sky" aria-hidden="true"></div>
+    <div class="hero__scrim" aria-hidden="true"></div>
 
-  <div class="container hero__content">
-    <h1 class="hero__reveal">{heading}</h1>
-    <p class="lede hero__reveal hero__reveal--1">{subheading}</p>
+    <div class="container hero__content">
+      <h1 class="hero__reveal">{heading}</h1>
+      <p class="lede hero__reveal hero__reveal--1">{subheading}</p>
+    </div>
+
+    <a href={ctaHref} class="hero__badge hero__reveal hero__reveal--2">
+      <span>{ctaText}</span>
+    </a>
+
+    <p class="hero__trust mono-tag hero__reveal hero__reveal--3">{trustText}</p>
   </div>
-
-  <a href={ctaHref} class="hero__badge hero__reveal hero__reveal--2">
-    <span>{ctaText}</span>
-  </a>
-
-  <p class="hero__trust mono-tag hero__reveal hero__reveal--3">{trustText}</p>
 </section>
 
 <style>
-  .hero {
+  .hero-pin-wrap {
     position: relative;
-    min-height: 88vh;
+    height: calc(170vh + var(--header-height));
+  }
+
+  /* Pinned at the same offset the header itself sticks at — top: 0 here
+     would collide with the header (also sticky at top: 0) and snap the
+     hero underneath it the instant scrolling starts. Sitting right
+     below the header instead means the pinned position matches the
+     hero's natural resting position, so there's nothing to snap to. */
+  .hero {
+    position: sticky;
+    top: var(--header-height);
+    min-height: calc(100vh - var(--header-height));
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -68,7 +80,7 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
     object-fit: cover;
     /* Push the horizon down: zoom in a little and shift the frame down
        so more sky shows at top, dunes stay bright and uncropped at the
-       bottom edge — no fade needed to hide it. */
+       bottom edge — no fade needed to hide it. Static — never animated. */
     transform: scale(1.22) translateY(8%);
   }
 
@@ -183,12 +195,7 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
 
   @media (max-width: 860px) {
     .hero-pin-wrap {
-      height: 160vh;
-    }
-
-    .hero {
-      min-height: 100vh;
-      align-items: flex-start;
+      height: calc(150vh + var(--header-height));
     }
 
     .hero__content {
@@ -204,29 +211,37 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
     }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .hero-pin-wrap {
+      height: auto;
+    }
+
+    .hero {
+      position: relative;
+    }
+  }
 </style>
 
 <script>
   const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const hero = document.querySelector<HTMLElement>('.hero');
+  const wrap = document.querySelector<HTMLElement>('.hero-pin-wrap');
 
-  if (hero && !prefersReduced) {
-    const clearSky = hero.querySelector<HTMLElement>('.hero__clear-sky');
-    const revealEls = Array.from(hero.querySelectorAll<HTMLElement>('.hero__reveal'));
+  if (wrap && !prefersReduced) {
+    const clearSky = wrap.querySelector<HTMLElement>('.hero__clear-sky');
+    const revealEls = Array.from(wrap.querySelectorAll<HTMLElement>('.hero__reveal'));
 
-    // A normal section, not pinned — progress is just how far the hero
-    // has scrolled past the top of the viewport, as a fraction of its
-    // own height. Clouds drift in first (0 -> CLOUD_END), then a brief
-    // pause with nothing changing, then the copy follows. The image
-    // itself is never touched here — it doesn't move.
+    // Clouds drift in first (0 -> CLOUD_END), then a brief pause with
+    // nothing changing, then the copy follows (TEXT_START -> 1). The
+    // image is static CSS only — nothing here ever touches it.
     const CLOUD_END = 0.42;
     const TEXT_START = 0.58;
 
     let ticking = false;
 
     const update = () => {
-      const rect = hero.getBoundingClientRect();
-      const progress = Math.min(Math.max(-rect.top / (rect.height * 0.65), 0), 1);
+      const rect = wrap.getBoundingClientRect();
+      const scrollable = wrap.offsetHeight - window.innerHeight;
+      const progress = scrollable > 0 ? Math.min(Math.max(-rect.top / scrollable, 0), 1) : 1;
 
       const cloudT = Math.min(progress / CLOUD_END, 1);
       if (clearSky) clearSky.style.opacity = String(1 - cloudT);

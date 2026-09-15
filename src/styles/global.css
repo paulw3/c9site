@@ -36,6 +36,7 @@
   --content-max: 72rem;
   --gutter: clamp(1.25rem, 4vw, 3rem);
   --border-radius: 3px;
+  --header-height: 4.5rem;
 
   color-scheme: dark;
 }
