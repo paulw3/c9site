@@ -79,6 +79,10 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* Push the horizon down: zoom in a little and shift the frame down
+       so more sky shows at top, dunes stay bright and uncropped at the
+       bottom edge — no fade needed to hide it. */
+    transform: scale(1.22) translateY(8%);
   }
 
   /* A clean, cloudless sky standing in for the photo's own sky until the
@@ -89,23 +93,25 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
   .hero__clear-sky {
     position: absolute;
     inset: 0;
-    height: 50%;
+    height: 62%;
     background: linear-gradient(
       to bottom,
       #2f4a63 0%,
-      #4d6c87 32%,
-      #8aa3b3 60%,
-      transparent 88%
+      #4d6c87 30%,
+      #8aa3b3 55%,
+      transparent 82%
     );
     opacity: 0;
   }
 
+  /* No dark fade at the bottom — dunes stay bright to the edge. Just
+     enough of a top/left scrim for the nav and headline to sit on. */
   .hero__scrim {
     position: absolute;
     inset: 0;
     z-index: 1;
     background:
-      linear-gradient(to bottom, color-mix(in srgb, var(--gunmetal) 80%, transparent) 0%, transparent 34%, transparent 55%, color-mix(in srgb, var(--gunmetal) 92%, transparent) 88%, var(--gunmetal) 100%),
+      linear-gradient(to bottom, color-mix(in srgb, var(--gunmetal) 80%, transparent) 0%, transparent 34%),
       linear-gradient(to right, color-mix(in srgb, var(--gunmetal) 72%, transparent) 0%, color-mix(in srgb, var(--gunmetal) 30%, transparent) 48%, transparent 68%);
   }
 
@@ -185,6 +191,7 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
     padding-inline: var(--gutter);
     text-align: center;
     color: var(--white-smoke);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55), 0 1px 12px rgba(0, 0, 0, 0.35);
   }
 
   @media (max-width: 860px) {
