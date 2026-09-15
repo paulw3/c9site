@@ -133,6 +133,22 @@ button {
   }
 }
 
+/* Whole-page film-grain: a near-invisible static noise layer, fixed so
+   it doesn't scroll with the page like real grain wouldn't. Gives the
+   flat dark surfaces a bit of material quality without introducing any
+   new color or shape — the lightest-touch option in the texture set,
+   so it runs everywhere rather than being section-scoped. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 /* ---------------------------------------------------------------
    Shared layout + type utilities
 ------------------------------------------------------------------ */
@@ -246,6 +262,28 @@ button {
 
 .section-raised {
   background: var(--gunmetal-raised);
+}
+
+/* A blueprint/circuit-trace motif — right-angle lines and via-dots,
+   literally echoing "engineered infrastructure" rather than abstract
+   decoration. Reserved for a single high-impact section rather than
+   applied broadly like .section-grid, so it reads as a considered
+   accent, not wallpaper. Composes with .section-raised (adds only the
+   line texture, no background-color of its own). */
+.section-circuit {
+  position: relative;
+  isolation: isolate;
+}
+
+.section-circuit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='none' stroke='%232dd6ff' stroke-opacity='0.16'%3E%3Cpath d='M0 40 H60 V0'/%3E%3Cpath d='M160 100 H100 V160'/%3E%3Cpath d='M0 140 H40 V160'/%3E%3Cpath d='M120 0 V50 H160'/%3E%3Cpath d='M60 40 H100 V100'/%3E%3C/g%3E%3Cg fill='%2333ffbd' fill-opacity='0.3'%3E%3Ccircle cx='60' cy='40' r='2'/%3E%3Ccircle cx='100' cy='100' r='2'/%3E%3Ccircle cx='40' cy='140' r='2'/%3E%3Ccircle cx='120' cy='50' r='2'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  mask-image: radial-gradient(ellipse 75% 85% at 50% 50%, black, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 85% at 50% 50%, black, transparent 90%);
 }
 
 /* ---------------------------------------------------------------
