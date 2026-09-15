@@ -53,20 +53,25 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
 </section>
 
 <style>
+  /* Pulled up by the header's own height so the wrap (and the hero
+     inside it) starts at the very top of the page, extending full-bleed
+     underneath the transparent header — not pushed down below it. The
+     header still reserves its normal layout space elsewhere; this just
+     lets the photo visually underlap it here on Home. */
   .hero-pin-wrap {
     position: relative;
-    height: calc(170vh + var(--header-height));
+    height: 170vh;
+    margin-top: calc(-1 * var(--header-height));
   }
 
-  /* Pinned at the same offset the header itself sticks at — top: 0 here
-     would collide with the header (also sticky at top: 0) and snap the
-     hero underneath it the instant scrolling starts. Sitting right
-     below the header instead means the pinned position matches the
-     hero's natural resting position, so there's nothing to snap to. */
+  /* Pinned at top: 0 — and since the wrap above already starts at
+     document y: 0 (via the negative margin), the hero's natural resting
+     position IS the pinned position from the very first frame. Nothing
+     to transition between, so there's nothing to snap. */
   .hero {
     position: sticky;
-    top: var(--header-height);
-    min-height: calc(100vh - var(--header-height));
+    top: 0;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -197,7 +202,7 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
 
   @media (max-width: 860px) {
     .hero-pin-wrap {
-      height: calc(150vh + var(--header-height));
+      height: 150vh;
     }
 
     .hero__content {
@@ -214,12 +219,17 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
   }
 
   @media (prefers-reduced-motion: reduce) {
+    /* No pinning, no underlap trick — the header stays solid (the
+       transparency script never runs), so the wrap needs its normal
+       document space back, not pulled up under a now-opaque header. */
     .hero-pin-wrap {
       height: auto;
+      margin-top: 0;
     }
 
     .hero {
       position: relative;
+      min-height: calc(100vh - var(--header-height));
     }
   }
 </style>
