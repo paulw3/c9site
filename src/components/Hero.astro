@@ -14,12 +14,13 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
 ---
 
 <!--
-  The one deliberate motion moment on Home: at rest, the sky is visible
-  but the clouds sit out of focus — a soft blur, not hidden — and the
-  copy hasn't arrived yet. Scrolling pulls the clouds into focus first,
-  then brings the copy in after them. A quiet nod to "Cloud 9" in the
-  company name. Skipped entirely (full hero shown at once, in focus)
-  for prefers-reduced-motion and for anyone without JS.
+  The one deliberate motion moment on Home: at rest, the sky is a clean,
+  clear blue — no clouds — over the sharp dunes, and the copy hasn't
+  arrived yet. Scrolling in lets the real clouds (already in the photo)
+  drift into that clear sky, then brings the copy in after them. A
+  quiet nod to "Cloud 9" in the company name. Skipped entirely (full
+  hero shown at once) for prefers-reduced-motion and for anyone
+  without JS.
 -->
 <section class="hero-pin-wrap">
   <div class="hero">
@@ -34,16 +35,7 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
         quality={82}
         priority
       />
-      <Image
-        src={heroDesert}
-        alt=""
-        aria-hidden="true"
-        class="hero__image hero__image--soft"
-        widths={[640, 1024, 1600, 2200]}
-        sizes="100vw"
-        format="avif"
-        quality={70}
-      />
+      <div class="hero__clear-sky" aria-hidden="true"></div>
     </div>
     <div class="hero__scrim" aria-hidden="true"></div>
 
@@ -91,11 +83,22 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
     transform: scale(1.1);
   }
 
-  .hero__image--soft {
+  /* A clean, cloudless sky standing in for the photo's own sky until the
+     user scrolls — colors matched to the photo's real sky gradient so
+     the crossfade to the actual clouds is seamless, not a jump cut. */
+  .hero__clear-sky {
+    position: absolute;
+    inset: 0;
+    height: 60%;
+    background: linear-gradient(
+      to bottom,
+      #2f4a63 0%,
+      #4d6c87 30%,
+      #8aa3b3 58%,
+      #c7cdc6 82%,
+      transparent 100%
+    );
     opacity: 0;
-    filter: blur(26px) saturate(1.05);
-    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 48%, transparent 76%);
-    mask-image: linear-gradient(to bottom, black 0%, black 48%, transparent 76%);
   }
 
   .hero__scrim {
@@ -114,7 +117,7 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    :global(html.js) .hero__image--soft {
+    :global(html.js) .hero__clear-sky {
       opacity: 1;
     }
 
@@ -224,7 +227,7 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
   const wrap = document.querySelector<HTMLElement>('.hero-pin-wrap');
 
   if (wrap && !prefersReduced) {
-    const softImage = wrap.querySelector<HTMLElement>('.hero__image--soft');
+    const clearSky = wrap.querySelector<HTMLElement>('.hero__clear-sky');
     const imageStack = wrap.querySelector<HTMLElement>('.hero__image-stack');
     const revealEls = Array.from(wrap.querySelectorAll<HTMLElement>('.hero__reveal'));
 
@@ -235,9 +238,9 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
       const scrollable = wrap.offsetHeight - window.innerHeight;
       const progress = scrollable > 0 ? Math.min(Math.max(-rect.top / scrollable, 0), 1) : 1;
 
-      // Clouds pull into focus across the first half of the scroll.
+      // Clouds drift into the clear sky across the first half of the scroll.
       const cloudT = Math.min(progress / 0.5, 1);
-      if (softImage) softImage.style.opacity = String(1 - cloudT);
+      if (clearSky) clearSky.style.opacity = String(1 - cloudT);
       if (imageStack) imageStack.style.transform = `translateY(${progress * 24}px)`;
 
       // Copy rises in afterward, each element staggered slightly.
