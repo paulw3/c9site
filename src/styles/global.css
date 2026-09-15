@@ -1,23 +1,28 @@
 /* ---------------------------------------------------------------
-   C-9INE design tokens
-   Gunmetal / Aquamarine / Silver / White Smoke, dark-mode only.
-   See docs/content-brief.md §3 for the brand system this encodes.
+   C-9INE design tokens — values pulled directly from the official
+   C-9INE Brand Guide (Apr 2024): Gunmetal, Vivid Sky Blue, Aquamarine,
+   White Smoke, Silver, and the single house typeface Barlow Semi
+   Condensed (Regular for body, Bold for headlines — no second family,
+   no monospace face).
 ------------------------------------------------------------------ */
 
 :root {
-  /* color */
-  --gunmetal: #15181b;
-  --gunmetal-raised: #1e2226;
-  --gunmetal-line: #2a2f34;
-  --aquamarine: #2fd9be;
-  --aquamarine-dim: #1f9e8a;
-  --silver: #a6adb2;
-  --white-smoke: #f4f5f3;
+  /* color — exact brand-guide hex values */
+  --gunmetal: #2d3142;
+  --vivid-sky-blue: #2dd6ff;
+  --aquamarine: #33ffbd;
+  --white-smoke: #f4f4f4;
+  --silver: #cbcbcb;
 
-  /* type */
+  /* UI tints derived from brand Gunmetal for surface hierarchy —
+     not separate brand colors, just lighter steps of the same hue */
+  --gunmetal-raised: #383d52;
+  --gunmetal-line: #4a5069;
+  --aquamarine-dim: #22b88a;
+
+  /* type — Barlow Semi Condensed only, per the brand guide's Font
+     Pairing spec (Headline: Bold, Body: Regular) */
   --font-display: 'Barlow Semi Condensed', sans-serif;
-  --font-body: 'Barlow', sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
 
   --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
   --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
@@ -50,7 +55,7 @@ body {
   margin: 0;
   background: var(--gunmetal);
   color: var(--white-smoke);
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-size: var(--step-0);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -139,10 +144,11 @@ button {
 }
 
 .eyebrow {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
+  font-weight: 600;
   font-size: var(--step--1);
-  color: var(--aquamarine);
-  letter-spacing: 0.02em;
+  color: var(--vivid-sky-blue);
+  letter-spacing: 0.03em;
 }
 
 .section {
@@ -160,8 +166,10 @@ button {
 }
 
 .mono-tag {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
+  font-weight: 500;
   font-size: var(--step--1);
+  letter-spacing: 0.02em;
   color: var(--silver);
 }
 
