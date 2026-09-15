@@ -215,6 +215,40 @@ button {
 }
 
 /* ---------------------------------------------------------------
+   Section texture — used sparingly (never on every section in a row)
+   to break up otherwise-flat gunmetal panels on the interior pages.
+   Two options, chosen per section by what it already contains:
+   .section-grid for sections holding their own raised elements
+   (cards, form fields) that a solid tonal shift would flatten into;
+   .section-raised for plain text/list content that has nothing else
+   to read as a "panel" against the page background.
+------------------------------------------------------------------ */
+
+.section-grid {
+  position: relative;
+  isolation: isolate;
+}
+
+.section-grid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    color-mix(in srgb, var(--vivid-sky-blue) 20%, transparent) 1px,
+    transparent 0
+  );
+  background-size: 28px 28px;
+  mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+}
+
+.section-raised {
+  background: var(--gunmetal-raised);
+}
+
+/* ---------------------------------------------------------------
    Visually-hidden (skip link target labels, form labels kept for a11y)
 ------------------------------------------------------------------ */
 
