@@ -57,10 +57,15 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
      inside it) starts at the very top of the page, extending full-bleed
      underneath the transparent header — not pushed down below it. The
      header still reserves its normal layout space elsewhere; this just
-     lets the photo visually underlap it here on Home. */
+     lets the photo visually underlap it here on Home.
+
+     Height sets the total scroll-scrubbed distance behind the pin: the
+     script's CLOUD_END/TEXT_START fractions carve that distance up, so
+     a taller wrap means more scrolling — i.e. a longer duration — for
+     every phase, clouds and text alike, without touching the script. */
   .hero-pin-wrap {
     position: relative;
-    height: 170vh;
+    height: 240vh;
     margin-top: calc(-1 * var(--header-height));
   }
 
@@ -202,7 +207,7 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
 
   @media (max-width: 860px) {
     .hero-pin-wrap {
-      height: 150vh;
+      height: 200vh;
     }
 
     .hero__content {
