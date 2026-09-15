@@ -67,19 +67,6 @@ const { pathname } = Astro.url;
     border-bottom-color: transparent;
   }
 
-  /* No background to lean on while transparent, so the wordmark, nav
-     links and hamburger bars all carry their own shadow for contrast
-     against the photo. */
-  .site-header.is-transparent .wordmark,
-  .site-header.is-transparent .nav-desktop a {
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
-  }
-
-  .site-header.is-transparent .nav-mobile__icon,
-  .site-header.is-transparent .nav-mobile__icon::before,
-  .site-header.is-transparent .nav-mobile__icon::after {
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
-  }
 
   .site-header__inner {
     display: flex;
