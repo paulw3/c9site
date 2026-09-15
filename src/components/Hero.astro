@@ -173,6 +173,20 @@ const { heading, subheading, trustText } = Astro.props;
     .hero__content {
       padding-block: 7rem 4rem;
     }
+
+    /* The photo is a wide 1.79:1 landscape with its two big cloud
+       formations sitting in the left and right-center thirds, and a
+       nearly cloud-free gap dead in the middle. object-fit: cover on
+       a narrow tall screen only shows a thin vertical strip centered
+       on the image — which lands right in that gap, so the clouds
+       never appear. Shift the crop right to frame the right-hand
+       cluster (which also happens to be where the camel caravan
+       sits) instead, and ease off the desktop zoom, which was tuned
+       for a much wider crop and needlessly trims the cluster here. */
+    .hero__image {
+      object-position: 62% center;
+      transform: scale(1.05) translateY(2%);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
