@@ -56,9 +56,11 @@ const { pathname } = Astro.url;
     transition: background-color 240ms ease, border-color 240ms ease, backdrop-filter 240ms ease;
   }
 
-  /* While the hero photo is still pinned directly behind it (Home only —
-     toggled by Hero.astro's scroll script), the header goes fully
-     transparent and lets the hero's own scrim carry legibility instead. */
+  /* While the hero photo is still visible directly behind it (Home only —
+     toggled by Hero.astro's scroll script, for as long as any of the
+     photo remains behind the header, pinned or not), the header goes
+     fully transparent and lets the hero's own scrim carry legibility
+     instead. */
   .site-header.is-transparent {
     background: transparent;
     backdrop-filter: none;
