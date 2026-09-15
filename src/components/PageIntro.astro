@@ -7,6 +7,7 @@ const { eyebrow } = Astro.props;
 ---
 
 <section class="page-intro">
+  <div class="page-intro__texture" aria-hidden="true"></div>
   <div class="container page-intro__inner">
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
     <slot />
@@ -15,15 +16,27 @@ const { eyebrow } = Astro.props;
 
 <style>
   .page-intro {
+    position: relative;
+    isolation: isolate;
     border-bottom: 1px solid var(--gunmetal-line);
-    /* GE4: the large, sparse scattered-ring/arc motif the brand guide
-       itself uses as a background wash on its own dark panels — open
-       partial-circle strokes, not filled shapes. */
     background:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cg fill='none' stroke='%23f4f4f4' stroke-opacity='0.12' stroke-width='1.5'%3E%3Ccircle cx='70' cy='90' r='70' stroke-dasharray='300 140' transform='rotate(15 70 90)'/%3E%3Ccircle cx='260' cy='50' r='45' stroke-dasharray='190 93' transform='rotate(190 260 50)'/%3E%3Ccircle cx='330' cy='230' r='110' stroke-dasharray='460 231' transform='rotate(70 330 230)'/%3E%3Ccircle cx='90' cy='320' r='55' stroke-dasharray='230 116' transform='rotate(300 90 320)'/%3E%3Ccircle cx='300' cy='360' r='35' stroke-dasharray='145 75' transform='rotate(110 300 360)'/%3E%3C/g%3E%3C/svg%3E")
-        0 0 / 400px 400px,
       radial-gradient(ellipse 60% 50% at 85% 0%, color-mix(in srgb, var(--aquamarine) 10%, transparent), transparent 70%),
       var(--gunmetal);
+  }
+
+  /* GE4: the brand guide's own cumulus-cloud scene (brand guide §5),
+     cropped from the guide as a real image asset rather than redrawn. */
+  .page-intro__texture {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.5;
+    background-image: url('/textures/ge4.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
   }
 
   .page-intro__inner {
