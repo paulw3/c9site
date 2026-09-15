@@ -14,26 +14,37 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
 ---
 
 <!--
-  The one deliberate motion moment on Home: at rest, the sky is a blank
-  gunmetal veil and the dunes sit alone — no clouds, no copy. Scrolling
-  through this section lets the clouds already baked into the photograph
-  surface, then brings the copy in after them. A quiet nod to "Cloud 9"
-  in the company name. Skipped entirely (full hero shown at once) for
-  prefers-reduced-motion and for anyone without JS.
+  The one deliberate motion moment on Home: at rest, the sky is visible
+  but the clouds sit out of focus — a soft blur, not hidden — and the
+  copy hasn't arrived yet. Scrolling pulls the clouds into focus first,
+  then brings the copy in after them. A quiet nod to "Cloud 9" in the
+  company name. Skipped entirely (full hero shown at once, in focus)
+  for prefers-reduced-motion and for anyone without JS.
 -->
 <section class="hero-pin-wrap">
   <div class="hero">
-    <Image
-      src={heroDesert}
-      alt="Aerial view of rippled sand dunes in the Saudi desert at golden hour, a small camel caravan crossing in the distance"
-      class="hero__image"
-      widths={[640, 1024, 1600, 2200]}
-      sizes="100vw"
-      format="avif"
-      quality={82}
-      priority
-    />
-    <div class="hero__sky-veil" aria-hidden="true"></div>
+    <div class="hero__image-stack">
+      <Image
+        src={heroDesert}
+        alt="Aerial view of rippled sand dunes in the Saudi desert at golden hour, a small camel caravan crossing in the distance"
+        class="hero__image"
+        widths={[640, 1024, 1600, 2200]}
+        sizes="100vw"
+        format="avif"
+        quality={82}
+        priority
+      />
+      <Image
+        src={heroDesert}
+        alt=""
+        aria-hidden="true"
+        class="hero__image hero__image--soft"
+        widths={[640, 1024, 1600, 2200]}
+        sizes="100vw"
+        format="avif"
+        quality={70}
+      />
+    </div>
     <div class="hero__scrim" aria-hidden="true"></div>
 
     <div class="container hero__content">
@@ -64,24 +75,27 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
     overflow: hidden;
   }
 
+  .hero__image-stack {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    will-change: transform;
+  }
+
   .hero__image {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 0;
-    transform: scale(1.08);
-    will-change: transform;
+    transform: scale(1.1);
   }
 
-  .hero__sky-veil {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    height: 62%;
-    background: linear-gradient(to bottom, var(--gunmetal) 0%, var(--gunmetal) 72%, transparent 100%);
+  .hero__image--soft {
     opacity: 0;
+    filter: blur(26px) saturate(1.05);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 48%, transparent 76%);
+    mask-image: linear-gradient(to bottom, black 0%, black 48%, transparent 76%);
   }
 
   .hero__scrim {
@@ -100,7 +114,7 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    :global(html.js) .hero__sky-veil {
+    :global(html.js) .hero__image--soft {
       opacity: 1;
     }
 
@@ -210,8 +224,8 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
   const wrap = document.querySelector<HTMLElement>('.hero-pin-wrap');
 
   if (wrap && !prefersReduced) {
-    const veil = wrap.querySelector<HTMLElement>('.hero__sky-veil');
-    const image = wrap.querySelector<HTMLElement>('.hero__image');
+    const softImage = wrap.querySelector<HTMLElement>('.hero__image--soft');
+    const imageStack = wrap.querySelector<HTMLElement>('.hero__image-stack');
     const revealEls = Array.from(wrap.querySelectorAll<HTMLElement>('.hero__reveal'));
 
     let ticking = false;
@@ -221,10 +235,10 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
       const scrollable = wrap.offsetHeight - window.innerHeight;
       const progress = scrollable > 0 ? Math.min(Math.max(-rect.top / scrollable, 0), 1) : 1;
 
-      // Clouds surface across the first half of the scroll.
+      // Clouds pull into focus across the first half of the scroll.
       const cloudT = Math.min(progress / 0.5, 1);
-      if (veil) veil.style.opacity = String(1 - cloudT);
-      if (image) image.style.transform = `scale(1.08) translateY(${progress * 24}px)`;
+      if (softImage) softImage.style.opacity = String(1 - cloudT);
+      if (imageStack) imageStack.style.transform = `translateY(${progress * 24}px)`;
 
       // Copy rises in afterward, each element staggered slightly.
       revealEls.forEach((el, i) => {
