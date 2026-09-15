@@ -71,7 +71,6 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
     position: absolute;
     inset: 0;
     z-index: 0;
-    will-change: transform;
   }
 
   .hero__image {
@@ -80,23 +79,23 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: scale(1.1);
   }
 
   /* A clean, cloudless sky standing in for the photo's own sky until the
      user scrolls — colors matched to the photo's real sky gradient so
-     the crossfade to the actual clouds is seamless, not a jump cut. */
+     the crossfade to the actual clouds is seamless, not a jump cut.
+     Fully transparent well before the dune horizon, so it never
+     softens the sand itself. */
   .hero__clear-sky {
     position: absolute;
     inset: 0;
-    height: 60%;
+    height: 50%;
     background: linear-gradient(
       to bottom,
       #2f4a63 0%,
-      #4d6c87 30%,
-      #8aa3b3 58%,
-      #c7cdc6 82%,
-      transparent 100%
+      #4d6c87 32%,
+      #8aa3b3 60%,
+      transparent 88%
     );
     opacity: 0;
   }
@@ -106,7 +105,7 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
     inset: 0;
     z-index: 1;
     background:
-      linear-gradient(to bottom, color-mix(in srgb, var(--gunmetal) 80%, transparent) 0%, transparent 34%, transparent 60%, var(--gunmetal) 100%),
+      linear-gradient(to bottom, color-mix(in srgb, var(--gunmetal) 80%, transparent) 0%, transparent 34%, transparent 55%, color-mix(in srgb, var(--gunmetal) 92%, transparent) 88%, var(--gunmetal) 100%),
       linear-gradient(to right, color-mix(in srgb, var(--gunmetal) 72%, transparent) 0%, color-mix(in srgb, var(--gunmetal) 30%, transparent) 48%, transparent 68%);
   }
 
@@ -228,8 +227,12 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
 
   if (wrap && !prefersReduced) {
     const clearSky = wrap.querySelector<HTMLElement>('.hero__clear-sky');
-    const imageStack = wrap.querySelector<HTMLElement>('.hero__image-stack');
     const revealEls = Array.from(wrap.querySelectorAll<HTMLElement>('.hero__reveal'));
+
+    // Clouds drift in first (0 -> CLOUD_END), then the copy follows,
+    // strictly after the clouds have fully arrived — no overlap. The
+    // sand itself never moves; only these two things animate.
+    const CLOUD_END = 0.45;
 
     let ticking = false;
 
@@ -238,15 +241,13 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
       const scrollable = wrap.offsetHeight - window.innerHeight;
       const progress = scrollable > 0 ? Math.min(Math.max(-rect.top / scrollable, 0), 1) : 1;
 
-      // Clouds drift into the clear sky across the first half of the scroll.
-      const cloudT = Math.min(progress / 0.5, 1);
+      const cloudT = Math.min(progress / CLOUD_END, 1);
       if (clearSky) clearSky.style.opacity = String(1 - cloudT);
-      if (imageStack) imageStack.style.transform = `translateY(${progress * 24}px)`;
 
-      // Copy rises in afterward, each element staggered slightly.
+      const textProgress = Math.min(Math.max((progress - CLOUD_END) / (1 - CLOUD_END), 0), 1);
       revealEls.forEach((el, i) => {
-        const start = 0.32 + i * 0.06;
-        const t = Math.min(Math.max((progress - start) / (1 - start), 0), 1);
+        const start = i * 0.12;
+        const t = Math.min(Math.max((textProgress - start) / (1 - start), 0), 1);
         el.style.opacity = String(t);
         el.style.transform = `translateY(${(1 - t) * 14}px)`;
       });
