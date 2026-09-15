@@ -217,29 +217,26 @@ button {
 /* ---------------------------------------------------------------
    Section texture — used sparingly (never on every section in a row)
    to break up otherwise-flat gunmetal panels on the interior pages.
-   Two options, chosen per section by what it already contains:
-   .section-grid for sections holding their own raised elements
-   (cards, form fields) that a solid tonal shift would flatten into;
-   .section-raised for plain text/list content that has nothing else
-   to read as a "panel" against the page background.
+   Both textures are the brand guide's own Graphic Elements (§5), not
+   invented decoration: GE4 (a scattered cumulus-cloud outline motif —
+   a quiet nod to "Cloud 9", same as it appears in the guide) and GE1
+   (the brand mark tiled in its brick-offset grid). .section-raised is
+   the plain fallback for sections with nothing else to read as a
+   panel against the page background.
 ------------------------------------------------------------------ */
 
-.section-grid {
+.section-ge4 {
   position: relative;
   isolation: isolate;
 }
 
-.section-grid::before {
+.section-ge4::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image: radial-gradient(
-    circle at 1px 1px,
-    color-mix(in srgb, var(--vivid-sky-blue) 20%, transparent) 1px,
-    transparent 0
-  );
-  background-size: 28px 28px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='180'%3E%3Cg fill='none' stroke='%23f4f4f4' stroke-opacity='0.14' stroke-width='1.5'%3E%3Ccircle cx='40' cy='90' r='16'/%3E%3Ccircle cx='62' cy='74' r='20'/%3E%3Ccircle cx='90' cy='80' r='14'/%3E%3Ccircle cx='112' cy='92' r='10'/%3E%3Ccircle cx='52' cy='104' r='12'/%3E%3Ccircle cx='78' cy='106' r='10'/%3E%3Ccircle cx='220' cy='40' r='11'/%3E%3Ccircle cx='238' cy='30' r='14'/%3E%3Ccircle cx='254' cy='40' r='9'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 280px 180px;
   mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
   -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
 }
@@ -248,24 +245,23 @@ button {
   background: var(--gunmetal-raised);
 }
 
-/* A blueprint/circuit-trace motif — right-angle lines and via-dots,
-   literally echoing "engineered infrastructure" rather than abstract
-   decoration. Reserved for a single high-impact section rather than
-   applied broadly like .section-grid, so it reads as a considered
-   accent, not wallpaper. Composes with .section-raised (adds only the
-   line texture, no background-color of its own). */
-.section-circuit {
+/* GE1: the brand mark, tiled in its brick-offset grid (brand guide
+   §5). Reserved for a single high-impact section rather than applied
+   broadly like .section-ge4, so it reads as a considered accent, not
+   wallpaper. Composes with .section-raised (adds only the mark
+   texture, no background-color of its own). */
+.section-ge1 {
   position: relative;
   isolation: isolate;
 }
 
-.section-circuit::before {
+.section-ge1::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='none' stroke='%232dd6ff' stroke-opacity='0.16'%3E%3Cpath d='M0 40 H60 V0'/%3E%3Cpath d='M160 100 H100 V160'/%3E%3Cpath d='M0 140 H40 V160'/%3E%3Cpath d='M120 0 V50 H160'/%3E%3Cpath d='M60 40 H100 V100'/%3E%3C/g%3E%3Cg fill='%2333ffbd' fill-opacity='0.3'%3E%3Ccircle cx='60' cy='40' r='2'/%3E%3Ccircle cx='100' cy='100' r='2'/%3E%3Ccircle cx='40' cy='140' r='2'/%3E%3Ccircle cx='120' cy='50' r='2'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 220px 220px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='95'%3E%3Cdefs%3E%3Cpath id='c9' fill-rule='evenodd' clip-rule='evenodd' d='M16 6a7 7 0 1 0 3.6 12.98C18.7 22.8 16.6 25.8 12.5 27.4l1 2.4c5.6-2.2 8.4-6.4 9.3-11.6.3-1.7.4-3.4.2-5A7 7 0 0 0 16 6Zm0 3.2a3.8 3.8 0 1 1 0 7.6 3.8 3.8 0 0 1 0-7.6Z'/%3E%3C/defs%3E%3Cg fill='%23f4f4f4' fill-opacity='0.07'%3E%3Cuse href='%23c9' transform='translate(4,2) scale(0.9)'/%3E%3Cuse href='%23c9' transform='translate(64,42) scale(0.9)'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 140px 95px;
   mask-image: radial-gradient(ellipse 75% 85% at 50% 50%, black, transparent 90%);
   -webkit-mask-image: radial-gradient(ellipse 75% 85% at 50% 50%, black, transparent 90%);
 }
