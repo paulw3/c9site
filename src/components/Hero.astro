@@ -9,9 +9,6 @@ interface Props {
 }
 
 const { heading, subheading, trustText } = Astro.props;
-
-// TODO: replace with C-9INE's real WhatsApp Business number (digits only, country code first, no leading +)
-const WHATSAPP_NUMBER = '15551234567';
 ---
 
 <!--
@@ -44,24 +41,6 @@ const WHATSAPP_NUMBER = '15551234567';
       <h1 class="hero__reveal">{heading}</h1>
       <p class="lede hero__reveal hero__reveal--1">{subheading}</p>
     </div>
-
-    <a
-      href={`https://wa.me/${WHATSAPP_NUMBER}`}
-      class="hero__badge hero__reveal hero__reveal--2"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Message us on WhatsApp"
-    >
-      <svg class="hero__badge-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path
-          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.15-.198.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.148-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.077 4.487.71.306 1.263.489 1.694.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
-        ></path>
-        <path
-          d="M12.001 2c-5.523 0-10 4.477-10 10 0 1.769.462 3.484 1.34 4.995L2 22l5.146-1.35A9.955 9.955 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2Zm0 18a7.94 7.94 0 0 1-4.062-1.115l-.29-.172-3.055.801.815-2.978-.188-.306A7.94 7.94 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8Z"
-        ></path>
-      </svg>
-      <span>Message us</span>
-    </a>
 
     <p class="hero__trust mono-tag hero__reveal hero__reveal--3">{trustText}</p>
   </div>
@@ -174,42 +153,6 @@ const WHATSAPP_NUMBER = '15551234567';
     color: var(--white-smoke);
   }
 
-  .hero__badge {
-    position: absolute;
-    z-index: 2;
-    right: clamp(1.5rem, 12vw, 14rem);
-    bottom: clamp(6rem, 18vh, 10rem);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    border-radius: 999px;
-    background: var(--aquamarine);
-    color: var(--gunmetal);
-    text-decoration: none;
-    padding: 0.9rem 1.6rem;
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: var(--step--1);
-    line-height: 1;
-    white-space: nowrap;
-    box-shadow: 0 0 0 1px color-mix(in srgb, var(--aquamarine) 40%, transparent),
-      0 0 50px 6px color-mix(in srgb, var(--aquamarine) 45%, transparent);
-    transition: transform 200ms ease, box-shadow 200ms ease;
-  }
-
-  .hero__badge-icon {
-    width: 1.2rem;
-    height: 1.2rem;
-    fill: currentColor;
-    flex-shrink: 0;
-  }
-
-  .hero__badge:hover {
-    transform: scale(1.04);
-    box-shadow: 0 0 0 1px color-mix(in srgb, var(--aquamarine) 55%, transparent),
-      0 0 64px 10px color-mix(in srgb, var(--aquamarine) 60%, transparent);
-  }
-
   .hero__trust {
     position: absolute;
     z-index: 2;
@@ -229,13 +172,6 @@ const WHATSAPP_NUMBER = '15551234567';
 
     .hero__content {
       padding-block: 7rem 4rem;
-    }
-
-    .hero__badge {
-      right: 1.5rem;
-      bottom: 5rem;
-      padding: 0.75rem 1.25rem;
-      font-size: var(--step--1);
     }
   }
 

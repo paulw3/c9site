@@ -8,17 +8,17 @@ const navItems = [
 ];
 
 const { pathname } = Astro.url;
+
+// TODO: replace with C-9INE's real WhatsApp Business number (digits only, country code first, no leading +)
+const WHATSAPP_NUMBER = '15551234567';
 ---
 
 <header class="site-header">
   <div class="container site-header__inner">
     <a href="/" class="wordmark">C-9INE</a>
 
-    <details class="nav-mobile">
-      <summary aria-label="Open menu">
-        <span class="nav-mobile__icon" aria-hidden="true"></span>
-      </summary>
-      <nav class="nav-mobile__panel" aria-label="Primary">
+    <div class="site-header__actions">
+      <nav class="nav-desktop" aria-label="Primary">
         <ul>
           {navItems.map((item) => (
             <li>
@@ -29,19 +29,42 @@ const { pathname } = Astro.url;
           ))}
         </ul>
       </nav>
-    </details>
 
-    <nav class="nav-desktop" aria-label="Primary">
-      <ul>
-        {navItems.map((item) => (
-          <li>
-            <a href={item.href} aria-current={pathname.startsWith(item.href) ? 'page' : undefined}>
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+      <a
+        href={`https://wa.me/${WHATSAPP_NUMBER}`}
+        class="header-whatsapp"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Message us on WhatsApp"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path
+            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.15-.198.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.148-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.077 4.487.71.306 1.263.489 1.694.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
+          ></path>
+          <path
+            d="M12.001 2c-5.523 0-10 4.477-10 10 0 1.769.462 3.484 1.34 4.995L2 22l5.146-1.35A9.955 9.955 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2Zm0 18a7.94 7.94 0 0 1-4.062-1.115l-.29-.172-3.055.801.815-2.978-.188-.306A7.94 7.94 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8Z"
+          ></path>
+        </svg>
+        <span>Message us</span>
+      </a>
+
+      <details class="nav-mobile">
+        <summary aria-label="Open menu">
+          <span class="nav-mobile__icon" aria-hidden="true"></span>
+        </summary>
+        <nav class="nav-mobile__panel" aria-label="Primary">
+          <ul>
+            {navItems.map((item) => (
+              <li>
+                <a href={item.href} aria-current={pathname.startsWith(item.href) ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </details>
+    </div>
   </div>
 </header>
 
@@ -76,6 +99,40 @@ const { pathname } = Astro.url;
     align-items: center;
     justify-content: space-between;
     height: var(--header-height);
+  }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2.5vw, 2rem);
+  }
+
+  .header-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    border: 1px solid var(--gunmetal-line);
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: var(--white-smoke);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step--1);
+    white-space: nowrap;
+    transition: border-color 160ms ease, background-color 160ms ease;
+  }
+
+  .header-whatsapp svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    fill: #25d366;
+    flex-shrink: 0;
+  }
+
+  .header-whatsapp:hover {
+    border-color: var(--aquamarine);
+    background: color-mix(in srgb, var(--aquamarine) 10%, transparent);
   }
 
   .wordmark {
@@ -119,6 +176,20 @@ const { pathname } = Astro.url;
     .nav-mobile {
       display: block;
       position: relative;
+    }
+
+    .site-header__actions {
+      gap: 0.75rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header-whatsapp span {
+      display: none;
+    }
+
+    .header-whatsapp {
+      padding: 0.5rem;
     }
 
     .nav-mobile summary {
