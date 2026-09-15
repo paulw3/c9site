@@ -56,10 +56,18 @@ const { heading, subheading, trustText } = Astro.props;
      Height sets the total scroll-scrubbed distance behind the pin: the
      script's CLOUD_END/TEXT_START fractions carve that distance up, so
      a taller wrap means more scrolling — i.e. a longer duration — for
-     every phase, clouds and text alike, without touching the script. */
+     every phase, clouds and text alike, without touching the script.
+
+     Uses svh (small viewport height, the size with mobile browser
+     chrome fully expanded), not vh: on mobile, vh recomputes as the
+     address bar shows/hides while scrolling, which changes this
+     element's actual height mid-scroll and makes the whole animation
+     race to completion within the first few px of a real scroll. svh
+     stays fixed regardless of chrome collapse. */
   .hero-pin-wrap {
     position: relative;
     height: 240vh;
+    height: 240svh;
     margin-top: calc(-1 * var(--header-height));
   }
 
@@ -168,6 +176,7 @@ const { heading, subheading, trustText } = Astro.props;
   @media (max-width: 860px) {
     .hero-pin-wrap {
       height: 200vh;
+      height: 200svh;
     }
 
     .hero__content {
@@ -206,11 +215,22 @@ const { heading, subheading, trustText } = Astro.props;
     const CLOUD_END = 0.42;
     const TEXT_START = 0.58;
 
+    // Mobile browsers resize the *visible* viewport (window.innerHeight)
+    // as the address bar shows/hides while the page scrolls — that's not
+    // a real layout change, but reading it fresh every frame makes the
+    // scrollable/progress math race ahead as the chrome collapses, so
+    // the whole animation can finish within the first few px of scroll.
+    // Cache it once and only re-measure on a genuine width change
+    // (a real breakpoint change or device rotation), not a pure height
+    // fluctuation.
+    let viewportWidth = window.innerWidth;
+    let viewportHeight = window.innerHeight;
+
     let ticking = false;
 
     const update = () => {
       const rect = wrap.getBoundingClientRect();
-      const scrollable = wrap.offsetHeight - window.innerHeight;
+      const scrollable = wrap.offsetHeight - viewportHeight;
       const progress = scrollable > 0 ? Math.min(Math.max(-rect.top / scrollable, 0), 1) : 1;
 
       // The header stays transparent for as long as the photo itself is
@@ -238,7 +258,7 @@ const { heading, subheading, trustText } = Astro.props;
       // it keeps showing cleanly through the header for the rest of its
       // scroll-away, per the wrapBottom check above.
       const pastRelease = Math.max(-rect.top - scrollable, 0);
-      const releaseFadeRange = window.innerHeight * 0.25;
+      const releaseFadeRange = viewportHeight * 0.25;
       const releaseFade = 1 - Math.min(pastRelease / releaseFadeRange, 1);
 
       revealEls.forEach((el, i) => {
@@ -262,6 +282,21 @@ const { heading, subheading, trustText } = Astro.props;
       },
       { passive: true }
     );
-    window.addEventListener('resize', update);
+    window.addEventListener('resize', () => {
+      if (window.innerWidth !== viewportWidth) {
+        viewportWidth = window.innerWidth;
+        viewportHeight = window.innerHeight;
+      }
+      update();
+    });
+
+    // Tapping an external link (e.g. the header's WhatsApp button) and
+    // then returning via the browser's back button can restore this
+    // page from bfcache with the reveal elements' inline styles frozen
+    // at whatever they were mid-animation when the user navigated away
+    // — the browser doesn't re-fire 'scroll', so nothing re-syncs them.
+    // Re-run update() on every pageshow (including bfcache restores) so
+    // the visual state always matches the actual current scroll position.
+    window.addEventListener('pageshow', update);
   }
 </script>
