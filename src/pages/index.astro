@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import PillarCard from '../components/PillarCard.astro';
+import MethodologyStrip from '../components/MethodologyStrip.astro';
+import CTAButton from '../components/CTAButton.astro';
+---
+
+<BaseLayout
+  title="C-9INE"
+  description="We design, build, and run cloud transformation and Google Distributed Cloud for banks, government and critical-infrastructure organisations across Saudi Arabia and beyond."
+>
+  <Hero
+    heading="Google Cloud, engineered for institutions that cannot get it wrong."
+    subheading="We design, build, and run cloud transformation and Google Distributed Cloud for banks, government and critical-infrastructure organisations across Saudi Arabia and beyond."
+    ctaText="Talk to us"
+    ctaHref="/contact"
+    trustText="Google Cloud Premier Partner · Google Distributed Cloud · Riyadh, Saudi Arabia"
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="pillars">
+        <PillarCard
+          title="Cloud Migration & Transformation"
+          description="Move to Google Cloud from on-premise or another hyperscaler. We design the target state, build it in governed waves, and run it with you after go-live."
+          href="/cloud-migration"
+          linkText="View Cloud Migration"
+        />
+        <PillarCard
+          title="Google Distributed Cloud"
+          description="SOVEREIGNTY, ENGINEERED. We turn Google Distributed Cloud into a secure, production-ready operating platform, covering everything from readiness to capability transfer."
+          href="/google-distributed-cloud"
+          linkText="View Google Distributed Cloud"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>We design. We build. We run.</h2>
+      <div class="methodology-wrap">
+        <MethodologyStrip />
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container cta-band">
+      <h2>Ready to talk?</h2>
+      <CTAButton href="/contact">Talk to us</CTAButton>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .methodology-wrap {
+    margin-top: 2.5rem;
+  }
+
+  .cta-band {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 700px) {
+    .pillars {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

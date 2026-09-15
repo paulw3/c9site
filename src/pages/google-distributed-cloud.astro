@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import StageSequence from '../components/StageSequence.astro';
+import ProofPoint from '../components/ProofPoint.astro';
+import CTAButton from '../components/CTAButton.astro';
+---
+
+<BaseLayout
+  title="Google Distributed Cloud"
+  description="C-9INE helps banks, government institutions and critical-infrastructure organisations turn Google Distributed Cloud into a secure, production-ready operating platform."
+>
+  <!--
+    This hero wording was reworked from the line Ali signed off to ship identical
+    across LinkedIn, proposals, sales decks and the site (the dash was removed).
+    Confirm with Ali whether that divergence is fine, or update the other channels
+    to match — see docs/content-brief.md §4 (Google Distributed Cloud) for the full note.
+  -->
+  <PageIntro eyebrow="Google Distributed Cloud">
+    <h1>Sovereignty, engineered.</h1>
+    <p class="gdc-subhead">Sovereign cloud is not a location. It is an operating model.</p>
+    <p class="lede">
+      C-9INE helps banks, government institutions and critical-infrastructure organisations turn
+      Google Distributed Cloud into a secure, production-ready operating platform, covering
+      readiness and deployment, workload transformation, resilience, day-two operations and
+      capability transfer.
+    </p>
+    <div class="page-intro__cta">
+      <CTAButton href="/contact?intent=gdc-pilot">Book a GDC pilot scoping call</CTAButton>
+    </div>
+  </PageIntro>
+
+  <section class="section-tight">
+    <div class="container two-col">
+      <div>
+        <h2>The gap</h2>
+        <p class="lede">
+          Installing Google Distributed Cloud is not the hard part. Governing it, operating it,
+          recovering it, and evolving it is. That's the gap between a platform being installed
+          and an organisation being ready to govern, operate, recover and evolve it. It's the gap
+          C-9INE occupies.
+        </p>
+      </div>
+      <div>
+        <h2>Why now</h2>
+        <p class="lede">
+          Most FSI estates we see run VMware, Nutanix, Hyper-V and Kubernetes side by side, each
+          with its own licensing, monitoring, lifecycle and security evidence to maintain. GDC
+          gives you one platform, one policy model, one fleet view, without forcing every
+          workload to modernise on day one.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <StageSequence stages={['Design', 'Build', 'Run']}>
+        <article class="stage-panel">
+          <span class="stage-number">01</span>
+          <h3>Design: Readiness</h3>
+          <p>
+            We assess the estate, map it against your regulatory requirements, and define the
+            target operating model before any hardware is touched.
+          </p>
+        </article>
+
+        <article class="stage-panel">
+          <span class="stage-number">02</span>
+          <h3>Build: Deployment and workload transformation</h3>
+          <p>
+            GDC is software-only: GKE-based Kubernetes running on your own supported servers,
+            connected or air-gapped depending on what your regulator requires. VM Runtime means
+            it's not a containers-only platform: traditional VM workloads run on it too, migrated
+            in alongside containers as real regulated workloads move onto the platform. C-9INE
+            has deployed VM Runtime on GDC 1.35 and is running Linux VMs at a Saudi bank today.
+          </p>
+          <p>
+            The fastest way to prove this for your organisation is a focused pilot: 4–6 weeks,
+            install and register GDC, migrate a handful of representative VM and container
+            workloads, and walk away with a reference pack and feasibility evidence before
+            committing to anything larger.
+          </p>
+        </article>
+
+        <article class="stage-panel">
+          <span class="stage-number">03</span>
+          <h3>Run: Resilience, day-two operations, capability transfer</h3>
+          <p>
+            Recovery, continuity and failure testing designed in, not tested for the first time
+            in production. Genuine day-two operations: running the platform, not just standing it
+            up. And capability transfer: your team can operate it without us. That's the most
+            commercially counter-intuitive thing we say, and the most credible.
+          </p>
+        </article>
+      </StageSequence>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <ProofPoint eyebrow="Proof">
+        Deployed for tier-one Saudi banks and a financial regulator, in the region's strictest
+        regulatory environment, including Google Cloud's own Dammam region (me-central2) and the
+        Class C licence CST granted it there.
+      </ProofPoint>
+      <p class="proof-note mono-tag">Anonymised references, pending client approval to name.</p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <CTAButton href="/contact?intent=gdc-pilot">Book a GDC pilot scoping call</CTAButton>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .gdc-subhead {
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: 500;
+    color: var(--white-smoke);
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .two-col h2 {
+    font-size: var(--step-2);
+  }
+
+  .two-col .lede {
+    margin-top: 1rem;
+  }
+
+  .proof-note {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 700px) {
+    .two-col {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

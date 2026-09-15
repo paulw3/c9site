@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import CTAButton from '../components/CTAButton.astro';
+---
+
+<BaseLayout
+  title="Case Studies"
+  description="Case studies from C-9INE's cloud migration and Google Distributed Cloud engagements — coming soon."
+>
+  <PageIntro eyebrow="Case Studies">
+    <h1>Case studies</h1>
+    <p class="lede">
+      We're clearing engagements with clients before publishing details here. Check back soon,
+      or talk to us directly about the work we've done for banks, government and
+      critical-infrastructure organisations across Saudi Arabia.
+    </p>
+  </PageIntro>
+
+  <section class="section empty-state">
+    <div class="container">
+      <p class="mono-tag">Case studies coming soon.</p>
+      <div class="empty-state__cta">
+        <CTAButton href="/contact" variant="outline">Talk to us in the meantime</CTAButton>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .empty-state {
+    text-align: center;
+    border-top: 1px solid var(--gunmetal-line);
+  }
+
+  .empty-state__cta {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+  }
+</style>

@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import LeadershipCard from '../components/LeadershipCard.astro';
+import ProofPoint from '../components/ProofPoint.astro';
+
+const leadership = [
+  {
+    name: 'Ali Aktar',
+    role: 'CEO',
+    bio: "Twenty-six years in technology: development, engineering, architecture, cloud, agile and DevOps. Ali has built software and platform engineering teams from scratch, holding Head of Engineering and CTO roles across private and public sector organisations worldwide, in telecoms, ISPs, oil and gas, satellite, military and defence, banking and national health services. He's an Agile, cloud and DevOps evangelist, and a long-standing contributor to open-source projects.",
+  },
+  {
+    name: 'Irfan',
+    role: 'CTO',
+    // No bio on file — none of the source documents or the live site mention
+    // Irfan in a C-9INE leadership capacity. LeadershipCard shows a "Bio to
+    // follow" placeholder until this is supplied.
+    bio: undefined,
+  },
+  {
+    name: 'Tahir Haque',
+    role: 'COO',
+    bio: 'Fifteen years as a project and programme management specialist, including senior Director roles across UK government: the Ministry of Justice, HM Revenue & Customs, and the Cabinet and Prime Minister’s Office. Tahir has led large, multifunctional teams delivering multi-billion-pound programmes, with deep expertise in strategy, transformation, organisational design, governance and stakeholder engagement up to ministerial level. He holds a degree and master’s from UCL, is a certified programme specialist and change management practitioner, and holds a Level 5 CIPD Diploma in HR Management.',
+  },
+  {
+    name: 'Paul Wagenaar',
+    role: 'CISO',
+    bio: 'Two decades in cybersecurity, with a career spanning Australia, the UK, South Africa and the UAE. Paul has held security leadership positions at global banks and major corporations, building security strategy and capability from the ground up in some of the most regulated environments in the world.',
+  },
+];
+
+// Draft role titles aligned to the two pillars — not confirmed against the
+// actual team roster, needs a final pass from Ali/Tahir before publishing.
+const teamRoles = [
+  'Head of Cloud Migration & Landing Zone Engineering',
+  'Head of Google Distributed Cloud',
+  'Head of Security & Compliance',
+  'Head of Data & Platform Engineering',
+  'Head of DevOps & Automation (aSaaS)',
+];
+---
+
+<BaseLayout
+  title="About"
+  description="C-9INE is a Google Cloud specialist delivering to banks, government institutions and critical-infrastructure organisations across Saudi Arabia and beyond."
+>
+  <PageIntro eyebrow="About">
+    <h1>On your side, in your team.</h1>
+    <p class="lede">
+      C-9INE is a Google Cloud specialist delivering to banks, government institutions and
+      critical-infrastructure organisations across Saudi Arabia and beyond. We design, we build,
+      and we run, embedding with your team rather than handing over a deck and leaving.
+    </p>
+  </PageIntro>
+
+  <section class="section">
+    <div class="container">
+      <h2>Leadership</h2>
+      <div class="leadership-grid">
+        {leadership.map((person) => (
+          <LeadershipCard name={person.name} role={person.role} bio={person.bio} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <h2>The team behind the team</h2>
+      <!-- Draft titles only — needs Ali/Tahir confirmation against the real roster. -->
+      <ul class="team-roles">
+        {teamRoles.map((role) => (
+          <li class="mono-tag">{role}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <ProofPoint eyebrow="Why C-9INE">
+        We hand you the keys. Every engagement, migration or GDC, ends with your team fully able
+        to operate what we built, without depending on us to keep it running. Code, diagrams,
+        evidence and documentation live in your repositories, not ours.
+      </ProofPoint>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .leadership-grid {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem) clamp(2rem, 4vw, 3rem);
+  }
+
+  .team-roles {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .team-roles li {
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    color: var(--silver);
+  }
+
+  @media (max-width: 700px) {
+    .leadership-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

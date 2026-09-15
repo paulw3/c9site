@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+const params = Astro.url.searchParams;
+const defaultIntent = params.get('intent') === 'gdc-pilot' ? 'gdc-pilot' : undefined;
+---
+
+<BaseLayout
+  title="Contact"
+  description="Whether you're planning a migration or starting your Google Distributed Cloud journey, tell us where you are and we'll take it from there."
+>
+  <PageIntro eyebrow="Contact">
+    <h1>Talk to us.</h1>
+    <p class="lede">
+      Whether you're planning a migration or starting your Google Distributed Cloud journey,
+      tell us where you are and we'll take it from there.
+    </p>
+  </PageIntro>
+
+  <section class="section">
+    <div class="container contact-grid">
+      <ContactForm defaultIntent={defaultIntent} />
+
+      <div class="contact-details">
+        <h2>Visit us</h2>
+        <address>
+          Sahaba Tissa (Cloud 9)<br />
+          7586 King Fahad Road, Ar Rahmaniyah<br />
+          Riyadh 12341, Saudi Arabia
+          <!-- TODO: confirm current company registration number (two conflicting numbers on file) and add it here -->
+        </address>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 20rem;
+    gap: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .contact-details h2 {
+    font-size: var(--step-1);
+  }
+
+  .contact-details address {
+    margin-top: 1rem;
+    font-style: normal;
+    color: var(--silver);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 860px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
