@@ -1,0 +1,222 @@
+/* ---------------------------------------------------------------
+   C-9INE design tokens
+   Gunmetal / Aquamarine / Silver / White Smoke, dark-mode only.
+   See docs/content-brief.md §3 for the brand system this encodes.
+------------------------------------------------------------------ */
+
+:root {
+  /* color */
+  --gunmetal: #15181b;
+  --gunmetal-raised: #1e2226;
+  --gunmetal-line: #2a2f34;
+  --aquamarine: #2fd9be;
+  --aquamarine-dim: #1f9e8a;
+  --silver: #a6adb2;
+  --white-smoke: #f4f5f3;
+
+  /* type */
+  --font-display: 'Barlow Semi Condensed', sans-serif;
+  --font-body: 'Barlow', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --step-1: clamp(1.2rem, 1.13rem + 0.35vw, 1.4rem);
+  --step-2: clamp(1.44rem, 1.32rem + 0.6vw, 1.8rem);
+  --step-3: clamp(1.9rem, 1.65rem + 1.2vw, 2.6rem);
+  --step-4: clamp(2.5rem, 2rem + 2.4vw, 4rem);
+  --step-5: clamp(3.2rem, 2.4rem + 4vw, 5.6rem);
+
+  /* layout */
+  --content-max: 72rem;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --border-radius: 3px;
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--gunmetal);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--gunmetal);
+  color: var(--white-smoke);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: 0.005em;
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--step-5);
+}
+h2 {
+  font-size: var(--step-3);
+}
+h3 {
+  font-size: var(--step-2);
+}
+h4 {
+  font-size: var(--step-1);
+}
+
+p {
+  margin: 0;
+  max-width: 38rem;
+}
+
+a {
+  color: inherit;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* focus visibility — kept even when the browser's default outline is
+   overridden, per the quality floor: never hide focus for mouse users
+   only to lose it for keyboard ones */
+:focus-visible {
+  outline: 2px solid var(--aquamarine);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Shared layout + type utilities
+------------------------------------------------------------------ */
+
+.container {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--aquamarine);
+  letter-spacing: 0.02em;
+}
+
+.section {
+  padding-block: clamp(3.5rem, 8vw, 7rem);
+}
+
+.section-tight {
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+}
+
+.lede {
+  font-size: var(--step-1);
+  color: var(--silver);
+  max-width: 42rem;
+}
+
+.mono-tag {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--silver);
+}
+
+/* ---------------------------------------------------------------
+   Buttons
+------------------------------------------------------------------ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 0.85em 1.6em;
+  border-radius: var(--border-radius);
+  border: 1px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.btn-primary {
+  background: var(--aquamarine);
+  color: var(--gunmetal);
+}
+
+.btn-primary:hover {
+  background: var(--white-smoke);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--white-smoke);
+  border-color: var(--silver);
+}
+
+.btn-outline:hover {
+  border-color: var(--aquamarine);
+  color: var(--aquamarine);
+}
+
+/* ---------------------------------------------------------------
+   Visually-hidden (skip link target labels, form labels kept for a11y)
+------------------------------------------------------------------ */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
