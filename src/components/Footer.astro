@@ -19,7 +19,15 @@ const socialLinks = [
 <footer class="site-footer">
   <div class="container site-footer__grid">
     <div class="site-footer__brand">
-      <a href="/" class="wordmark">C-9INE</a>
+      <a href="/" class="wordmark" aria-label="C-9INE — home">
+        <svg viewBox="0 0 32 32" class="wordmark__mark" aria-hidden="true" focusable="false">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M16 6a7 7 0 1 0 3.6 12.98C18.7 22.8 16.6 25.8 12.5 27.4l1 2.4c5.6-2.2 8.4-6.4 9.3-11.6.3-1.7.4-3.4.2-5A7 7 0 0 0 16 6Zm0 3.2a3.8 3.8 0 1 1 0 7.6 3.8 3.8 0 0 1 0-7.6Z"
+          ></path>
+        </svg>
+      </a>
       <p class="mono-tag">Google Cloud Premier Partner</p>
     </div>
 
@@ -80,11 +88,13 @@ const socialLinks = [
   }
 
   .site-footer__brand .wordmark {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: var(--step-1);
-    text-decoration: none;
-    color: var(--white-smoke);
+    display: inline-flex;
+  }
+
+  .wordmark__mark {
+    width: 2.25rem;
+    height: 2.25rem;
+    fill: var(--aquamarine);
   }
 
   .site-footer__brand p {
