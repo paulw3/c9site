@@ -103,15 +103,16 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
     opacity: 0;
   }
 
-  /* No dark fade at the bottom — dunes stay bright to the edge. Just
-     enough of a top/left scrim for the nav and headline to sit on. */
+  /* No dark fade at the top or bottom — the sky and dunes stay their
+     true color, so the transparent nav actually reads as transparent
+     instead of sitting on a hidden dark bar. Just a soft left-side
+     wash behind the headline column for contrast; text itself also
+     carries its own shadow (see below) as the real legibility guard. */
   .hero__scrim {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background:
-      linear-gradient(to bottom, color-mix(in srgb, var(--gunmetal) 80%, transparent) 0%, transparent 34%),
-      linear-gradient(to right, color-mix(in srgb, var(--gunmetal) 72%, transparent) 0%, color-mix(in srgb, var(--gunmetal) 30%, transparent) 48%, transparent 68%);
+    background: linear-gradient(to right, color-mix(in srgb, var(--gunmetal) 42%, transparent) 0%, color-mix(in srgb, var(--gunmetal) 18%, transparent) 40%, transparent 62%);
   }
 
   /* Safe defaults: fully visible/settled. JS + motion-ok progressively
@@ -141,6 +142,7 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
   .hero__content h1 {
     font-size: clamp(2.5rem, 1.6rem + 3.4vw, 4.25rem);
     max-width: 15ch;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
   }
 
   .hero__content .lede {
