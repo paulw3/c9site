@@ -17,60 +17,47 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
   The one deliberate motion moment on Home: at rest, the sky is a clean,
   clear blue — no clouds — over the sharp dunes, and the copy hasn't
   arrived yet. Scrolling in lets the real clouds (already in the photo)
-  drift into that clear sky, then brings the copy in after them. A
-  quiet nod to "Cloud 9" in the company name. Skipped entirely (full
-  hero shown at once) for prefers-reduced-motion and for anyone
-  without JS.
+  drift into that clear sky; after a brief pause once they've fully
+  arrived, the copy follows. A quiet nod to "Cloud 9" in the company
+  name. The image itself never moves — this is a normal section in the
+  page's flow, not a pinned/sticky one, so scrolling feels completely
+  ordinary except for the two things that are deliberately animated.
+  Skipped entirely (full hero shown at once) for prefers-reduced-motion
+  and for anyone without JS.
 -->
-<section class="hero-pin-wrap">
-  <div class="hero">
-    <div class="hero__image-stack">
-      <Image
-        src={heroDesert}
-        alt="Aerial view of rippled sand dunes in the Saudi desert at golden hour, a small camel caravan crossing in the distance"
-        class="hero__image"
-        widths={[640, 1024, 1600, 2200]}
-        sizes="100vw"
-        format="avif"
-        quality={82}
-        priority
-      />
-      <div class="hero__clear-sky" aria-hidden="true"></div>
-    </div>
-    <div class="hero__scrim" aria-hidden="true"></div>
+<section class="hero">
+  <Image
+    src={heroDesert}
+    alt="Aerial view of rippled sand dunes in the Saudi desert at golden hour, a small camel caravan crossing in the distance"
+    class="hero__image"
+    widths={[640, 1024, 1600, 2200]}
+    sizes="100vw"
+    format="avif"
+    quality={82}
+    priority
+  />
+  <div class="hero__clear-sky" aria-hidden="true"></div>
+  <div class="hero__scrim" aria-hidden="true"></div>
 
-    <div class="container hero__content">
-      <h1 class="hero__reveal">{heading}</h1>
-      <p class="lede hero__reveal hero__reveal--1">{subheading}</p>
-    </div>
-
-    <a href={ctaHref} class="hero__badge hero__reveal hero__reveal--2">
-      <span>{ctaText}</span>
-    </a>
-
-    <p class="hero__trust mono-tag hero__reveal hero__reveal--3">{trustText}</p>
+  <div class="container hero__content">
+    <h1 class="hero__reveal">{heading}</h1>
+    <p class="lede hero__reveal hero__reveal--1">{subheading}</p>
   </div>
+
+  <a href={ctaHref} class="hero__badge hero__reveal hero__reveal--2">
+    <span>{ctaText}</span>
+  </a>
+
+  <p class="hero__trust mono-tag hero__reveal hero__reveal--3">{trustText}</p>
 </section>
 
 <style>
-  .hero-pin-wrap {
-    position: relative;
-    height: 180vh;
-  }
-
   .hero {
-    position: sticky;
-    top: 0;
+    position: relative;
     min-height: 88vh;
     display: flex;
     align-items: center;
     overflow: hidden;
-  }
-
-  .hero__image-stack {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
   }
 
   .hero__image {
@@ -217,41 +204,34 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .hero-pin-wrap {
-      height: auto;
-    }
-
-    .hero {
-      position: relative;
-    }
-  }
 </style>
 
 <script>
   const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const wrap = document.querySelector<HTMLElement>('.hero-pin-wrap');
+  const hero = document.querySelector<HTMLElement>('.hero');
 
-  if (wrap && !prefersReduced) {
-    const clearSky = wrap.querySelector<HTMLElement>('.hero__clear-sky');
-    const revealEls = Array.from(wrap.querySelectorAll<HTMLElement>('.hero__reveal'));
+  if (hero && !prefersReduced) {
+    const clearSky = hero.querySelector<HTMLElement>('.hero__clear-sky');
+    const revealEls = Array.from(hero.querySelectorAll<HTMLElement>('.hero__reveal'));
 
-    // Clouds drift in first (0 -> CLOUD_END), then the copy follows,
-    // strictly after the clouds have fully arrived — no overlap. The
-    // sand itself never moves; only these two things animate.
-    const CLOUD_END = 0.45;
+    // A normal section, not pinned — progress is just how far the hero
+    // has scrolled past the top of the viewport, as a fraction of its
+    // own height. Clouds drift in first (0 -> CLOUD_END), then a brief
+    // pause with nothing changing, then the copy follows. The image
+    // itself is never touched here — it doesn't move.
+    const CLOUD_END = 0.42;
+    const TEXT_START = 0.58;
 
     let ticking = false;
 
     const update = () => {
-      const rect = wrap.getBoundingClientRect();
-      const scrollable = wrap.offsetHeight - window.innerHeight;
-      const progress = scrollable > 0 ? Math.min(Math.max(-rect.top / scrollable, 0), 1) : 1;
+      const rect = hero.getBoundingClientRect();
+      const progress = Math.min(Math.max(-rect.top / (rect.height * 0.65), 0), 1);
 
       const cloudT = Math.min(progress / CLOUD_END, 1);
       if (clearSky) clearSky.style.opacity = String(1 - cloudT);
 
-      const textProgress = Math.min(Math.max((progress - CLOUD_END) / (1 - CLOUD_END), 0), 1);
+      const textProgress = Math.min(Math.max((progress - TEXT_START) / (1 - TEXT_START), 0), 1);
       revealEls.forEach((el, i) => {
         const start = i * 0.12;
         const t = Math.min(Math.max((textProgress - start) / (1 - start), 0), 1);
