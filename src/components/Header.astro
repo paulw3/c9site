@@ -53,6 +53,16 @@ const { pathname } = Astro.url;
     background: color-mix(in srgb, var(--gunmetal) 92%, transparent);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--gunmetal-line);
+    transition: background-color 240ms ease, border-color 240ms ease, backdrop-filter 240ms ease;
+  }
+
+  /* While the hero photo is still pinned directly behind it (Home only —
+     toggled by Hero.astro's scroll script), the header goes fully
+     transparent and lets the hero's own scrim carry legibility instead. */
+  .site-header.is-transparent {
+    background: transparent;
+    backdrop-filter: none;
+    border-bottom-color: transparent;
   }
 
   .site-header__inner {

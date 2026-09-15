@@ -229,6 +229,7 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
   if (wrap && !prefersReduced) {
     const clearSky = wrap.querySelector<HTMLElement>('.hero__clear-sky');
     const revealEls = Array.from(wrap.querySelectorAll<HTMLElement>('.hero__reveal'));
+    const header = document.querySelector<HTMLElement>('.site-header');
 
     // Clouds drift in first (0 -> CLOUD_END), then a brief pause with
     // nothing changing, then the copy follows (TEXT_START -> 1). The
@@ -242,6 +243,12 @@ const { heading, subheading, ctaText, ctaHref, trustText } = Astro.props;
       const rect = wrap.getBoundingClientRect();
       const scrollable = wrap.offsetHeight - window.innerHeight;
       const progress = scrollable > 0 ? Math.min(Math.max(-rect.top / scrollable, 0), 1) : 1;
+
+      // The header stays transparent for exactly as long as the hero
+      // photo is still pinned directly behind it — i.e. the whole
+      // scroll range up until the hero releases and normal content
+      // takes its place underneath the nav.
+      if (header) header.classList.toggle('is-transparent', progress < 1);
 
       const cloudT = Math.min(progress / CLOUD_END, 1);
       if (clearSky) clearSky.style.opacity = String(1 - cloudT);
