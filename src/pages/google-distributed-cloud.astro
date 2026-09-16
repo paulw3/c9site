@@ -30,6 +30,40 @@ import CTAButton from '../components/CTAButton.astro';
     </div>
   </PageIntro>
 
+  <section class="section-tight">
+    <div class="container">
+      <div class="gdc-explainer">
+        <h2>What GDC actually is</h2>
+        <p class="lede">
+          Google Distributed Cloud, software-only, is a Google Cloud operating model you run
+          yourself: GKE-based Kubernetes, fleet management, policy and observability, deployed
+          onto your own supported servers in your own data centre. Nothing ships to Google;
+          nothing leaves your building unless your network design says it should.
+        </p>
+
+        <div class="gdc-explainer__diagram">
+          <div class="gdc-layer gdc-layer--outer" data-reveal>
+            <span class="gdc-layer__label mono-tag">Your data centre</span>
+            <p class="gdc-layer__desc">Supported x86 servers · your network, storage and security</p>
+            <div class="gdc-layer gdc-layer--mid" data-reveal style="transition-delay:150ms">
+              <span class="gdc-layer__label mono-tag">GDC software-only</span>
+              <p class="gdc-layer__desc">GKE-based Kubernetes · fleet · policy · observability · lifecycle</p>
+              <div class="gdc-layer gdc-layer--inner" data-reveal style="transition-delay:300ms">
+                <span class="gdc-layer__label mono-tag">Workloads</span>
+                <p class="gdc-layer__desc">Containers · VMs · future specialised workloads</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="gdc-explainer__note">
+          You keep control of the hardware and the data centre. Google Cloud's operating model
+          runs on top of it.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <section class="section-tight section-raised">
     <div class="container two-col">
       <div>
@@ -70,16 +104,9 @@ import CTAButton from '../components/CTAButton.astro';
           <h3>Engineer: Deployment and workload transformation</h3>
           <p>
             GDC is software-only: GKE-based Kubernetes running on your own supported servers,
-            connected or air-gapped depending on what your regulator requires. VM Runtime means
-            it's not a containers-only platform: traditional VM workloads run on it too, migrated
-            in alongside containers as real regulated workloads move onto the platform. C-9INE
-            has deployed VM Runtime on GDC 1.35 and is running Linux VMs at a Saudi bank today.
-          </p>
-          <p>
-            The fastest way to prove this for your organisation is a focused pilot: 4–6 weeks,
-            install and register GDC, migrate a handful of representative VM and container
-            workloads, and walk away with a reference pack and feasibility evidence before
-            committing to anything larger.
+            connected or air-gapped depending on what your regulator requires. Containers and VM
+            workloads move in together, in governed waves, as real regulated workloads cut over
+            onto the platform.
           </p>
         </article>
 
@@ -111,17 +138,17 @@ import CTAButton from '../components/CTAButton.astro';
           <div class="vm-runtime__platform">
             <div class="vm-runtime__boxes">
               <div class="vm-runtime__col">
-                <div class="vm-runtime__box">
+                <div class="vm-runtime__box" data-reveal>
                   <svg viewBox="0 0 24 24" class="vm-runtime__icon" focusable="false">
                     <rect x="4" y="4" width="12" height="12" rx="2" />
                     <rect x="8" y="8" width="12" height="12" rx="2" />
                   </svg>
                   <span>Containers</span>
                 </div>
-                <div class="vm-runtime__connector"></div>
+                <div class="vm-runtime__connector" data-reveal style="transition-delay:200ms"></div>
               </div>
               <div class="vm-runtime__col">
-                <div class="vm-runtime__box">
+                <div class="vm-runtime__box" data-reveal style="transition-delay:80ms">
                   <svg viewBox="0 0 24 24" class="vm-runtime__icon" focusable="false">
                     <rect x="3" y="4" width="18" height="12" rx="1.5" />
                     <path d="M12,16 L12,20" />
@@ -129,16 +156,16 @@ import CTAButton from '../components/CTAButton.astro';
                   </svg>
                   <span>VMs</span>
                 </div>
-                <div class="vm-runtime__connector"></div>
+                <div class="vm-runtime__connector" data-reveal style="transition-delay:280ms"></div>
               </div>
             </div>
-            <div class="vm-runtime__base">GDC / Kubernetes</div>
+            <div class="vm-runtime__base" data-reveal style="transition-delay:360ms">GDC / Kubernetes</div>
           </div>
         </div>
 
         <p class="vm-runtime__stat mono-tag">
-          Live today: VM Runtime deployed on GDC 1.35, running Linux VMs in production for
-          multiple Saudi banks and a financial regulator.
+          Live today: VM Runtime deployed on GDC 1.35, running Linux VMs in production — not a
+          lab environment, not a roadmap item.
         </p>
 
         <div class="vm-runtime__lists">
@@ -175,9 +202,83 @@ import CTAButton from '../components/CTAButton.astro';
     </div>
   </section>
 
-  <section class="section-tight">
+  <section class="section-raised">
     <div class="container">
-      <CTAButton href="/contact?intent=gdc-pilot">Book a GDC pilot scoping call</CTAButton>
+      <div class="pilot">
+        <h2>Start with a focused pilot, not a leap</h2>
+        <p class="lede">
+          A 4–6 week pilot makes the GDC decision tangible before you commit to a full migration
+          — install and register GDC software-only on your own supported hardware, migrate a
+          small representative set of VM and container workloads, and walk away with evidence,
+          not promises.
+        </p>
+
+        <div class="pilot-timeline">
+          <div class="pilot-timeline__line" data-reveal></div>
+          <ol class="pilot-timeline__steps">
+            <li data-reveal style="transition-delay:0ms">
+              <span class="pilot-timeline__num mono-tag">1</span>
+              <span class="pilot-timeline__label">Week 1</span>
+              <span class="pilot-timeline__desc">Executive alignment + target workloads</span>
+            </li>
+            <li data-reveal style="transition-delay:100ms">
+              <span class="pilot-timeline__num mono-tag">2</span>
+              <span class="pilot-timeline__label">Week 2</span>
+              <span class="pilot-timeline__desc">MCDC, inventory + prerequisites</span>
+            </li>
+            <li data-reveal style="transition-delay:200ms">
+              <span class="pilot-timeline__num mono-tag">3–4</span>
+              <span class="pilot-timeline__label">Weeks 3–4</span>
+              <span class="pilot-timeline__desc">Pilot build + workload migration</span>
+            </li>
+            <li data-reveal style="transition-delay:300ms">
+              <span class="pilot-timeline__num mono-tag">5</span>
+              <span class="pilot-timeline__label">Week 5</span>
+              <span class="pilot-timeline__desc">Evidence pack + business case</span>
+            </li>
+            <li data-reveal style="transition-delay:400ms">
+              <span class="pilot-timeline__num mono-tag">6</span>
+              <span class="pilot-timeline__label">Week 6</span>
+              <span class="pilot-timeline__desc">Production roadmap + commercials</span>
+            </li>
+          </ol>
+        </div>
+
+        <div class="pilot__cards">
+          <div class="pilot__card">
+            <h4>Example scope</h4>
+            <ul>
+              <li>4–6 weeks, subject to readiness</li>
+              <li>Customer-provided supported bare-metal servers</li>
+              <li>Install and register GDC software-only</li>
+              <li>Migrate 1 Linux VM + 1 Windows VM</li>
+              <li>Migrate 3–5 representative container workloads</li>
+            </ul>
+          </div>
+          <div class="pilot__card">
+            <h4>Success criteria</h4>
+            <ul>
+              <li>Platform installed and healthy</li>
+              <li>VM Runtime enabled and validated</li>
+              <li>VMs boot, connect and pass application checks</li>
+              <li>Containers deploy via agreed manifests / GitOps</li>
+              <li>Known gaps and prerequisites documented</li>
+            </ul>
+          </div>
+          <div class="pilot__card">
+            <h4>Commercial outcome</h4>
+            <ul>
+              <li>Confirms technical feasibility for your executives</li>
+              <li>Creates a local reference and evidence pack</li>
+              <li>Feeds directly into a production HLD/LLD and business case</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pilot__cta">
+          <CTAButton href="/contact?intent=gdc-pilot">Book a GDC pilot scoping call</CTAButton>
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>
@@ -370,4 +471,277 @@ import CTAButton from '../components/CTAButton.astro';
       gap: 2rem;
     }
   }
+
+  /* Shared reveal-on-scroll: a one-shot fade + settle for elements that
+     benefit from appearing in sequence (a containment diagram, a
+     platform diagram, a timeline) rather than being static text. Not
+     used on ordinary copy — see google-distributed-cloud.astro's own
+     notes on why the gap/why-now and proof text stay static. */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html.js) [data-reveal] {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 550ms ease, transform 550ms ease;
+    }
+
+    :global(html.js) [data-reveal].is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    :global(html.js) .vm-runtime__connector[data-reveal] {
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 400ms ease, opacity 200ms ease;
+    }
+
+    :global(html.js) .vm-runtime__connector[data-reveal].is-revealed {
+      transform: scaleY(1);
+    }
+
+    :global(html.js) .pilot-timeline__line[data-reveal] {
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 900ms ease, opacity 200ms ease;
+    }
+
+    :global(html.js) .pilot-timeline__line[data-reveal].is-revealed {
+      transform: scaleX(1);
+    }
+  }
+
+  .gdc-explainer {
+    max-width: 46rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .gdc-explainer h2 {
+    font-size: var(--step-2);
+  }
+
+  .gdc-explainer .lede {
+    margin-top: 1rem;
+    margin-inline: auto;
+  }
+
+  .gdc-explainer__diagram {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: flex;
+    justify-content: center;
+  }
+
+  .gdc-layer {
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    padding: clamp(1.5rem, 4vw, 2.25rem) clamp(1.25rem, 3vw, 1.75rem);
+    width: 100%;
+  }
+
+  .gdc-layer--outer {
+    max-width: 30rem;
+    background: color-mix(in srgb, var(--silver) 4%, transparent);
+  }
+
+  .gdc-layer--mid {
+    margin-top: 1.5rem;
+    border-color: color-mix(in srgb, var(--aquamarine) 35%, transparent);
+    background: color-mix(in srgb, var(--aquamarine) 5%, transparent);
+  }
+
+  .gdc-layer--inner {
+    margin-top: 1.5rem;
+    border-color: color-mix(in srgb, var(--aquamarine) 55%, transparent);
+    background: color-mix(in srgb, var(--aquamarine) 14%, var(--gunmetal));
+  }
+
+  .gdc-layer__label {
+    display: inline-block;
+    color: var(--aquamarine);
+  }
+
+  .gdc-layer--outer > .gdc-layer__label {
+    color: var(--silver);
+  }
+
+  .gdc-layer__desc {
+    margin-top: 0.6rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+  }
+
+  .gdc-layer--inner .gdc-layer__desc {
+    color: var(--white-smoke);
+  }
+
+  .gdc-explainer__note {
+    margin-top: clamp(2rem, 4vw, 2.75rem);
+    color: var(--silver);
+    max-width: 34rem;
+    margin-inline: auto;
+  }
+
+  .pilot {
+    max-width: 52rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .pilot h2 {
+    font-size: var(--step-2);
+  }
+
+  .pilot .lede {
+    margin-top: 1rem;
+    margin-inline: auto;
+  }
+
+  .pilot-timeline {
+    position: relative;
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .pilot-timeline__line {
+    position: absolute;
+    top: 0.85rem;
+    left: 2.5rem;
+    right: 2.5rem;
+    height: 1px;
+    background: color-mix(in srgb, var(--aquamarine) 45%, transparent);
+  }
+
+  .pilot-timeline__steps {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .pilot-timeline__steps li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 8rem;
+  }
+
+  .pilot-timeline__num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: var(--gunmetal);
+    border: 1px solid var(--aquamarine);
+    color: var(--aquamarine);
+  }
+
+  .pilot-timeline__label {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step--1);
+    color: var(--white-smoke);
+  }
+
+  .pilot-timeline__desc {
+    font-size: var(--step--2);
+    color: var(--silver);
+  }
+
+  .pilot__cards {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.25rem, 3vw, 2rem);
+    text-align: left;
+  }
+
+  .pilot__card {
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+  }
+
+  .pilot__card h4 {
+    color: var(--white-smoke);
+  }
+
+  .pilot__card ul {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+  }
+
+  .pilot__card li {
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .pilot__card li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--aquamarine);
+  }
+
+  .pilot__cta {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (max-width: 700px) {
+    .pilot-timeline__line {
+      display: none;
+    }
+
+    .pilot-timeline__steps {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+
+    .pilot-timeline__steps li {
+      flex-direction: row;
+      max-width: none;
+      text-align: left;
+      gap: 0.85rem;
+    }
+
+    .pilot-timeline__num {
+      flex-shrink: 0;
+    }
+
+    .pilot__cards {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
+
+<script>
+  const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReduced) {
+    const revealEls = document.querySelectorAll<HTMLElement>('[data-reveal]');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: '0px 0px -10% 0px' }
+    );
+    revealEls.forEach((el) => observer.observe(el));
+  }
+</script>
