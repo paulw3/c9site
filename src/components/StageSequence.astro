@@ -318,6 +318,24 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
       { passive: true }
     );
 
+    // Browsers remap a vertical wheel/trackpad gesture into horizontal
+    // scroll for an element that can *only* scroll horizontally — handy
+    // for a standalone carousel, but here it traps the page's own
+    // vertical scroll the moment the cursor is over the panel strip. A
+    // mostly-vertical gesture should just scroll the page as normal; only
+    // a genuinely horizontal one (trackpad swipe, shift+wheel) should
+    // move the carousel, so it's forwarded to the page manually instead.
+    panelsEl.addEventListener(
+      'wheel',
+      (event) => {
+        if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
+          event.preventDefault();
+          window.scrollBy(0, event.deltaY);
+        }
+      },
+      { passive: false }
+    );
+
     setActive(0);
     window.addEventListener('resize', () => setActive(current));
   });
