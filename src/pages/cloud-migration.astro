@@ -29,11 +29,25 @@ import CTAButton from '../components/CTAButton.astro';
           <span class="stage-number">01</span>
           <h3>Design</h3>
           <p>
-            We map the target landing zone across every domain before a single workload moves.
-            Security is designed in from day one, not bolted on once the architecture is already
-            built.
+            We map the target landing zone across every domain before a single workload moves,
+            using Google's Migration Center to assess and plan the estate. Security is designed
+            in from day one, not bolted on once the architecture is already built.
           </p>
           <ul class="stage-panel__domains">
+            <li>
+              <svg class="stage-panel__domain-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <rect x="9" y="2" width="6" height="5" rx="1" />
+                <path d="M12,7 L12,11" />
+                <path d="M12,11 L6,11 L6,14" />
+                <path d="M12,11 L18,11 L18,14" />
+                <rect x="3" y="14" width="6" height="5" rx="1" />
+                <rect x="15" y="14" width="6" height="5" rx="1" />
+              </svg>
+              <div>
+                <p class="stage-panel__domain-label">Foundation</p>
+                <p class="stage-panel__domain-desc">Org hierarchy, Org Policy, Cloud Billing</p>
+              </div>
+            </li>
             <li>
               <svg class="stage-panel__domain-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="12" cy="5" r="2" />
@@ -44,7 +58,7 @@ import CTAButton from '../components/CTAButton.astro';
               </svg>
               <div>
                 <p class="stage-panel__domain-label">Network</p>
-                <p class="stage-panel__domain-desc">VPC design, hub-and-spoke or shared-VPC</p>
+                <p class="stage-panel__domain-desc">VPC design, hub-and-spoke or shared-VPC, Cloud Interconnect</p>
               </div>
             </li>
             <li>
@@ -76,7 +90,7 @@ import CTAButton from '../components/CTAButton.astro';
               </svg>
               <div>
                 <p class="stage-panel__domain-label">Data platform</p>
-                <p class="stage-panel__domain-desc">Cloud SQL, AlloyDB</p>
+                <p class="stage-panel__domain-desc">Cloud SQL, AlloyDB, Cloud Storage</p>
               </div>
             </li>
             <li>
@@ -107,7 +121,7 @@ import CTAButton from '../components/CTAButton.astro';
               </svg>
               <div>
                 <p class="stage-panel__domain-label">Containers</p>
-                <p class="stage-panel__domain-desc">Orchestration on GKE</p>
+                <p class="stage-panel__domain-desc">Orchestration on GKE, Artifact Registry</p>
               </div>
             </li>
             <li>
@@ -118,7 +132,7 @@ import CTAButton from '../components/CTAButton.astro';
               </svg>
               <div>
                 <p class="stage-panel__domain-label">Database</p>
-                <p class="stage-panel__domain-desc">Migration &amp; HA (Cloud SQL, AlloyDB)</p>
+                <p class="stage-panel__domain-desc">Database Migration Service, HA (Cloud SQL, AlloyDB)</p>
               </div>
             </li>
             <li>
@@ -144,7 +158,7 @@ import CTAButton from '../components/CTAButton.astro';
               </svg>
               <div>
                 <p class="stage-panel__domain-label">Data</p>
-                <p class="stage-panel__domain-desc">Pub/Sub, Cloud Data Fusion, Dataflow</p>
+                <p class="stage-panel__domain-desc">Storage Transfer Service, Pub/Sub, Cloud Data Fusion, Dataflow</p>
               </div>
             </li>
             <li>
@@ -154,7 +168,7 @@ import CTAButton from '../components/CTAButton.astro';
               </svg>
               <div>
                 <p class="stage-panel__domain-label">Compute</p>
-                <p class="stage-panel__domain-desc">Cloud Run, Cloud Functions</p>
+                <p class="stage-panel__domain-desc">Migrate to Virtual Machines, Cloud Run, Cloud Functions</p>
               </div>
             </li>
             <li>
@@ -173,13 +187,25 @@ import CTAButton from '../components/CTAButton.astro';
               </svg>
               <div>
                 <p class="stage-panel__domain-label">Security</p>
-                <p class="stage-panel__domain-desc">Cloud KMS, IAM enforcement, threat detection</p>
+                <p class="stage-panel__domain-desc">Cloud KMS, Secret Manager, IAM enforcement, threat detection</p>
+              </div>
+            </li>
+            <li>
+              <svg class="stage-panel__domain-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M4,10 A8,8 0 1 1 6.2,16.2" />
+                <path d="M4,10 L1.7,6.8 M4,10 L7.3,11.3" />
+                <path d="M12,7 L12,12 L15.5,14" />
+              </svg>
+              <div>
+                <p class="stage-panel__domain-label">Backup and DR</p>
+                <p class="stage-panel__domain-desc">Backup and DR Service</p>
               </div>
             </li>
           </ul>
           <p>
             Pilot first, then entry and exit criteria at every gate. Infrastructure-as-Code from
-            day one, accelerated by aSaaS (أساس), our Marketplace-listed automation.
+            day one, using Cloud Build and Cloud Deploy for CI/CD, and accelerated by aSaaS
+            (أساس), our Marketplace-listed automation.
           </p>
         </article>
 
