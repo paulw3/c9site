@@ -132,6 +132,48 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
     margin-top: 1.5rem;
   }
 
+  /* Where a panel's content is genuinely a list of domains (not
+     restated prose dressed up as bullets), present it as one: a dense
+     comma-and-parenthesis sentence is slower to scan than short
+     label + detail pairs, especially now that the panel is a compact
+     card rather than a full-height page section. */
+  .stage-panels :global(.stage-panel__domains) {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem 2rem;
+    max-width: 44rem;
+  }
+
+  .stage-panels :global(.stage-panel__domains li) {
+    font-size: var(--step--1);
+    color: var(--silver);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .stage-panels :global(.stage-panel__domains li::before) {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--aquamarine);
+  }
+
+  .stage-panels :global(.stage-panel__domains strong) {
+    color: var(--white-smoke);
+    font-weight: 600;
+  }
+
+  @media (max-width: 700px) {
+    .stage-panels :global(.stage-panel__domains) {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .stage-nav {
     display: flex;
     align-items: center;

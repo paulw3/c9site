@@ -29,32 +29,38 @@ import CTAButton from '../components/CTAButton.astro';
           <span class="stage-number">01</span>
           <h3>Design</h3>
           <p>
-            We map the target Google Cloud landing zone across every domain before a single
-            workload moves: network architecture (VPC design, hub-and-spoke or shared-VPC),
-            identity (IAM, Zero Trust, privileged access management), security (encryption and
-            key management, compliance controls mapped to SAMA, NCA ECC and PDPL), data platform
-            selection (Cloud SQL, AlloyDB), and container and compute strategy (GKE topology).
-            Security is designed in from day one, not bolted on once the architecture is already
+            We map the target landing zone across every domain before a single workload moves —
+            security designed in from day one, not bolted on once the architecture is already
             built.
           </p>
+          <ul class="stage-panel__domains">
+            <li><strong>Network</strong> — VPC design, hub-and-spoke or shared-VPC</li>
+            <li><strong>Identity</strong> — IAM, Zero Trust, privileged access management</li>
+            <li><strong>Security</strong> — encryption &amp; key management, mapped to SAMA, NCA ECC, PDPL</li>
+            <li><strong>Data platform</strong> — Cloud SQL, AlloyDB</li>
+            <li><strong>Compute</strong> — GKE topology</li>
+          </ul>
         </article>
 
         <article class="stage-panel">
           <span class="stage-number">02</span>
           <h3>Engineer</h3>
           <p>
-            The migration factory runs across domains, not as one generic lift-and-shift:
-            container orchestration on GKE, database migration and high-availability setup
-            (Cloud SQL, AlloyDB), networking and API layers (Apigee, VPC Service Controls), data
-            integration and pipelines (Pub/Sub, Cloud Data Fusion, Dataflow), serverless compute
-            (Cloud Run, Cloud Functions), and observability (Cloud Logging and Monitoring,
-            SecOps). Security moves with every wave, not after it: encryption and key management
-            (Cloud KMS, customer-managed keys), IAM enforcement, and threat detection are
-            validated in the target before a workload cuts over, not audited afterward.
-            Everything moves in governed waves: pilot first, then entry and exit criteria at
-            every gate, rollback readiness, and validation before and after each cutover.
-            Infrastructure-as-Code from day one. aSaaS (أساس), our Marketplace-listed automation,
-            accelerates the landing zone piece of this work.
+            The migration factory runs across domains, not one generic lift-and-shift — in
+            governed waves, with security validated before every cutover, not audited after.
+          </p>
+          <ul class="stage-panel__domains">
+            <li><strong>Containers</strong> — orchestration on GKE</li>
+            <li><strong>Database</strong> — migration &amp; HA (Cloud SQL, AlloyDB)</li>
+            <li><strong>Networking &amp; API</strong> — Apigee, VPC Service Controls</li>
+            <li><strong>Data</strong> — Pub/Sub, Cloud Data Fusion, Dataflow</li>
+            <li><strong>Compute</strong> — Cloud Run, Cloud Functions</li>
+            <li><strong>Observability</strong> — Cloud Logging &amp; Monitoring, SecOps</li>
+            <li><strong>Security</strong> — Cloud KMS, IAM enforcement, threat detection</li>
+          </ul>
+          <p>
+            Pilot first, then entry and exit criteria at every gate. Infrastructure-as-Code from
+            day one — accelerated by aSaaS (أساس), our Marketplace-listed automation.
           </p>
         </article>
 
@@ -62,10 +68,12 @@ import CTAButton from '../components/CTAButton.astro';
           <span class="stage-number">03</span>
           <h3>Run</h3>
           <p>
-            We operationalize and hand over across the same domains: documentation, knowledge
+            We operationalise and hand over across the same domains: documentation, knowledge
             transfer, hypercare, a managed transition to steady state, and ongoing monitoring.
-            For organisations without in-house security leadership, we continue as
-            CISO-as-a-Service, built on two decades of security leadership across global banks.
+          </p>
+          <p>
+            No in-house security leadership? We continue as CISO-as-a-Service, built on two
+            decades of security leadership across global banks.
           </p>
         </article>
       </StageSequence>
