@@ -11,11 +11,9 @@ import StageIcon from './StageIcon.astro';
 interface Props {
   stages: string[];
   eyebrow?: string;
-  title?: string;
-  description?: string;
 }
 
-const { stages, eyebrow, title, description } = Astro.props;
+const { stages, eyebrow } = Astro.props;
 const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' | 'run';
 
 // How much scroll distance (in viewport-heights) each stage gets to
@@ -25,21 +23,7 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
 const DWELL_VH = 75;
 ---
 
-{title && (
-  <div class="stage-sequence-intro">
-    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-    <h2>{title}</h2>
-    {description && <p class="lede">{description}</p>}
-    <p class="stage-sequence-intro__stages mono-tag">
-      {stages.map((label, i) => (
-        <>
-          {i > 0 && <span aria-hidden="true"> · </span>}
-          <span>{label}</span>
-        </>
-      ))}
-    </p>
-  </div>
-)}
+{eyebrow && <p class="eyebrow stage-sequence-intro">{eyebrow}</p>}
 
 <div
   class="stage-sequence-wrap"
@@ -84,23 +68,14 @@ const DWELL_VH = 75;
 </div>
 
 <style>
-  /* The section's own title, after the weevolveit.com reference's
-     "[ THE FRAMEWORK ] The 5 method." block — distinct copy from the
-     page's own H1, giving this specific scroll interaction its own
-     context before the pin engages. Sits in normal document flow
-     above the pinned wrap, so it scrolls away like any other content
-     rather than being part of the pinned/sliding mechanism. */
+  /* A small label above the pinned section, after the weevolveit.com
+     reference's own eyebrow before its "5 method" section — enough to
+     signal there's a distinct interaction coming without restating the
+     page's own H1. Sits in normal document flow, so it scrolls away
+     like any other content rather than being part of the pinned/
+     sliding mechanism. */
   .stage-sequence-intro {
-    max-width: 46rem;
-    margin-bottom: clamp(2rem, 5vw, 3.5rem);
-  }
-
-  .stage-sequence-intro .lede {
-    margin-top: 1rem;
-  }
-
-  .stage-sequence-intro__stages {
-    margin-top: 1.5rem;
+    margin-bottom: clamp(1.25rem, 3vw, 2rem);
   }
 
   .stage-sequence-wrap {
@@ -398,15 +373,30 @@ const DWELL_VH = 75;
       display: block;
     }
 
-    /* Fades the sliding panel out as it nears the window's edges
-       instead of hard-clipping it there — the mask is transparent at
-       the very edges, opaque across the middle ~80%, so a panel is
-       fully visible while centred and dissolves rather than getting
-       cut off as it slides past either side. */
+    /* Fades a panel out as it nears the window's edges instead of
+       hard-clipping it there. Which side(s) fade depends on whether
+       there's actually a neighbour to hide there — the first stage
+       has nothing to its left and the last has nothing to its right,
+       so fading those edges anyway just dims real content (the exact
+       "obscures the first phase" bug this replaced: a static
+       both-edges fade dimmed the opening panel's own left edge before
+       any scrolling had happened, with nothing there to justify it).
+       is-first/is-last are toggled in the script below from the same
+       current index the stepper and prev/next buttons already use. */
     :global(html.js) .stage-sequence__panels {
       overflow: hidden;
-      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+    }
+
+    :global(html.js) .stage-sequence__panels.is-first {
+      mask-image: linear-gradient(to right, black, black 94%, transparent);
+      -webkit-mask-image: linear-gradient(to right, black, black 94%, transparent);
+    }
+
+    :global(html.js) .stage-sequence__panels.is-last {
+      mask-image: linear-gradient(to right, transparent, black 6%, black);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black);
     }
 
     /* The window's height stays fixed to the tallest panel for the
@@ -486,6 +476,8 @@ const DWELL_VH = 75;
         });
         if (prevBtn) prevBtn.disabled = current === 0;
         if (nextBtn) nextBtn.disabled = current === N - 1;
+        panelsEl.classList.toggle('is-first', current === 0);
+        panelsEl.classList.toggle('is-last', current === N - 1);
       };
 
       // Jump to a stage by scrolling so its slice of the wrap's pinned
