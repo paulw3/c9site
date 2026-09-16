@@ -89,7 +89,12 @@ import CTAButton from '../components/CTAButton.astro';
 
   <section class="section-tight stage-section">
     <div class="container">
-      <StageSequence stages={['Design', 'Engineer', 'Run']}>
+      <StageSequence
+        stages={['Design', 'Engineer', 'Run']}
+        eyebrow="How we work"
+        title="Design. Engineer. Run."
+        description="From readiness through deployment to day-two operations, one accountable team carries the platform from first workshop to full capability transfer."
+      >
         <article class="stage-panel">
           <span class="stage-number">01</span>
           <h3>Design: Readiness</h3>
