@@ -22,7 +22,7 @@ import CTAButton from '../components/CTAButton.astro';
     </div>
   </PageIntro>
 
-  <section class="section-tight">
+  <section class="section-tight stage-section">
     <div class="container">
       <StageSequence stages={['Design', 'Engineer', 'Run']}>
         <article class="stage-panel">
@@ -214,6 +214,14 @@ import CTAButton from '../components/CTAButton.astro';
 </BaseLayout>
 
 <style>
+  /* PageIntro's own bottom padding (up to 5rem) plus this section's
+     usual top padding (up to 4rem) compounded into a much bigger gap
+     here than anywhere else on the page — cut the top side back since
+     the intro already provides the separation. */
+  .stage-section {
+    padding-top: clamp(1rem, 2vw, 1.5rem);
+  }
+
   .page-cta {
     margin-top: 2.5rem;
   }
