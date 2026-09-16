@@ -37,6 +37,7 @@ import CTAButton from '../components/CTAButton.astro';
 
   <section class="section section-raised">
     <div class="container">
+      <p class="eyebrow methodology-eyebrow">How we work</p>
       <h2>We design. We engineer. We run.</h2>
       <div class="methodology-wrap">
         <MethodologyStrip />
@@ -57,6 +58,10 @@ import CTAButton from '../components/CTAButton.astro';
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .methodology-eyebrow {
+    margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
   }
 
   .methodology-wrap {
