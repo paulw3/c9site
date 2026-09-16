@@ -1,7 +1,10 @@
 ---
-// The one deliberate scrollytelling moment on the site (see docs/content-brief.md's
-// Design → Engineer → Run narrative). Used only on the two pillar pages, where the
-// content is genuinely a three-stage sequence with real, substantial copy per stage.
+// The one deliberate motion set-piece on the two pillar pages (see
+// docs/content-brief.md's Design → Engineer → Run narrative). A
+// horizontal scroll-snap carousel rather than page-scroll-driven
+// scrollytelling: tabs and prev/next controls move between stages,
+// and dragging/swiping the panel strip does the same — the page's own
+// vertical scroll is left alone.
 import StageIcon from './StageIcon.astro';
 
 interface Props {
@@ -13,83 +16,96 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
 ---
 
 <section class="stage-sequence" data-stage-sequence>
-  <div class="stage-rail" aria-hidden="true">
-    <ol class="stage-rail__steps">
-      {stages.map((label) => (
-        <li>
-          <StageIcon stage={iconFor(label)} />
-          <span>{label}</span>
-        </li>
-      ))}
-    </ol>
-    <p class="stage-rail__progress mono-tag"><span data-progress>033</span>%</p>
+  <div class="stage-tabs">
+    {stages.map((label, i) => (
+      <button
+        type="button"
+        class="stage-tabs__tab"
+        data-index={i}
+        aria-current={i === 0 ? 'true' : undefined}
+        aria-label={`Jump to ${label}`}
+      >
+        <StageIcon stage={iconFor(label)} />
+        <span>{label}</span>
+      </button>
+    ))}
   </div>
 
-  <div class="stage-panels">
+  <div class="stage-panels" tabindex="0" aria-label="Stage details, scroll horizontally">
     <slot />
+  </div>
+
+  <div class="stage-nav">
+    <button type="button" class="stage-nav__btn" data-dir="-1" aria-label="Previous stage">
+      <svg viewBox="0 0 24 24" focusable="false"><path d="M15,5 L8,12 L15,19" /></svg>
+    </button>
+    <p class="stage-nav__progress mono-tag"><span data-progress>033</span>%</p>
+    <button type="button" class="stage-nav__btn" data-dir="1" aria-label="Next stage">
+      <svg viewBox="0 0 24 24" focusable="false"><path d="M9,5 L16,12 L9,19" /></svg>
+    </button>
   </div>
 </section>
 
 <style>
   .stage-sequence {
-    display: grid;
-    grid-template-columns: 11rem 1fr;
-    gap: clamp(2rem, 5vw, 4rem);
-  }
-
-  .stage-rail {
-    position: sticky;
-    top: 8rem;
-    align-self: start;
-    height: fit-content;
-  }
-
-  .stage-rail__steps {
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
   }
 
-  .stage-rail__steps li {
+  .stage-tabs {
+    display: flex;
+    gap: clamp(1.25rem, 4vw, 3rem);
+    border-bottom: 1px solid var(--gunmetal-line);
+  }
+
+  .stage-tabs__tab {
     display: flex;
     align-items: center;
     gap: 0.6rem;
+    padding-block: 0.85rem;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
     font-family: var(--font-display);
     font-size: var(--step-0);
     font-weight: 600;
     color: var(--gunmetal-line);
-    transition: color 200ms ease;
+    cursor: pointer;
+    transition: color 200ms ease, border-color 200ms ease;
   }
 
-  .stage-rail__steps li :global(.stage-icon) {
+  .stage-tabs__tab :global(.stage-icon) {
     width: 1.35rem;
     height: 1.35rem;
     stroke: var(--gunmetal-line);
     transition: stroke 200ms ease;
   }
 
-  .stage-rail__steps li.is-active {
+  .stage-tabs__tab[aria-current='true'] {
     color: var(--aquamarine);
+    border-bottom-color: var(--aquamarine);
   }
 
-  .stage-rail__steps li.is-active :global(.stage-icon) {
+  .stage-tabs__tab[aria-current='true'] :global(.stage-icon) {
     stroke: var(--aquamarine);
   }
 
-  .stage-rail__progress {
-    margin-top: 1.5rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--gunmetal-line);
+  .stage-panels {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .stage-panels::-webkit-scrollbar {
+    display: none;
   }
 
   .stage-panels :global(.stage-panel) {
-    padding-block: clamp(3rem, 8vw, 6rem);
-    border-top: 1px solid var(--gunmetal-line);
-  }
-
-  .stage-panels :global(.stage-panel:first-child) {
-    border-top: none;
-    padding-top: 0;
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    padding-block: clamp(1rem, 3vw, 1.5rem) clamp(1rem, 3vw, 2rem);
   }
 
   .stage-panels :global(.stage-number) {
@@ -116,48 +132,119 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
     margin-top: 1.5rem;
   }
 
-  @media (max-width: 860px) {
-    .stage-sequence {
-      display: block;
+  .stage-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .stage-nav__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1px solid var(--gunmetal-line);
+    background: none;
+    color: var(--white-smoke);
+    cursor: pointer;
+    transition: border-color 160ms ease, color 160ms ease;
+  }
+
+  .stage-nav__btn svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .stage-nav__btn:hover:not(:disabled) {
+    border-color: var(--aquamarine);
+    color: var(--aquamarine);
+  }
+
+  .stage-nav__btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  .stage-nav__progress {
+    min-width: 4rem;
+    text-align: center;
+  }
+
+  @media (max-width: 700px) {
+    .stage-tabs {
+      gap: 1rem;
     }
 
-    .stage-rail {
-      display: none;
+    .stage-tabs__tab {
+      font-size: var(--step--1);
     }
   }
 </style>
 
 <script>
   const sequences = document.querySelectorAll<HTMLElement>('[data-stage-sequence]');
+  const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   sequences.forEach((seq) => {
+    const panelsEl = seq.querySelector<HTMLElement>('.stage-panels');
     const panels = Array.from(seq.querySelectorAll<HTMLElement>('.stage-panel'));
-    const steps = Array.from(seq.querySelectorAll<HTMLLIElement>('.stage-rail__steps li'));
+    const tabs = Array.from(seq.querySelectorAll<HTMLButtonElement>('.stage-tabs__tab'));
     const progressEl = seq.querySelector<HTMLElement>('[data-progress]');
+    const prevBtn = seq.querySelector<HTMLButtonElement>('[data-dir="-1"]');
+    const nextBtn = seq.querySelector<HTMLButtonElement>('[data-dir="1"]');
 
-    if (!panels.length || !steps.length) return;
+    if (!panelsEl || !panels.length || !tabs.length) return;
 
-    const setActive = (index: number) => {
-      steps.forEach((step, i) => step.classList.toggle('is-active', i === index));
+    let current = 0;
+
+    const setActive = (index: number, scroll = false) => {
+      current = index;
+      tabs.forEach((tab, i) => {
+        if (i === index) tab.setAttribute('aria-current', 'true');
+        else tab.removeAttribute('aria-current');
+      });
       if (progressEl) {
         const pct = Math.round(((index + 1) / panels.length) * 100);
         progressEl.textContent = String(pct).padStart(3, '0');
       }
+      if (prevBtn) prevBtn.disabled = index === 0;
+      if (nextBtn) nextBtn.disabled = index === panels.length - 1;
+      if (scroll) {
+        panelsEl.scrollTo({
+          left: index * panelsEl.clientWidth,
+          behavior: prefersReduced ? 'auto' : 'smooth',
+        });
+      }
     };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = panels.indexOf(entry.target as HTMLElement);
-            if (index !== -1) setActive(index);
-          }
+    tabs.forEach((tab, i) => tab.addEventListener('click', () => setActive(i, true)));
+    prevBtn?.addEventListener('click', () => setActive(Math.max(current - 1, 0), true));
+    nextBtn?.addEventListener('click', () => setActive(Math.min(current + 1, panels.length - 1), true));
+
+    let ticking = false;
+    panelsEl.addEventListener(
+      'scroll',
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const index = Math.round(panelsEl.scrollLeft / panelsEl.clientWidth);
+          if (index !== current) setActive(index);
+          ticking = false;
         });
       },
-      { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+      { passive: true }
     );
 
-    panels.forEach((panel) => observer.observe(panel));
     setActive(0);
   });
 </script>
