@@ -1,0 +1,26 @@
+---
+// Site-wide eased scrolling, after the to-top.ch reference (which uses
+// the same library). Lenis smooths wheel/touch input into eased
+// scrollTo() calls on the real document — it never substitutes a
+// transformed wrapper for native scrolling — so position: sticky (the
+// header, Hero's pin, StageSequence's pin) and every scroll-position
+// read elsewhere on the site keep working exactly as before, just fed
+// smoother input. Off entirely under prefers-reduced-motion, since
+// eased/inertial scrolling is itself a motion effect.
+import 'lenis/dist/lenis.css';
+---
+
+<script>
+  import Lenis from 'lenis';
+
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const lenis = new Lenis();
+
+    const raf = (time: number) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+
+    requestAnimationFrame(raf);
+  }
+</script>

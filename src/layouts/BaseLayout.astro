@@ -2,6 +2,7 @@
 import SEO from '../components/SEO.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import SmoothScroll from '../components/SmoothScroll.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -33,6 +34,7 @@ const { title, description } = Astro.props;
     />
   </head>
   <body>
+    <SmoothScroll />
     <a class="visually-hidden" href="#main">Skip to content</a>
     <Header />
     <main id="main">
