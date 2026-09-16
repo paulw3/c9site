@@ -122,13 +122,19 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
     font-size: var(--step-2);
   }
 
-  .stage-panels :global(.stage-panel p) {
+  /* Child combinator, not descendant: this must only reach the
+     panel's own intro/closing prose, not paragraphs nested inside
+     .stage-panel__domains (the label/desc pairs) further down — a
+     plain ".stage-panel p" descendant selector matched those too and,
+     because it carries an extra element selector, out-specified the
+     domain list's own margin reset regardless of class count. */
+  .stage-panels :global(.stage-panel > p) {
     margin-top: 1.25rem;
     color: var(--silver);
     max-width: 58ch;
   }
 
-  .stage-panels :global(.stage-panel p:first-of-type) {
+  .stage-panels :global(.stage-panel > p:first-of-type) {
     margin-top: 1.5rem;
   }
 
