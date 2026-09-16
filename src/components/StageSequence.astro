@@ -592,16 +592,33 @@ const DWELL_VH = 45;
       });
       resizeObserver.observe(seq);
 
-      window.addEventListener(
-        'scroll',
-        () => {
-          if (!ticking) {
-            requestAnimationFrame(update);
-            ticking = true;
-          }
-        },
-        { passive: true }
-      );
+      // Prefer subscribing directly to Lenis's own 'scroll' event over
+      // the native browser one — see the comment on window.__lenis in
+      // SmoothScroll.astro for why: it removes a full animation frame
+      // of lag between Lenis's eased position and this slide catching
+      // up to it, which is what made the two feel out of step with
+      // each other. Falls back to the native event (still correct,
+      // just with that one frame of lag) if Lenis isn't there —
+      // shouldn't happen given both are gated by the same
+      // prefers-reduced-motion check, but script load order isn't
+      // guaranteed to leave window.__lenis set yet the instant this
+      // particular script runs.
+      const lenis = (window as unknown as { __lenis?: { on: (event: 'scroll', cb: () => void) => void } }).__lenis;
+      if (lenis) {
+        lenis.on('scroll', update);
+      } else {
+        window.addEventListener(
+          'scroll',
+          () => {
+            if (!ticking) {
+              requestAnimationFrame(update);
+              ticking = true;
+            }
+          },
+          { passive: true }
+        );
+      }
+
       window.addEventListener('resize', () => {
         measure();
         update();
