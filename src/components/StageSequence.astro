@@ -91,11 +91,19 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
     stroke: var(--aquamarine);
   }
 
+  /* align-items: flex-start (not the flex default, stretch) so each
+     panel's height is its own content, not forced to match whichever
+     sibling panel is tallest — that stretch is what left a slab of
+     empty space under the shorter panels. The container's own height
+     is then pinned to the active panel's height by the script below,
+     since a flex row still auto-sizes to its tallest child otherwise. */
   .stage-panels {
     display: flex;
+    align-items: flex-start;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
+    transition: height 300ms ease;
   }
 
   .stage-panels::-webkit-scrollbar {
@@ -282,6 +290,7 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
       }
       if (prevBtn) prevBtn.disabled = index === 0;
       if (nextBtn) nextBtn.disabled = index === panels.length - 1;
+      panelsEl.style.height = `${panels[index].offsetHeight}px`;
       if (scroll) {
         panelsEl.scrollTo({
           left: index * panelsEl.clientWidth,
@@ -310,5 +319,6 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
     );
 
     setActive(0);
+    window.addEventListener('resize', () => setActive(current));
   });
 </script>
