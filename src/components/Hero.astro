@@ -42,6 +42,10 @@ const { heading, subheading, trustText } = Astro.props;
       <p class="lede hero__reveal hero__reveal--1">{subheading}</p>
     </div>
 
+    <a href="/contact" class="hero__badge hero__reveal hero__reveal--2" aria-label="Talk to us about your migration">
+      <span>Talk to us</span>
+    </a>
+
     <p class="hero__trust mono-tag hero__reveal hero__reveal--3">{trustText}</p>
   </div>
 </section>
@@ -86,6 +90,28 @@ const { heading, subheading, trustText } = Astro.props;
        so more sky shows at top, dunes stay bright and uncropped at the
        bottom edge — no fade needed to hide it. Static — never animated. */
     transform: scale(1.22) translateY(8%);
+  }
+
+  /* A slow, continuous drift across the dunes, independent of scroll
+     position — the ambient "the landscape is alive" motion from the
+     to-top.ch reference. Only the transform's scale/translate values
+     move; the static framing values above are its resting midpoint, so
+     the drift never uncrops the sand at the edges. Off by default
+     (prefers-reduced-motion, no-JS) — the static framing above is the
+     complete, motionless fallback. */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html.js) .hero__image {
+      animation: hero-drift 38s ease-in-out infinite;
+    }
+  }
+
+  @keyframes hero-drift {
+    0%, 100% {
+      transform: scale(1.22) translate(0, 8%);
+    }
+    50% {
+      transform: scale(1.3) translate(-1.4%, 6%);
+    }
   }
 
   /* A clean, cloudless sky standing in for the photo's own sky until the
@@ -153,6 +179,57 @@ const { heading, subheading, trustText } = Astro.props;
     color: var(--white-smoke);
   }
 
+  /* The glowing circular CTA badge, off-center over the dune horizon
+     rather than dead-centered — same motif as the to-top.ch reference's
+     sun disc. Aquamarine, not gold: the brand accent, not a literal sun. */
+  .hero__badge {
+    position: absolute;
+    z-index: 2;
+    right: clamp(1.5rem, 9vw, 7.5rem);
+    top: 53%;
+    width: clamp(7rem, 11vw, 9.5rem);
+    height: clamp(7rem, 11vw, 9.5rem);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    background: radial-gradient(
+      circle at 35% 30%,
+      color-mix(in srgb, var(--aquamarine) 85%, white) 0%,
+      var(--aquamarine) 60%,
+      color-mix(in srgb, var(--aquamarine) 75%, var(--gunmetal)) 100%
+    );
+    color: var(--gunmetal);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step--1);
+    line-height: 1.2;
+    text-decoration: none;
+    box-shadow: 0 0 40px 6px color-mix(in srgb, var(--aquamarine) 30%, transparent);
+    transition: transform 200ms ease;
+  }
+
+  .hero__badge:hover {
+    transform: scale(1.06);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html.js) .hero__badge {
+      animation: hero-badge-glow 3.8s ease-in-out infinite;
+    }
+  }
+
+  @keyframes hero-badge-glow {
+    0%, 100% {
+      box-shadow: 0 0 40px 6px color-mix(in srgb, var(--aquamarine) 30%, transparent);
+    }
+    50% {
+      box-shadow: 0 0 60px 16px color-mix(in srgb, var(--aquamarine) 50%, transparent);
+    }
+  }
+
   .hero__trust {
     position: absolute;
     z-index: 2;
@@ -186,6 +263,28 @@ const { heading, subheading, trustText } = Astro.props;
     .hero__image {
       object-position: 62% center;
       transform: scale(1.05) translateY(2%);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      :global(html.js) .hero__image {
+        animation-name: hero-drift-mobile;
+      }
+    }
+
+    /* No room for it beside the headline at this width without
+       overlapping either the copy or the trust strip below — drop it
+       rather than shrink it past legibility. */
+    .hero__badge {
+      display: none;
+    }
+  }
+
+  @keyframes hero-drift-mobile {
+    0%, 100% {
+      transform: scale(1.05) translate(0, 2%);
+    }
+    50% {
+      transform: scale(1.11) translate(-1%, 0%);
     }
   }
 
