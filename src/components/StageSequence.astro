@@ -393,7 +393,17 @@ const DWELL_VH = 70;
      height was itself mid-animation, so each frame's "how far through
      the section am I" answer depended slightly on the previous
      frame's animation state instead of purely on scroll position. */
-  @media (prefers-reduced-motion: no-preference) {
+  /* min-width paired with the motion query: below 700px, the tallest
+     panel's content (the Design/Engineer domain lists especially) is
+     routinely taller than the pinned sticky window, and the dwell
+     distance is scroll-driven, not content-driven — so on a short
+     mobile viewport the section advances to the next stage before
+     there's room to scroll down and read the rest of the current one.
+     No dwell-time tuning fixes that (a longer dwell still clips a tall
+     enough panel); below this breakpoint it falls back to the same
+     plain stacked layout already used for reduced-motion and no-JS,
+     which scrolls at the user's own pace with nothing ever cut off. */
+  @media (prefers-reduced-motion: no-preference) and (min-width: 701px) {
     :global(html.js) .stage-sequence-wrap {
       height: calc(var(--stage-count) * var(--dwell-vh) * 1vh);
     }
@@ -465,9 +475,13 @@ const DWELL_VH = 70;
 <script>
   const wraps = document.querySelectorAll<HTMLElement>('[data-stage-sequence-wrap]');
   const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Mirrors the CSS breakpoint below: on a narrow viewport the pinned
+  // slide is skipped in favour of the plain stacked layout, so none of
+  // this wiring (which drives that pinned/sliding behaviour) should run.
+  const isNarrow = matchMedia('(max-width: 700px)').matches;
   const header = document.querySelector<HTMLElement>('.site-header');
 
-  if (!prefersReduced) {
+  if (!prefersReduced && !isNarrow) {
     wraps.forEach((wrap) => {
       const seq = wrap.querySelector<HTMLElement>('[data-stage-sequence]');
       const panelsEl = wrap.querySelector<HTMLElement>('[data-stage-panels]');
