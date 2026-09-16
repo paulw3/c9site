@@ -4,6 +4,7 @@ import PageIntro from '../components/PageIntro.astro';
 import StageSequence from '../components/StageSequence.astro';
 import ProofPoint from '../components/ProofPoint.astro';
 import CTAButton from '../components/CTAButton.astro';
+import Marquee from '../components/Marquee.astro';
 ---
 
 <BaseLayout
@@ -11,7 +12,7 @@ import CTAButton from '../components/CTAButton.astro';
   description="We design the target state, engineer it in governed waves, and run it with you after go-live, across every domain the workload touches, not just the landing zone."
 >
   <PageIntro eyebrow="Cloud Migration & Transformation">
-    <h1>We design. We engineer. We run.</h1>
+    <h1>We design. We engineer. <span class="accent">We run.</span></h1>
     <p class="lede">
       Whether you're moving from on-premise or another hyperscaler, we design the target state,
       engineer it in governed waves, and run it with you after go-live. Across every domain the
@@ -21,6 +22,17 @@ import CTAButton from '../components/CTAButton.astro';
       <CTAButton href="/contact">Talk to us about your migration</CTAButton>
     </div>
   </PageIntro>
+
+  <Marquee
+    items={[
+      'GOOGLE CLOUD PREMIER PARTNER',
+      'GOOGLE DISTRIBUTED CLOUD',
+      'RIYADH, SAUDI ARABIA',
+      'SAMA',
+      'NCA ECC',
+      'ME-CENTRAL2',
+    ]}
+  />
 
   <section class="section-tight stage-section">
     <div class="container">

@@ -4,6 +4,7 @@ import PageIntro from '../components/PageIntro.astro';
 import StageSequence from '../components/StageSequence.astro';
 import ProofPoint from '../components/ProofPoint.astro';
 import CTAButton from '../components/CTAButton.astro';
+import Marquee from '../components/Marquee.astro';
 ---
 
 <BaseLayout
@@ -17,7 +18,7 @@ import CTAButton from '../components/CTAButton.astro';
     to match — see docs/content-brief.md §4 (Google Distributed Cloud) for the full note.
   -->
   <PageIntro eyebrow="Google Distributed Cloud">
-    <h1>Sovereignty, engineered.</h1>
+    <h1>Sovereignty, <span class="accent">engineered.</span></h1>
     <p class="gdc-subhead">Sovereign cloud is not a location. It is an operating model.</p>
     <p class="lede">
       C-9INE helps banks, government institutions and critical-infrastructure organisations turn
@@ -29,6 +30,17 @@ import CTAButton from '../components/CTAButton.astro';
       <CTAButton href="/contact?intent=gdc-pilot">Book a GDC pilot scoping call</CTAButton>
     </div>
   </PageIntro>
+
+  <Marquee
+    items={[
+      'GOOGLE CLOUD PREMIER PARTNER',
+      'GOOGLE DISTRIBUTED CLOUD',
+      'RIYADH, SAUDI ARABIA',
+      'SAMA',
+      'NCA ECC',
+      'ME-CENTRAL2',
+    ]}
+  />
 
   <section class="section-tight">
     <div class="container">

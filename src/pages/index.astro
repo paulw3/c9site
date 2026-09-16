@@ -4,6 +4,7 @@ import Hero from '../components/Hero.astro';
 import PillarCard from '../components/PillarCard.astro';
 import MethodologyStrip from '../components/MethodologyStrip.astro';
 import CTAButton from '../components/CTAButton.astro';
+import Marquee from '../components/Marquee.astro';
 ---
 
 <BaseLayout
@@ -11,9 +12,20 @@ import CTAButton from '../components/CTAButton.astro';
   description="We design, engineer, and run cloud transformation and Google Distributed Cloud for banks, government and critical-infrastructure organisations across Saudi Arabia and beyond."
 >
   <Hero
-    heading="Google Cloud, engineered for institutions that cannot get it wrong."
+    heading="Google Cloud, <span class=&quot;accent&quot;>engineered</span> for institutions that cannot get it wrong."
     subheading="We design, engineer, and run cloud transformation and Google Distributed Cloud for banks, government and critical-infrastructure organisations across Saudi Arabia and beyond."
     trustText="Google Cloud Premier Partner · Google Distributed Cloud · Riyadh, Saudi Arabia"
+  />
+
+  <Marquee
+    items={[
+      'GOOGLE CLOUD PREMIER PARTNER',
+      'GOOGLE DISTRIBUTED CLOUD',
+      'RIYADH, SAUDI ARABIA',
+      'SAMA',
+      'NCA ECC',
+      'ME-CENTRAL2',
+    ]}
   />
 
   <section class="section section-ge4">
@@ -37,16 +49,16 @@ import CTAButton from '../components/CTAButton.astro';
 
   <section class="section section-raised">
     <div class="container">
-      <h2>We design. We engineer. We run.</h2>
+      <h2>We design. We engineer. <span class="accent">We run.</span></h2>
       <div class="methodology-wrap">
         <MethodologyStrip />
       </div>
     </div>
   </section>
 
-  <section class="section-tight">
+  <section class="section-tight section-light">
     <div class="container cta-band">
-      <h2>Ready to talk?</h2>
+      <h2>Ready to <span class="accent">talk?</span></h2>
       <CTAButton href="/contact">Talk to us</CTAButton>
     </div>
   </section>
