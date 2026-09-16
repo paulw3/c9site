@@ -729,14 +729,15 @@ const DWELL_VH = 70;
         dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
       };
 
-      // Only floats on screen while the stage sequence itself is in
-      // view — no point in a "01/02/03" reading it makes no sense
-      // pointing at once the section has scrolled away.
-      const visibilityObserver = new IntersectionObserver(
-        ([entry]) => indicator.classList.toggle('is-visible', entry.isIntersecting),
-        { threshold: 0 }
-      );
-      visibilityObserver.observe(wrap);
+      // Visibility is driven by the same "is a stage centred" signal
+      // as the active number below, not by whether any pixel of the
+      // whole three-panel block is still on screen — that earlier,
+      // simpler version kept the pill up through all of Run's own
+      // padding/border and into whatever section came next, well
+      // after the user had actually moved on. Tracking centred-ness
+      // instead means it disappears as soon as Run's box scrolls past
+      // the viewport's centre, not only once it's fully gone.
+      const activeIndices = new Set<number>();
 
       // Shrinks the observed viewport to a 1px-tall line at its
       // vertical centre (via equal negative top/bottom rootMargin), so
@@ -746,10 +747,16 @@ const DWELL_VH = 70;
       const panelObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
             const index = panels.indexOf(entry.target as HTMLElement);
-            if (index !== -1) setActive(index);
+            if (index === -1) return;
+            if (entry.isIntersecting) {
+              activeIndices.add(index);
+              setActive(index);
+            } else {
+              activeIndices.delete(index);
+            }
           });
+          indicator.classList.toggle('is-visible', activeIndices.size > 0);
         },
         { rootMargin: '-50% 0px -50% 0px', threshold: 0 }
       );
