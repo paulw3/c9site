@@ -22,7 +22,7 @@ import CTAButton from '../components/CTAButton.astro';
     </div>
   </PageIntro>
 
-  <section class="section">
+  <section class="section-tight">
     <div class="container">
       <StageSequence stages={['Design', 'Engineer', 'Run']}>
         <article class="stage-panel">
@@ -206,12 +206,15 @@ import CTAButton from '../components/CTAButton.astro';
         When we're done, your team can operate what we built without depending on us to keep it
         running.
       </ProofPoint>
-    </div>
-  </section>
-
-  <section class="section-tight">
-    <div class="container">
-      <CTAButton href="/contact">Talk to us about your migration</CTAButton>
+      <div class="page-cta">
+        <CTAButton href="/contact">Talk to us about your migration</CTAButton>
+      </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .page-cta {
+    margin-top: 2.5rem;
+  }
+</style>
