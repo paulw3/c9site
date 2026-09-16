@@ -20,7 +20,7 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
 // dwell in before the next one takes over. Short panels (a sentence)
 // don't need a full screen's worth of scrolling to read, but need
 // enough room that the slide doesn't feel rushed.
-const DWELL_VH = 30;
+const DWELL_VH = 45;
 ---
 
 {eyebrow && <p class="eyebrow stage-sequence-intro">{eyebrow}</p>}
@@ -563,6 +563,34 @@ const DWELL_VH = 30;
       setActive(0);
       measure();
       update();
+
+      // Belt-and-suspenders alongside the ResizeObserver below: this
+      // also re-anchors documentTop (not just scrollable), in case
+      // something above the section — not the section itself —
+      // reflowed from the same font swap and shifted where the wrap
+      // actually starts on the page.
+      document.fonts?.ready?.then(() => {
+        measure();
+        update();
+      });
+
+      // A plain 'resize' listener alone isn't enough: seq's height (and
+      // so scrollable) also changes from things that aren't a viewport
+      // resize at all — most importantly the web font swapping in after
+      // first paint (font-display: swap) reflowing the panel text to a
+      // different height. measure() ran once, before that swap, so the
+      // cached scrollable value went stale for the rest of the page's
+      // life: too small (or briefly negative, pinning progress at 0
+      // forever) on the taller, text-heavier panels, and just slightly
+      // too small on shorter ones — which reads as "doesn't work" on
+      // one page and "way too fast" on another, exactly the bug this
+      // replaced. ResizeObserver catches every actual size change to
+      // the pinned box, whatever caused it, not just window resizes.
+      const resizeObserver = new ResizeObserver(() => {
+        measure();
+        update();
+      });
+      resizeObserver.observe(seq);
 
       window.addEventListener(
         'scroll',
