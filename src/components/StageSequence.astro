@@ -78,8 +78,18 @@ const DWELL_VH = 75;
     margin-bottom: clamp(1.25rem, 3vw, 2rem);
   }
 
+  /* Breaks out of the page's centered .container column to the full
+     viewport width — the standard technique for a full-bleed element
+     inside a max-width parent: push the left edge to the parent's
+     horizontal centre with margin-left: 50%, then pull it back by
+     exactly half of the element's own (now 100vw) width. Everything
+     inside still reads at the normal --gutter inset (see below); only
+     the sliding/fading window itself reaches the true screen edges. */
   .stage-sequence-wrap {
     position: relative;
+    width: 100vw;
+    margin-left: 50%;
+    transform: translateX(-50%);
   }
 
   /* Pinned right below the header. The header is itself position:
@@ -98,12 +108,21 @@ const DWELL_VH = 75;
   .stage-sequence__progress {
     position: absolute;
     top: clamp(1.5rem, 4vw, 2.5rem);
-    right: 0;
+    right: var(--gutter);
   }
 
   .stage-sequence__panels {
     position: relative;
     overflow: hidden;
+  }
+
+  /* The wrap breaks out to the full viewport width so the sliding
+     window/mask reaches the true screen edges, but the readable
+     content inside each panel still needs the site's normal inset —
+     applies in both the pinned/sliding mode and the stacked fallback,
+     since neither of those later blocks touches padding-inline. */
+  .stage-sequence__panels :global(.stage-panel) {
+    padding-inline: var(--gutter);
   }
 
   .stage-sequence__panels :global(.stage-number) {
