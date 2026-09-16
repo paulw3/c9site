@@ -87,7 +87,7 @@ import CTAButton from '../components/CTAButton.astro';
     </div>
   </section>
 
-  <section class="section">
+  <section class="section-tight stage-section">
     <div class="container">
       <StageSequence stages={['Design', 'Engineer', 'Run']}>
         <article class="stage-panel">
@@ -366,6 +366,13 @@ import CTAButton from '../components/CTAButton.astro';
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  /* Same fix as the Cloud Migration page: the preceding section's own
+     bottom padding plus this section's usual top padding compounded
+     into a much bigger gap here than anywhere else on the page. */
+  .stage-section {
+    padding-top: clamp(1rem, 2vw, 1.5rem);
   }
 
   .two-col h2 {
