@@ -11,15 +11,14 @@ const leadership = [
     bio: "Twenty-six years in technology: development, engineering, architecture, cloud, agile and DevOps. Ali has built software and platform engineering teams from scratch, holding Head of Engineering and CTO roles across private and public sector organisations worldwide, in telecoms, ISPs, oil and gas, satellite, military and defence, banking and national health services. He's an Agile, cloud and DevOps evangelist, and a long-standing contributor to open-source projects.",
   },
   {
-    name: 'Irfan',
+    name: 'Irfan A Ansari',
     role: 'CTO',
-    // No bio on file — none of the source documents or the live site mention
-    // Irfan in a C-9INE leadership capacity. LeadershipCard shows a "Bio to
-    // follow" placeholder until this is supplied.
+    // Name confirmed; bio still not on file. LeadershipCard shows a
+    // "Bio to follow" placeholder until one is supplied.
     bio: undefined,
   },
   {
-    name: 'Tahir Haque',
+    name: 'Tahir Alam',
     role: 'COO',
     bio: 'Fifteen years as a project and programme management specialist, including senior Director roles across UK government: the Ministry of Justice, HM Revenue & Customs, and the Cabinet and Prime Minister’s Office. Tahir has led large, multifunctional teams delivering multi-billion-pound programmes, with deep expertise in strategy, transformation, organisational design, governance and stakeholder engagement up to ministerial level. He holds a degree and master’s from UCL, is a certified programme specialist and change management practitioner, and holds a Level 5 CIPD Diploma in HR Management.',
   },
@@ -68,6 +67,11 @@ const teamRoles = [
   <section class="section-tight">
     <div class="container">
       <h2>The team behind the team</h2>
+      <p class="lede team-roles__intro">
+        C-9INE also includes our top talent team of experts, specially chosen and hand-picked
+        for their breadth and depth of skills, knowledge and experience, having worked across
+        multiple industry sectors and big brand names.
+      </p>
       <!-- Draft titles only — needs Ali/Tahir confirmation against the real roster. -->
       <ul class="team-roles">
         {teamRoles.map((role) => (
@@ -96,8 +100,13 @@ const teamRoles = [
     gap: clamp(1.5rem, 3vw, 2.5rem) clamp(2rem, 4vw, 3rem);
   }
 
+  .team-roles__intro {
+    margin-top: 1rem;
+    max-width: 58ch;
+  }
+
   .team-roles {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
     display: grid;
     gap: 0.75rem;
   }
