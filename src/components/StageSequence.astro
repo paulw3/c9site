@@ -20,7 +20,7 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
 // dwell in before the next one takes over. Short panels (a sentence)
 // don't need a full screen's worth of scrolling to read, but need
 // enough room that the slide doesn't feel rushed.
-const DWELL_VH = 75;
+const DWELL_VH = 50;
 ---
 
 {eyebrow && <p class="eyebrow stage-sequence-intro">{eyebrow}</p>}
@@ -75,7 +75,7 @@ const DWELL_VH = 75;
      like any other content rather than being part of the pinned/
      sliding mechanism. */
   .stage-sequence-intro {
-    margin-bottom: clamp(1.25rem, 3vw, 2rem);
+    margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
   }
 
   /* Breaks out of the page's centered .container column to the full
@@ -102,12 +102,13 @@ const DWELL_VH = 75;
     display: flex;
     flex-direction: column;
     gap: clamp(1.5rem, 4vw, 2.5rem);
-    padding-block: clamp(1.5rem, 4vw, 2.5rem);
+    padding-top: clamp(0.5rem, 1.5vw, 1rem);
+    padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
   }
 
   .stage-sequence__progress {
     position: absolute;
-    top: clamp(1.5rem, 4vw, 2.5rem);
+    top: clamp(0.5rem, 1.5vw, 1rem);
     right: var(--gutter);
   }
 
@@ -117,12 +118,18 @@ const DWELL_VH = 75;
   }
 
   /* The wrap breaks out to the full viewport width so the sliding
-     window/mask reaches the true screen edges, but the readable
-     content inside each panel still needs the site's normal inset —
-     applies in both the pinned/sliding mode and the stacked fallback,
-     since neither of those later blocks touches padding-inline. */
+     window/mask reaches the true screen edges, but the panel's own
+     text needs to start at the same x as the rest of the page's
+     content (the eyebrow above it included), not at the bare
+     --gutter inset from the true edge — those only match at
+     viewports narrower than --content-max. Above that width,
+     .container centres itself and its text sits (100vw -
+     content-max)/2 + gutter from the edge, so the panel matches that
+     same formula on both sides. Applies in both the pinned/sliding
+     mode and the stacked fallback, since neither later block touches
+     padding-inline. */
   .stage-sequence__panels :global(.stage-panel) {
-    padding-inline: var(--gutter);
+    padding-inline: max(var(--gutter), calc((100vw - var(--content-max)) / 2 + var(--gutter)));
   }
 
   .stage-sequence__panels :global(.stage-number) {
