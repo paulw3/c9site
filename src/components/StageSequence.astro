@@ -1,10 +1,12 @@
 ---
-// The one deliberate motion set-piece on the two pillar pages (see
-// docs/content-brief.md's Design → Engineer → Run narrative). A
-// horizontal scroll-snap carousel rather than page-scroll-driven
-// scrollytelling: tabs and prev/next controls move between stages,
-// and dragging/swiping the panel strip does the same — the page's own
-// vertical scroll is left alone.
+// The one deliberate scrollytelling set-piece on the two pillar pages,
+// after the weevolveit.com reference: the section pins below the header
+// and consumes vertical scroll to step through the stages, each one a
+// giant ghost numeral behind short, terse copy, crossfading into the
+// next as you scroll rather than requiring a horizontal swipe. A bottom
+// stepper and prev/next controls let you jump directly. Uses the same
+// sticky + scroll-progress mechanism as Hero.astro's pinned reveal (a
+// pattern already proven stable on this site), not a new one.
 import StageIcon from './StageIcon.astro';
 
 interface Props {
@@ -13,110 +15,84 @@ interface Props {
 
 const { stages } = Astro.props;
 const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' | 'run';
+
+// How much scroll distance (in viewport-heights) each stage gets to
+// dwell in before the next one takes over. Short panels (a sentence)
+// don't need a full screen's worth of scrolling to read, but need
+// enough room that the crossfade doesn't feel rushed.
+const DWELL_VH = 75;
 ---
 
-<section class="stage-sequence" data-stage-sequence>
-  <div class="stage-tabs">
-    {stages.map((label, i) => (
-      <button
-        type="button"
-        class="stage-tabs__tab"
-        data-index={i}
-        aria-current={i === 0 ? 'true' : undefined}
-        aria-label={`Jump to ${label}`}
-      >
-        <StageIcon stage={iconFor(label)} />
-        <span>{label}</span>
+<div
+  class="stage-sequence-wrap"
+  data-stage-sequence-wrap
+  style={`--stage-count: ${stages.length}; --dwell-vh: ${DWELL_VH};`}
+>
+  <section class="stage-sequence" data-stage-sequence>
+    <p class="stage-sequence__progress mono-tag"><span data-progress>000</span>%</p>
+
+    <div class="stage-sequence__panels" data-stage-panels>
+      <slot />
+    </div>
+
+    <div class="stage-sequence__footer">
+      <button type="button" class="stage-nav__btn" data-dir="-1" aria-label="Previous stage">
+        <svg viewBox="0 0 24 24" focusable="false"><path d="M15,5 L8,12 L15,19" /></svg>
       </button>
-    ))}
-  </div>
 
-  <div class="stage-panels" tabindex="0" aria-label="Stage details, scroll horizontally">
-    <slot />
-  </div>
+      <div class="stage-stepper" data-stage-stepper>
+        <div class="stage-stepper__line" aria-hidden="true"></div>
+        {stages.map((label, i) => (
+          <button
+            type="button"
+            class="stage-stepper__node"
+            data-index={i}
+            aria-current={i === 0 ? 'true' : undefined}
+            aria-label={`Jump to ${label}`}
+          >
+            <span class="stage-stepper__dot"><StageIcon stage={iconFor(label)} /></span>
+            <span class="stage-stepper__label">{label}</span>
+          </button>
+        ))}
+      </div>
 
-  <div class="stage-nav">
-    <button type="button" class="stage-nav__btn" data-dir="-1" aria-label="Previous stage">
-      <svg viewBox="0 0 24 24" focusable="false"><path d="M15,5 L8,12 L15,19" /></svg>
-    </button>
-    <p class="stage-nav__progress mono-tag"><span data-progress>033</span>%</p>
-    <button type="button" class="stage-nav__btn" data-dir="1" aria-label="Next stage">
-      <svg viewBox="0 0 24 24" focusable="false"><path d="M9,5 L16,12 L9,19" /></svg>
-    </button>
-  </div>
-</section>
+      <button type="button" class="stage-nav__btn" data-dir="1" aria-label="Next stage">
+        <svg viewBox="0 0 24 24" focusable="false"><path d="M9,5 L16,12 L9,19" /></svg>
+      </button>
+    </div>
+  </section>
+</div>
 
 <style>
+  .stage-sequence-wrap {
+    position: relative;
+  }
+
+  /* Pinned right below the header. The header is itself position:
+     sticky with top: 0 and sits earlier in the document, so nesting
+     this sticky element under it needs no JS offset trick — the two
+     stack the ordinary CSS-sticky way. */
   .stage-sequence {
+    position: sticky;
+    top: var(--header-height);
     display: flex;
     flex-direction: column;
     gap: clamp(1.5rem, 4vw, 2.5rem);
+    padding-block: clamp(1.5rem, 4vw, 2.5rem);
   }
 
-  .stage-tabs {
-    display: flex;
-    gap: clamp(1.25rem, 4vw, 3rem);
-    border-bottom: 1px solid var(--gunmetal-line);
+  .stage-sequence__progress {
+    position: absolute;
+    top: clamp(1.5rem, 4vw, 2.5rem);
+    right: 0;
   }
 
-  .stage-tabs__tab {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding-block: 0.85rem;
-    background: none;
-    border: none;
-    border-bottom: 2px solid transparent;
-    font-family: var(--font-display);
-    font-size: var(--step-0);
-    font-weight: 600;
-    color: var(--gunmetal-line);
-    cursor: pointer;
-    transition: color 200ms ease, border-color 200ms ease;
-  }
-
-  .stage-tabs__tab :global(.stage-icon) {
-    width: 1.35rem;
-    height: 1.35rem;
-    stroke: var(--gunmetal-line);
-    transition: stroke 200ms ease;
-  }
-
-  .stage-tabs__tab[aria-current='true'] {
-    color: var(--aquamarine);
-    border-bottom-color: var(--aquamarine);
-  }
-
-  .stage-tabs__tab[aria-current='true'] :global(.stage-icon) {
-    stroke: var(--aquamarine);
-  }
-
-  /* align-items: flex-start (not the flex default, stretch) so each
-     panel's height is its own content, not forced to match whichever
-     sibling panel is tallest — that stretch is what left a slab of
-     empty space under the shorter panels. The container's own height
-     is then pinned to the active panel's height by the script below,
-     since a flex row still auto-sizes to its tallest child otherwise. */
-  .stage-panels {
-    display: flex;
-    align-items: flex-start;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
+  .stage-sequence__panels {
+    position: relative;
     transition: height 300ms ease;
   }
 
-  .stage-panels::-webkit-scrollbar {
-    display: none;
-  }
-
-  .stage-panels :global(.stage-panel) {
-    flex: 0 0 100%;
-    scroll-snap-align: start;
-    padding-block: clamp(1rem, 3vw, 1.5rem) clamp(1rem, 3vw, 2rem);
-  }
-
-  .stage-panels :global(.stage-number) {
+  .stage-sequence__panels :global(.stage-number) {
     display: block;
     font-family: var(--font-display);
     font-weight: 700;
@@ -126,33 +102,27 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
     margin-bottom: 0.5rem;
   }
 
-  .stage-panels :global(.stage-panel h3) {
+  .stage-sequence__panels :global(.stage-panel h3) {
     font-size: var(--step-2);
+    max-width: 28ch;
   }
 
-  /* Child combinator, not descendant: this must only reach the
-     panel's own intro/closing prose, not paragraphs nested inside
-     .stage-panel__domains (the label/desc pairs) further down — a
-     plain ".stage-panel p" descendant selector matched those too and,
-     because it carries an extra element selector, out-specified the
-     domain list's own margin reset regardless of class count. */
-  .stage-panels :global(.stage-panel > p) {
+  /* Child combinator, not descendant: this must only reach the panel's
+     own intro/closing prose, not paragraphs nested inside
+     .stage-panel__domains further down — see the equivalent note this
+     replaced in the horizontal-carousel version of this component for
+     why a descendant selector here is the wrong call. */
+  .stage-sequence__panels :global(.stage-panel > p) {
     margin-top: 1.25rem;
     color: var(--silver);
     max-width: 58ch;
   }
 
-  .stage-panels :global(.stage-panel > p:first-of-type) {
+  .stage-sequence__panels :global(.stage-panel > p:first-of-type) {
     margin-top: 1.5rem;
   }
 
-  /* Where a panel's content is genuinely a list of domains (not
-     restated prose dressed up as bullets), present it as one: a dense
-     comma-and-parenthesis sentence is slower to scan than short
-     label + detail pairs, especially now that the panel is a compact
-     card rather than a full-height page section. Icon-led rows, not
-     a bordered card of bullet dots — that reads as a slide. */
-  .stage-panels :global(.stage-panel__domains) {
+  .stage-sequence__panels :global(.stage-panel__domains) {
     margin-top: 1.5rem;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -160,13 +130,13 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
     max-width: 46rem;
   }
 
-  .stage-panels :global(.stage-panel__domains li) {
+  .stage-sequence__panels :global(.stage-panel__domains li) {
     display: flex;
     gap: 0.75rem;
     align-items: flex-start;
   }
 
-  .stage-panels :global(.stage-panel__domain-icon) {
+  .stage-sequence__panels :global(.stage-panel__domain-icon) {
     flex-shrink: 0;
     width: 1.35rem;
     height: 1.35rem;
@@ -178,11 +148,7 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
     stroke-linejoin: round;
   }
 
-  /* The generic .stage-panel p rule (margin-top: 1.25rem, meant for
-     the panel's own intro/closing prose) otherwise wins on
-     specificity here too, since these are plain <p> tags — the extra
-     .stage-panel__domains ancestor class is what beats it. */
-  .stage-panels :global(.stage-panel__domains .stage-panel__domain-label) {
+  .stage-sequence__panels :global(.stage-panel__domains .stage-panel__domain-label) {
     margin-top: 0;
     line-height: 1.3;
     font-family: var(--font-display);
@@ -191,7 +157,7 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
     color: var(--white-smoke);
   }
 
-  .stage-panels :global(.stage-panel__domains .stage-panel__domain-desc) {
+  .stage-sequence__panels :global(.stage-panel__domains .stage-panel__domain-desc) {
     margin-top: 0.15rem;
     line-height: 1.3;
     color: var(--silver);
@@ -199,16 +165,16 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
   }
 
   @media (max-width: 700px) {
-    .stage-panels :global(.stage-panel__domains) {
+    .stage-sequence__panels :global(.stage-panel__domains) {
       grid-template-columns: 1fr;
     }
   }
 
-  .stage-nav {
+  .stage-sequence__footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1.5rem;
+    gap: clamp(1rem, 3vw, 2rem);
   }
 
   .stage-nav__btn {
@@ -246,97 +212,272 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
     cursor: default;
   }
 
-  .stage-nav__progress {
-    min-width: 4rem;
-    text-align: center;
+  .stage-stepper {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(1.5rem, 5vw, 3.5rem);
+  }
+
+  .stage-stepper__line {
+    position: absolute;
+    top: 1.1rem;
+    left: 1.1rem;
+    right: 1.1rem;
+    height: 1px;
+    background: var(--gunmetal-line);
+    z-index: 0;
+  }
+
+  .stage-stepper__node {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--gunmetal-line);
+  }
+
+  .stage-stepper__dot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: var(--gunmetal);
+    border: 1px solid var(--gunmetal-line);
+    transition: border-color 200ms ease, background-color 200ms ease;
+  }
+
+  .stage-stepper__dot :global(.stage-icon) {
+    width: 1.1rem;
+    height: 1.1rem;
+    stroke: var(--gunmetal-line);
+    transition: stroke 200ms ease;
+  }
+
+  .stage-stepper__label {
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--gunmetal-line);
+    transition: color 200ms ease;
+  }
+
+  .stage-stepper__node[aria-current='true'] .stage-stepper__dot {
+    background: var(--aquamarine);
+    border-color: var(--aquamarine);
+  }
+
+  .stage-stepper__node[aria-current='true'] .stage-stepper__dot :global(.stage-icon) {
+    stroke: var(--gunmetal);
+  }
+
+  .stage-stepper__node[aria-current='true'] .stage-stepper__label {
+    color: var(--aquamarine);
   }
 
   @media (max-width: 700px) {
-    .stage-tabs {
+    .stage-stepper__label {
+      display: none;
+    }
+
+    .stage-sequence__footer {
       gap: 1rem;
     }
 
-    .stage-tabs__tab {
-      font-size: var(--step--1);
+    .stage-stepper {
+      gap: 1.25rem;
+    }
+  }
+
+  /* No pinning at all — every panel shown fully, stacked in normal
+     document flow, one after another. The complete, motionless
+     fallback for prefers-reduced-motion and (since this block lives
+     outside any html.js gate) for anyone without JS too. The wrap's
+     height only ever comes from the enhanced rule below — this is
+     just its unenhanced default (auto), not an override of anything. */
+  .stage-sequence-wrap {
+    height: auto;
+  }
+
+  .stage-sequence {
+    position: static;
+  }
+
+  .stage-sequence__progress {
+    display: none;
+  }
+
+  /* No !important: JS sets an inline pixel height on this element in
+     the enhanced case (to match the active panel, since its children
+     go position: absolute and stop contributing to auto height) — an
+     !important rule here would keep clobbering that back to auto and
+     collapse the whole pinned panel to zero height. This plain `auto`
+     only matters pre-JS/reduced-motion, when nothing else sets it. */
+  .stage-sequence__panels {
+    height: auto;
+  }
+
+  .stage-sequence__panels :global(.stage-panel) {
+    position: static;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    padding-block: clamp(2rem, 5vw, 3.5rem);
+    border-bottom: 1px solid var(--gunmetal-line);
+  }
+
+  .stage-sequence__panels :global(.stage-panel:last-child) {
+    border-bottom: none;
+  }
+
+  .stage-nav__btn {
+    display: none;
+  }
+
+  .stage-stepper__node {
+    cursor: default;
+  }
+
+  /* The enhanced, JS + motion-ok version: pin, crossfade, live
+     progress. Everything above is the safe default this overrides. */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html.js) .stage-sequence-wrap {
+      height: calc(var(--stage-count) * var(--dwell-vh) * 1vh);
+    }
+
+    :global(html.js) .stage-sequence {
+      position: sticky;
+    }
+
+    :global(html.js) .stage-sequence__progress {
+      display: block;
+    }
+
+    :global(html.js) .stage-sequence__panels {
+      height: auto;
+    }
+
+    /* Position AND opacity/transform both need to be set here, in the
+       same gated rule as the safe default's opacity:1/position:static
+       — those two rules share a selector (and so a specificity), and
+       the later one in source order wins for any property it doesn't
+       itself set. Leaving opacity out of this block would leave the
+       safe default's opacity:1 undefeated even with JS running, and
+       every panel would show at once instead of crossfading. */
+    :global(html.js) .stage-sequence__panels :global(.stage-panel) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: auto;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 420ms ease, transform 420ms ease;
+      pointer-events: none;
+      padding-block: 0;
+      border-bottom: none;
+    }
+
+    :global(html.js) .stage-sequence__panels :global(.stage-panel.is-active) {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    :global(html.js) .stage-nav__btn {
+      display: flex;
+    }
+
+    :global(html.js) .stage-stepper__node {
+      cursor: pointer;
     }
   }
 </style>
 
 <script>
-  const sequences = document.querySelectorAll<HTMLElement>('[data-stage-sequence]');
+  const wraps = document.querySelectorAll<HTMLElement>('[data-stage-sequence-wrap]');
   const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const header = document.querySelector<HTMLElement>('.site-header');
 
-  sequences.forEach((seq) => {
-    const panelsEl = seq.querySelector<HTMLElement>('.stage-panels');
-    const panels = Array.from(seq.querySelectorAll<HTMLElement>('.stage-panel'));
-    const tabs = Array.from(seq.querySelectorAll<HTMLButtonElement>('.stage-tabs__tab'));
-    const progressEl = seq.querySelector<HTMLElement>('[data-progress]');
-    const prevBtn = seq.querySelector<HTMLButtonElement>('[data-dir="-1"]');
-    const nextBtn = seq.querySelector<HTMLButtonElement>('[data-dir="1"]');
+  if (!prefersReduced) {
+    wraps.forEach((wrap) => {
+      const seq = wrap.querySelector<HTMLElement>('[data-stage-sequence]');
+      const panelsEl = wrap.querySelector<HTMLElement>('[data-stage-panels]');
+      const panels = Array.from(wrap.querySelectorAll<HTMLElement>('.stage-panel'));
+      const nodes = Array.from(wrap.querySelectorAll<HTMLButtonElement>('.stage-stepper__node'));
+      const progressEl = wrap.querySelector<HTMLElement>('[data-progress]');
+      const prevBtn = wrap.querySelector<HTMLButtonElement>('[data-dir="-1"]');
+      const nextBtn = wrap.querySelector<HTMLButtonElement>('[data-dir="1"]');
 
-    if (!panelsEl || !panels.length || !tabs.length) return;
+      if (!seq || !panelsEl || !panels.length) return;
 
-    let current = 0;
+      const headerH = () => header?.offsetHeight ?? 0;
 
-    const setActive = (index: number, scroll = false) => {
-      current = index;
-      tabs.forEach((tab, i) => {
-        if (i === index) tab.setAttribute('aria-current', 'true');
-        else tab.removeAttribute('aria-current');
+      let current = 0;
+
+      const setActive = (index: number) => {
+        current = Math.max(0, Math.min(index, panels.length - 1));
+        panels.forEach((p, i) => p.classList.toggle('is-active', i === current));
+        nodes.forEach((n, i) => {
+          if (i === current) n.setAttribute('aria-current', 'true');
+          else n.removeAttribute('aria-current');
+        });
+        if (prevBtn) prevBtn.disabled = current === 0;
+        if (nextBtn) nextBtn.disabled = current === panels.length - 1;
+        panelsEl.style.height = `${panels[current].offsetHeight}px`;
+      };
+
+      // Jump to a stage by scrolling so its slice of the wrap's pinned
+      // dwell distance is centred under the sticky viewport, rather
+      // than trying to reason about the *current* scroll position.
+      const jumpTo = (index: number) => {
+        const rect = wrap.getBoundingClientRect();
+        const documentTop = window.scrollY + rect.top;
+        const scrollable = wrap.offsetHeight - seq.offsetHeight;
+        const p = (index + 0.5) / panels.length;
+        const targetY = documentTop - headerH() + p * scrollable;
+        window.scrollTo({ top: targetY, behavior: prefersReduced ? 'auto' : 'smooth' });
+      };
+
+      nodes.forEach((node, i) => node.addEventListener('click', () => jumpTo(i)));
+      prevBtn?.addEventListener('click', () => jumpTo(Math.max(current - 1, 0)));
+      nextBtn?.addEventListener('click', () => jumpTo(Math.min(current + 1, panels.length - 1)));
+
+      let ticking = false;
+      const update = () => {
+        const rect = wrap.getBoundingClientRect();
+        const scrollable = wrap.offsetHeight - seq.offsetHeight;
+        const progress = scrollable > 0 ? Math.min(Math.max((headerH() - rect.top) / scrollable, 0), 1) : 0;
+        const index = Math.min(Math.floor(progress * panels.length), panels.length - 1);
+        if (index !== current) setActive(index);
+        if (progressEl) progressEl.textContent = String(Math.round(progress * 100)).padStart(3, '0');
+        ticking = false;
+      };
+
+      setActive(0);
+      update();
+
+      window.addEventListener(
+        'scroll',
+        () => {
+          if (!ticking) {
+            requestAnimationFrame(update);
+            ticking = true;
+          }
+        },
+        { passive: true }
+      );
+      window.addEventListener('resize', () => {
+        panelsEl.style.height = `${panels[current].offsetHeight}px`;
+        update();
       });
-      if (progressEl) {
-        const pct = Math.round(((index + 1) / panels.length) * 100);
-        progressEl.textContent = String(pct).padStart(3, '0');
-      }
-      if (prevBtn) prevBtn.disabled = index === 0;
-      if (nextBtn) nextBtn.disabled = index === panels.length - 1;
-      panelsEl.style.height = `${panels[index].offsetHeight}px`;
-      if (scroll) {
-        panelsEl.scrollTo({
-          left: index * panelsEl.clientWidth,
-          behavior: prefersReduced ? 'auto' : 'smooth',
-        });
-      }
-    };
-
-    tabs.forEach((tab, i) => tab.addEventListener('click', () => setActive(i, true)));
-    prevBtn?.addEventListener('click', () => setActive(Math.max(current - 1, 0), true));
-    nextBtn?.addEventListener('click', () => setActive(Math.min(current + 1, panels.length - 1), true));
-
-    let ticking = false;
-    panelsEl.addEventListener(
-      'scroll',
-      () => {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(() => {
-          const index = Math.round(panelsEl.scrollLeft / panelsEl.clientWidth);
-          if (index !== current) setActive(index);
-          ticking = false;
-        });
-      },
-      { passive: true }
-    );
-
-    // Browsers remap a vertical wheel/trackpad gesture into horizontal
-    // scroll for an element that can *only* scroll horizontally — handy
-    // for a standalone carousel, but here it traps the page's own
-    // vertical scroll the moment the cursor is over the panel strip. A
-    // mostly-vertical gesture should just scroll the page as normal; only
-    // a genuinely horizontal one (trackpad swipe, shift+wheel) should
-    // move the carousel, so it's forwarded to the page manually instead.
-    panelsEl.addEventListener(
-      'wheel',
-      (event) => {
-        if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
-          event.preventDefault();
-          window.scrollBy(0, event.deltaY);
-        }
-      },
-      { passive: false }
-    );
-
-    setActive(0);
-    window.addEventListener('resize', () => setActive(current));
-  });
+    });
+  }
 </script>
