@@ -20,7 +20,7 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
 // dwell in before the next one takes over. Short panels (a sentence)
 // don't need a full screen's worth of scrolling to read, but need
 // enough room that the slide doesn't feel rushed.
-const DWELL_VH = 50;
+const DWELL_VH = 30;
 ---
 
 {eyebrow && <p class="eyebrow stage-sequence-intro">{eyebrow}</p>}
@@ -119,17 +119,24 @@ const DWELL_VH = 50;
 
   /* The wrap breaks out to the full viewport width so the sliding
      window/mask reaches the true screen edges, but the panel's own
-     text needs to start at the same x as the rest of the page's
+     text needs to START at the same x as the rest of the page's
      content (the eyebrow above it included), not at the bare
      --gutter inset from the true edge — those only match at
      viewports narrower than --content-max. Above that width,
      .container centres itself and its text sits (100vw -
-     content-max)/2 + gutter from the edge, so the panel matches that
-     same formula on both sides. Applies in both the pinned/sliding
-     mode and the stacked fallback, since neither later block touches
-     padding-inline. */
+     content-max)/2 + gutter from the edge, so the panel's left inset
+     matches that same formula. The right side deliberately stays at
+     the small --gutter only: since each panel is exactly one window
+     wide, mirroring the large left inset on the right too leaves a
+     big dead zone at both ends of every panel's own box — and two of
+     those (one panel's trailing gap, the next panel's leading gap)
+     land back to back at every transition, showing up as a wide empty
+     stretch between stages while sliding. A narrow right edge keeps
+     that boundary tight. Applies in both the pinned/sliding mode and
+     the stacked fallback, since neither later block touches padding. */
   .stage-sequence__panels :global(.stage-panel) {
-    padding-inline: max(var(--gutter), calc((100vw - var(--content-max)) / 2 + var(--gutter)));
+    padding-left: max(var(--gutter), calc((100vw - var(--content-max)) / 2 + var(--gutter)));
+    padding-right: var(--gutter);
   }
 
   .stage-sequence__panels :global(.stage-number) {
@@ -474,7 +481,17 @@ const DWELL_VH = 50;
 
       if (!seq || !panelsEl || !track || !N) return;
 
-      const headerH = () => header?.offsetHeight ?? 0;
+      // Cached, not read live in the scroll handler: getBoundingClientRect()
+      // and offsetHeight both force a synchronous layout recalculation, and
+      // update() below used to call both on every single scroll frame.
+      // Lenis fires a native 'scroll' event on every one of its own eased
+      // animation frames, so that was a forced layout on every frame of
+      // every scroll on the page — a textbook cause of scroll jank. None
+      // of these three actually change while scrolling (only on resize/
+      // reflow), so they're measured once up front and the scroll handler
+      // does only cheap arithmetic against window.scrollY.
+      let documentTop = 0;
+      let headerHeight = 0;
 
       // The window is never resized per active panel — it stays at
       // the track's natural height (the tallest panel, ordinary
@@ -488,7 +505,10 @@ const DWELL_VH = 50;
       // section's entire scroll range, so it only needs computing
       // once (and on resize), never inside the scroll handler.
       let scrollable = 0;
-      const recomputeScrollable = () => {
+
+      const measure = () => {
+        headerHeight = header?.offsetHeight ?? 0;
+        documentTop = window.scrollY + wrap.getBoundingClientRect().top;
         scrollable = wrap.offsetHeight - seq.offsetHeight;
       };
 
@@ -510,10 +530,8 @@ const DWELL_VH = 50;
       // dwell distance is centred under the sticky viewport, rather
       // than trying to reason about the *current* scroll position.
       const jumpTo = (index: number) => {
-        const rect = wrap.getBoundingClientRect();
-        const documentTop = window.scrollY + rect.top;
         const p = (index + 0.5) / N;
-        const targetY = documentTop - headerH() + p * scrollable;
+        const targetY = documentTop - headerHeight + p * scrollable;
         window.scrollTo({ top: targetY, behavior: 'smooth' });
       };
 
@@ -523,8 +541,8 @@ const DWELL_VH = 50;
 
       let ticking = false;
       const update = () => {
-        const rect = wrap.getBoundingClientRect();
-        const progress = scrollable > 0 ? Math.min(Math.max((headerH() - rect.top) / scrollable, 0), 1) : 0;
+        const viewportTop = documentTop - window.scrollY;
+        const progress = scrollable > 0 ? Math.min(Math.max((headerHeight - viewportTop) / scrollable, 0), 1) : 0;
 
         // The slide is a direct, continuous function of scroll
         // position — set every frame, no CSS transition involved —
@@ -543,7 +561,7 @@ const DWELL_VH = 50;
       };
 
       setActive(0);
-      recomputeScrollable();
+      measure();
       update();
 
       window.addEventListener(
@@ -557,7 +575,7 @@ const DWELL_VH = 50;
         { passive: true }
       );
       window.addEventListener('resize', () => {
-        recomputeScrollable();
+        measure();
         update();
       });
     });
