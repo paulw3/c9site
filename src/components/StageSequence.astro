@@ -23,48 +23,68 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
 const DWELL_VH = 70;
 ---
 
-{eyebrow && <p class="eyebrow stage-sequence-intro">{eyebrow}</p>}
+{/* Groups the wrap with its mobile position indicator (below) so the
+   script can pair them by DOM proximity, and so the indicator — despite
+   being visually unrelated to the wrap's own full-bleed breakout — still
+   sits in the same document position as the rest of this component. */}
+<div class="stage-sequence-root" data-stage-sequence-root>
+  {eyebrow && <p class="eyebrow stage-sequence-intro">{eyebrow}</p>}
 
-<div
-  class="stage-sequence-wrap"
-  data-stage-sequence-wrap
-  style={`--stage-count: ${stages.length}; --dwell-vh: ${DWELL_VH};`}
->
-  <section class="stage-sequence" data-stage-sequence>
-    <p class="stage-sequence__progress mono-tag"><span data-progress>000</span>%</p>
+  <div
+    class="stage-sequence-wrap"
+    data-stage-sequence-wrap
+    style={`--stage-count: ${stages.length}; --dwell-vh: ${DWELL_VH};`}
+  >
+    <section class="stage-sequence" data-stage-sequence>
+      <p class="stage-sequence__progress mono-tag"><span data-progress>000</span>%</p>
 
-    <div class="stage-sequence__panels" data-stage-panels>
-      <div class="stage-sequence__track" data-stage-track>
-        <slot />
-      </div>
-    </div>
-
-    <div class="stage-sequence__footer">
-      <button type="button" class="stage-nav__btn" data-dir="-1" aria-label="Previous stage">
-        <svg viewBox="0 0 24 24" focusable="false"><path d="M15,5 L8,12 L15,19" /></svg>
-      </button>
-
-      <div class="stage-stepper" data-stage-stepper>
-        <div class="stage-stepper__line" aria-hidden="true"></div>
-        {stages.map((label, i) => (
-          <button
-            type="button"
-            class="stage-stepper__node"
-            data-index={i}
-            aria-current={i === 0 ? 'true' : undefined}
-            aria-label={`Jump to ${label}`}
-          >
-            <span class="stage-stepper__dot"><StageIcon stage={iconFor(label)} /></span>
-            <span class="stage-stepper__label">{label}</span>
-          </button>
-        ))}
+      <div class="stage-sequence__panels" data-stage-panels>
+        <div class="stage-sequence__track" data-stage-track>
+          <slot />
+        </div>
       </div>
 
-      <button type="button" class="stage-nav__btn" data-dir="1" aria-label="Next stage">
-        <svg viewBox="0 0 24 24" focusable="false"><path d="M9,5 L16,12 L9,19" /></svg>
-      </button>
-    </div>
-  </section>
+      <div class="stage-sequence__footer">
+        <button type="button" class="stage-nav__btn" data-dir="-1" aria-label="Previous stage">
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M15,5 L8,12 L15,19" /></svg>
+        </button>
+
+        <div class="stage-stepper" data-stage-stepper>
+          <div class="stage-stepper__line" aria-hidden="true"></div>
+          {stages.map((label, i) => (
+            <button
+              type="button"
+              class="stage-stepper__node"
+              data-index={i}
+              aria-current={i === 0 ? 'true' : undefined}
+              aria-label={`Jump to ${label}`}
+            >
+              <span class="stage-stepper__dot"><StageIcon stage={iconFor(label)} /></span>
+              <span class="stage-stepper__label">{label}</span>
+            </button>
+          ))}
+        </div>
+
+        <button type="button" class="stage-nav__btn" data-dir="1" aria-label="Next stage">
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M9,5 L16,12 L9,19" /></svg>
+        </button>
+      </div>
+    </section>
+  </div>
+
+  {/* Mobile-only reading-position indicator: a small floating, translucent
+     pill fixed to the right edge, shown only while this section is on
+     screen, with the stage nearest the viewport's vertical centre lit up.
+     Replaces the desktop footer's stepper below 700px — that one has no
+     touch/tap handlers wired up on mobile (see the script's isNarrow
+     guard) and, once the stage sequence became a plain stacked scroll
+     there, ended up sitting inertly after all three panels rather than
+     tracking anything. */}
+  <div class="stage-mobile-indicator" data-stage-mobile-indicator aria-hidden="true">
+    {stages.map((_, i) => (
+      <span class="stage-mobile-indicator__dot" data-index={i}>{String(i + 1).padStart(2, '0')}</span>
+    ))}
+  </div>
 </div>
 
 <style>
@@ -213,6 +233,17 @@ const DWELL_VH = 70;
     .stage-sequence__panels :global(.stage-panel__domains) {
       grid-template-columns: 1fr;
     }
+
+    /* Extra clearance on top of the panel's own right padding so body
+       copy never runs under the floating .stage-mobile-indicator pill
+       (fixed at a similar right offset, further down this file) — at
+       narrow widths the plain gutter alone isn't wide enough to hold
+       the pill without it overlapping the last few characters of a
+       line, which read as cut off since the pill's translucent
+       background dims whatever sits behind it. */
+    .stage-sequence__panels :global(.stage-panel) {
+      padding-right: calc(var(--gutter) + 2.75rem);
+    }
   }
 
   .stage-sequence__footer {
@@ -328,16 +359,56 @@ const DWELL_VH = 70;
   }
 
   @media (max-width: 700px) {
-    .stage-stepper__label {
+    /* Non-functional here: the stacked mobile layout has no pinned
+       scroll to track, and the stepper's jump-to clicks and prev/next
+       buttons are only wired up when !isNarrow (see the script below).
+       The floating .stage-mobile-indicator replaces it. */
+    .stage-sequence__footer {
       display: none;
     }
+  }
 
-    .stage-sequence__footer {
-      gap: 1rem;
+  .stage-mobile-indicator {
+    display: none;
+  }
+
+  @media (max-width: 700px) {
+    .stage-mobile-indicator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.65rem;
+      position: fixed;
+      z-index: 20;
+      right: 0.65rem;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0.85rem 0.5rem;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--gunmetal) 55%, transparent);
+      border: 1px solid color-mix(in srgb, var(--white-smoke) 18%, transparent);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms ease;
     }
 
-    .stage-stepper {
-      gap: 1.25rem;
+    .stage-mobile-indicator.is-visible {
+      opacity: 1;
+    }
+
+    .stage-mobile-indicator__dot {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.65rem;
+      letter-spacing: 0.02em;
+      color: color-mix(in srgb, var(--white-smoke) 40%, transparent);
+      transition: color 200ms ease;
+    }
+
+    .stage-mobile-indicator__dot.is-active {
+      color: var(--aquamarine);
     }
   }
 
@@ -637,6 +708,54 @@ const DWELL_VH = 70;
         measure();
         update();
       });
+    });
+  }
+
+  // Mobile reading-position indicator: independent of prefersReduced
+  // (it's a passive position readout, not a scroll-hijack — nothing
+  // here forces the page to scroll anywhere), gated only on isNarrow
+  // since it's replacing the desktop footer's stepper specifically for
+  // the stacked mobile layout above.
+  if (isNarrow) {
+    wraps.forEach((wrap) => {
+      const root = wrap.closest<HTMLElement>('[data-stage-sequence-root]');
+      const indicator = root?.querySelector<HTMLElement>('[data-stage-mobile-indicator]');
+      const panels = Array.from(wrap.querySelectorAll<HTMLElement>('.stage-panel'));
+      const dots = indicator ? Array.from(indicator.querySelectorAll<HTMLElement>('[data-index]')) : [];
+
+      if (!indicator || !panels.length || !dots.length) return;
+
+      const setActive = (index: number) => {
+        dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
+      };
+
+      // Only floats on screen while the stage sequence itself is in
+      // view — no point in a "01/02/03" reading it makes no sense
+      // pointing at once the section has scrolled away.
+      const visibilityObserver = new IntersectionObserver(
+        ([entry]) => indicator.classList.toggle('is-visible', entry.isIntersecting),
+        { threshold: 0 }
+      );
+      visibilityObserver.observe(wrap);
+
+      // Shrinks the observed viewport to a 1px-tall line at its
+      // vertical centre (via equal negative top/bottom rootMargin), so
+      // a panel counts as "current" exactly when it crosses the
+      // centre of the screen — the standard IntersectionObserver
+      // scrollspy technique.
+      const panelObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const index = panels.indexOf(entry.target as HTMLElement);
+            if (index !== -1) setActive(index);
+          });
+        },
+        { rootMargin: '-50% 0px -50% 0px', threshold: 0 }
+      );
+      panels.forEach((panel) => panelObserver.observe(panel));
+
+      setActive(0);
     });
   }
 </script>
