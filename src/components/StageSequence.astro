@@ -1,12 +1,11 @@
 ---
 // The one deliberate scrollytelling set-piece on the two pillar pages,
 // after the weevolveit.com reference: the section pins below the header
-// and consumes vertical scroll to step through the stages, each one a
-// giant ghost numeral behind short, terse copy, crossfading into the
-// next as you scroll rather than requiring a horizontal swipe. A bottom
-// stepper and prev/next controls let you jump directly. Uses the same
-// sticky + scroll-progress mechanism as Hero.astro's pinned reveal (a
-// pattern already proven stable on this site), not a new one.
+// and consumes vertical scroll to slide horizontally through Design/
+// Engineer/Run, a giant ghost numeral behind each. A bottom stepper and
+// prev/next controls let you jump directly. Uses the same sticky +
+// scroll-progress mechanism as Hero.astro's pinned reveal (a pattern
+// already proven stable on this site), not a new one.
 import StageIcon from './StageIcon.astro';
 
 interface Props {
@@ -19,7 +18,7 @@ const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' 
 // How much scroll distance (in viewport-heights) each stage gets to
 // dwell in before the next one takes over. Short panels (a sentence)
 // don't need a full screen's worth of scrolling to read, but need
-// enough room that the crossfade doesn't feel rushed.
+// enough room that the slide doesn't feel rushed.
 const DWELL_VH = 75;
 ---
 
@@ -32,7 +31,9 @@ const DWELL_VH = 75;
     <p class="stage-sequence__progress mono-tag"><span data-progress>000</span>%</p>
 
     <div class="stage-sequence__panels" data-stage-panels>
-      <slot />
+      <div class="stage-sequence__track" data-stage-track>
+        <slot />
+      </div>
     </div>
 
     <div class="stage-sequence__footer">
@@ -89,7 +90,7 @@ const DWELL_VH = 75;
 
   .stage-sequence__panels {
     position: relative;
-    transition: height 300ms ease;
+    overflow: hidden;
   }
 
   .stage-sequence__panels :global(.stage-number) {
@@ -109,9 +110,7 @@ const DWELL_VH = 75;
 
   /* Child combinator, not descendant: this must only reach the panel's
      own intro/closing prose, not paragraphs nested inside
-     .stage-panel__domains further down — see the equivalent note this
-     replaced in the horizontal-carousel version of this component for
-     why a descendant selector here is the wrong call. */
+     .stage-panel__domains further down. */
   .stage-sequence__panels :global(.stage-panel > p) {
     margin-top: 1.25rem;
     color: var(--silver);
@@ -299,9 +298,7 @@ const DWELL_VH = 75;
   /* No pinning at all — every panel shown fully, stacked in normal
      document flow, one after another. The complete, motionless
      fallback for prefers-reduced-motion and (since this block lives
-     outside any html.js gate) for anyone without JS too. The wrap's
-     height only ever comes from the enhanced rule below — this is
-     just its unenhanced default (auto), not an override of anything. */
+     outside any html.js gate) for anyone without JS too. */
   .stage-sequence-wrap {
     height: auto;
   }
@@ -314,21 +311,15 @@ const DWELL_VH = 75;
     display: none;
   }
 
-  /* No !important: JS sets an inline pixel height on this element in
-     the enhanced case (to match the active panel, since its children
-     go position: absolute and stop contributing to auto height) — an
-     !important rule here would keep clobbering that back to auto and
-     collapse the whole pinned panel to zero height. This plain `auto`
-     only matters pre-JS/reduced-motion, when nothing else sets it. */
   .stage-sequence__panels {
-    height: auto;
+    overflow: visible;
+  }
+
+  .stage-sequence__track {
+    display: block;
   }
 
   .stage-sequence__panels :global(.stage-panel) {
-    position: static;
-    opacity: 1;
-    transform: none;
-    pointer-events: auto;
     padding-block: clamp(2rem, 5vw, 3.5rem);
     border-bottom: 1px solid var(--gunmetal-line);
   }
@@ -345,8 +336,17 @@ const DWELL_VH = 75;
     cursor: default;
   }
 
-  /* The enhanced, JS + motion-ok version: pin, crossfade, live
-     progress. Everything above is the safe default this overrides. */
+  /* The enhanced, JS + motion-ok version: pin, slide, live progress.
+     Everything above is the safe default this overrides. The slide
+     itself (track's transform) is set directly from the live scroll
+     position every frame in the script below — not a CSS transition —
+     so it tracks the scrollbar 1:1 with zero lag. Nothing here or in
+     the script ever measures a height that's mid-transition, which is
+     what caused this component's earlier jitter: the scroll-progress
+     math read the panel container's own height every frame while that
+     height was itself mid-animation, so each frame's "how far through
+     the section am I" answer depended slightly on the previous
+     frame's animation state instead of purely on scroll position. */
   @media (prefers-reduced-motion: no-preference) {
     :global(html.js) .stage-sequence-wrap {
       height: calc(var(--stage-count) * var(--dwell-vh) * 1vh);
@@ -361,34 +361,27 @@ const DWELL_VH = 75;
     }
 
     :global(html.js) .stage-sequence__panels {
-      height: auto;
+      overflow: hidden;
     }
 
-    /* Position AND opacity/transform both need to be set here, in the
-       same gated rule as the safe default's opacity:1/position:static
-       — those two rules share a selector (and so a specificity), and
-       the later one in source order wins for any property it doesn't
-       itself set. Leaving opacity out of this block would leave the
-       safe default's opacity:1 undefeated even with JS running, and
-       every panel would show at once instead of crossfading. */
+    /* The window's height stays fixed to the tallest panel for the
+       whole section (see the script's scrollable-distance comment for
+       why), so a shorter panel has real spare room beneath it.
+       Centering distributes that room above and below rather than
+       leaving it all as a single gap under the content, which reads
+       as intentional breathing room rather than a layout mistake. */
+    :global(html.js) .stage-sequence__track {
+      display: flex;
+      align-items: center;
+      width: calc(var(--stage-count) * 100%);
+      will-change: transform;
+    }
+
     :global(html.js) .stage-sequence__panels :global(.stage-panel) {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: auto;
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 420ms ease, transform 420ms ease;
-      pointer-events: none;
+      flex: 0 0 calc(100% / var(--stage-count));
+      min-width: 0;
       padding-block: 0;
       border-bottom: none;
-    }
-
-    :global(html.js) .stage-sequence__panels :global(.stage-panel.is-active) {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
     }
 
     :global(html.js) .stage-nav__btn {
@@ -410,28 +403,44 @@ const DWELL_VH = 75;
     wraps.forEach((wrap) => {
       const seq = wrap.querySelector<HTMLElement>('[data-stage-sequence]');
       const panelsEl = wrap.querySelector<HTMLElement>('[data-stage-panels]');
+      const track = wrap.querySelector<HTMLElement>('[data-stage-track]');
       const panels = Array.from(wrap.querySelectorAll<HTMLElement>('.stage-panel'));
       const nodes = Array.from(wrap.querySelectorAll<HTMLButtonElement>('.stage-stepper__node'));
       const progressEl = wrap.querySelector<HTMLElement>('[data-progress]');
       const prevBtn = wrap.querySelector<HTMLButtonElement>('[data-dir="-1"]');
       const nextBtn = wrap.querySelector<HTMLButtonElement>('[data-dir="1"]');
+      const N = panels.length;
 
-      if (!seq || !panelsEl || !panels.length) return;
+      if (!seq || !panelsEl || !track || !N) return;
 
       const headerH = () => header?.offsetHeight ?? 0;
+
+      // The window is never resized per active panel — it stays at
+      // the track's natural height (the tallest panel, ordinary
+      // flex-row sizing) for the whole pinned section. That was the
+      // earlier source of jitter: shrinking it to fit whichever panel
+      // is active changes seq's real height, which changes exactly
+      // when the browser's native position: sticky actually releases
+      // — so any cached scroll-distance figure silently drifts out of
+      // sync with reality the moment a non-tallest panel is active.
+      // Leaving the height alone keeps that geometry fixed for the
+      // section's entire scroll range, so it only needs computing
+      // once (and on resize), never inside the scroll handler.
+      let scrollable = 0;
+      const recomputeScrollable = () => {
+        scrollable = wrap.offsetHeight - seq.offsetHeight;
+      };
 
       let current = 0;
 
       const setActive = (index: number) => {
-        current = Math.max(0, Math.min(index, panels.length - 1));
-        panels.forEach((p, i) => p.classList.toggle('is-active', i === current));
+        current = Math.max(0, Math.min(index, N - 1));
         nodes.forEach((n, i) => {
           if (i === current) n.setAttribute('aria-current', 'true');
           else n.removeAttribute('aria-current');
         });
         if (prevBtn) prevBtn.disabled = current === 0;
-        if (nextBtn) nextBtn.disabled = current === panels.length - 1;
-        panelsEl.style.height = `${panels[current].offsetHeight}px`;
+        if (nextBtn) nextBtn.disabled = current === N - 1;
       };
 
       // Jump to a stage by scrolling so its slice of the wrap's pinned
@@ -440,28 +449,38 @@ const DWELL_VH = 75;
       const jumpTo = (index: number) => {
         const rect = wrap.getBoundingClientRect();
         const documentTop = window.scrollY + rect.top;
-        const scrollable = wrap.offsetHeight - seq.offsetHeight;
-        const p = (index + 0.5) / panels.length;
+        const p = (index + 0.5) / N;
         const targetY = documentTop - headerH() + p * scrollable;
-        window.scrollTo({ top: targetY, behavior: prefersReduced ? 'auto' : 'smooth' });
+        window.scrollTo({ top: targetY, behavior: 'smooth' });
       };
 
       nodes.forEach((node, i) => node.addEventListener('click', () => jumpTo(i)));
       prevBtn?.addEventListener('click', () => jumpTo(Math.max(current - 1, 0)));
-      nextBtn?.addEventListener('click', () => jumpTo(Math.min(current + 1, panels.length - 1)));
+      nextBtn?.addEventListener('click', () => jumpTo(Math.min(current + 1, N - 1)));
 
       let ticking = false;
       const update = () => {
         const rect = wrap.getBoundingClientRect();
-        const scrollable = wrap.offsetHeight - seq.offsetHeight;
         const progress = scrollable > 0 ? Math.min(Math.max((headerH() - rect.top) / scrollable, 0), 1) : 0;
-        const index = Math.min(Math.floor(progress * panels.length), panels.length - 1);
+
+        // The slide is a direct, continuous function of scroll
+        // position — set every frame, no CSS transition involved —
+        // so it always exactly matches the scrollbar with no lag and
+        // nothing to desync. translateX is a percentage of the
+        // track's OWN width (N screens wide), so the fraction of
+        // travel needed to move from panel 0 to panel N-1 is
+        // (N-1)/N, not 100%.
+        const travel = (progress * (N - 1) * 100) / N;
+        track.style.transform = `translateX(-${travel}%)`;
+
+        const index = Math.min(Math.round(progress * (N - 1)), N - 1);
         if (index !== current) setActive(index);
         if (progressEl) progressEl.textContent = String(Math.round(progress * 100)).padStart(3, '0');
         ticking = false;
       };
 
       setActive(0);
+      recomputeScrollable();
       update();
 
       window.addEventListener(
@@ -475,7 +494,7 @@ const DWELL_VH = 75;
         { passive: true }
       );
       window.addEventListener('resize', () => {
-        panelsEl.style.height = `${panels[current].offsetHeight}px`;
+        recomputeScrollable();
         update();
       });
     });
