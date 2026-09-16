@@ -169,7 +169,7 @@ import CTAButton from '../components/CTAButton.astro';
         </p>
 
         <div class="vm-runtime__lists">
-          <div>
+          <div class="vm-runtime__list-card">
             <h4>What you get</h4>
             <ul>
               <li>CLI, APIs and Google Cloud console management patterns</li>
@@ -178,7 +178,7 @@ import CTAButton from '../components/CTAButton.astro';
               <li>GPU support for VMs (Preview)</li>
             </ul>
           </div>
-          <div>
+          <div class="vm-runtime__list-card">
             <h4>Why it matters</h4>
             <ul>
               <li>No premature containerisation of applications that aren't ready</li>
@@ -418,6 +418,12 @@ import CTAButton from '../components/CTAButton.astro';
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(1.5rem, 4vw, 3rem);
     text-align: left;
+  }
+
+  .vm-runtime__list-card {
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
   }
 
   .vm-runtime__lists h4 {
