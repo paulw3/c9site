@@ -108,27 +108,32 @@ import CTAButton from '../components/CTAButton.astro';
         </p>
 
         <div class="vm-runtime__diagram" aria-hidden="true">
-          <div class="vm-runtime__boxes">
-            <div class="vm-runtime__box">
-              <svg viewBox="0 0 24 24" class="vm-runtime__icon" focusable="false">
-                <rect x="4" y="4" width="12" height="12" rx="2" />
-                <rect x="8" y="8" width="12" height="12" rx="2" />
-              </svg>
-              <span>Containers</span>
+          <div class="vm-runtime__platform">
+            <div class="vm-runtime__boxes">
+              <div class="vm-runtime__col">
+                <div class="vm-runtime__box">
+                  <svg viewBox="0 0 24 24" class="vm-runtime__icon" focusable="false">
+                    <rect x="4" y="4" width="12" height="12" rx="2" />
+                    <rect x="8" y="8" width="12" height="12" rx="2" />
+                  </svg>
+                  <span>Containers</span>
+                </div>
+                <div class="vm-runtime__connector"></div>
+              </div>
+              <div class="vm-runtime__col">
+                <div class="vm-runtime__box">
+                  <svg viewBox="0 0 24 24" class="vm-runtime__icon" focusable="false">
+                    <rect x="3" y="4" width="18" height="12" rx="1.5" />
+                    <path d="M12,16 L12,20" />
+                    <path d="M9,20 L15,20" />
+                  </svg>
+                  <span>VMs</span>
+                </div>
+                <div class="vm-runtime__connector"></div>
+              </div>
             </div>
-            <div class="vm-runtime__box">
-              <svg viewBox="0 0 24 24" class="vm-runtime__icon" focusable="false">
-                <rect x="3" y="4" width="18" height="12" rx="1.5" />
-                <path d="M12,16 L12,20" />
-                <path d="M9,20 L15,20" />
-              </svg>
-              <span>VMs</span>
-            </div>
+            <div class="vm-runtime__base">GDC / Kubernetes</div>
           </div>
-          <svg viewBox="0 0 24 24" class="vm-runtime__chevron" focusable="false">
-            <path d="M6,10 L12,15 L18,10" />
-          </svg>
-          <div class="vm-runtime__base">GDC / Kubernetes</div>
         </div>
 
         <p class="vm-runtime__stat mono-tag">
@@ -226,9 +231,32 @@ import CTAButton from '../components/CTAButton.astro';
     align-items: center;
   }
 
+  /* The whole point of this diagram: Containers and VMs are not two
+     separate things pointing at GDC, they sit inside it. So it's a
+     single enclosing panel (border + tint) with the boxes resting on
+     the labeled base, not a floating arrow between two shapes. */
+  .vm-runtime__platform {
+    width: 100%;
+    max-width: 26rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid color-mix(in srgb, var(--aquamarine) 35%, transparent);
+    border-radius: var(--border-radius);
+    background: color-mix(in srgb, var(--aquamarine) 5%, transparent);
+    padding: 1.75rem 1.5rem 0;
+    overflow: hidden;
+  }
+
   .vm-runtime__boxes {
     display: flex;
     gap: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .vm-runtime__col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .vm-runtime__box {
@@ -256,28 +284,23 @@ import CTAButton from '../components/CTAButton.astro';
     stroke-linejoin: round;
   }
 
-  .vm-runtime__chevron {
-    width: 1.5rem;
+  .vm-runtime__connector {
+    width: 1px;
     height: 1.5rem;
-    fill: none;
-    stroke: var(--gunmetal-line);
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    margin-block: 0.25rem;
+    background: color-mix(in srgb, var(--aquamarine) 55%, transparent);
   }
 
   .vm-runtime__base {
     width: 100%;
-    max-width: 24rem;
+    margin-top: -1px;
     padding: 0.85rem;
-    border-radius: var(--border-radius);
-    background: color-mix(in srgb, var(--aquamarine) 14%, var(--gunmetal));
-    border: 1px solid color-mix(in srgb, var(--aquamarine) 40%, transparent);
+    background: color-mix(in srgb, var(--aquamarine) 16%, var(--gunmetal));
+    border-top: 1px solid color-mix(in srgb, var(--aquamarine) 35%, transparent);
     color: var(--aquamarine);
     font-family: var(--font-display);
     font-weight: 700;
     letter-spacing: 0.02em;
+    text-align: center;
   }
 
   .vm-runtime__stat {
