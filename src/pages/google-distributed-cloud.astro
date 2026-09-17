@@ -143,7 +143,7 @@ import CTAButton from '../components/CTAButton.astro';
   <section class="section-tight section-raised">
     <div class="container">
       <div class="modes">
-        <h2>Two ways to deploy, one regulator decides which</h2>
+        <h2>Two delivery models. Your regulator chooses.</h2>
         <p class="lede">
           Both are genuine GDC, not a workaround. C-9INE delivers both, so the choice is driven
           by what your regulator requires, not by what we happen to be able to build.
@@ -537,12 +537,53 @@ import CTAButton from '../components/CTAButton.astro';
 
   <section class="section-tight">
     <div class="container">
-      <ProofPoint eyebrow="Proof">
-        Deployed for tier-one Saudi banks and a financial regulator, in the region's strictest
-        regulatory environment, including Google Cloud's own Dammam region (me-central2) and the
-        Class C licence CST granted it there.
-      </ProofPoint>
-      <p class="proof-note mono-tag">Anonymised references, pending client approval to name.</p>
+      <div class="proof">
+        <ProofPoint eyebrow="Proof">
+          Live Saudi GDC delivery, not theoretical: a national regulator, a tier-one commercial
+          bank, and a large-scale production rollout.
+        </ProofPoint>
+        <p class="lede proof__context">
+          Delivered in the region's strictest regulatory environment, alongside Google Cloud's
+          own Dammam region (me-central2) and the Class C licence CST granted it there.
+        </p>
+
+        <div class="proof__grid">
+          <div class="proof__card">
+            <p class="proof__card-tag mono-tag">Regulatory baseline</p>
+            <p class="proof__card-desc">
+              GDC software-only validated against sovereign data, operational compliance and
+              security expectations, for a national financial regulator.
+            </p>
+          </div>
+          <div class="proof__card">
+            <p class="proof__card-tag mono-tag">Tier-one commercial bank</p>
+            <p class="proof__card-desc">
+              Mission-critical legacy applications and microservices coexisting on
+              customer-owned infrastructure, in production.
+            </p>
+          </div>
+          <div class="proof__card">
+            <p class="proof__card-tag mono-tag">Large-scale production rollout</p>
+            <p class="proof__card-desc">
+              Anthos-to-GDC migration path and multi-cluster architecture readiness, delivered
+              at scale.
+            </p>
+          </div>
+        </div>
+
+        <div class="proof__assets">
+          <span class="proof__assets-label mono-tag">Reusable assets</span>
+          <div class="proof__tags">
+            <span class="proof__tag mono-tag">HLD/LLD baselines</span>
+            <span class="proof__tag mono-tag">VM Runtime validation</span>
+            <span class="proof__tag mono-tag">Multi-DC bare-metal design</span>
+            <span class="proof__tag mono-tag">Migration factory runbooks</span>
+            <span class="proof__tag mono-tag">Operational handover model</span>
+          </div>
+        </div>
+
+        <p class="proof-note mono-tag">Anonymised references, pending client approval to name.</p>
+      </div>
     </div>
   </section>
 
@@ -658,7 +699,69 @@ import CTAButton from '../components/CTAButton.astro';
   }
 
   .proof-note {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .proof__context {
+    margin-top: 1.25rem;
+    max-width: 46rem;
+  }
+
+  .proof__grid {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .proof__card {
+    padding: 1.25rem;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    background: var(--gunmetal-raised);
+  }
+
+  .proof__card-tag {
+    color: var(--aquamarine);
+  }
+
+  .proof__card-desc {
+    margin-top: 0.6rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.45;
+  }
+
+  .proof__assets {
+    margin-top: clamp(2rem, 4vw, 2.75rem);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.75rem 0.6rem;
+  }
+
+  .proof__assets-label {
+    color: var(--silver);
+  }
+
+  .proof__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .proof__tag {
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--gunmetal-line);
+    background: color-mix(in srgb, var(--silver) 6%, transparent);
+    color: var(--silver);
+  }
+
+  @media (max-width: 800px) {
+    .proof__grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   .vm-runtime {
