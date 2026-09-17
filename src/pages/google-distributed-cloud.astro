@@ -46,11 +46,64 @@ import CTAButton from '../components/CTAButton.astro';
             <span class="gdc-layer__label mono-tag">Your data centre</span>
             <p class="gdc-layer__desc">Supported x86 servers · your network, storage and security</p>
             <div class="gdc-layer gdc-layer--mid" data-reveal style="transition-delay:150ms">
-              <span class="gdc-layer__label mono-tag">GDC software-only</span>
-              <p class="gdc-layer__desc">GKE-based Kubernetes · fleet · policy · observability · lifecycle</p>
+              <span class="gdc-layer__label mono-tag">GDC software-only: GKE-based Kubernetes</span>
+              <div class="gdc-icon-row">
+                <div class="gdc-icon-item">
+                  <svg class="gdc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M4,12 A8,8 0 0 1 18.5,7" />
+                    <path d="M18.5,7 L19.5,3.5 M18.5,7 L15,6.3" />
+                    <path d="M20,12 A8,8 0 0 1 5.5,17" />
+                    <path d="M5.5,17 L4.5,20.5 M5.5,17 L9,17.7" />
+                  </svg>
+                  <span>Config Sync</span>
+                </div>
+                <div class="gdc-icon-item">
+                  <svg class="gdc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M12,3 L20,6 L20,12 C20,17 16.5,20.5 12,22 C7.5,20.5 4,17 4,12 L4,6 Z" />
+                    <path d="M8.5,12 L11,14.5 L16,9" />
+                  </svg>
+                  <span>Policy Controller</span>
+                </div>
+                <div class="gdc-icon-item">
+                  <svg class="gdc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <circle cx="5" cy="6" r="2.2" />
+                    <circle cx="19" cy="6" r="2.2" />
+                    <circle cx="12" cy="13" r="2.2" />
+                    <circle cx="5" cy="20" r="2.2" />
+                    <circle cx="19" cy="20" r="2.2" />
+                    <path d="M6.7,7.3 L10.4,11.5 M17.3,7.3 L13.6,11.5 M10.4,14.5 L6.7,18.7 M13.6,14.5 L17.3,18.7" />
+                  </svg>
+                  <span>Cloud Service Mesh</span>
+                </div>
+                <div class="gdc-icon-item">
+                  <svg class="gdc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <rect x="3" y="4" width="7" height="7" rx="1.2" />
+                    <rect x="14" y="4" width="7" height="7" rx="1.2" />
+                    <rect x="3" y="15" width="7" height="7" rx="1.2" />
+                    <rect x="14" y="15" width="7" height="7" rx="1.2" />
+                  </svg>
+                  <span>Fleet management</span>
+                </div>
+              </div>
               <div class="gdc-layer gdc-layer--inner" data-reveal style="transition-delay:300ms">
                 <span class="gdc-layer__label mono-tag">Workloads</span>
-                <p class="gdc-layer__desc">Containers · VMs · future specialised workloads</p>
+                <div class="gdc-icon-row gdc-icon-row--workloads">
+                  <div class="gdc-icon-item">
+                    <svg class="gdc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <rect x="4" y="4" width="12" height="12" rx="2" />
+                      <rect x="8" y="8" width="12" height="12" rx="2" />
+                    </svg>
+                    <span>Containers</span>
+                  </div>
+                  <div class="gdc-icon-item">
+                    <svg class="gdc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <rect x="3" y="4" width="18" height="12" rx="1.5" />
+                      <path d="M12,16 L12,20" />
+                      <path d="M9,20 L15,20" />
+                    </svg>
+                    <span>VM Runtime</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -87,6 +140,49 @@ import CTAButton from '../components/CTAButton.astro';
     </div>
   </section>
 
+  <section class="section-tight section-raised">
+    <div class="container">
+      <div class="modes">
+        <h2>Two ways to deploy, one regulator decides which</h2>
+        <p class="lede">
+          Both are genuine GDC, not a workaround. C-9INE delivers both, so the choice is driven
+          by what your regulator requires, not by what we happen to be able to build.
+        </p>
+
+        <div class="modes__grid">
+          <div class="modes__card">
+            <svg class="modes__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M4,10 L4,20 L20,20 L20,10" />
+              <path d="M2,10 L12,3 L22,10 Z" />
+              <path d="M9,20 L9,14 L15,14 L15,20" />
+            </svg>
+            <h4>GDC software-only</h4>
+            <p class="mono-tag modes__tag">Connected</p>
+            <ul>
+              <li>Runs on your own supported x86 servers, in your data centre</li>
+              <li>A lightweight connect agent registers clusters to your fleet in Google Cloud</li>
+              <li>Fastest path to production; reuses your existing hardware investment</li>
+            </ul>
+          </div>
+          <div class="modes__card">
+            <svg class="modes__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12,3 L20,6 L20,12 C20,17 16.5,20.5 12,22 C7.5,20.5 4,17 4,12 L4,6 Z" />
+              <rect x="9" y="11" width="6" height="5" rx="1" />
+              <path d="M10.2,11 L10.2,9.2 A1.8,1.8 0 0 1 13.8,9.2 L13.8,11" />
+            </svg>
+            <h4>GDC air-gapped</h4>
+            <p class="mono-tag modes__tag">Fully isolated</p>
+            <ul>
+              <li>Integrated Google hardware, delivered and installed at your premises</li>
+              <li>No connection to Google Cloud or the public internet, by design, ever</li>
+              <li>Built for classified and the most stringent sovereignty requirements</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section-tight stage-section">
     <div class="container">
       <StageSequence stages={['Design', 'Engineer', 'Run']} eyebrow="How we work">
@@ -103,10 +199,10 @@ import CTAButton from '../components/CTAButton.astro';
           <span class="stage-number">02</span>
           <h3>Engineer: Deployment and workload transformation</h3>
           <p>
-            GDC is software-only: GKE-based Kubernetes running on your own supported servers,
-            connected or air-gapped depending on what your regulator requires. Containers and VM
-            workloads move in together, in governed waves, as real regulated workloads cut over
-            onto the platform.
+            Software-only on your own supported servers, or the fully managed air-gapped
+            appliance on Google-supplied hardware — whichever your regulator requires.
+            Containers and VM workloads move in together, in governed waves, as real regulated
+            workloads cut over onto the platform.
           </p>
         </article>
 
@@ -160,6 +256,33 @@ import CTAButton from '../components/CTAButton.astro';
               </div>
             </div>
             <div class="vm-runtime__base" data-reveal style="transition-delay:360ms">GDC / Kubernetes</div>
+            <div class="vm-runtime__services" data-reveal style="transition-delay:440ms">
+              <div class="vm-runtime__service">
+                <svg class="vm-runtime__service-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <circle cx="12" cy="5" r="2" />
+                  <circle cx="5" cy="18" r="2" />
+                  <circle cx="19" cy="18" r="2" />
+                  <path d="M12,7 L6.5,16.3" />
+                  <path d="M12,7 L17.5,16.3" />
+                </svg>
+                <span>Networking</span>
+              </div>
+              <div class="vm-runtime__service">
+                <svg class="vm-runtime__service-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <ellipse cx="12" cy="5" rx="7" ry="2.5" />
+                  <path d="M5,5 L5,19 C5,20.4 8.1,21.5 12,21.5 C15.9,21.5 19,20.4 19,19 L19,5" />
+                  <path d="M5,12 C5,13.4 8.1,14.5 12,14.5 C15.9,14.5 19,13.4 19,12" />
+                </svg>
+                <span>Storage</span>
+              </div>
+              <div class="vm-runtime__service">
+                <svg class="vm-runtime__service-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M2,12 C5,6 19,6 22,12 C19,18 5,18 2,12 Z" />
+                  <circle cx="12" cy="12" r="2.5" />
+                </svg>
+                <span>Observability</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -252,6 +375,157 @@ import CTAButton from '../components/CTAButton.astro';
                 <div>
                   <p class="feature-list__label">One operating model</p>
                   <p class="feature-list__desc">VMs and containers, not two separate ones</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container">
+      <div class="vm-runtime">
+        <h2>Sovereign AI, not just sovereign infrastructure</h2>
+        <p class="lede">
+          Gemini runs natively on GDC, including fully air-gapped, so model inference never has
+          to leave your building either.
+        </p>
+
+        <div class="vm-runtime__diagram" aria-hidden="true">
+          <div class="vm-runtime__platform">
+            <div class="vm-runtime__boxes">
+              <div class="vm-runtime__col">
+                <div class="vm-runtime__box" data-reveal>
+                  <svg viewBox="0 0 24 24" class="vm-runtime__icon" focusable="false">
+                    <path d="M12,2 L14,10 L22,12 L14,14 L12,22 L10,14 L2,12 L10,10 Z" />
+                  </svg>
+                  <span>Gemini</span>
+                </div>
+                <div class="vm-runtime__connector" data-reveal style="transition-delay:200ms"></div>
+              </div>
+              <div class="vm-runtime__col">
+                <div class="vm-runtime__box" data-reveal style="transition-delay:80ms">
+                  <svg viewBox="0 0 24 24" class="vm-runtime__icon" focusable="false">
+                    <circle cx="6" cy="6" r="2.2" />
+                    <circle cx="18" cy="6" r="2.2" />
+                    <circle cx="12" cy="18" r="2.2" />
+                    <path d="M7.7,7.2 L10.7,16.2 M16.3,7.2 L13.3,16.2 M8,6 L16,6" />
+                  </svg>
+                  <span>Your models</span>
+                </div>
+                <div class="vm-runtime__connector" data-reveal style="transition-delay:280ms"></div>
+              </div>
+            </div>
+            <div class="vm-runtime__base" data-reveal style="transition-delay:360ms">AI Gateway</div>
+            <div class="vm-runtime__services" data-reveal style="transition-delay:440ms">
+              <div class="vm-runtime__service">
+                <svg class="vm-runtime__service-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <rect x="6" y="6" width="12" height="12" rx="1.5" />
+                  <rect x="10" y="10" width="4" height="4" />
+                  <path d="M9,2 L9,6 M15,2 L15,6 M9,18 L9,22 M15,18 L15,22 M2,9 L6,9 M2,15 L6,15 M18,9 L22,9 M18,15 L22,15" />
+                </svg>
+                <span>GPU acceleration</span>
+              </div>
+              <div class="vm-runtime__service">
+                <svg class="vm-runtime__service-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M4,17 A8,8 0 0 1 20,17" />
+                  <path d="M12,17 L16,10" />
+                  <circle cx="12" cy="17" r="1.3" />
+                </svg>
+                <span>Quota management</span>
+              </div>
+              <div class="vm-runtime__service">
+                <svg class="vm-runtime__service-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M6,3 L15,3 L19,7 L19,21 L6,21 Z" />
+                  <path d="M15,3 L15,7 L19,7" />
+                  <path d="M9,12 L16,12 M9,15.5 L16,15.5 M9,9 L12,9" />
+                </svg>
+                <span>Compliance logging</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="vm-runtime__stat mono-tag">
+          Gemini Flash models run today on NVIDIA Blackwell and Blackwell Ultra GPUs, on GDC
+          connected and fully air-gapped alike.
+        </p>
+
+        <div class="vm-runtime__lists">
+          <div>
+            <h4>What you get</h4>
+            <ul class="feature-list">
+              <li>
+                <svg class="feature-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M12,2 L14,10 L22,12 L14,14 L12,22 L10,14 L2,12 L10,10 Z" />
+                </svg>
+                <div>
+                  <p class="feature-list__label">Native Gemini deployment</p>
+                  <p class="feature-list__desc">Frontier models inside your own perimeter, not a cloud API call leaving the building</p>
+                </div>
+              </li>
+              <li>
+                <svg class="feature-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <rect x="6" y="6" width="12" height="12" rx="1.5" />
+                  <rect x="10" y="10" width="4" height="4" />
+                  <path d="M9,2 L9,6 M15,2 L15,6 M9,18 L9,22 M15,18 L15,22 M2,9 L6,9 M2,15 L6,15 M18,9 L22,9 M18,15 L22,15" />
+                </svg>
+                <div>
+                  <p class="feature-list__label">NVIDIA Blackwell acceleration</p>
+                  <p class="feature-list__desc">HGX B200 and B300 GPU support, built for inference at scale</p>
+                </div>
+              </li>
+              <li>
+                <svg class="feature-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M12,20 L12,14" />
+                  <path d="M12,14 L5,8" />
+                  <path d="M12,14 L12,8" />
+                  <path d="M12,14 L19,8" />
+                  <circle cx="5" cy="6" r="1.5" />
+                  <circle cx="12" cy="6" r="1.5" />
+                  <circle cx="19" cy="6" r="1.5" />
+                </svg>
+                <div>
+                  <p class="feature-list__label">AI Gateway</p>
+                  <p class="feature-list__desc">Dynamic routing, load balancing and quota management across models</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4>Why it matters</h4>
+            <ul class="feature-list">
+              <li>
+                <svg class="feature-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M12,3 L20,6 L20,12 C20,17 16.5,20.5 12,22 C7.5,20.5 4,17 4,12 L4,6 Z" />
+                </svg>
+                <div>
+                  <p class="feature-list__label">Sovereignty without compromise</p>
+                  <p class="feature-list__desc">Frontier AI capability without sending regulated data anywhere</p>
+                </div>
+              </li>
+              <li>
+                <svg class="feature-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M6,3 L15,3 L19,7 L19,21 L6,21 Z" />
+                  <path d="M15,3 L15,7 L19,7" />
+                  <path d="M9,12 L16,12 M9,15.5 L16,15.5 M9,9 L12,9" />
+                </svg>
+                <div>
+                  <p class="feature-list__label">Audit-ready by default</p>
+                  <p class="feature-list__desc">Built-in tracing and logging for compliance review, not bolted on after</p>
+                </div>
+              </li>
+              <li>
+                <svg class="feature-list__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <circle cx="12" cy="6" r="2.5" />
+                  <path d="M6,21 C6,16.5 8.5,14 12,14 C15.5,14 18,16.5 18,21" />
+                  <path d="M19,9 L21,9 M20,8 L20,10" />
+                </svg>
+                <div>
+                  <p class="feature-list__label">A real path to agentic AI</p>
+                  <p class="feature-list__desc">Sovereign agentic workflows, entirely within your organisation's boundary</p>
                 </div>
               </li>
             </ul>
@@ -474,18 +748,56 @@ import CTAButton from '../components/CTAButton.astro';
     padding: 0.85rem;
     background: color-mix(in srgb, var(--aquamarine) 16%, var(--gunmetal));
     border-top: 1px solid color-mix(in srgb, var(--aquamarine) 35%, transparent);
-    /* Rounded to match the platform's own corner radius directly,
-       rather than relying only on the platform's overflow: hidden to
-       clip this bar's sharp corners to match — that clipping can
-       leave a hairline gap in the outer border at the rounded corners
-       on some browsers' subpixel rendering, reading as an incomplete
-       outline. */
-    border-radius: 0 0 calc(var(--border-radius) - 1px) calc(var(--border-radius) - 1px);
     color: var(--aquamarine);
     font-family: var(--font-display);
     font-weight: 700;
     letter-spacing: 0.02em;
     text-align: center;
+  }
+
+  /* The shared-services strip underneath the base bar: what "GDC /
+     Kubernetes" (or "AI Gateway" on the AI section reusing this same
+     class) actually includes, not just its name. Rounded to match the
+     platform's own corner radius directly, rather than relying only on
+     the platform's overflow: hidden to clip this strip's sharp corners
+     to match — that clipping can leave a hairline gap in the outer
+     border at the rounded corners on some browsers' subpixel
+     rendering, reading as an incomplete outline. */
+  .vm-runtime__services {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: color-mix(in srgb, var(--aquamarine) 35%, transparent);
+    border-radius: 0 0 calc(var(--border-radius) - 1px) calc(var(--border-radius) - 1px);
+    overflow: hidden;
+  }
+
+  .vm-runtime__service {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.85rem 0.5rem;
+    background: var(--gunmetal);
+    font-size: var(--step--1);
+    color: var(--silver);
+  }
+
+  .vm-runtime__service-icon {
+    width: 1.35rem;
+    height: 1.35rem;
+    fill: none;
+    stroke: var(--aquamarine);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  @media (max-width: 500px) {
+    .vm-runtime__service span {
+      display: none;
+    }
   }
 
   .vm-runtime__stat {
@@ -638,8 +950,50 @@ import CTAButton from '../components/CTAButton.astro';
   }
 
   .gdc-layer--outer {
-    max-width: 30rem;
+    max-width: 34rem;
     background: color-mix(in srgb, var(--silver) 4%, transparent);
+  }
+
+  .gdc-icon-row {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .gdc-icon-row--workloads {
+    margin-top: 0.85rem;
+  }
+
+  .gdc-icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.75rem 0.5rem;
+    border: 1px solid color-mix(in srgb, var(--aquamarine) 25%, transparent);
+    border-radius: calc(var(--border-radius) - 1px);
+    background: color-mix(in srgb, var(--gunmetal) 45%, transparent);
+    font-size: var(--step--1);
+    color: var(--white-smoke);
+    text-align: center;
+    line-height: 1.25;
+  }
+
+  .gdc-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: none;
+    stroke: var(--aquamarine);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  @media (max-width: 420px) {
+    .gdc-icon-row {
+      grid-template-columns: 1fr;
+    }
   }
 
   .gdc-layer--mid {
@@ -678,6 +1032,89 @@ import CTAButton from '../components/CTAButton.astro';
     color: var(--silver);
     max-width: 34rem;
     margin-inline: auto;
+  }
+
+  .modes {
+    max-width: 56rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .modes h2 {
+    font-size: var(--step-2);
+  }
+
+  .modes .lede {
+    margin-top: 1rem;
+    margin-inline: auto;
+  }
+
+  .modes__grid {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    text-align: left;
+  }
+
+  .modes__card {
+    padding: clamp(1.5rem, 4vw, 2rem);
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    background: var(--gunmetal);
+  }
+
+  .modes__icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    fill: none;
+    stroke: var(--aquamarine);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .modes__card h4 {
+    margin-top: 1rem;
+    font-size: var(--step-1);
+    color: var(--white-smoke);
+  }
+
+  .modes__tag {
+    margin-top: 0.35rem;
+    color: var(--aquamarine);
+  }
+
+  .modes__card ul {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+  }
+
+  .modes__card li {
+    padding-left: 1.25rem;
+    position: relative;
+    line-height: 1.4;
+  }
+
+  .modes__card li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--aquamarine);
+  }
+
+  @media (max-width: 700px) {
+    .modes__grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   .pilot {
