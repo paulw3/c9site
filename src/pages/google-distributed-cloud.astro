@@ -17,18 +17,30 @@ import CTAButton from '../components/CTAButton.astro';
     to match — see docs/content-brief.md §4 (Google Distributed Cloud) for the full note.
   -->
   <PageIntro eyebrow="Google Distributed Cloud">
-    <h1>Sovereignty, engineered.</h1>
+    <h1>Control isn't a feature. It's the whole point.</h1>
     <p class="gdc-subhead">Sovereign cloud is not a location. It is an operating model.</p>
     <p class="lede">
-      C-9INE helps banks, government institutions and critical-infrastructure organisations turn
-      Google Distributed Cloud into a secure, production-ready operating platform, covering
-      readiness and deployment, workload transformation, resilience, day-two operations and
-      capability transfer.
+      We design, build and run Google Distributed Cloud so your team ends up owning it, not
+      renting our expertise forever. Banks, government and critical-infrastructure institutions
+      across Saudi Arabia work with us because when we're done, we're not required.
     </p>
     <div class="page-intro__cta">
       <CTAButton href="/contact?intent=gdc-pilot">Book a GDC pilot scoping call</CTAButton>
     </div>
   </PageIntro>
+
+  <section class="section-tight section-raised">
+    <div class="container">
+      <div class="belief">
+        <h2>Most vendors want you dependent. We don't.</h2>
+        <p class="lede">
+          Software-only or the air-gapped appliance. Containers or VMs. Connected or fully
+          isolated. Every choice on this page exists so the decision stays yours, not ours.
+          That's not a compliance requirement. It's how we think a vendor should behave.
+        </p>
+      </div>
+    </div>
+  </section>
 
   <section class="section-tight">
     <div class="container">
@@ -225,9 +237,10 @@ import CTAButton from '../components/CTAButton.astro';
       <div class="vm-runtime">
         <h2>Not a containers-only platform</h2>
         <p class="lede">
-          VM Runtime is part of GDC software-only: it lets you run traditional VM workloads
-          directly on the same Kubernetes-based platform as your containers, without forcing
-          every legacy application through containerisation first.
+          No forced timeline. Applications that aren't ready to move stay exactly as they are —
+          that's your call, not a deadline we impose. VM Runtime, part of GDC software-only,
+          runs traditional VMs directly on the same Kubernetes-based platform as your
+          containers, without forcing every legacy application through containerisation first.
         </p>
 
         <div class="vm-runtime__diagram" aria-hidden="true">
@@ -389,8 +402,9 @@ import CTAButton from '../components/CTAButton.astro';
       <div class="vm-runtime">
         <h2>Sovereign AI, not just sovereign infrastructure</h2>
         <p class="lede">
-          Gemini runs natively on GDC, including fully air-gapped, so model inference never has
-          to leave your building either.
+          Frontier AI without handing over where your data goes. Gemini runs natively on GDC,
+          including fully air-gapped, so model inference never has to leave your building
+          either.
         </p>
 
         <div class="vm-runtime__diagram" aria-hidden="true">
@@ -592,8 +606,8 @@ import CTAButton from '../components/CTAButton.astro';
         <p class="lede">
           A 4–6 week pilot makes the GDC decision tangible before you commit to a full migration.
           Install and register GDC software-only on your own supported hardware, migrate a
-          small representative set of VM and container workloads, and walk away with evidence,
-          not promises.
+          small representative set of VM and container workloads, and walk away with proof your
+          team can run this, not just that we can install it.
         </p>
 
         <div class="pilot-timeline">
@@ -673,6 +687,21 @@ import CTAButton from '../components/CTAButton.astro';
     font-size: var(--step-1);
     font-weight: 500;
     color: var(--white-smoke);
+  }
+
+  .belief {
+    max-width: 40rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .belief h2 {
+    font-size: var(--step-3);
+  }
+
+  .belief .lede {
+    margin-top: 1.25rem;
+    margin-inline: auto;
   }
 
   .two-col {
