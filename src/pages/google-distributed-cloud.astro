@@ -143,10 +143,59 @@ import CTAButton from '../components/CTAButton.astro';
       <div>
         <h2>Why now</h2>
         <p class="lede">
-          Most FSI estates we see run VMware, Nutanix, Hyper-V and Kubernetes side by side, each
-          with its own licensing, monitoring, lifecycle and security evidence to maintain. GDC
-          gives you one platform, one policy model, one fleet view, without forcing every
-          workload to modernise on day one.
+          Broadcom's acquisition of VMware changed the calculus on every renewal. Most FSI
+          estates we see are re-evaluating VMware, Nutanix, Hyper-V and Kubernetes side by side
+          right now, not on some future roadmap. Your next hypervisor renewal doesn't have to
+          mean renewing the same complexity — it can be the moment you standardise on one
+          platform, one policy model, one fleet view, without forcing every workload to
+          modernise on day one.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="verticals">
+        <h2>If your workload is critical, local or regulated</h2>
+        <p class="lede">
+          Not theoretical. These are the institutions we build GDC for, in Saudi Arabia today.
+        </p>
+
+        <div class="verticals__grid">
+          <div class="verticals__card">
+            <h4>Banking &amp; finance</h4>
+            <p>
+              Sovereign core-adjacent platforms, fraud and AI workloads kept local, VM
+              consolidation off ageing hypervisors.
+            </p>
+          </div>
+          <div class="verticals__card">
+            <h4>Government</h4>
+            <p>
+              Citizen services, national data custody, one secure platform standard instead of
+              several.
+            </p>
+          </div>
+          <div class="verticals__card">
+            <h4>Healthcare</h4>
+            <p>
+              Patient records and private analytics that never have to leave the building,
+              resilient local services.
+            </p>
+          </div>
+          <div class="verticals__card">
+            <h4>Critical infrastructure</h4>
+            <p>
+              Site autonomy, low latency, operational continuity even when connectivity isn't
+              guaranteed.
+            </p>
+          </div>
+        </div>
+
+        <p class="verticals__close">
+          If the workload is critical, local, regulated or latency-sensitive, it belongs in this
+          conversation.
         </p>
       </div>
     </div>
@@ -702,6 +751,68 @@ import CTAButton from '../components/CTAButton.astro';
   .belief .lede {
     margin-top: 1.25rem;
     margin-inline: auto;
+  }
+
+  .verticals {
+    max-width: 56rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .verticals h2 {
+    font-size: var(--step-2);
+  }
+
+  .verticals .lede {
+    margin-top: 1rem;
+    margin-inline: auto;
+  }
+
+  .verticals__grid {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem;
+    text-align: left;
+  }
+
+  .verticals__card {
+    padding: 1.25rem;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    background: var(--gunmetal-raised);
+  }
+
+  .verticals__card h4 {
+    color: var(--aquamarine);
+  }
+
+  .verticals__card p {
+    margin-top: 0.6rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.45;
+  }
+
+  .verticals__close {
+    margin-top: clamp(2rem, 4vw, 2.75rem);
+    font-family: var(--font-display);
+    font-weight: 500;
+    color: var(--white-smoke);
+    max-width: 40rem;
+    margin-inline: auto;
+  }
+
+  @media (max-width: 900px) {
+    .verticals__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 500px) {
+    .verticals__grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   .two-col {
