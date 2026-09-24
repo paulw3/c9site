@@ -198,6 +198,17 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
     font-size: var(--step-1);
   }
 
+  /* Flex-wrap leaves an orphaned "+ <item>" stranded alone on its own
+     line once the row can no longer fit all four items — stacking
+     vertically instead keeps every pill/sign pairing intact regardless
+     of item count. */
+  @media (max-width: 640px) {
+    .plus-row {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+
   .belief-layout__statement {
     margin-top: clamp(2.5rem, 5vw, 3.5rem);
     margin-inline: auto;
