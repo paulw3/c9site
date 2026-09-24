@@ -14,7 +14,8 @@ interface Props {
 }
 
 const { stages, eyebrow } = Astro.props;
-const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' | 'run';
+type StageKey = 'design' | 'engineer' | 'run' | 'problem' | 'belief' | 'how-it-works' | 'standardise' | 'outcomes';
+const iconFor = (label: string) => label.toLowerCase().replace(/\s+/g, '-') as StageKey;
 
 // How much scroll distance (in viewport-heights) each stage gets to
 // dwell in before the next one takes over. Short panels (a sentence)

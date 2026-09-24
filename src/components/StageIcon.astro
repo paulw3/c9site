@@ -1,6 +1,6 @@
 ---
 interface Props {
-  stage: 'design' | 'engineer' | 'run';
+  stage: 'design' | 'engineer' | 'run' | 'problem' | 'belief' | 'how-it-works' | 'standardise' | 'outcomes';
 }
 
 const { stage } = Astro.props;
@@ -32,6 +32,47 @@ const { stage } = Astro.props;
     <path d="M 21.44,11.76 L 18.86,9.50 L 18.34,12.89" />
     <path d="M 18.86,9.50 A 7.30,7.30 0 0 1 5.14,14.50" />
     <path d="M 2.56,12.24 L 5.14,14.50 L 5.66,11.11" />
+  </svg>
+)}
+
+{stage === 'problem' && (
+  <svg viewBox="0 0 24 24" class="stage-icon" aria-hidden="true" focusable="false">
+    <path d="M12,3 L22,20 L2,20 Z" />
+    <path d="M12,9 L12,14" />
+    <path d="M12,17.2 L12,17.4" />
+  </svg>
+)}
+
+{stage === 'belief' && (
+  <svg viewBox="0 0 24 24" class="stage-icon" aria-hidden="true" focusable="false">
+    <path d="M12,3 A6,6 0 0 0 8.5,14 C9.3,14.6 9.8,15.5 9.9,16.5 L14.1,16.5 C14.2,15.5 14.7,14.6 15.5,14 A6,6 0 0 0 12,3 Z" />
+    <path d="M9.5,18.5 L14.5,18.5" />
+    <path d="M10.2,21 L13.8,21" />
+  </svg>
+)}
+
+{stage === 'how-it-works' && (
+  <svg viewBox="0 0 24 24" class="stage-icon" aria-hidden="true" focusable="false">
+    <path d="M4,6.5 L20,6.5" />
+    <path d="M4,12 L20,12" />
+    <path d="M4,17.5 L13.5,17.5" />
+    <path d="M16.5,16 L18.3,18 L21,14.5" />
+  </svg>
+)}
+
+{stage === 'standardise' && (
+  <svg viewBox="0 0 24 24" class="stage-icon" aria-hidden="true" focusable="false">
+    <path d="M12,3 L21,8 L12,13 L3,8 Z" />
+    <path d="M3,13 L12,18 L21,13" />
+    <path d="M3,17.5 L12,22 L21,17.5" />
+  </svg>
+)}
+
+{stage === 'outcomes' && (
+  <svg viewBox="0 0 24 24" class="stage-icon" aria-hidden="true" focusable="false">
+    <circle cx="12" cy="12" r="8.2" />
+    <circle cx="12" cy="12" r="4.6" />
+    <circle cx="12" cy="12" r="1" />
   </svg>
 )}
 
