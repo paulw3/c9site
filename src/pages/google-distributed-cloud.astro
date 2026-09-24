@@ -493,20 +493,26 @@ import CTAButton from '../components/CTAButton.astro';
     margin-inline: auto;
   }
 
+  /* One bordered card holding all four items — the container itself
+     is the "one platform" the heading below names, rather than four
+     independent pills that only look related because of the + signs
+     between them. */
   .plus-row {
     margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    margin-inline: auto;
+    max-width: fit-content;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 0.75rem;
+    padding: 1.35rem clamp(1.5rem, 4vw, 2.5rem);
+    border: 1px solid color-mix(in srgb, var(--aquamarine) 35%, transparent);
+    border-radius: var(--border-radius);
+    background: color-mix(in srgb, var(--aquamarine) 5%, transparent);
   }
 
   .plus-row__item {
-    padding: 0.75rem 1.5rem;
-    border: 1px solid color-mix(in srgb, var(--aquamarine) 30%, transparent);
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--aquamarine) 7%, transparent);
     font-family: var(--font-display);
     font-weight: 600;
     font-size: var(--step-0);
@@ -528,6 +534,8 @@ import CTAButton from '../components/CTAButton.astro';
     .plus-row {
       flex-direction: column;
       gap: 0.5rem;
+      max-width: 100%;
+      width: 100%;
     }
   }
 
