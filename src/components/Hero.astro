@@ -43,6 +43,12 @@ const { heading, subheading, trustText } = Astro.props;
     </div>
 
     <p class="hero__trust mono-tag hero__reveal hero__reveal--3">{trustText}</p>
+
+    <button type="button" class="hero__scroll-cue" aria-label="Scroll down">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 5v13M6 12l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
   </div>
 </section>
 
@@ -165,6 +171,58 @@ const { heading, subheading, trustText } = Astro.props;
     color: var(--white-smoke);
   }
 
+  /* A down-pointing cue, not up: it signals the direction to scroll,
+     not "return to top" (that's a different, unrelated affordance for
+     later in a page). Sits above the trust strip so the two never
+     collide; fades out once the user actually starts scrolling, via
+     the script below. */
+  .hero__scroll-cue {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    bottom: 4.75rem;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--white-smoke);
+    cursor: pointer;
+    opacity: 0.85;
+    transition: opacity 200ms ease;
+  }
+
+  .hero__scroll-cue:hover {
+    opacity: 1;
+    color: var(--aquamarine);
+  }
+
+  .hero__scroll-cue svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__scroll-cue svg {
+      animation: hero-scroll-cue-bounce 2.2s ease-in-out infinite;
+    }
+  }
+
+  @keyframes hero-scroll-cue-bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(6px);
+    }
+  }
+
   @media (max-width: 860px) {
     .hero-pin-wrap {
       height: 200vh;
@@ -208,6 +266,14 @@ const { heading, subheading, trustText } = Astro.props;
 <script>
   const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const wrap = document.querySelector<HTMLElement>('.hero-pin-wrap');
+
+  const scrollCue = wrap?.querySelector<HTMLButtonElement>('.hero__scroll-cue');
+  scrollCue?.addEventListener('click', () => {
+    window.scrollBy({
+      top: window.innerHeight * 0.9,
+      behavior: prefersReduced ? 'auto' : 'smooth',
+    });
+  });
 
   if (wrap && !prefersReduced) {
     const clearSky = wrap.querySelector<HTMLElement>('.hero__clear-sky');
@@ -261,6 +327,16 @@ const { heading, subheading, trustText } = Astro.props;
         el.style.opacity = String(t);
         el.style.transform = `translateY(${(1 - t) * 14}px)`;
       });
+
+      // The cue's job is done as soon as the visitor proves they know
+      // how to scroll — fade it out over a short distance rather than
+      // leaving it competing with the rest of the hero for the whole
+      // (much longer) pin duration.
+      if (scrollCue) {
+        const cueFade = 1 - Math.min(window.scrollY / (window.innerHeight * 0.2), 1);
+        scrollCue.style.opacity = String(cueFade * 0.85);
+        scrollCue.style.pointerEvents = cueFade > 0.05 ? 'auto' : 'none';
+      }
 
       ticking = false;
     };
