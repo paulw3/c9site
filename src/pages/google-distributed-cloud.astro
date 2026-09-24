@@ -471,6 +471,18 @@ import CTAButton from '../components/CTAButton.astro';
     text-align: center;
   }
 
+  /* The global `p { max-width: 38rem }` reset (see base type rules)
+     caps every plain paragraph's own box at 38rem with no auto
+     margins, so inside a centered container it was shrinking to that
+     width and sitting flush against the left edge — text-align:
+     center then centered the words within that mis-positioned box,
+     not within the section. Every plain <p> in this centered layout
+     (the eyebrow and the statement; .lede already sets this itself)
+     needs its own margin-inline: auto to actually center the box. */
+  .belief-layout > .eyebrow {
+    margin-inline: auto;
+  }
+
   .belief-layout__heading {
     margin-top: 0.85rem;
     font-size: var(--step-4);
@@ -510,6 +522,7 @@ import CTAButton from '../components/CTAButton.astro';
 
   .belief-layout__statement {
     margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    margin-inline: auto;
     font-family: var(--font-display);
     font-weight: 600;
     font-size: var(--step-3);
@@ -698,6 +711,10 @@ import CTAButton from '../components/CTAButton.astro';
     text-align: center;
   }
 
+  .outcomes-intro > .eyebrow {
+    margin-inline: auto;
+  }
+
   .outcomes-intro h2 {
     margin-top: 0.75rem;
   }
@@ -743,6 +760,7 @@ import CTAButton from '../components/CTAButton.astro';
 
   .outcomes-close {
     margin-top: clamp(3rem, 6vw, 4.5rem);
+    margin-inline: auto;
     text-align: center;
     font-family: var(--font-display);
     font-weight: 600;
@@ -813,7 +831,7 @@ import CTAButton from '../components/CTAButton.astro';
      the single thing the page most wants a visitor to do. */
   .cta-band {
     background: var(--aquamarine);
-    padding-block: clamp(3rem, 7vw, 5rem);
+    padding-block: clamp(1.5rem, 3.5vw, 2.5rem);
   }
 
   .cta-band__inner {
@@ -821,13 +839,14 @@ import CTAButton from '../components/CTAButton.astro';
   }
 
   .cta-band h2 {
-    max-width: 36rem;
+    max-width: 42rem;
     margin-inline: auto;
+    font-size: var(--step-2);
     color: var(--gunmetal);
   }
 
   .cta-band__action {
-    margin-top: clamp(1.75rem, 4vw, 2.5rem);
+    margin-top: clamp(1.1rem, 2.5vw, 1.5rem);
     display: flex;
     justify-content: center;
   }
