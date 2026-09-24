@@ -261,7 +261,10 @@ import CTAButton from '../components/CTAButton.astro';
             <li>Clearer accountability from finance to engineering</li>
             <li>Budgets and guardrails built into everyday decisions</li>
           </ul>
-          <span class="product-card__badge mono-tag">Available on Google Cloud Marketplace</span>
+          <div class="product-card__footer">
+            <span class="product-card__badge mono-tag">Available on Google Cloud Marketplace</span>
+            <a class="product-card__link" href="/resources/anfaa">Learn more</a>
+          </div>
         </article>
 
         <article class="product-card product-card--asaas">
@@ -279,7 +282,10 @@ import CTAButton from '../components/CTAButton.astro';
             <li>Consistent, approved patterns reused across teams</li>
             <li>Less dependence on scarce cloud specialists</li>
           </ul>
-          <span class="product-card__badge mono-tag">Available on Google Cloud Marketplace</span>
+          <div class="product-card__footer">
+            <span class="product-card__badge mono-tag">Available on Google Cloud Marketplace</span>
+            <a class="product-card__link" href="/resources/asaas">Learn more</a>
+          </div>
         </article>
       </div>
     </div>
@@ -407,9 +413,34 @@ import CTAButton from '../components/CTAButton.astro';
     background: var(--accent, var(--aquamarine));
   }
 
+  /* Pushes to the bottom of the card regardless of how much copy is
+     above it (the card itself is a flex column), so both cards'
+     footers line up even when one card's description or outcome list
+     runs a line longer than the other's. */
+  .product-card__footer {
+    margin-top: auto;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--gunmetal-line);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
   .product-card__badge {
-    margin-top: 1.5rem;
     color: var(--silver);
+  }
+
+  .product-card__link {
+    color: var(--accent, var(--aquamarine));
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .product-card__link:hover {
+    text-decoration: underline;
   }
 
   @media (max-width: 700px) {

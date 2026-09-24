@@ -1,0 +1,166 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import CTAButton from '../components/CTAButton.astro';
+---
+
+<BaseLayout
+  title="Resources"
+  description="Product briefs for ANFAA and aSaaS, plus case studies from C-9INE's cloud migration and Google Distributed Cloud engagements, coming soon."
+>
+  <PageIntro eyebrow="Resources">
+    <h1>Resources</h1>
+    <p class="lede">
+      Product briefs for what we've built, and case studies from what we've delivered. We're
+      clearing engagements with clients before publishing those — in the meantime, read about
+      ANFAA and aSaaS below.
+    </p>
+  </PageIntro>
+
+  <section class="section-tight section-raised">
+    <div class="container">
+      <p class="eyebrow">Product Briefs</p>
+      <h2>Our products</h2>
+
+      <div class="resource-grid">
+        <a class="resource-card resource-card--anfaa" href="/resources/anfaa">
+          <span class="resource-card__type mono-tag">Product Brief</span>
+          <span class="resource-card__mark">ANFAA</span>
+          <span class="resource-card__tag">Multi-cloud FinOps</span>
+          <p class="resource-card__desc">
+            Cloud should create value, not just cost — a continuous FinOps operating discipline
+            across every provider you run.
+          </p>
+          <span class="resource-card__link">Read the brief</span>
+        </a>
+
+        <a class="resource-card resource-card--asaas" href="/resources/asaas">
+          <span class="resource-card__type mono-tag">Product Brief</span>
+          <span class="resource-card__mark">aSaaS</span>
+          <span class="resource-card__tag">Intelligent Cloud Operator</span>
+          <p class="resource-card__desc">
+            Cloud foundations shouldn't slow innovation down — approved standards, captured
+            once, delivered as a guided, repeatable experience.
+          </p>
+          <span class="resource-card__link">Read the brief</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight empty-state">
+    <div class="container">
+      <p class="eyebrow">Case Studies</p>
+      <h2>Coming soon</h2>
+      <p class="lede empty-state__lede">
+        We're clearing engagements with clients before publishing details here. Check back soon,
+        or talk to us directly about the work we've done for banks, government and
+        critical-infrastructure organisations across Saudi Arabia.
+      </p>
+      <div class="empty-state__cta">
+        <CTAButton href="/contact" variant="outline">Talk to us in the meantime</CTAButton>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .container > .eyebrow {
+    text-align: center;
+    display: block;
+  }
+
+  .container > h2 {
+    margin-top: 0.75rem;
+    text-align: center;
+    font-size: var(--step-2);
+  }
+
+  .resource-grid {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .resource-card {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.5rem, 3vw, 2rem);
+    border-top: 2px solid var(--accent, var(--aquamarine));
+    background: var(--gunmetal-raised);
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 160ms ease;
+  }
+
+  .resource-card:hover {
+    background: color-mix(in srgb, var(--gunmetal-raised) 80%, var(--accent, var(--aquamarine)) 8%);
+  }
+
+  .resource-card--anfaa {
+    --accent: var(--aquamarine);
+  }
+
+  .resource-card--asaas {
+    --accent: var(--vivid-sky-blue);
+  }
+
+  .resource-card__type {
+    color: var(--accent, var(--aquamarine));
+  }
+
+  .resource-card__mark {
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-2);
+    color: var(--white-smoke);
+  }
+
+  .resource-card__tag {
+    margin-top: 0.25rem;
+    display: block;
+    color: var(--silver);
+    font-size: var(--step--1);
+  }
+
+  .resource-card__desc {
+    margin-top: 1rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.5;
+  }
+
+  .resource-card__link {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--gunmetal-line);
+    color: var(--accent, var(--aquamarine));
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step--1);
+  }
+
+  @media (max-width: 700px) {
+    .resource-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .empty-state {
+    text-align: center;
+    border-top: 1px solid var(--gunmetal-line);
+  }
+
+  .empty-state__lede {
+    margin-top: 1rem;
+    margin-inline: auto;
+  }
+
+  .empty-state__cta {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+</style>
