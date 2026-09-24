@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import ProductBrief from '../../components/ProductBrief.astro';
+import CTAButton from '../../components/CTAButton.astro';
+---
+
+<BaseLayout
+  title="ANFAA — Multi-cloud FinOps"
+  description="ANFAA turns cloud spend into a continuous FinOps operating discipline — visibility, ownership, optimisation and control, across every provider you run."
+>
+  <PageIntro eyebrow="Resources · Product Brief">
+    <h1>Cloud should create value, not just cost.</h1>
+    <p class="gdc-subhead">Spend smarter. Stay in control.</p>
+    <p class="lede">
+      ANFAA (أنفع) turns cloud spend into a continuous FinOps operating discipline —
+      visibility, ownership, optimisation and control, across every cloud provider you run, not
+      just Google Cloud.
+    </p>
+    <div class="page-intro__cta">
+      <CTAButton href="/resources/anfaa-booklet.pdf" variant="outline">Download the PDF</CTAButton>
+      <CTAButton href="/contact?intent=anfaa">Talk to us about ANFAA</CTAButton>
+    </div>
+  </PageIntro>
+
+  <ProductBrief
+    accent="aquamarine"
+    productTag="Multi-cloud FinOps"
+    beliefHeading="Every unit of cloud spend should have a clear purpose."
+    beliefLede="ANFAA connects usage, accountability, governance and optimisation so FinOps becomes part of the cloud operating model, not a finance exercise after the fact."
+    plusItems={['Visibility', 'Ownership', 'Optimisation', 'Control']}
+    beliefStatement="Cost optimisation should be continuous, not a quarterly clean-up."
+    beliefClosing="The value of FinOps comes from turning cost data into an everyday discipline shared by finance, engineering and business owners."
+    loopHeading="From cloud spend data to governed FinOps action."
+    loopLede="A repeatable path that turns usage and billing data into ownership, optimisation and financial governance."
+    loopStages={[
+      { label: 'Discover', desc: 'Bring together the cloud cost and usage data that matters.' },
+      { label: 'Allocate', desc: 'Map spend to teams, products, environments and accountable owners.' },
+      { label: 'Optimise & Orchestrate', desc: 'Identify waste, rightsizing opportunities and actions that improve value.' },
+      { label: 'Govern', desc: 'Use budgets, guardrails and FinOps practices to sustain control.' },
+    ]}
+    loopStatement="See it. Own it. Optimise it. Govern it."
+    outcomesHeading="From cloud bill to cloud value."
+    outcomesLede="The goal is not another dashboard. The goal is a repeatable way to manage cloud economics with clear ownership and continuous action."
+    outcomes={[
+      { label: 'Better spend visibility', desc: 'Understand where cloud cost is going.' },
+      { label: 'Clearer accountability', desc: 'Connect spend to teams and owners.' },
+      { label: 'Faster optimisation & orchestration', desc: 'Act on waste and opportunities sooner.' },
+      { label: 'Stronger budgeting', desc: 'Bring guardrails into everyday cloud decisions.' },
+      { label: 'Multi-cloud control', desc: 'Expand provider choice without losing financial discipline.' },
+    ]}
+    outcomesClose="Understand it. Optimise it. Govern it."
+    pdfHref="/resources/anfaa-booklet.pdf"
+    pdfLabel="ANFAA product brief"
+    contactIntent="anfaa"
+  />
+</BaseLayout>
+
+<style>
+  .gdc-subhead {
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: 500;
+    color: var(--white-smoke);
+  }
+
+  .page-intro__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+</style>

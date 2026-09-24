@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import ProductBrief from '../../components/ProductBrief.astro';
+import CTAButton from '../../components/CTAButton.astro';
+---
+
+<BaseLayout
+  title="aSaaS — Intelligent Cloud Operator"
+  description="aSaaS captures approved cloud standards once, then turns them into a guided, repeatable delivery experience for teams who need cloud without becoming cloud specialists."
+>
+  <PageIntro eyebrow="Resources · Product Brief">
+    <h1>Cloud foundations shouldn't slow innovation down.</h1>
+    <p class="gdc-subhead">Build faster. Standardise once. Scale with confidence.</p>
+    <p class="lede">
+      aSaaS (أساس) captures approved cloud standards once, then turns them into a guided,
+      repeatable delivery experience for teams who need cloud without becoming cloud
+      specialists — the same automation that accelerates C-9INE's own migration engagements.
+    </p>
+    <div class="page-intro__cta">
+      <CTAButton href="/resources/asaas-booklet.pdf" variant="outline">Download the PDF</CTAButton>
+      <CTAButton href="/contact?intent=asaas">Talk to us about aSaaS</CTAButton>
+    </div>
+  </PageIntro>
+
+  <ProductBrief
+    accent="sky"
+    productTag="Intelligent Cloud Operator"
+    beliefHeading="Infrastructure should be easy to consume."
+    beliefLede="aSaaS captures approved cloud standards once, then turns them into a guided and repeatable delivery experience for teams who need cloud without becoming cloud specialists."
+    plusItems={['Standards', 'Guidance', 'Automation', 'Control']}
+    beliefStatement="Technology should make speed and control easier to achieve, not harder to balance."
+    beliefClosing="The product experience matters because customers do not want another complex cloud build. They want a controlled path from intent to working foundation."
+    loopHeading="From business input to governed cloud foundation."
+    loopLede="A guided path that translates requirements into repeatable cloud infrastructure delivery."
+    loopStages={[
+      { label: 'Capture', desc: 'Collect cloud, security, environment and governance requirements.' },
+      { label: 'Configure', desc: 'Generate structured definitions and deployment-ready patterns.' },
+      { label: 'Build', desc: 'Automate cloud foundation provisioning through reusable IaC.' },
+      { label: 'Validate', desc: 'Confirm standards, controls and readiness before handover.' },
+    ]}
+    loopStatement="Guided input. Repeatable configuration. Automated delivery. Governed handover."
+    outcomesHeading="From cloud project to cloud factory."
+    outcomesLede="The goal is not one successful environment. The goal is a repeatable way to build many of them with control."
+    outcomes={[
+      { label: 'Faster time to value', desc: 'Less time spent assembling foundations.' },
+      { label: 'More consistency', desc: 'Approved patterns reused across teams.' },
+      { label: 'Lower configuration risk', desc: 'Less manual drift and fewer setup errors.' },
+      { label: 'Better scalability', desc: 'The next environment is easier than the last.' },
+      { label: 'Less dependence on scarce skills', desc: 'Broader teams can consume cloud confidently.' },
+    ]}
+    outcomesClose="Build once. Reuse everywhere."
+    pdfHref="/resources/asaas-booklet.pdf"
+    pdfLabel="aSaaS product brief"
+    contactIntent="asaas"
+  />
+</BaseLayout>
+
+<style>
+  .gdc-subhead {
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: 500;
+    color: var(--white-smoke);
+  }
+
+  .page-intro__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+</style>

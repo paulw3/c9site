@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageIntro from '../components/PageIntro.astro';
-import StageSequence from '../components/StageSequence.astro';
 import ProofPoint from '../components/ProofPoint.astro';
 import CTAButton from '../components/CTAButton.astro';
 ---
@@ -11,11 +10,14 @@ import CTAButton from '../components/CTAButton.astro';
   description="C-9INE helps banks, government institutions and critical-infrastructure organisations turn Google Distributed Cloud into a secure, production-ready operating platform."
 >
   <!--
-    This page's structure and copy follow the C-9INE GDC Executive Booklet
-    (v1.0) page for page: Problem, Belief, How It Works, What We
-    Standardise, Customer Outcomes, in that order, including its own
-    headline wording where it exists. See docs/content-brief.md §4 for
-    the earlier hero-wording sign-off note this supersedes.
+    This page follows the C-9INE GDC Executive Booklet (v1.0) page for
+    page, in order: Problem, Belief, How It Works, What We Standardise,
+    Customer Outcomes. Proof is the one section added beyond the
+    booklet itself. Each section has its own layout rather than
+    repeating one narrow centred-column template five times — an
+    editorial list, a wide statement, a horizontal timeline, a
+    seamless icon grid, a stat grid — so the page reads as a designed
+    whole rather than a stamped-out sequence.
   -->
   <PageIntro eyebrow="Google Distributed Cloud">
     <h1>One platform. Less chaos.</h1>
@@ -31,366 +33,267 @@ import CTAButton from '../components/CTAButton.astro';
     </div>
   </PageIntro>
 
-  <section class="section-tight stage-section">
+  <!-- 01 · The Problem — text column + editorial list, left-aligned -->
+  <section class="section-tight section-raised">
     <div class="container">
-      <StageSequence
-        stages={['Problem', 'Belief', 'How it works', 'Standardise', 'Outcomes']}
-        eyebrow="C-9INE Engineering Story"
-      >
-        <article class="stage-panel">
-          <span class="stage-number">01</span>
-          <h3>Your data centre was not meant to become this complicated.</h3>
-          <p>
+      <div class="problem-layout">
+        <div class="problem-layout__intro">
+          <p class="eyebrow">The Problem</p>
+          <h2>Your data centre was not meant to become this complicated.</h2>
+          <p class="lede">
             VMware, Nutanix, Hyper-V, Kubernetes and cloud projects often grow into separate
             platforms, each with its own skills and operating model.
           </p>
-
-          <ol class="numbered-rows">
-            <li>
-              <span class="numbered-rows__num mono-tag">01</span>
-              <div>
-                <h4>Licensing pressure</h4>
-                <p>Renewals, bundles and platform overlap make budgeting harder.</p>
-              </div>
-            </li>
-            <li>
-              <span class="numbered-rows__num mono-tag">02</span>
-              <div>
-                <h4>Platform sprawl</h4>
-                <p>Different stacks create different tools, teams and runbooks.</p>
-              </div>
-            </li>
-            <li>
-              <span class="numbered-rows__num mono-tag">03</span>
-              <div>
-                <h4>Skills fragmentation</h4>
-                <p>Specialists are spread across too many operating models.</p>
-              </div>
-            </li>
-            <li>
-              <span class="numbered-rows__num mono-tag">04</span>
-              <div>
-                <h4>Operational overhead</h4>
-                <p>Security, compliance and lifecycle controls are repeated in each stack.</p>
-              </div>
-            </li>
-          </ol>
-
-          <p class="statement">
+          <p class="pull-statement">
             More platforms did not create simplicity. They created another operating problem.
           </p>
-        </article>
+        </div>
 
-        <article class="stage-panel">
-          <span class="stage-number">02</span>
-          <h3>Modernisation should reduce complexity, not move it somewhere else.</h3>
-          <p>
-            Google Distributed Cloud brings a cloud operating model to infrastructure you
-            control, so VMs and containers can move in one strategic direction.
-          </p>
-
-          <div class="plus-row">
-            <span class="plus-row__item">VMs</span>
-            <span class="plus-row__sign">+</span>
-            <span class="plus-row__item">Containers</span>
-            <span class="plus-row__sign">+</span>
-            <span class="plus-row__item">Policy</span>
-            <span class="plus-row__sign">+</span>
-            <span class="plus-row__item">Operations</span>
-          </div>
-
-          <p class="statement">One platform for legacy workloads and modern applications.</p>
-
-          <p>
-            The platform experience matters because you need a controlled path from today's
-            estate to tomorrow's cloud model.
-          </p>
-        </article>
-
-        <article class="stage-panel">
-          <span class="stage-number">03</span>
-          <h3>From fragmented estates to a single operating model.</h3>
-          <p>
-            A practical path that translates today's infrastructure into repeatable GDC
-            architecture, governance and operations.
-          </p>
-
-          <ol class="numbered-rows">
-            <li>
-              <span class="numbered-rows__num mono-tag">01</span>
-              <div>
-                <h4>Assess</h4>
-                <p>Inventory platforms, renewal timing, dependencies and workload fit.</p>
-              </div>
-            </li>
-            <li>
-              <span class="numbered-rows__num mono-tag">02</span>
-              <div>
-                <h4>Consolidate</h4>
-                <p>Converge VMs and containers closer to one platform direction.</p>
-              </div>
-            </li>
-            <li>
-              <span class="numbered-rows__num mono-tag">03</span>
-              <div>
-                <h4>Govern</h4>
-                <p>Apply consistent policy, security, IAM and lifecycle controls.</p>
-              </div>
-            </li>
-            <li>
-              <span class="numbered-rows__num mono-tag">04</span>
-              <div>
-                <h4>Operate</h4>
-                <p>Standardise observability, automation and handover practices.</p>
-              </div>
-            </li>
-          </ol>
-
-          <p class="statement">
-            Assess the estate. Consolidate the platform. Govern consistently. Operate with
-            confidence.
-          </p>
-        </article>
-
-        <article class="stage-panel">
-          <span class="stage-number">04</span>
-          <h3>The foundations every GDC programme depends on.</h3>
-          <p>
-            C-9INE helps industrialise the patterns that are too important to rebuild manually,
-            platform by platform.
-          </p>
-
-          <ul class="stage-panel__domains">
-            <li>
-              <svg class="stage-panel__domain-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <rect x="3" y="4" width="18" height="12" rx="1.5" />
-                <path d="M12,16 L12,20" />
-                <path d="M9,20 L15,20" />
-              </svg>
-              <div>
-                <p class="stage-panel__domain-label">VM runtime</p>
-                <p class="stage-panel__domain-desc">Run existing virtual machines under a cloud operating model</p>
-              </div>
-            </li>
-            <li>
-              <svg class="stage-panel__domain-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <rect x="4" y="4" width="12" height="12" rx="2" />
-                <rect x="8" y="8" width="12" height="12" rx="2" />
-              </svg>
-              <div>
-                <p class="stage-panel__domain-label">Kubernetes</p>
-                <p class="stage-panel__domain-desc">Standardise container platform operations</p>
-              </div>
-            </li>
-            <li>
-              <svg class="stage-panel__domain-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <circle cx="12" cy="5" r="2" />
-                <circle cx="5" cy="18" r="2" />
-                <circle cx="19" cy="18" r="2" />
-                <path d="M12,7 L6.5,16.3" />
-                <path d="M12,7 L17.5,16.3" />
-              </svg>
-              <div>
-                <p class="stage-panel__domain-label">Networking</p>
-                <p class="stage-panel__domain-desc">Repeatable connectivity and segmentation patterns</p>
-              </div>
-            </li>
-            <li>
-              <svg class="stage-panel__domain-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M12,3 L20,6 L20,12 C20,17 16.5,20.5 12,22 C7.5,20.5 4,17 4,12 L4,6 Z" />
-                <path d="M8.5,12 L11,14.5 L16,9" />
-              </svg>
-              <div>
-                <p class="stage-panel__domain-label">IAM &amp; access</p>
-                <p class="stage-panel__domain-desc">Clear roles, permissions and boundaries</p>
-              </div>
-            </li>
-            <li>
-              <svg class="stage-panel__domain-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M2,12 C5,6 19,6 22,12 C19,18 5,18 2,12 Z" />
-                <circle cx="12" cy="12" r="2.5" />
-              </svg>
-              <div>
-                <p class="stage-panel__domain-label">Observability</p>
-                <p class="stage-panel__domain-desc">Logging, monitoring and operational visibility</p>
-              </div>
-            </li>
-            <li>
-              <svg class="stage-panel__domain-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M6,3 L15,3 L19,7 L19,21 L6,21 Z" />
-                <path d="M15,3 L15,7 L19,7" />
-                <path d="M9,12 L16,12 M9,15.5 L16,15.5 M9,9 L12,9" />
-              </svg>
-              <div>
-                <p class="stage-panel__domain-label">Security &amp; compliance</p>
-                <p class="stage-panel__domain-desc">Consistent guardrails and control evidence</p>
-              </div>
-            </li>
-          </ul>
-
-          <p class="statement">Standardisation is what turns infrastructure into a platform.</p>
-        </article>
-
-        <article class="stage-panel">
-          <span class="stage-number">05</span>
-          <h3>From infrastructure estate to cloud operating model.</h3>
-          <p>
-            The goal is not another technology island. The goal is a simpler, governed way to
-            run today's workloads while modernising.
-          </p>
-
-          <ol class="numbered-rows">
-            <li>
-              <span class="numbered-rows__num mono-tag">01</span>
-              <div>
-                <h4>Reduce licensing pressure</h4>
-                <p>Fewer duplicated platform layers.</p>
-              </div>
-            </li>
-            <li>
-              <span class="numbered-rows__num mono-tag">02</span>
-              <div>
-                <h4>Lower operational overhead</h4>
-                <p>One model for VMs and containers.</p>
-              </div>
-            </li>
-            <li>
-              <span class="numbered-rows__num mono-tag">03</span>
-              <div>
-                <h4>Improve skills leverage</h4>
-                <p>Common patterns across teams.</p>
-              </div>
-            </li>
-            <li>
-              <span class="numbered-rows__num mono-tag">04</span>
-              <div>
-                <h4>Strengthen control</h4>
-                <p>Policy, security and visibility built in.</p>
-              </div>
-            </li>
-            <li>
-              <span class="numbered-rows__num mono-tag">05</span>
-              <div>
-                <h4>Modernise safely</h4>
-                <p>Run today's workloads while building tomorrow's apps.</p>
-              </div>
-            </li>
-          </ol>
-
-          <p class="statement">One platform. Less chaos.</p>
-        </article>
-      </StageSequence>
-    </div>
-  </section>
-
-  <section class="section-tight section-raised">
-    <div class="container">
-      <div class="why-now">
-        <h2>Why now</h2>
-        <p class="lede">
-          Broadcom's acquisition of VMware changed the calculus on every renewal. Most FSI
-          estates we work with are already re-evaluating VMware, Nutanix, Hyper-V and Kubernetes
-          side by side, not on some future roadmap. Your next hypervisor renewal doesn't have to
-          mean renewing the same complexity — it can be the moment you standardise on one
-          platform, one policy model, one fleet view, without forcing every workload to
-          modernise on day one.
-        </p>
+        <ol class="editorial-list">
+          <li>
+            <span class="editorial-list__num">01</span>
+            <div>
+              <h4>Licensing pressure</h4>
+              <p>Renewals, bundles and platform overlap make budgeting harder.</p>
+            </div>
+          </li>
+          <li>
+            <span class="editorial-list__num">02</span>
+            <div>
+              <h4>Platform sprawl</h4>
+              <p>Different stacks create different tools, teams and runbooks.</p>
+            </div>
+          </li>
+          <li>
+            <span class="editorial-list__num">03</span>
+            <div>
+              <h4>Skills fragmentation</h4>
+              <p>Specialists are spread across too many operating models.</p>
+            </div>
+          </li>
+          <li>
+            <span class="editorial-list__num">04</span>
+            <div>
+              <h4>Operational overhead</h4>
+              <p>Security, compliance and lifecycle controls are repeated in each stack.</p>
+            </div>
+          </li>
+        </ol>
       </div>
     </div>
   </section>
 
+  <!-- 02 · The Belief — wide, centred, statement-led -->
   <section class="section-tight">
     <div class="container">
-      <div class="verticals">
-        <h2>If your workload is critical, local or regulated</h2>
+      <div class="belief-layout">
+        <p class="eyebrow">The Belief</p>
+        <h2 class="belief-layout__heading">
+          Modernisation should reduce complexity, not move it somewhere else.
+        </h2>
         <p class="lede">
-          Not theoretical. These are the institutions we build GDC for, in Saudi Arabia today.
+          Google Distributed Cloud brings a cloud operating model to infrastructure you
+          control, so VMs and containers can move in one strategic direction.
         </p>
 
-        <div class="verticals__grid">
-          <div class="verticals__card">
-            <h4>Banking &amp; finance</h4>
-            <p>
-              Sovereign core-adjacent platforms, fraud and AI workloads kept local, VM
-              consolidation off ageing hypervisors.
-            </p>
-          </div>
-          <div class="verticals__card">
-            <h4>Government</h4>
-            <p>
-              Citizen services, national data custody, one secure platform standard instead of
-              several.
-            </p>
-          </div>
-          <div class="verticals__card">
-            <h4>Healthcare</h4>
-            <p>
-              Patient records and private analytics that never have to leave the building,
-              resilient local services.
-            </p>
-          </div>
-          <div class="verticals__card">
-            <h4>Critical infrastructure</h4>
-            <p>
-              Site autonomy, low latency, operational continuity even when connectivity isn't
-              guaranteed.
-            </p>
-          </div>
+        <div class="plus-row">
+          <span class="plus-row__item">VMs</span>
+          <span class="plus-row__sign">+</span>
+          <span class="plus-row__item">Containers</span>
+          <span class="plus-row__sign">+</span>
+          <span class="plus-row__item">Policy</span>
+          <span class="plus-row__sign">+</span>
+          <span class="plus-row__item">Operations</span>
         </div>
 
-        <p class="verticals__close">
-          If the workload is critical, local, regulated or latency-sensitive, it belongs in this
-          conversation.
+        <p class="belief-layout__statement">
+          One platform for legacy workloads and modern applications.
+        </p>
+
+        <p class="lede belief-layout__closing">
+          The platform experience matters because customers need a controlled path from
+          today's estate to tomorrow's cloud model.
         </p>
       </div>
     </div>
   </section>
 
+  <!-- 03 · How It Works — horizontal timeline spanning the full width -->
   <section class="section-tight section-raised">
     <div class="container">
-      <div class="modes">
-        <h2>Two delivery models. Your regulator chooses.</h2>
+      <div class="works-intro">
+        <p class="eyebrow">How It Works</p>
+        <h2>From fragmented estates to a single operating model.</h2>
         <p class="lede">
-          Software-only or air-gapped. Connected or fully isolated. Every choice on this page
-          exists so the decision stays yours, not ours — that's not a compliance requirement,
-          it's how we think a vendor should behave. Both are genuine GDC, not a workaround, and
-          C-9INE delivers both.
+          A practical path that translates today's infrastructure into repeatable GDC
+          architecture, governance and operations.
         </p>
-
-        <div class="modes__grid">
-          <div class="modes__card">
-            <svg class="modes__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M4,10 L4,20 L20,20 L20,10" />
-              <path d="M2,10 L12,3 L22,10 Z" />
-              <path d="M9,20 L9,14 L15,14 L15,20" />
-            </svg>
-            <h4>GDC software-only</h4>
-            <p class="mono-tag modes__tag">Connected</p>
-            <ul>
-              <li>Runs on your own supported x86 servers, in your data centre</li>
-              <li>A lightweight connect agent registers clusters to your fleet in Google Cloud</li>
-              <li>Fastest path to production; reuses your existing hardware investment</li>
-            </ul>
-          </div>
-          <div class="modes__card">
-            <svg class="modes__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M12,3 L20,6 L20,12 C20,17 16.5,20.5 12,22 C7.5,20.5 4,17 4,12 L4,6 Z" />
-              <rect x="9" y="11" width="6" height="5" rx="1" />
-              <path d="M10.2,11 L10.2,9.2 A1.8,1.8 0 0 1 13.8,9.2 L13.8,11" />
-            </svg>
-            <h4>GDC air-gapped</h4>
-            <p class="mono-tag modes__tag">Fully isolated</p>
-            <ul>
-              <li>Integrated Google hardware, delivered and installed at your premises</li>
-              <li>No connection to Google Cloud or the public internet, by design, ever</li>
-              <li>Built for classified and the most stringent sovereignty requirements</li>
-            </ul>
-          </div>
-        </div>
       </div>
+
+      <div class="works-timeline">
+        <div class="works-timeline__line" aria-hidden="true"></div>
+        <ol class="works-timeline__steps">
+          <li>
+            <span class="works-timeline__node">01</span>
+            <h4>Assess</h4>
+            <p>Inventory platforms, renewal timing, dependencies and workload fit.</p>
+          </li>
+          <li>
+            <span class="works-timeline__node">02</span>
+            <h4>Consolidate</h4>
+            <p>Converge VMs and containers closer to one platform direction.</p>
+          </li>
+          <li>
+            <span class="works-timeline__node">03</span>
+            <h4>Govern</h4>
+            <p>Apply consistent policy, security, IAM and lifecycle controls.</p>
+          </li>
+          <li>
+            <span class="works-timeline__node">04</span>
+            <h4>Operate</h4>
+            <p>Standardise observability, automation and handover practices.</p>
+          </li>
+        </ol>
+      </div>
+
+      <p class="pull-statement works-timeline__statement">
+        Assess the estate. Consolidate the platform. Govern consistently. Operate with
+        confidence.
+      </p>
     </div>
   </section>
 
+  <!-- 04 · What We Standardise — seamless icon grid, full width -->
+  <section class="section-tight">
+    <div class="container">
+      <div class="standardise-intro">
+        <p class="eyebrow">What We Standardise</p>
+        <h2>The foundations every GDC programme depends on.</h2>
+        <p class="lede">
+          C-9INE helps industrialise the patterns that are too important to rebuild manually,
+          platform by platform.
+        </p>
+      </div>
+
+      <ul class="foundations-grid">
+        <li>
+          <span class="foundations-grid__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="3" y="4" width="18" height="12" rx="1.5" />
+              <path d="M12,16 L12,20" />
+              <path d="M9,20 L15,20" />
+            </svg>
+          </span>
+          <h4>VM runtime</h4>
+          <p>Run existing virtual machines under a cloud operating model</p>
+        </li>
+        <li>
+          <span class="foundations-grid__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="4" y="4" width="12" height="12" rx="2" />
+              <rect x="8" y="8" width="12" height="12" rx="2" />
+            </svg>
+          </span>
+          <h4>Kubernetes</h4>
+          <p>Standardise container platform operations</p>
+        </li>
+        <li>
+          <span class="foundations-grid__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="5" r="2" />
+              <circle cx="5" cy="18" r="2" />
+              <circle cx="19" cy="18" r="2" />
+              <path d="M12,7 L6.5,16.3" />
+              <path d="M12,7 L17.5,16.3" />
+            </svg>
+          </span>
+          <h4>Networking</h4>
+          <p>Repeatable connectivity and segmentation patterns</p>
+        </li>
+        <li>
+          <span class="foundations-grid__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12,3 L20,6 L20,12 C20,17 16.5,20.5 12,22 C7.5,20.5 4,17 4,12 L4,6 Z" />
+              <path d="M8.5,12 L11,14.5 L16,9" />
+            </svg>
+          </span>
+          <h4>IAM &amp; access</h4>
+          <p>Clear roles, permissions and boundaries</p>
+        </li>
+        <li>
+          <span class="foundations-grid__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M2,12 C5,6 19,6 22,12 C19,18 5,18 2,12 Z" />
+              <circle cx="12" cy="12" r="2.5" />
+            </svg>
+          </span>
+          <h4>Observability</h4>
+          <p>Logging, monitoring and operational visibility</p>
+        </li>
+        <li>
+          <span class="foundations-grid__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M6,3 L15,3 L19,7 L19,21 L6,21 Z" />
+              <path d="M15,3 L15,7 L19,7" />
+              <path d="M9,12 L16,12 M9,15.5 L16,15.5 M9,9 L12,9" />
+            </svg>
+          </span>
+          <h4>Security &amp; compliance</h4>
+          <p>Consistent guardrails and control evidence</p>
+        </li>
+      </ul>
+
+      <p class="pull-statement foundations-grid__statement">
+        Standardisation is what turns infrastructure into a platform.
+      </p>
+    </div>
+  </section>
+
+  <!-- 05 · Customer Outcomes — stat grid, full width -->
+  <section class="section-tight section-raised">
+    <div class="container">
+      <div class="outcomes-intro">
+        <p class="eyebrow">Customer Outcomes</p>
+        <h2>From infrastructure estate to cloud operating model.</h2>
+        <p class="lede">
+          The goal is not another technology island. The goal is a simpler, governed way to
+          run today's workloads while modernising.
+        </p>
+      </div>
+
+      <ol class="stat-grid">
+        <li>
+          <span class="stat-grid__num">01</span>
+          <h4>Reduce licensing pressure</h4>
+          <p>Fewer duplicated platform layers.</p>
+        </li>
+        <li>
+          <span class="stat-grid__num">02</span>
+          <h4>Lower operational overhead</h4>
+          <p>One model for VMs and containers.</p>
+        </li>
+        <li>
+          <span class="stat-grid__num">03</span>
+          <h4>Improve skills leverage</h4>
+          <p>Common patterns across teams.</p>
+        </li>
+        <li>
+          <span class="stat-grid__num">04</span>
+          <h4>Strengthen control</h4>
+          <p>Policy, security and visibility built in.</p>
+        </li>
+        <li>
+          <span class="stat-grid__num">05</span>
+          <h4>Modernise safely</h4>
+          <p>Run today's workloads while building tomorrow's apps.</p>
+        </li>
+      </ol>
+
+      <p class="outcomes-close">One platform. Less chaos.</p>
+    </div>
+  </section>
+
+  <!-- Proof — the one section beyond the booklet -->
   <section class="section-tight">
     <div class="container">
       <div class="proof">
@@ -455,82 +358,12 @@ import CTAButton from '../components/CTAButton.astro';
     </div>
   </section>
 
-  <section class="section-tight section-raised">
-    <div class="container">
-      <div class="pilot">
-        <h2>Start with a focused pilot, not a leap</h2>
-        <p class="lede">
-          A 4–6 week pilot makes the GDC decision tangible before you commit to a full migration.
-          Install and register GDC software-only on your own supported hardware, migrate a
-          small representative set of VM and container workloads, and walk away with proof your
-          team can run this, not just that we can install it.
-        </p>
-
-        <div class="pilot-timeline">
-          <div class="pilot-timeline__line" data-reveal></div>
-          <ol class="pilot-timeline__steps">
-            <li data-reveal style="transition-delay:0ms">
-              <span class="pilot-timeline__num mono-tag">1</span>
-              <span class="pilot-timeline__label">Week 1</span>
-              <span class="pilot-timeline__desc">Executive alignment + target workloads</span>
-            </li>
-            <li data-reveal style="transition-delay:100ms">
-              <span class="pilot-timeline__num mono-tag">2</span>
-              <span class="pilot-timeline__label">Week 2</span>
-              <span class="pilot-timeline__desc">MCDC, inventory + prerequisites</span>
-            </li>
-            <li data-reveal style="transition-delay:200ms">
-              <span class="pilot-timeline__num mono-tag">3–4</span>
-              <span class="pilot-timeline__label">Weeks 3–4</span>
-              <span class="pilot-timeline__desc">Pilot build + workload migration</span>
-            </li>
-            <li data-reveal style="transition-delay:300ms">
-              <span class="pilot-timeline__num mono-tag">5</span>
-              <span class="pilot-timeline__label">Week 5</span>
-              <span class="pilot-timeline__desc">Evidence pack + business case</span>
-            </li>
-            <li data-reveal style="transition-delay:400ms">
-              <span class="pilot-timeline__num mono-tag">6</span>
-              <span class="pilot-timeline__label">Week 6</span>
-              <span class="pilot-timeline__desc">Production roadmap + commercials</span>
-            </li>
-          </ol>
-        </div>
-
-        <div class="pilot__cards">
-          <div class="pilot__card">
-            <h4>Example scope</h4>
-            <ul>
-              <li>4–6 weeks, subject to readiness</li>
-              <li>Customer-provided supported bare-metal servers</li>
-              <li>Install and register GDC software-only</li>
-              <li>Migrate 1 Linux VM + 1 Windows VM</li>
-              <li>Migrate 3–5 representative container workloads</li>
-            </ul>
-          </div>
-          <div class="pilot__card">
-            <h4>Success criteria</h4>
-            <ul>
-              <li>Platform installed and healthy</li>
-              <li>VM Runtime enabled and validated</li>
-              <li>VMs boot, connect and pass application checks</li>
-              <li>Containers deploy via agreed manifests / GitOps</li>
-              <li>Known gaps and prerequisites documented</li>
-            </ul>
-          </div>
-          <div class="pilot__card">
-            <h4>Commercial outcome</h4>
-            <ul>
-              <li>Confirms technical feasibility for your executives</li>
-              <li>Creates a local reference and evidence pack</li>
-              <li>Feeds directly into a production HLD/LLD and business case</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="pilot__cta">
-          <CTAButton href="/contact?intent=gdc-pilot">Book a GDC pilot scoping call</CTAButton>
-        </div>
+  <!-- Closing CTA — the one bold, high-contrast moment on the page -->
+  <section class="cta-band">
+    <div class="container cta-band__inner">
+      <h2>Ready to turn Google Distributed Cloud into a production-ready platform?</h2>
+      <div class="cta-band__action">
+        <CTAButton href="/contact?intent=gdc-pilot" variant="outline">Book a GDC pilot scoping call</CTAButton>
       </div>
     </div>
   </section>
@@ -545,83 +378,138 @@ import CTAButton from '../components/CTAButton.astro';
     color: var(--white-smoke);
   }
 
-  /* Same fix as the Cloud Migration page: the preceding section's own
-     bottom padding plus this section's usual top padding compounded
-     into a much bigger gap here than anywhere else on the page. */
-  .stage-section {
-    padding-top: clamp(1rem, 2vw, 1.5rem);
-  }
-
-  /* The numbered process/outcome lists used inside several stage
-     panels (Problem's four causes, How It Works' four steps,
-     Outcomes' five results) — a compact variant of the same dark
-     numbered-row pattern, sized to fit inside a pinned stage panel
-     rather than a full standalone section. */
-  .numbered-rows {
-    margin-top: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    background: var(--gunmetal-line);
-    border: 1px solid var(--gunmetal-line);
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    max-width: 40rem;
-  }
-
-  .numbered-rows li {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 0.85rem 1.1rem;
-    background: var(--gunmetal-raised);
-  }
-
-  .numbered-rows__num {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 4px;
-    background: var(--gunmetal);
-    color: var(--aquamarine);
-  }
-
-  .numbered-rows h4 {
+  /* Shared "quoted highlight" line reused by three sections (Problem,
+     How It Works, What We Standardise) for the booklet's own closing
+     statement on that page — a left rule and larger type, not a
+     boxed callout, so it reads as an idea being emphasised rather
+     than a repeated card component. */
+  .pull-statement {
+    padding-left: 1.15rem;
+    border-left: 2px solid var(--aquamarine);
     font-family: var(--font-display);
     font-weight: 600;
+    font-size: var(--step-1);
+    line-height: 1.35;
+    color: var(--white-smoke);
+  }
+
+  /* ---- 01 · The Problem --------------------------------------- */
+
+  .problem-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 21rem) 1fr;
+    gap: clamp(2.5rem, 6vw, 5.5rem);
+    align-items: start;
+  }
+
+  .problem-layout__intro h2 {
+    margin-top: 0.75rem;
+  }
+
+  .problem-layout__intro .lede {
+    margin-top: 1rem;
+  }
+
+  .problem-layout__intro .pull-statement {
+    margin-top: 2.25rem;
+  }
+
+  .editorial-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .editorial-list li {
+    display: flex;
+    gap: clamp(1.25rem, 3vw, 2rem);
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--gunmetal-line);
+  }
+
+  .editorial-list li:first-child {
+    padding-top: 0;
+  }
+
+  .editorial-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .editorial-list__num {
+    flex-shrink: 0;
+    width: 2.75rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-2);
+    line-height: 1.15;
+    color: color-mix(in srgb, var(--aquamarine) 55%, var(--gunmetal-line));
+  }
+
+  .editorial-list h4 {
     font-size: var(--step-0);
     color: var(--white-smoke);
   }
 
-  .numbered-rows p {
-    margin-top: 0.3rem;
+  .editorial-list p {
+    margin-top: 0.4rem;
     color: var(--silver);
     font-size: var(--step--1);
-    line-height: 1.4;
+    line-height: 1.5;
   }
 
-  /* The Belief panel's "VMs + Containers + Policy + Operations" row,
-     matching the booklet's own plus-separated block layout. */
+  @media (max-width: 850px) {
+    .problem-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ---- 02 · The Belief ------------------------------------------ */
+
+  .belief-layout {
+    max-width: 46rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  /* The global `p { max-width: 38rem }` reset (see base type rules)
+     caps every plain paragraph's own box at 38rem with no auto
+     margins, so inside a centered container it was shrinking to that
+     width and sitting flush against the left edge — text-align:
+     center then centered the words within that mis-positioned box,
+     not within the section. Every plain <p> in this centered layout
+     (the eyebrow and the statement; .lede already sets this itself)
+     needs its own margin-inline: auto to actually center the box. */
+  .belief-layout > .eyebrow {
+    margin-inline: auto;
+  }
+
+  .belief-layout__heading {
+    margin-top: 0.85rem;
+    font-size: var(--step-4);
+  }
+
+  .belief-layout .lede {
+    margin-top: 1.25rem;
+    margin-inline: auto;
+  }
+
   .plus-row {
-    margin-top: 1.5rem;
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    gap: 0.6rem;
-    max-width: 40rem;
+    gap: 0.75rem;
   }
 
   .plus-row__item {
-    padding: 0.6rem 1.1rem;
+    padding: 0.75rem 1.5rem;
     border: 1px solid color-mix(in srgb, var(--aquamarine) 30%, transparent);
-    border-radius: var(--border-radius);
-    background: color-mix(in srgb, var(--aquamarine) 8%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--aquamarine) 7%, transparent);
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: var(--step--1);
+    font-size: var(--step-0);
     color: var(--white-smoke);
   }
 
@@ -629,100 +517,258 @@ import CTAButton from '../components/CTAButton.astro';
     color: var(--aquamarine);
     font-family: var(--font-display);
     font-weight: 700;
+    font-size: var(--step-1);
   }
 
-  /* The bold highlight box each booklet page closes on ("More
-     platforms did not create simplicity...", "One platform. Less
-     chaos.", etc.) — reused across every stage panel that has one. */
-  .statement {
-    margin-top: 1.5rem;
-    padding: 1rem 1.5rem;
-    border: 1px solid color-mix(in srgb, var(--aquamarine) 35%, transparent);
-    border-radius: var(--border-radius);
-    background: color-mix(in srgb, var(--aquamarine) 8%, transparent);
-    color: var(--white-smoke);
+  .belief-layout__statement {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    margin-inline: auto;
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: var(--step-0);
-    max-width: 40rem;
-  }
-
-  .why-now {
-    max-width: 44rem;
-    margin-inline: auto;
-    text-align: center;
-  }
-
-  .why-now h2 {
-    font-size: var(--step-2);
-  }
-
-  .why-now .lede {
-    margin-top: 1rem;
-    margin-inline: auto;
-  }
-
-  .verticals {
-    max-width: 56rem;
-    margin-inline: auto;
-    text-align: center;
-  }
-
-  .verticals h2 {
-    font-size: var(--step-2);
-  }
-
-  .verticals .lede {
-    margin-top: 1rem;
-    margin-inline: auto;
-  }
-
-  .verticals__grid {
-    margin-top: clamp(2.5rem, 5vw, 3.5rem);
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1.25rem;
-    text-align: left;
-  }
-
-  .verticals__card {
-    padding: 1.25rem;
-    border: 1px solid var(--gunmetal-line);
-    border-radius: var(--border-radius);
-    background: var(--gunmetal-raised);
-  }
-
-  .verticals__card h4 {
+    font-size: var(--step-3);
+    line-height: 1.2;
     color: var(--aquamarine);
   }
 
-  .verticals__card p {
-    margin-top: 0.6rem;
+  .belief-layout__closing {
+    margin-top: 1.75rem;
+    color: var(--silver);
+  }
+
+  /* ---- 03 · How It Works ----------------------------------------- */
+
+  .works-intro {
+    max-width: 36rem;
+  }
+
+  .works-intro h2 {
+    margin-top: 0.75rem;
+  }
+
+  .works-intro .lede {
+    margin-top: 1rem;
+  }
+
+  .works-timeline {
+    position: relative;
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .works-timeline__line {
+    position: absolute;
+    top: 1.1rem;
+    left: 1.1rem;
+    right: 1.1rem;
+    height: 1px;
+    background: var(--gunmetal-line);
+  }
+
+  .works-timeline__steps {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .works-timeline__steps li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .works-timeline__node {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: var(--gunmetal-raised);
+    border: 1px solid var(--aquamarine);
+    color: var(--aquamarine);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step--1);
+  }
+
+  .works-timeline__steps h4 {
+    color: var(--white-smoke);
+    font-size: var(--step-0);
+  }
+
+  .works-timeline__steps p {
     color: var(--silver);
     font-size: var(--step--1);
     line-height: 1.45;
   }
 
-  .verticals__close {
-    margin-top: clamp(2rem, 4vw, 2.75rem);
-    font-family: var(--font-display);
-    font-weight: 500;
+  .works-timeline__statement {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    max-width: 46rem;
+  }
+
+  @media (max-width: 800px) {
+    .works-timeline__line {
+      display: none;
+    }
+
+    .works-timeline__steps {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  /* ---- 04 · What We Standardise ----------------------------------- */
+
+  .standardise-intro {
+    max-width: 36rem;
+  }
+
+  .standardise-intro h2 {
+    margin-top: 0.75rem;
+  }
+
+  .standardise-intro .lede {
+    margin-top: 1rem;
+  }
+
+  /* A seamless grid — 1px hairlines via the container's own
+     background showing through, rather than six individually
+     bordered boxes with gaps between them. */
+  .foundations-grid {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--gunmetal-line);
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+  }
+
+  .foundations-grid li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: clamp(1.5rem, 3vw, 1.85rem);
+    background: var(--gunmetal);
+  }
+
+  .foundations-grid__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--aquamarine) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--aquamarine) 28%, transparent);
+  }
+
+  .foundations-grid__icon svg {
+    width: 1.35rem;
+    height: 1.35rem;
+    fill: none;
+    stroke: var(--aquamarine);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .foundations-grid h4 {
+    font-size: var(--step-0);
     color: var(--white-smoke);
-    max-width: 40rem;
-    margin-inline: auto;
+  }
+
+  .foundations-grid p {
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.5;
+  }
+
+  .foundations-grid__statement {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    max-width: 46rem;
   }
 
   @media (max-width: 900px) {
-    .verticals__grid {
+    .foundations-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
-  @media (max-width: 500px) {
-    .verticals__grid {
+  @media (max-width: 560px) {
+    .foundations-grid {
       grid-template-columns: 1fr;
     }
   }
+
+  /* ---- 05 · Customer Outcomes -------------------------------------- */
+
+  .outcomes-intro {
+    max-width: 36rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .outcomes-intro > .eyebrow {
+    margin-inline: auto;
+  }
+
+  .outcomes-intro h2 {
+    margin-top: 0.75rem;
+  }
+
+  .outcomes-intro .lede {
+    margin-top: 1rem;
+    margin-inline: auto;
+  }
+
+  .stat-grid {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+  }
+
+  .stat-grid li {
+    padding-top: 1.35rem;
+    border-top: 2px solid color-mix(in srgb, var(--aquamarine) 45%, transparent);
+  }
+
+  .stat-grid__num {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-2);
+    color: var(--aquamarine);
+  }
+
+  .stat-grid h4 {
+    margin-top: 0.6rem;
+    font-size: var(--step-0);
+    color: var(--white-smoke);
+    line-height: 1.25;
+  }
+
+  .stat-grid p {
+    margin-top: 0.5rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.4;
+  }
+
+  .outcomes-close {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    margin-inline: auto;
+    text-align: center;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-3);
+    color: var(--white-smoke);
+  }
+
+  /* ---- Proof ------------------------------------------------------- */
 
   .proof__context {
     margin-top: 1.25rem;
@@ -733,14 +779,13 @@ import CTAButton from '../components/CTAButton.astro';
     margin-top: clamp(2.5rem, 5vw, 3.5rem);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-    gap: clamp(1.25rem, 3vw, 2rem);
+    gap: clamp(1.5rem, 3vw, 2rem);
   }
 
   .proof__card {
-    padding: 1.25rem;
-    border: 1px solid var(--gunmetal-line);
-    border-radius: var(--border-radius);
-    background: var(--gunmetal-raised);
+    padding: 1.35rem 1.25rem;
+    border-top: 2px solid color-mix(in srgb, var(--aquamarine) 45%, transparent);
+    background: color-mix(in srgb, var(--silver) 4%, transparent);
   }
 
   .proof__card-tag {
@@ -780,272 +825,40 @@ import CTAButton from '../components/CTAButton.astro';
     color: var(--silver);
   }
 
-  .modes {
-    max-width: 56rem;
-    margin-inline: auto;
-    text-align: center;
-  }
-
-  .modes h2 {
-    font-size: var(--step-2);
-  }
-
-  .modes .lede {
-    margin-top: 1rem;
-    margin-inline: auto;
-  }
-
-  .modes__grid {
-    margin-top: clamp(2.5rem, 5vw, 3.5rem);
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(1.5rem, 4vw, 2.5rem);
-    text-align: left;
-  }
-
-  .modes__card {
-    padding: clamp(1.5rem, 4vw, 2rem);
-    border: 1px solid var(--gunmetal-line);
-    border-radius: var(--border-radius);
-    background: var(--gunmetal);
-  }
-
-  .modes__icon {
-    width: 2.25rem;
-    height: 2.25rem;
-    fill: none;
-    stroke: var(--aquamarine);
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .modes__card h4 {
-    margin-top: 1rem;
-    font-size: var(--step-1);
-    color: var(--white-smoke);
-  }
-
-  .modes__tag {
-    margin-top: 0.35rem;
-    color: var(--aquamarine);
-  }
-
-  .modes__card ul {
-    margin-top: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    color: var(--silver);
-    font-size: var(--step--1);
-  }
-
-  .modes__card li {
-    padding-left: 1.25rem;
-    position: relative;
-    line-height: 1.4;
-  }
-
-  .modes__card li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.5em;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
+  /* ---- Closing CTA band ---------------------------------------------
+     The one high-contrast, full-bleed moment on the page — everything
+     else stays within the gunmetal palette, so this is reserved for
+     the single thing the page most wants a visitor to do. */
+  .cta-band {
     background: var(--aquamarine);
+    padding-block: clamp(1.5rem, 3.5vw, 2.5rem);
   }
 
-  @media (max-width: 700px) {
-    .modes__grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .pilot {
-    max-width: 52rem;
-    margin-inline: auto;
+  .cta-band__inner {
     text-align: center;
   }
 
-  .pilot h2 {
-    font-size: var(--step-2);
-  }
-
-  .pilot .lede {
-    margin-top: 1rem;
+  .cta-band h2 {
+    max-width: 42rem;
     margin-inline: auto;
+    font-size: var(--step-2);
+    color: var(--gunmetal);
   }
 
-  .pilot-timeline {
-    position: relative;
-    margin-top: clamp(3rem, 6vw, 4.5rem);
-  }
-
-  .pilot-timeline__line {
-    position: absolute;
-    top: 0.85rem;
-    left: 2.5rem;
-    right: 2.5rem;
-    height: 1px;
-    background: color-mix(in srgb, var(--aquamarine) 45%, transparent);
-  }
-
-  .pilot-timeline__steps {
-    position: relative;
+  .cta-band__action {
+    margin-top: clamp(1.1rem, 2.5vw, 1.5rem);
     display: flex;
-    justify-content: space-between;
-    gap: 0.5rem;
-  }
-
-  .pilot-timeline__steps li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    max-width: 8rem;
-  }
-
-  .pilot-timeline__num {
-    display: flex;
-    align-items: center;
     justify-content: center;
-    width: 1.75rem;
-    height: 1.75rem;
-    border-radius: 50%;
+  }
+
+  .cta-band__action :global(.btn) {
+    border-color: var(--gunmetal);
+    color: var(--gunmetal);
+  }
+
+  .cta-band__action :global(.btn:hover) {
     background: var(--gunmetal);
-    border: 1px solid var(--aquamarine);
     color: var(--aquamarine);
-  }
-
-  .pilot-timeline__label {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: var(--step--1);
-    color: var(--white-smoke);
-  }
-
-  .pilot-timeline__desc {
-    font-size: var(--step--2);
-    color: var(--silver);
-  }
-
-  .pilot__cards {
-    margin-top: clamp(3rem, 6vw, 4.5rem);
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(1.25rem, 3vw, 2rem);
-    text-align: left;
-  }
-
-  .pilot__card h4 {
-    color: var(--white-smoke);
-  }
-
-  .pilot__card ul {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    color: var(--silver);
-    font-size: var(--step--1);
-  }
-
-  .pilot__card li {
-    padding-left: 1.5rem;
-    position: relative;
-  }
-
-  .pilot__card li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.15em;
-    width: 1rem;
-    height: 1rem;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3,8.5 L6.5,12 L13,4' fill='none' stroke='%2333ffbd' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
-
-  .pilot__cta {
-    margin-top: clamp(2.5rem, 5vw, 3.5rem);
-    display: flex;
-    justify-content: center;
-  }
-
-  @media (max-width: 700px) {
-    .pilot-timeline__line {
-      display: none;
-    }
-
-    .pilot-timeline__steps {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1.5rem;
-    }
-
-    .pilot-timeline__steps li {
-      flex-direction: row;
-      max-width: none;
-      text-align: left;
-      gap: 0.85rem;
-    }
-
-    .pilot-timeline__num {
-      flex-shrink: 0;
-    }
-
-    .pilot__cards {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  /* Shared reveal-on-scroll: a one-shot fade + settle, used only by
-     the pilot timeline now that the stage-panel diagrams that used to
-     share this block have been folded into the booklet-led stage
-     sequence above (which has its own scroll mechanics). */
-  @media (prefers-reduced-motion: no-preference) {
-    :global(html.js) [data-reveal] {
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 550ms ease, transform 550ms ease;
-    }
-
-    :global(html.js) [data-reveal].is-revealed {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    :global(html.js) .pilot-timeline__line[data-reveal] {
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 900ms ease, opacity 200ms ease;
-    }
-
-    :global(html.js) .pilot-timeline__line[data-reveal].is-revealed {
-      transform: scaleX(1);
-    }
+    border-color: var(--gunmetal);
   }
 </style>
-
-<script>
-  const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (!prefersReduced) {
-    const revealEls = document.querySelectorAll<HTMLElement>('[data-reveal]');
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-revealed');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2, rootMargin: '0px 0px -10% 0px' }
-    );
-    revealEls.forEach((el) => observer.observe(el));
-  }
-</script>

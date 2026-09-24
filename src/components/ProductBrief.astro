@@ -1,0 +1,397 @@
+---
+// Shared body content for a product's Resources page (ANFAA, aSaaS) —
+// a condensed version of that product's own booklet: the belief
+// statement, the operating loop, and customer outcomes, ending in a
+// PDF download + contact CTA. Reuses the same belief/timeline/stat-grid
+// patterns already built for the Google Distributed Cloud page, so a
+// visitor moving between pages sees one consistent design language,
+// differentiated only by each product's own accent colour.
+interface Stage {
+  label: string;
+  desc: string;
+}
+
+interface Outcome {
+  label: string;
+  desc: string;
+}
+
+interface Props {
+  accent: 'aquamarine' | 'sky';
+  productTag: string;
+  beliefHeading: string;
+  beliefLede: string;
+  plusItems: string[];
+  beliefStatement: string;
+  beliefClosing: string;
+  loopHeading: string;
+  loopLede: string;
+  loopStages: Stage[];
+  loopStatement: string;
+  outcomesHeading: string;
+  outcomesLede: string;
+  outcomes: Outcome[];
+  outcomesClose: string;
+  pdfHref: string;
+  pdfLabel: string;
+  contactIntent: string;
+}
+
+import CTAButton from './CTAButton.astro';
+
+const {
+  accent,
+  productTag,
+  beliefHeading,
+  beliefLede,
+  plusItems,
+  beliefStatement,
+  beliefClosing,
+  loopHeading,
+  loopLede,
+  loopStages,
+  loopStatement,
+  outcomesHeading,
+  outcomesLede,
+  outcomes,
+  outcomesClose,
+  pdfHref,
+  pdfLabel,
+  contactIntent,
+} = Astro.props;
+
+const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine)';
+---
+
+<div class="product-brief" style={`--accent: ${accentVar}`}>
+  <section class="section-tight section-raised">
+    <div class="container">
+      <div class="belief-layout">
+        <p class="eyebrow">The Belief</p>
+        <h2 class="belief-layout__heading">{beliefHeading}</h2>
+        <p class="lede">{beliefLede}</p>
+
+        <div class="plus-row">
+          {plusItems.map((item, i) => (
+            <>
+              {i > 0 && <span class="plus-row__sign">+</span>}
+              <span class="plus-row__item">{item}</span>
+            </>
+          ))}
+        </div>
+
+        <p class="belief-layout__statement">{beliefStatement}</p>
+        <p class="lede belief-layout__closing">{beliefClosing}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="works-intro">
+        <p class="eyebrow">The Operating Loop</p>
+        <h2>{loopHeading}</h2>
+        <p class="lede">{loopLede}</p>
+      </div>
+
+      <div class="works-timeline">
+        <div class="works-timeline__line" aria-hidden="true"></div>
+        <ol class="works-timeline__steps">
+          {loopStages.map((stage, i) => (
+            <li>
+              <span class="works-timeline__node">{String(i + 1).padStart(2, '0')}</span>
+              <h4>{stage.label}</h4>
+              <p>{stage.desc}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <p class="pull-statement works-timeline__statement">{loopStatement}</p>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container">
+      <div class="outcomes-intro">
+        <p class="eyebrow">Customer Outcomes</p>
+        <h2>{outcomesHeading}</h2>
+        <p class="lede">{outcomesLede}</p>
+      </div>
+
+      <ol class="stat-grid">
+        {outcomes.map((outcome, i) => (
+          <li>
+            <span class="stat-grid__num">{String(i + 1).padStart(2, '0')}</span>
+            <h4>{outcome.label}</h4>
+            <p>{outcome.desc}</p>
+          </li>
+        ))}
+      </ol>
+
+      <p class="outcomes-close">{outcomesClose}</p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="brief-cta">
+        <span class="brief-cta__tag mono-tag">{productTag}</span>
+        <h2>Get the full product brief</h2>
+        <p class="lede">
+          The complete {pdfLabel} — problem, approach, operating model and outcomes in one PDF.
+        </p>
+        <div class="brief-cta__actions">
+          <CTAButton href={pdfHref} variant="outline">Download the {pdfLabel} (PDF)</CTAButton>
+          <CTAButton href={`/contact?intent=${contactIntent}`}>Talk to us about it</CTAButton>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  .belief-layout {
+    max-width: 46rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .belief-layout > .eyebrow {
+    margin-inline: auto;
+  }
+
+  .belief-layout__heading {
+    margin-top: 0.85rem;
+    font-size: var(--step-4);
+  }
+
+  .belief-layout .lede {
+    margin-top: 1.25rem;
+    margin-inline: auto;
+  }
+
+  .plus-row {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .plus-row__item {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 7%, transparent);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-0);
+    color: var(--white-smoke);
+  }
+
+  .plus-row__sign {
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-1);
+  }
+
+  .belief-layout__statement {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    margin-inline: auto;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-3);
+    line-height: 1.2;
+    color: var(--accent);
+  }
+
+  .belief-layout__closing {
+    margin-top: 1.75rem;
+    color: var(--silver);
+  }
+
+  .pull-statement {
+    padding-left: 1.15rem;
+    border-left: 2px solid var(--accent);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-1);
+    line-height: 1.35;
+    color: var(--white-smoke);
+  }
+
+  .works-intro {
+    max-width: 36rem;
+  }
+
+  .works-intro h2 {
+    margin-top: 0.75rem;
+  }
+
+  .works-intro .lede {
+    margin-top: 1rem;
+  }
+
+  .works-timeline {
+    position: relative;
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .works-timeline__line {
+    position: absolute;
+    top: 1.1rem;
+    left: 1.1rem;
+    right: 1.1rem;
+    height: 1px;
+    background: var(--gunmetal-line);
+  }
+
+  .works-timeline__steps {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .works-timeline__steps li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .works-timeline__node {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: var(--gunmetal-raised);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step--1);
+  }
+
+  .works-timeline__steps h4 {
+    color: var(--white-smoke);
+    font-size: var(--step-0);
+  }
+
+  .works-timeline__steps p {
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.45;
+  }
+
+  .works-timeline__statement {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    max-width: 46rem;
+  }
+
+  @media (max-width: 800px) {
+    .works-timeline__line {
+      display: none;
+    }
+
+    .works-timeline__steps {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  .outcomes-intro {
+    max-width: 36rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .outcomes-intro > .eyebrow {
+    margin-inline: auto;
+  }
+
+  .outcomes-intro h2 {
+    margin-top: 0.75rem;
+  }
+
+  .outcomes-intro .lede {
+    margin-top: 1rem;
+    margin-inline: auto;
+  }
+
+  .stat-grid {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+  }
+
+  .stat-grid li {
+    padding-top: 1.35rem;
+    border-top: 2px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+
+  .stat-grid__num {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-2);
+    color: var(--accent);
+  }
+
+  .stat-grid h4 {
+    margin-top: 0.6rem;
+    font-size: var(--step-0);
+    color: var(--white-smoke);
+    line-height: 1.25;
+  }
+
+  .stat-grid p {
+    margin-top: 0.5rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.4;
+  }
+
+  .outcomes-close {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    margin-inline: auto;
+    text-align: center;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-3);
+    color: var(--white-smoke);
+  }
+
+  .brief-cta {
+    max-width: 36rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .brief-cta__tag {
+    color: var(--accent);
+  }
+
+  .brief-cta h2 {
+    margin-top: 0.75rem;
+    font-size: var(--step-2);
+  }
+
+  .brief-cta .lede {
+    margin-top: 1rem;
+    margin-inline: auto;
+  }
+
+  .brief-cta__actions {
+    margin-top: clamp(2rem, 4vw, 2.75rem);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+</style>
