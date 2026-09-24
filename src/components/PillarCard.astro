@@ -1,0 +1,50 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  linkText: string;
+}
+
+const { title, description, href, linkText } = Astro.props;
+---
+
+<a href={href} class="pillar-card">
+  <h3>{title}</h3>
+  <p>{description}</p>
+  <span class="pillar-card__link mono-tag">{linkText}</span>
+</a>
+
+<style>
+  .pillar-card {
+    display: block;
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    background: var(--gunmetal-raised);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 200ms ease, transform 200ms ease;
+  }
+
+  .pillar-card:hover {
+    border-color: var(--aquamarine);
+    transform: translateY(-2px);
+  }
+
+  .pillar-card h3 {
+    font-size: var(--step-2);
+    max-width: 16ch;
+  }
+
+  .pillar-card p {
+    margin-top: 1rem;
+    color: var(--silver);
+  }
+
+  .pillar-card__link {
+    display: block;
+    margin-top: 1.75rem;
+    color: var(--aquamarine);
+  }
+</style>

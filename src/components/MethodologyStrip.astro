@@ -1,0 +1,60 @@
+---
+import StageIcon from './StageIcon.astro';
+
+const stages = [
+  { label: 'Design', icon: 'design' as const, copy: 'Target-state architecture, mapped before a single workload moves.' },
+  { label: 'Engineer', icon: 'engineer' as const, copy: 'Governed execution: migration factory or GDC deployment, whichever the destination needs.' },
+  { label: 'Run', icon: 'run' as const, copy: 'Documentation, knowledge transfer and support to keep it running, or we hand you the keys entirely.' },
+];
+---
+
+<ul class="methodology">
+  {stages.map((stage, i) => (
+    <li>
+      <div class="methodology__top">
+        <StageIcon stage={stage.icon} />
+        <span class="methodology__index mono-tag">{String(i + 1).padStart(2, '0')}</span>
+      </div>
+      <h4>{stage.label}</h4>
+      <p>{stage.copy}</p>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .methodology {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .methodology li {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--gunmetal-line);
+  }
+
+  .methodology__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .methodology__index {
+    color: var(--aquamarine);
+  }
+
+  .methodology h4 {
+    margin-top: 0.75rem;
+  }
+
+  .methodology p {
+    margin-top: 0.75rem;
+    color: var(--silver);
+  }
+
+  @media (max-width: 700px) {
+    .methodology {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,169 @@
+---
+const navItems = [
+  { href: '/cloud-migration', label: 'Cloud Migration & Transformation' },
+  { href: '/google-distributed-cloud', label: 'Google Distributed Cloud' },
+  { href: '/case-studies', label: 'Resources' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const year = new Date().getFullYear();
+
+// TODO: replace with C-9INE's real social URLs
+const socialLinks = [
+  { label: 'LinkedIn', href: '#' },
+  { label: 'X', href: '#' },
+];
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <a href="/" class="wordmark" aria-label="C-9INE, home">
+        <svg viewBox="0 0 21.89 32" class="wordmark__mark" aria-hidden="true" focusable="false">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M 9.46,0.03 C 6.95,0.36 4.42,1.71 2.73,3.64 C 0.44,6.26 -0.47,9.73 0.23,13.18 C 0.55,14.77 1.4,16.53 2.46,17.82 C 2.89,18.35 3.84,19.26 4.36,19.64 C 5.86,20.76 7.67,21.51 9.42,21.74 L 9.71,21.78 L 9.7,18.72 L 9.69,15.67 L 9.26,15.51 C 7.97,15.06 6.82,13.94 6.34,12.66 C 6.1,12.0 6.01,11.44 6.05,10.66 C 6.08,9.89 6.22,9.33 6.54,8.67 C 7.12,7.52 8.27,6.55 9.48,6.19 L 9.71,6.12 L 9.71,3.05 C 9.71,1.37 9.7,0.0 9.67,0.0 C 9.65,0.01 9.56,0.02 9.46,0.03 M 12.17,3.06 L 12.17,6.12 L 12.41,6.19 C 13.61,6.55 14.76,7.52 15.34,8.67 C 15.66,9.33 15.81,9.89 15.84,10.66 C 15.9,12.13 15.43,13.36 14.42,14.35 C 13.81,14.95 13.32,15.26 12.62,15.51 L 12.2,15.67 L 12.18,18.71 L 12.17,21.75 L 9.75,26.71 C 7.4,31.51 7.33,31.67 7.4,31.83 L 7.47,32.0 L 10.56,32.0 L 13.64,32.0 L 15.44,28.32 C 16.43,26.29 17.88,23.34 18.67,21.76 C 20.46,18.13 20.86,17.14 21.35,15.16 C 22.37,11.04 21.94,7.63 20.04,4.82 C 18.27,2.17 15.54,0.46 12.38,0.03 L 12.17,0.0 L 12.17,3.06"
+          ></path>
+        </svg>
+      </a>
+      <p class="mono-tag">Google Cloud Premier Partner</p>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Footer">
+      <ul>
+        {navItems.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <address class="site-footer__address">
+      Sahaba Tissa (Cloud 9)<br />
+      7586 King Fahad Road, Ar Rahmaniyah<br />
+      Riyadh 12341, Saudi Arabia
+      <!-- TODO: confirm current company registration number (two conflicting numbers on file) and add it here -->
+    </address>
+  </div>
+
+  <div class="container site-footer__bottom">
+    <p class="mono-tag">&copy; {year} C-9INE. All rights reserved.</p>
+
+    <ul class="site-footer__social">
+      {socialLinks.map((social) => (
+        <li>
+          <a href={social.href} aria-label={social.label} target="_blank" rel="noopener noreferrer">
+            {social.label === 'LinkedIn' ? (
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.94v5.666H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.56V9h3.554v11.452z"
+                ></path>
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                ></path>
+              </svg>
+            )}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--gunmetal-line);
+    background: var(--gunmetal);
+    padding-block: clamp(2.5rem, 6vw, 4rem) 1.5rem;
+  }
+
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(2rem, 5vw, 4rem);
+  }
+
+  .site-footer__brand .wordmark {
+    display: inline-flex;
+  }
+
+  .wordmark__mark {
+    width: 1.54rem;
+    height: 2.25rem;
+    fill: var(--aquamarine);
+  }
+
+  .site-footer__brand p {
+    margin-top: 0.75rem;
+  }
+
+  .site-footer__nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .site-footer__nav a {
+    text-decoration: none;
+    color: var(--silver);
+    font-size: var(--step--1);
+  }
+
+  .site-footer__nav a:hover {
+    color: var(--aquamarine);
+  }
+
+  .site-footer__address {
+    font-style: normal;
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.7;
+  }
+
+  .site-footer__bottom {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--gunmetal-line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .site-footer__social {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .site-footer__social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    color: var(--silver);
+    transition: color 160ms ease;
+  }
+
+  .site-footer__social a:hover {
+    color: var(--aquamarine);
+  }
+
+  .site-footer__social svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    fill: currentColor;
+  }
+
+  @media (max-width: 700px) {
+    .site-footer__grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

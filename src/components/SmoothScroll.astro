@@ -1,0 +1,38 @@
+---
+// Site-wide eased scrolling, after the to-top.ch reference (which uses
+// the same library). Lenis smooths wheel/touch input into eased
+// scrollTo() calls on the real document — it never substitutes a
+// transformed wrapper for native scrolling — so position: sticky (the
+// header, Hero's pin, StageSequence's pin) and every scroll-position
+// read elsewhere on the site keep working exactly as before, just fed
+// smoother input. Off entirely under prefers-reduced-motion, since
+// eased/inertial scrolling is itself a motion effect.
+import 'lenis/dist/lenis.css';
+---
+
+<script>
+  import Lenis from 'lenis';
+
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const lenis = new Lenis();
+
+    // Exposed so anything that reacts to scroll position — StageSequence's
+    // slide, in particular — can subscribe to Lenis's own 'scroll' event
+    // instead of the native browser one. Lenis calls window.scrollTo()
+    // itself inside its rAF loop, which does fire a native 'scroll' event,
+    // but any listener on that has to wait for the *next* animation frame
+    // to run — one frame of lag behind Lenis's own eased position on
+    // every scroll, every frame. Lenis's 'scroll' event instead fires
+    // synchronously inside that same rAF callback, so a listener on it
+    // updates in perfect lockstep with the eased motion driving the rest
+    // of the page, with nothing left to feel out of sync.
+    (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
+
+    const raf = (time: number) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+
+    requestAnimationFrame(raf);
+  }
+</script>

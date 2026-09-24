@@ -1,0 +1,46 @@
+---
+interface Props {
+  name: string;
+  role: string;
+  bio?: string;
+}
+
+const { name, role, bio } = Astro.props;
+---
+
+<article class="leadership-card">
+  <h3>{name}</h3>
+  <p class="leadership-card__role mono-tag">{role}</p>
+  {bio ? (
+    <p class="leadership-card__bio">{bio}</p>
+  ) : (
+    <p class="leadership-card__bio leadership-card__bio--pending">Bio to follow.</p>
+  )}
+</article>
+
+<style>
+  .leadership-card {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--gunmetal-line);
+  }
+
+  .leadership-card h3 {
+    font-size: var(--step-1);
+  }
+
+  .leadership-card__role {
+    margin-top: 0.4rem;
+    color: var(--aquamarine);
+  }
+
+  .leadership-card__bio {
+    margin-top: 1rem;
+    color: var(--silver);
+    max-width: 42ch;
+  }
+
+  .leadership-card__bio--pending {
+    font-style: italic;
+    color: color-mix(in srgb, var(--silver) 65%, transparent);
+  }
+</style>

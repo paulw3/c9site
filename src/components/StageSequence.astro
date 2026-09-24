@@ -1,0 +1,768 @@
+---
+// The one deliberate scrollytelling set-piece on the two pillar pages,
+// after the weevolveit.com reference: the section pins below the header
+// and consumes vertical scroll to slide horizontally through Design/
+// Engineer/Run, a giant ghost numeral behind each. A bottom stepper and
+// prev/next controls let you jump directly. Uses the same sticky +
+// scroll-progress mechanism as Hero.astro's pinned reveal (a pattern
+// already proven stable on this site), not a new one.
+import StageIcon from './StageIcon.astro';
+
+interface Props {
+  stages: string[];
+  eyebrow?: string;
+}
+
+const { stages, eyebrow } = Astro.props;
+const iconFor = (label: string) => label.toLowerCase() as 'design' | 'engineer' | 'run';
+
+// How much scroll distance (in viewport-heights) each stage gets to
+// dwell in before the next one takes over. Short panels (a sentence)
+// don't need a full screen's worth of scrolling to read, but need
+// enough room that the slide doesn't feel rushed.
+const DWELL_VH = 70;
+---
+
+{/* Groups the wrap with its mobile position indicator (below) so the
+   script can pair them by DOM proximity, and so the indicator — despite
+   being visually unrelated to the wrap's own full-bleed breakout — still
+   sits in the same document position as the rest of this component. */}
+<div class="stage-sequence-root" data-stage-sequence-root>
+  {eyebrow && <p class="eyebrow stage-sequence-intro">{eyebrow}</p>}
+
+  <div
+    class="stage-sequence-wrap"
+    data-stage-sequence-wrap
+    style={`--stage-count: ${stages.length}; --dwell-vh: ${DWELL_VH};`}
+  >
+    <section class="stage-sequence" data-stage-sequence>
+      <p class="stage-sequence__progress mono-tag"><span data-progress>000</span>%</p>
+
+      <div class="stage-sequence__panels" data-stage-panels>
+        <div class="stage-sequence__track" data-stage-track>
+          <slot />
+        </div>
+      </div>
+
+      <div class="stage-sequence__footer">
+        <button type="button" class="stage-nav__btn" data-dir="-1" aria-label="Previous stage">
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M15,5 L8,12 L15,19" /></svg>
+        </button>
+
+        <div class="stage-stepper" data-stage-stepper>
+          <div class="stage-stepper__line" aria-hidden="true"></div>
+          {stages.map((label, i) => (
+            <button
+              type="button"
+              class="stage-stepper__node"
+              data-index={i}
+              aria-current={i === 0 ? 'true' : undefined}
+              aria-label={`Jump to ${label}`}
+            >
+              <span class="stage-stepper__dot"><StageIcon stage={iconFor(label)} /></span>
+              <span class="stage-stepper__label">{label}</span>
+            </button>
+          ))}
+        </div>
+
+        <button type="button" class="stage-nav__btn" data-dir="1" aria-label="Next stage">
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M9,5 L16,12 L9,19" /></svg>
+        </button>
+      </div>
+    </section>
+  </div>
+
+  {/* Mobile-only reading-position indicator: a small floating, translucent
+     pill fixed to the right edge, shown only while this section is on
+     screen, with the stage nearest the viewport's vertical centre lit up.
+     Replaces the desktop footer's stepper below 700px — that one has no
+     touch/tap handlers wired up on mobile (see the script's isNarrow
+     guard) and, once the stage sequence became a plain stacked scroll
+     there, ended up sitting inertly after all three panels rather than
+     tracking anything. */}
+  <div class="stage-mobile-indicator" data-stage-mobile-indicator aria-hidden="true">
+    {stages.map((_, i) => (
+      <span class="stage-mobile-indicator__dot" data-index={i}>{String(i + 1).padStart(2, '0')}</span>
+    ))}
+  </div>
+</div>
+
+<style>
+  /* A small label above the pinned section, after the weevolveit.com
+     reference's own eyebrow before its "5 method" section — enough to
+     signal there's a distinct interaction coming without restating the
+     page's own H1. Sits in normal document flow, so it scrolls away
+     like any other content rather than being part of the pinned/
+     sliding mechanism. */
+  .stage-sequence-intro {
+    margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
+  }
+
+  /* Breaks out of the page's centered .container column to the full
+     viewport width — the standard technique for a full-bleed element
+     inside a max-width parent: push the left edge to the parent's
+     horizontal centre with margin-left: 50%, then pull it back by
+     exactly half of the element's own (now 100vw) width. Everything
+     inside still reads at the normal --gutter inset (see below); only
+     the sliding/fading window itself reaches the true screen edges. */
+  .stage-sequence-wrap {
+    position: relative;
+    width: 100vw;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Pinned right below the header. The header is itself position:
+     sticky with top: 0 and sits earlier in the document, so nesting
+     this sticky element under it needs no JS offset trick — the two
+     stack the ordinary CSS-sticky way. */
+  .stage-sequence {
+    position: sticky;
+    top: var(--header-height);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    padding-top: clamp(0.5rem, 1.5vw, 1rem);
+    padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .stage-sequence__progress {
+    position: absolute;
+    top: clamp(0.5rem, 1.5vw, 1rem);
+    right: var(--gutter);
+  }
+
+  .stage-sequence__panels {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* The wrap breaks out to the full viewport width so the sliding
+     window/mask reaches the true screen edges, but the panel's own
+     text needs to START at the same x as the rest of the page's
+     content (the eyebrow above it included), not at the bare
+     --gutter inset from the true edge — those only match at
+     viewports narrower than --content-max. Above that width,
+     .container centres itself and its text sits (100vw -
+     content-max)/2 + gutter from the edge, so the panel's left inset
+     matches that same formula. The right side deliberately stays at
+     the small --gutter only: since each panel is exactly one window
+     wide, mirroring the large left inset on the right too leaves a
+     big dead zone at both ends of every panel's own box — and two of
+     those (one panel's trailing gap, the next panel's leading gap)
+     land back to back at every transition, showing up as a wide empty
+     stretch between stages while sliding. A narrow right edge keeps
+     that boundary tight. Applies in both the pinned/sliding mode and
+     the stacked fallback, since neither later block touches padding. */
+  .stage-sequence__panels :global(.stage-panel) {
+    padding-left: max(var(--gutter), calc((100vw - var(--content-max)) / 2 + var(--gutter)));
+    padding-right: var(--gutter);
+  }
+
+  .stage-sequence__panels :global(.stage-number) {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(3rem, 9vw, 6rem);
+    color: var(--gunmetal-raised);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stage-sequence__panels :global(.stage-panel h3) {
+    font-size: var(--step-2);
+    max-width: 28ch;
+  }
+
+  /* Child combinator, not descendant: this must only reach the panel's
+     own intro/closing prose, not paragraphs nested inside
+     .stage-panel__domains further down. */
+  .stage-sequence__panels :global(.stage-panel > p) {
+    margin-top: 1.25rem;
+    color: var(--silver);
+    max-width: 58ch;
+  }
+
+  .stage-sequence__panels :global(.stage-panel > p:first-of-type) {
+    margin-top: 1.5rem;
+  }
+
+  .stage-sequence__panels :global(.stage-panel__domains) {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem 2rem;
+    max-width: 46rem;
+  }
+
+  .stage-sequence__panels :global(.stage-panel__domains li) {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .stage-sequence__panels :global(.stage-panel__domain-icon) {
+    flex-shrink: 0;
+    width: 1.35rem;
+    height: 1.35rem;
+    margin-top: 0.1rem;
+    fill: none;
+    stroke: var(--aquamarine);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .stage-sequence__panels :global(.stage-panel__domains .stage-panel__domain-label) {
+    margin-top: 0;
+    line-height: 1.3;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step--1);
+    color: var(--white-smoke);
+  }
+
+  .stage-sequence__panels :global(.stage-panel__domains .stage-panel__domain-desc) {
+    margin-top: 0.15rem;
+    line-height: 1.3;
+    color: var(--silver);
+    font-size: var(--step--1);
+  }
+
+  @media (max-width: 700px) {
+    .stage-sequence__panels :global(.stage-panel__domains) {
+      grid-template-columns: 1fr;
+    }
+
+    /* Extra clearance on top of the panel's own right padding so body
+       copy never runs under the floating .stage-mobile-indicator pill
+       (fixed at a similar right offset, further down this file) — at
+       narrow widths the plain gutter alone isn't wide enough to hold
+       the pill without it overlapping the last few characters of a
+       line, which read as cut off since the pill's translucent
+       background dims whatever sits behind it. */
+    .stage-sequence__panels :global(.stage-panel) {
+      padding-right: calc(var(--gutter) + 2.75rem);
+    }
+  }
+
+  .stage-sequence__footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1rem, 3vw, 2rem);
+  }
+
+  .stage-nav__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1px solid var(--gunmetal-line);
+    background: none;
+    color: var(--white-smoke);
+    cursor: pointer;
+    transition: border-color 160ms ease, color 160ms ease;
+  }
+
+  .stage-nav__btn svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .stage-nav__btn:hover:not(:disabled) {
+    border-color: var(--aquamarine);
+    color: var(--aquamarine);
+  }
+
+  .stage-nav__btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  .stage-stepper {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(1.5rem, 5vw, 3.5rem);
+  }
+
+  .stage-stepper__line {
+    position: absolute;
+    top: 1.1rem;
+    left: 1.1rem;
+    right: 1.1rem;
+    height: 1px;
+    background: var(--gunmetal-line);
+    z-index: 0;
+  }
+
+  .stage-stepper__node {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--gunmetal-line);
+  }
+
+  .stage-stepper__dot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: var(--gunmetal);
+    border: 1px solid var(--gunmetal-line);
+    transition: border-color 200ms ease, background-color 200ms ease;
+  }
+
+  .stage-stepper__dot :global(.stage-icon) {
+    width: 1.1rem;
+    height: 1.1rem;
+    stroke: var(--gunmetal-line);
+    transition: stroke 200ms ease;
+  }
+
+  .stage-stepper__label {
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--gunmetal-line);
+    transition: color 200ms ease;
+  }
+
+  .stage-stepper__node[aria-current='true'] .stage-stepper__dot {
+    background: var(--aquamarine);
+    border-color: var(--aquamarine);
+  }
+
+  .stage-stepper__node[aria-current='true'] .stage-stepper__dot :global(.stage-icon) {
+    stroke: var(--gunmetal);
+  }
+
+  .stage-stepper__node[aria-current='true'] .stage-stepper__label {
+    color: var(--aquamarine);
+  }
+
+  @media (max-width: 700px) {
+    /* Non-functional here: the stacked mobile layout has no pinned
+       scroll to track, and the stepper's jump-to clicks and prev/next
+       buttons are only wired up when !isNarrow (see the script below).
+       The floating .stage-mobile-indicator replaces it. */
+    .stage-sequence__footer {
+      display: none;
+    }
+  }
+
+  .stage-mobile-indicator {
+    display: none;
+  }
+
+  @media (max-width: 700px) {
+    .stage-mobile-indicator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.65rem;
+      position: fixed;
+      z-index: 20;
+      right: 0.65rem;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0.85rem 0.5rem;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--gunmetal) 55%, transparent);
+      border: 1px solid color-mix(in srgb, var(--white-smoke) 18%, transparent);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms ease;
+    }
+
+    .stage-mobile-indicator.is-visible {
+      opacity: 1;
+    }
+
+    .stage-mobile-indicator__dot {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.65rem;
+      letter-spacing: 0.02em;
+      color: color-mix(in srgb, var(--white-smoke) 40%, transparent);
+      transition: color 200ms ease;
+    }
+
+    .stage-mobile-indicator__dot.is-active {
+      color: var(--aquamarine);
+    }
+  }
+
+  /* No pinning at all — every panel shown fully, stacked in normal
+     document flow, one after another. The complete, motionless
+     fallback for prefers-reduced-motion and (since this block lives
+     outside any html.js gate) for anyone without JS too. */
+  .stage-sequence-wrap {
+    height: auto;
+  }
+
+  .stage-sequence {
+    position: static;
+  }
+
+  .stage-sequence__progress {
+    display: none;
+  }
+
+  .stage-sequence__panels {
+    overflow: visible;
+  }
+
+  .stage-sequence__track {
+    display: block;
+  }
+
+  .stage-sequence__panels :global(.stage-panel) {
+    padding-block: clamp(2rem, 5vw, 3.5rem);
+    border-bottom: 1px solid var(--gunmetal-line);
+  }
+
+  .stage-sequence__panels :global(.stage-panel:last-child) {
+    border-bottom: none;
+  }
+
+  .stage-nav__btn {
+    display: none;
+  }
+
+  .stage-stepper__node {
+    cursor: default;
+  }
+
+  /* The enhanced, JS + motion-ok version: pin, slide, live progress.
+     Everything above is the safe default this overrides. The slide
+     itself (track's transform) is set directly from the live scroll
+     position every frame in the script below — not a CSS transition —
+     so it tracks the scrollbar 1:1 with zero lag. Nothing here or in
+     the script ever measures a height that's mid-transition, which is
+     what caused this component's earlier jitter: the scroll-progress
+     math read the panel container's own height every frame while that
+     height was itself mid-animation, so each frame's "how far through
+     the section am I" answer depended slightly on the previous
+     frame's animation state instead of purely on scroll position. */
+  /* min-width paired with the motion query: below 700px, the tallest
+     panel's content (the Design/Engineer domain lists especially) is
+     routinely taller than the pinned sticky window, and the dwell
+     distance is scroll-driven, not content-driven — so on a short
+     mobile viewport the section advances to the next stage before
+     there's room to scroll down and read the rest of the current one.
+     No dwell-time tuning fixes that (a longer dwell still clips a tall
+     enough panel); below this breakpoint it falls back to the same
+     plain stacked layout already used for reduced-motion and no-JS,
+     which scrolls at the user's own pace with nothing ever cut off. */
+  @media (prefers-reduced-motion: no-preference) and (min-width: 701px) {
+    :global(html.js) .stage-sequence-wrap {
+      height: calc(var(--stage-count) * var(--dwell-vh) * 1vh);
+    }
+
+    :global(html.js) .stage-sequence {
+      position: sticky;
+    }
+
+    :global(html.js) .stage-sequence__progress {
+      display: block;
+    }
+
+    /* Fades a panel out as it nears the window's edges instead of
+       hard-clipping it there. Which side(s) fade depends on whether
+       there's actually a neighbour to hide there — the first stage
+       has nothing to its left and the last has nothing to its right,
+       so fading those edges anyway just dims real content (the exact
+       "obscures the first phase" bug this replaced: a static
+       both-edges fade dimmed the opening panel's own left edge before
+       any scrolling had happened, with nothing there to justify it).
+       is-first/is-last are toggled in the script below from the same
+       current index the stepper and prev/next buttons already use. */
+    :global(html.js) .stage-sequence__panels {
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+    }
+
+    :global(html.js) .stage-sequence__panels.is-first {
+      mask-image: linear-gradient(to right, black, black 94%, transparent);
+      -webkit-mask-image: linear-gradient(to right, black, black 94%, transparent);
+    }
+
+    :global(html.js) .stage-sequence__panels.is-last {
+      mask-image: linear-gradient(to right, transparent, black 6%, black);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black);
+    }
+
+    /* The window's height stays fixed to the tallest panel for the
+       whole section (see the script's scrollable-distance comment for
+       why), so a shorter panel has real spare room beneath it.
+       Centering distributes that room above and below rather than
+       leaving it all as a single gap under the content, which reads
+       as intentional breathing room rather than a layout mistake. */
+    :global(html.js) .stage-sequence__track {
+      display: flex;
+      align-items: center;
+      width: calc(var(--stage-count) * 100%);
+      will-change: transform;
+    }
+
+    :global(html.js) .stage-sequence__panels :global(.stage-panel) {
+      flex: 0 0 calc(100% / var(--stage-count));
+      min-width: 0;
+      padding-block: 0;
+      border-bottom: none;
+    }
+
+    :global(html.js) .stage-nav__btn {
+      display: flex;
+    }
+
+    :global(html.js) .stage-stepper__node {
+      cursor: pointer;
+    }
+  }
+</style>
+
+<script>
+  const wraps = document.querySelectorAll<HTMLElement>('[data-stage-sequence-wrap]');
+  const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Mirrors the CSS breakpoint below: on a narrow viewport the pinned
+  // slide is skipped in favour of the plain stacked layout, so none of
+  // this wiring (which drives that pinned/sliding behaviour) should run.
+  const isNarrow = matchMedia('(max-width: 700px)').matches;
+  const header = document.querySelector<HTMLElement>('.site-header');
+
+  if (!prefersReduced && !isNarrow) {
+    wraps.forEach((wrap) => {
+      const seq = wrap.querySelector<HTMLElement>('[data-stage-sequence]');
+      const panelsEl = wrap.querySelector<HTMLElement>('[data-stage-panels]');
+      const track = wrap.querySelector<HTMLElement>('[data-stage-track]');
+      const panels = Array.from(wrap.querySelectorAll<HTMLElement>('.stage-panel'));
+      const nodes = Array.from(wrap.querySelectorAll<HTMLButtonElement>('.stage-stepper__node'));
+      const progressEl = wrap.querySelector<HTMLElement>('[data-progress]');
+      const prevBtn = wrap.querySelector<HTMLButtonElement>('[data-dir="-1"]');
+      const nextBtn = wrap.querySelector<HTMLButtonElement>('[data-dir="1"]');
+      const N = panels.length;
+
+      if (!seq || !panelsEl || !track || !N) return;
+
+      // Cached, not read live in the scroll handler: getBoundingClientRect()
+      // and offsetHeight both force a synchronous layout recalculation, and
+      // update() below used to call both on every single scroll frame.
+      // Lenis fires a native 'scroll' event on every one of its own eased
+      // animation frames, so that was a forced layout on every frame of
+      // every scroll on the page — a textbook cause of scroll jank. None
+      // of these three actually change while scrolling (only on resize/
+      // reflow), so they're measured once up front and the scroll handler
+      // does only cheap arithmetic against window.scrollY.
+      let documentTop = 0;
+      let headerHeight = 0;
+
+      // The window is never resized per active panel — it stays at
+      // the track's natural height (the tallest panel, ordinary
+      // flex-row sizing) for the whole pinned section. That was the
+      // earlier source of jitter: shrinking it to fit whichever panel
+      // is active changes seq's real height, which changes exactly
+      // when the browser's native position: sticky actually releases
+      // — so any cached scroll-distance figure silently drifts out of
+      // sync with reality the moment a non-tallest panel is active.
+      // Leaving the height alone keeps that geometry fixed for the
+      // section's entire scroll range, so it only needs computing
+      // once (and on resize), never inside the scroll handler.
+      let scrollable = 0;
+
+      const measure = () => {
+        headerHeight = header?.offsetHeight ?? 0;
+        documentTop = window.scrollY + wrap.getBoundingClientRect().top;
+        scrollable = wrap.offsetHeight - seq.offsetHeight;
+      };
+
+      let current = 0;
+
+      const setActive = (index: number) => {
+        current = Math.max(0, Math.min(index, N - 1));
+        nodes.forEach((n, i) => {
+          if (i === current) n.setAttribute('aria-current', 'true');
+          else n.removeAttribute('aria-current');
+        });
+        if (prevBtn) prevBtn.disabled = current === 0;
+        if (nextBtn) nextBtn.disabled = current === N - 1;
+        panelsEl.classList.toggle('is-first', current === 0);
+        panelsEl.classList.toggle('is-last', current === N - 1);
+      };
+
+      // Jump to a stage by scrolling so its slice of the wrap's pinned
+      // dwell distance is centred under the sticky viewport, rather
+      // than trying to reason about the *current* scroll position.
+      const jumpTo = (index: number) => {
+        const p = (index + 0.5) / N;
+        const targetY = documentTop - headerHeight + p * scrollable;
+        window.scrollTo({ top: targetY, behavior: 'smooth' });
+      };
+
+      nodes.forEach((node, i) => node.addEventListener('click', () => jumpTo(i)));
+      prevBtn?.addEventListener('click', () => jumpTo(Math.max(current - 1, 0)));
+      nextBtn?.addEventListener('click', () => jumpTo(Math.min(current + 1, N - 1)));
+
+      let ticking = false;
+      const update = () => {
+        const viewportTop = documentTop - window.scrollY;
+        const progress = scrollable > 0 ? Math.min(Math.max((headerHeight - viewportTop) / scrollable, 0), 1) : 0;
+
+        // The slide is a direct, continuous function of scroll
+        // position — set every frame, no CSS transition involved —
+        // so it always exactly matches the scrollbar with no lag and
+        // nothing to desync. translateX is a percentage of the
+        // track's OWN width (N screens wide), so the fraction of
+        // travel needed to move from panel 0 to panel N-1 is
+        // (N-1)/N, not 100%.
+        const travel = (progress * (N - 1) * 100) / N;
+        track.style.transform = `translateX(-${travel}%)`;
+
+        const index = Math.min(Math.round(progress * (N - 1)), N - 1);
+        if (index !== current) setActive(index);
+        if (progressEl) progressEl.textContent = String(Math.round(progress * 100)).padStart(3, '0');
+        ticking = false;
+      };
+
+      setActive(0);
+      measure();
+      update();
+
+      // Belt-and-suspenders alongside the ResizeObserver below: this
+      // also re-anchors documentTop (not just scrollable), in case
+      // something above the section — not the section itself —
+      // reflowed from the same font swap and shifted where the wrap
+      // actually starts on the page.
+      document.fonts?.ready?.then(() => {
+        measure();
+        update();
+      });
+
+      // A plain 'resize' listener alone isn't enough: seq's height (and
+      // so scrollable) also changes from things that aren't a viewport
+      // resize at all — most importantly the web font swapping in after
+      // first paint (font-display: swap) reflowing the panel text to a
+      // different height. measure() ran once, before that swap, so the
+      // cached scrollable value went stale for the rest of the page's
+      // life: too small (or briefly negative, pinning progress at 0
+      // forever) on the taller, text-heavier panels, and just slightly
+      // too small on shorter ones — which reads as "doesn't work" on
+      // one page and "way too fast" on another, exactly the bug this
+      // replaced. ResizeObserver catches every actual size change to
+      // the pinned box, whatever caused it, not just window resizes.
+      const resizeObserver = new ResizeObserver(() => {
+        measure();
+        update();
+      });
+      resizeObserver.observe(seq);
+
+      // Prefer subscribing directly to Lenis's own 'scroll' event over
+      // the native browser one — see the comment on window.__lenis in
+      // SmoothScroll.astro for why: it removes a full animation frame
+      // of lag between Lenis's eased position and this slide catching
+      // up to it, which is what made the two feel out of step with
+      // each other. Falls back to the native event (still correct,
+      // just with that one frame of lag) if Lenis isn't there —
+      // shouldn't happen given both are gated by the same
+      // prefers-reduced-motion check, but script load order isn't
+      // guaranteed to leave window.__lenis set yet the instant this
+      // particular script runs.
+      const lenis = (window as unknown as { __lenis?: { on: (event: 'scroll', cb: () => void) => void } }).__lenis;
+      if (lenis) {
+        lenis.on('scroll', update);
+      } else {
+        window.addEventListener(
+          'scroll',
+          () => {
+            if (!ticking) {
+              requestAnimationFrame(update);
+              ticking = true;
+            }
+          },
+          { passive: true }
+        );
+      }
+
+      window.addEventListener('resize', () => {
+        measure();
+        update();
+      });
+    });
+  }
+
+  // Mobile reading-position indicator: independent of prefersReduced
+  // (it's a passive position readout, not a scroll-hijack — nothing
+  // here forces the page to scroll anywhere), gated only on isNarrow
+  // since it's replacing the desktop footer's stepper specifically for
+  // the stacked mobile layout above.
+  if (isNarrow) {
+    wraps.forEach((wrap) => {
+      const root = wrap.closest<HTMLElement>('[data-stage-sequence-root]');
+      const indicator = root?.querySelector<HTMLElement>('[data-stage-mobile-indicator]');
+      const panels = Array.from(wrap.querySelectorAll<HTMLElement>('.stage-panel'));
+      const dots = indicator ? Array.from(indicator.querySelectorAll<HTMLElement>('[data-index]')) : [];
+
+      if (!indicator || !panels.length || !dots.length) return;
+
+      const setActive = (index: number) => {
+        dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
+      };
+
+      // Visibility is driven by the same "is a stage centred" signal
+      // as the active number below, not by whether any pixel of the
+      // whole three-panel block is still on screen — that earlier,
+      // simpler version kept the pill up through all of Run's own
+      // padding/border and into whatever section came next, well
+      // after the user had actually moved on. Tracking centred-ness
+      // instead means it disappears as soon as Run's box scrolls past
+      // the viewport's centre, not only once it's fully gone.
+      const activeIndices = new Set<number>();
+
+      // Shrinks the observed viewport to a 1px-tall line at its
+      // vertical centre (via equal negative top/bottom rootMargin), so
+      // a panel counts as "current" exactly when it crosses the
+      // centre of the screen — the standard IntersectionObserver
+      // scrollspy technique.
+      const panelObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const index = panels.indexOf(entry.target as HTMLElement);
+            if (index === -1) return;
+            if (entry.isIntersecting) {
+              activeIndices.add(index);
+              setActive(index);
+            } else {
+              activeIndices.delete(index);
+            }
+          });
+          indicator.classList.toggle('is-visible', activeIndices.size > 0);
+        },
+        { rootMargin: '-50% 0px -50% 0px', threshold: 0 }
+      );
+      panels.forEach((panel) => panelObserver.observe(panel));
+
+      setActive(0);
+    });
+  }
+</script>

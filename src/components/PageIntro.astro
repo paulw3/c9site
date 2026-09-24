@@ -1,0 +1,62 @@
+---
+interface Props {
+  eyebrow?: string;
+}
+
+const { eyebrow } = Astro.props;
+---
+
+<section class="page-intro">
+  <div class="page-intro__texture" aria-hidden="true"></div>
+  <div class="container page-intro__inner">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .page-intro {
+    position: relative;
+    isolation: isolate;
+    border-bottom: 1px solid var(--gunmetal-line);
+    background:
+      radial-gradient(ellipse 60% 50% at 85% 0%, color-mix(in srgb, var(--aquamarine) 10%, transparent), transparent 70%),
+      var(--gunmetal);
+  }
+
+  /* GE4: the brand guide's own cumulus-cloud scene (brand guide §5),
+     cropped from the guide as a real image asset rather than redrawn.
+     No mask-image: stacking opacity with mask-image on a
+     negative-z-index layer inside an isolated stacking context is a
+     known trigger for GPU-compositing failures on some hardware,
+     where the masked layer renders as a solid block instead of a
+     fade — this sits directly behind the page's H1, so a failure here
+     is maximally visible. Plain opacity alone is the robust choice. */
+  .page-intro__texture {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.28;
+    background-image: url('/textures/ge4.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .page-intro__inner {
+    padding-block: clamp(4.5rem, 10vw, 7.5rem) clamp(3rem, 6vw, 5rem);
+    max-width: 46rem;
+  }
+
+  .page-intro :global(h1) {
+    max-width: 18ch;
+  }
+
+  .page-intro :global(.lede) {
+    margin-top: 1.5rem;
+  }
+
+  .page-intro :global(.page-intro__cta) {
+    margin-top: 2.25rem;
+  }
+</style>
