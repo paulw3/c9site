@@ -12,9 +12,12 @@ import CTAButton from '../components/CTAButton.astro';
   <!--
     This page follows the C-9INE GDC Executive Booklet (v1.0) page for
     page, in order: Problem, Belief, How It Works, What We Standardise,
-    Customer Outcomes, then the booklet's own closing page. Proof is the
-    one section added beyond the booklet itself. Plain stacked sections
-    throughout — no pinned/sliding scroll mechanic.
+    Customer Outcomes. Proof is the one section added beyond the
+    booklet itself. Each section has its own layout rather than
+    repeating one narrow centred-column template five times — an
+    editorial list, a wide statement, a horizontal timeline, a
+    seamless icon grid, a stat grid — so the page reads as a designed
+    whole rather than a stamped-out sequence.
   -->
   <PageIntro eyebrow="Google Distributed Cloud">
     <h1>One platform. Less chaos.</h1>
@@ -30,61 +33,64 @@ import CTAButton from '../components/CTAButton.astro';
     </div>
   </PageIntro>
 
+  <!-- 01 · The Problem — text column + editorial list, left-aligned -->
   <section class="section-tight section-raised">
     <div class="container">
-      <div class="booklet-panel">
-        <span class="section-number">01</span>
-        <p class="eyebrow">The Problem</p>
-        <h2>Your data centre was not meant to become this complicated.</h2>
-        <p class="lede">
-          VMware, Nutanix, Hyper-V, Kubernetes and cloud projects often grow into separate
-          platforms, each with its own skills and operating model.
-        </p>
+      <div class="problem-layout">
+        <div class="problem-layout__intro">
+          <p class="eyebrow">The Problem</p>
+          <h2>Your data centre was not meant to become this complicated.</h2>
+          <p class="lede">
+            VMware, Nutanix, Hyper-V, Kubernetes and cloud projects often grow into separate
+            platforms, each with its own skills and operating model.
+          </p>
+          <p class="pull-statement">
+            More platforms did not create simplicity. They created another operating problem.
+          </p>
+        </div>
 
-        <ol class="numbered-rows">
+        <ol class="editorial-list">
           <li>
-            <span class="numbered-rows__num mono-tag">01</span>
+            <span class="editorial-list__num">01</span>
             <div>
               <h4>Licensing pressure</h4>
               <p>Renewals, bundles and platform overlap make budgeting harder.</p>
             </div>
           </li>
           <li>
-            <span class="numbered-rows__num mono-tag">02</span>
+            <span class="editorial-list__num">02</span>
             <div>
               <h4>Platform sprawl</h4>
               <p>Different stacks create different tools, teams and runbooks.</p>
             </div>
           </li>
           <li>
-            <span class="numbered-rows__num mono-tag">03</span>
+            <span class="editorial-list__num">03</span>
             <div>
               <h4>Skills fragmentation</h4>
               <p>Specialists are spread across too many operating models.</p>
             </div>
           </li>
           <li>
-            <span class="numbered-rows__num mono-tag">04</span>
+            <span class="editorial-list__num">04</span>
             <div>
               <h4>Operational overhead</h4>
               <p>Security, compliance and lifecycle controls are repeated in each stack.</p>
             </div>
           </li>
         </ol>
-
-        <p class="statement">
-          More platforms did not create simplicity. They created another operating problem.
-        </p>
       </div>
     </div>
   </section>
 
+  <!-- 02 · The Belief — wide, centred, statement-led -->
   <section class="section-tight">
     <div class="container">
-      <div class="booklet-panel">
-        <span class="section-number">02</span>
+      <div class="belief-layout">
         <p class="eyebrow">The Belief</p>
-        <h2>Modernisation should reduce complexity, not move it somewhere else.</h2>
+        <h2 class="belief-layout__heading">
+          Modernisation should reduce complexity, not move it somewhere else.
+        </h2>
         <p class="lede">
           Google Distributed Cloud brings a cloud operating model to infrastructure you
           control, so VMs and containers can move in one strategic direction.
@@ -100,204 +106,194 @@ import CTAButton from '../components/CTAButton.astro';
           <span class="plus-row__item">Operations</span>
         </div>
 
-        <p class="statement">One platform for legacy workloads and modern applications.</p>
+        <p class="belief-layout__statement">
+          One platform for legacy workloads and modern applications.
+        </p>
 
-        <p class="lede">
-          The platform experience matters because customers need a controlled path from today's
-          estate to tomorrow's cloud model.
+        <p class="lede belief-layout__closing">
+          The platform experience matters because customers need a controlled path from
+          today's estate to tomorrow's cloud model.
         </p>
       </div>
     </div>
   </section>
 
+  <!-- 03 · How It Works — horizontal timeline spanning the full width -->
   <section class="section-tight section-raised">
     <div class="container">
-      <div class="booklet-panel">
-        <span class="section-number">03</span>
+      <div class="works-intro">
         <p class="eyebrow">How It Works</p>
         <h2>From fragmented estates to a single operating model.</h2>
         <p class="lede">
           A practical path that translates today's infrastructure into repeatable GDC
           architecture, governance and operations.
         </p>
+      </div>
 
-        <ol class="numbered-rows">
+      <div class="works-timeline">
+        <div class="works-timeline__line" aria-hidden="true"></div>
+        <ol class="works-timeline__steps">
           <li>
-            <span class="numbered-rows__num mono-tag">01</span>
-            <div>
-              <h4>Assess</h4>
-              <p>Inventory platforms, renewal timing, dependencies and workload fit.</p>
-            </div>
+            <span class="works-timeline__node">01</span>
+            <h4>Assess</h4>
+            <p>Inventory platforms, renewal timing, dependencies and workload fit.</p>
           </li>
           <li>
-            <span class="numbered-rows__num mono-tag">02</span>
-            <div>
-              <h4>Consolidate</h4>
-              <p>Converge VMs and containers closer to one platform direction.</p>
-            </div>
+            <span class="works-timeline__node">02</span>
+            <h4>Consolidate</h4>
+            <p>Converge VMs and containers closer to one platform direction.</p>
           </li>
           <li>
-            <span class="numbered-rows__num mono-tag">03</span>
-            <div>
-              <h4>Govern</h4>
-              <p>Apply consistent policy, security, IAM and lifecycle controls.</p>
-            </div>
+            <span class="works-timeline__node">03</span>
+            <h4>Govern</h4>
+            <p>Apply consistent policy, security, IAM and lifecycle controls.</p>
           </li>
           <li>
-            <span class="numbered-rows__num mono-tag">04</span>
-            <div>
-              <h4>Operate</h4>
-              <p>Standardise observability, automation and handover practices.</p>
-            </div>
+            <span class="works-timeline__node">04</span>
+            <h4>Operate</h4>
+            <p>Standardise observability, automation and handover practices.</p>
           </li>
         </ol>
-
-        <p class="statement">
-          Assess the estate. Consolidate the platform. Govern consistently. Operate with
-          confidence.
-        </p>
       </div>
+
+      <p class="pull-statement works-timeline__statement">
+        Assess the estate. Consolidate the platform. Govern consistently. Operate with
+        confidence.
+      </p>
     </div>
   </section>
 
+  <!-- 04 · What We Standardise — seamless icon grid, full width -->
   <section class="section-tight">
     <div class="container">
-      <div class="booklet-panel">
-        <span class="section-number">04</span>
+      <div class="standardise-intro">
         <p class="eyebrow">What We Standardise</p>
         <h2>The foundations every GDC programme depends on.</h2>
         <p class="lede">
           C-9INE helps industrialise the patterns that are too important to rebuild manually,
           platform by platform.
         </p>
+      </div>
 
-        <ul class="domains-grid">
-          <li>
-            <svg class="domains-grid__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <ul class="foundations-grid">
+        <li>
+          <span class="foundations-grid__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <rect x="3" y="4" width="18" height="12" rx="1.5" />
               <path d="M12,16 L12,20" />
               <path d="M9,20 L15,20" />
             </svg>
-            <div>
-              <p class="domains-grid__label">VM runtime</p>
-              <p class="domains-grid__desc">Run existing virtual machines under a cloud operating model</p>
-            </div>
-          </li>
-          <li>
-            <svg class="domains-grid__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          </span>
+          <h4>VM runtime</h4>
+          <p>Run existing virtual machines under a cloud operating model</p>
+        </li>
+        <li>
+          <span class="foundations-grid__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <rect x="4" y="4" width="12" height="12" rx="2" />
               <rect x="8" y="8" width="12" height="12" rx="2" />
             </svg>
-            <div>
-              <p class="domains-grid__label">Kubernetes</p>
-              <p class="domains-grid__desc">Standardise container platform operations</p>
-            </div>
-          </li>
-          <li>
-            <svg class="domains-grid__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          </span>
+          <h4>Kubernetes</h4>
+          <p>Standardise container platform operations</p>
+        </li>
+        <li>
+          <span class="foundations-grid__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <circle cx="12" cy="5" r="2" />
               <circle cx="5" cy="18" r="2" />
               <circle cx="19" cy="18" r="2" />
               <path d="M12,7 L6.5,16.3" />
               <path d="M12,7 L17.5,16.3" />
             </svg>
-            <div>
-              <p class="domains-grid__label">Networking</p>
-              <p class="domains-grid__desc">Repeatable connectivity and segmentation patterns</p>
-            </div>
-          </li>
-          <li>
-            <svg class="domains-grid__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          </span>
+          <h4>Networking</h4>
+          <p>Repeatable connectivity and segmentation patterns</p>
+        </li>
+        <li>
+          <span class="foundations-grid__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <path d="M12,3 L20,6 L20,12 C20,17 16.5,20.5 12,22 C7.5,20.5 4,17 4,12 L4,6 Z" />
               <path d="M8.5,12 L11,14.5 L16,9" />
             </svg>
-            <div>
-              <p class="domains-grid__label">IAM &amp; access</p>
-              <p class="domains-grid__desc">Clear roles, permissions and boundaries</p>
-            </div>
-          </li>
-          <li>
-            <svg class="domains-grid__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          </span>
+          <h4>IAM &amp; access</h4>
+          <p>Clear roles, permissions and boundaries</p>
+        </li>
+        <li>
+          <span class="foundations-grid__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <path d="M2,12 C5,6 19,6 22,12 C19,18 5,18 2,12 Z" />
               <circle cx="12" cy="12" r="2.5" />
             </svg>
-            <div>
-              <p class="domains-grid__label">Observability</p>
-              <p class="domains-grid__desc">Logging, monitoring and operational visibility</p>
-            </div>
-          </li>
-          <li>
-            <svg class="domains-grid__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          </span>
+          <h4>Observability</h4>
+          <p>Logging, monitoring and operational visibility</p>
+        </li>
+        <li>
+          <span class="foundations-grid__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <path d="M6,3 L15,3 L19,7 L19,21 L6,21 Z" />
               <path d="M15,3 L15,7 L19,7" />
               <path d="M9,12 L16,12 M9,15.5 L16,15.5 M9,9 L12,9" />
             </svg>
-            <div>
-              <p class="domains-grid__label">Security &amp; compliance</p>
-              <p class="domains-grid__desc">Consistent guardrails and control evidence</p>
-            </div>
-          </li>
-        </ul>
+          </span>
+          <h4>Security &amp; compliance</h4>
+          <p>Consistent guardrails and control evidence</p>
+        </li>
+      </ul>
 
-        <p class="statement">Standardisation is what turns infrastructure into a platform.</p>
-      </div>
+      <p class="pull-statement foundations-grid__statement">
+        Standardisation is what turns infrastructure into a platform.
+      </p>
     </div>
   </section>
 
+  <!-- 05 · Customer Outcomes — stat grid, full width -->
   <section class="section-tight section-raised">
     <div class="container">
-      <div class="booklet-panel">
-        <span class="section-number">05</span>
+      <div class="outcomes-intro">
         <p class="eyebrow">Customer Outcomes</p>
         <h2>From infrastructure estate to cloud operating model.</h2>
         <p class="lede">
           The goal is not another technology island. The goal is a simpler, governed way to
           run today's workloads while modernising.
         </p>
-
-        <ol class="numbered-rows">
-          <li>
-            <span class="numbered-rows__num mono-tag">01</span>
-            <div>
-              <h4>Reduce licensing pressure</h4>
-              <p>Fewer duplicated platform layers.</p>
-            </div>
-          </li>
-          <li>
-            <span class="numbered-rows__num mono-tag">02</span>
-            <div>
-              <h4>Lower operational overhead</h4>
-              <p>One model for VMs and containers.</p>
-            </div>
-          </li>
-          <li>
-            <span class="numbered-rows__num mono-tag">03</span>
-            <div>
-              <h4>Improve skills leverage</h4>
-              <p>Common patterns across teams.</p>
-            </div>
-          </li>
-          <li>
-            <span class="numbered-rows__num mono-tag">04</span>
-            <div>
-              <h4>Strengthen control</h4>
-              <p>Policy, security and visibility built in.</p>
-            </div>
-          </li>
-          <li>
-            <span class="numbered-rows__num mono-tag">05</span>
-            <div>
-              <h4>Modernise safely</h4>
-              <p>Run today's workloads while building tomorrow's apps.</p>
-            </div>
-          </li>
-        </ol>
-
-        <p class="statement">One platform. Less chaos.</p>
       </div>
+
+      <ol class="stat-grid">
+        <li>
+          <span class="stat-grid__num">01</span>
+          <h4>Reduce licensing pressure</h4>
+          <p>Fewer duplicated platform layers.</p>
+        </li>
+        <li>
+          <span class="stat-grid__num">02</span>
+          <h4>Lower operational overhead</h4>
+          <p>One model for VMs and containers.</p>
+        </li>
+        <li>
+          <span class="stat-grid__num">03</span>
+          <h4>Improve skills leverage</h4>
+          <p>Common patterns across teams.</p>
+        </li>
+        <li>
+          <span class="stat-grid__num">04</span>
+          <h4>Strengthen control</h4>
+          <p>Policy, security and visibility built in.</p>
+        </li>
+        <li>
+          <span class="stat-grid__num">05</span>
+          <h4>Modernise safely</h4>
+          <p>Run today's workloads while building tomorrow's apps.</p>
+        </li>
+      </ol>
+
+      <p class="outcomes-close">One platform. Less chaos.</p>
     </div>
   </section>
 
+  <!-- Proof — the one section beyond the booklet -->
   <section class="section-tight">
     <div class="container">
       <div class="proof">
@@ -362,25 +358,12 @@ import CTAButton from '../components/CTAButton.astro';
     </div>
   </section>
 
-  <section class="section-tight section-raised">
-    <div class="container">
-      <div class="closing">
-        <h2>Your infrastructure. Cloud operating model. Sovereign control.</h2>
-        <p class="lede">
-          C-9INE helps organisations assess, design and deliver Google Distributed Cloud as a
-          practical path from fragmented infrastructure to a more consistent operating model.
-        </p>
-
-        <ul class="closing__list">
-          <li>VM and container consolidation</li>
-          <li>Cloud-consistent operations</li>
-          <li>Repeatable deployment and governance</li>
-          <li>Part of the wider C-9INE cloud engineering approach</li>
-        </ul>
-
-        <div class="closing__cta">
-          <CTAButton href="/contact?intent=gdc-pilot">Book a GDC pilot scoping call</CTAButton>
-        </div>
+  <!-- Closing CTA — the one bold, high-contrast moment on the page -->
+  <section class="cta-band">
+    <div class="container cta-band__inner">
+      <h2>Ready to turn Google Distributed Cloud into a production-ready platform?</h2>
+      <div class="cta-band__action">
+        <CTAButton href="/contact?intent=gdc-pilot" variant="outline">Book a GDC pilot scoping call</CTAButton>
       </div>
     </div>
   </section>
@@ -395,102 +378,126 @@ import CTAButton from '../components/CTAButton.astro';
     color: var(--white-smoke);
   }
 
-  /* Every booklet-page section shares this shape: a static page
-     number, a blue eyebrow matching the booklet's own section labels,
-     heading, intro copy, then whatever body content that page has. No
-     scroll-hijacking or pinning anywhere on this page — every section
-     just sits in normal document flow like the rest of the site. */
-  .booklet-panel {
-    max-width: 40rem;
-    margin-inline: auto;
-  }
-
-  .section-number {
-    display: block;
+  /* Shared "quoted highlight" line reused by three sections (Problem,
+     How It Works, What We Standardise) for the booklet's own closing
+     statement on that page — a left rule and larger type, not a
+     boxed callout, so it reads as an idea being emphasised rather
+     than a repeated card component. */
+  .pull-statement {
+    padding-left: 1.15rem;
+    border-left: 2px solid var(--aquamarine);
     font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(2.5rem, 6vw, 3.5rem);
-    /* A mix against transparent (not a flat gunmetal shade) so this
-       ghost numeral stays faintly visible on both the plain and the
-       .section-raised background alike, rather than matching one of
-       them exactly and disappearing. */
-    color: color-mix(in srgb, var(--white-smoke) 10%, transparent);
-    line-height: 1;
-    margin-bottom: 0.75rem;
+    font-weight: 600;
+    font-size: var(--step-1);
+    line-height: 1.35;
+    color: var(--white-smoke);
   }
 
-  .booklet-panel h2 {
-    margin-top: 0.5rem;
-    font-size: var(--step-2);
+  /* ---- 01 · The Problem --------------------------------------- */
+
+  .problem-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 21rem) 1fr;
+    gap: clamp(2.5rem, 6vw, 5.5rem);
+    align-items: start;
   }
 
-  .booklet-panel > .lede {
+  .problem-layout__intro h2 {
+    margin-top: 0.75rem;
+  }
+
+  .problem-layout__intro .lede {
     margin-top: 1rem;
   }
 
-  .numbered-rows {
-    margin-top: 1.75rem;
+  .problem-layout__intro .pull-statement {
+    margin-top: 2.25rem;
+  }
+
+  .editorial-list {
     display: flex;
     flex-direction: column;
-    gap: 1px;
-    background: var(--gunmetal-line);
-    border: 1px solid var(--gunmetal-line);
-    border-radius: var(--border-radius);
-    overflow: hidden;
   }
 
-  .numbered-rows li {
+  .editorial-list li {
     display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 0.95rem 1.15rem;
-    background: var(--gunmetal-raised);
+    gap: clamp(1.25rem, 3vw, 2rem);
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--gunmetal-line);
   }
 
-  .numbered-rows__num {
+  .editorial-list li:first-child {
+    padding-top: 0;
+  }
+
+  .editorial-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .editorial-list__num {
     flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 4px;
-    background: var(--gunmetal);
-    color: var(--aquamarine);
+    width: 2.75rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-2);
+    line-height: 1.15;
+    color: color-mix(in srgb, var(--aquamarine) 55%, var(--gunmetal-line));
   }
 
-  .numbered-rows h4 {
-    font-family: var(--font-display);
-    font-weight: 600;
+  .editorial-list h4 {
     font-size: var(--step-0);
     color: var(--white-smoke);
   }
 
-  .numbered-rows p {
-    margin-top: 0.3rem;
+  .editorial-list p {
+    margin-top: 0.4rem;
     color: var(--silver);
     font-size: var(--step--1);
-    line-height: 1.4;
+    line-height: 1.5;
   }
 
-  /* The Belief section's "VMs + Containers + Policy + Operations"
-     row, matching the booklet's own plus-separated block layout. */
+  @media (max-width: 850px) {
+    .problem-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ---- 02 · The Belief ------------------------------------------ */
+
+  .belief-layout {
+    max-width: 46rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .belief-layout__heading {
+    margin-top: 0.85rem;
+    font-size: var(--step-4);
+  }
+
+  .belief-layout .lede {
+    margin-top: 1.25rem;
+    margin-inline: auto;
+  }
+
   .plus-row {
-    margin-top: 1.75rem;
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.75rem;
   }
 
   .plus-row__item {
-    padding: 0.6rem 1.1rem;
+    padding: 0.75rem 1.5rem;
     border: 1px solid color-mix(in srgb, var(--aquamarine) 30%, transparent);
-    border-radius: var(--border-radius);
-    background: color-mix(in srgb, var(--aquamarine) 8%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--aquamarine) 7%, transparent);
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: var(--step--1);
+    font-size: var(--step-0);
     color: var(--white-smoke);
   }
 
@@ -498,28 +505,156 @@ import CTAButton from '../components/CTAButton.astro';
     color: var(--aquamarine);
     font-family: var(--font-display);
     font-weight: 700;
+    font-size: var(--step-1);
   }
 
-  /* What We Standardise's six-item foundation grid: icon, label,
-     one-line description, two columns on wider screens. */
-  .domains-grid {
+  .belief-layout__statement {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-3);
+    line-height: 1.2;
+    color: var(--aquamarine);
+  }
+
+  .belief-layout__closing {
     margin-top: 1.75rem;
+    color: var(--silver);
+  }
+
+  /* ---- 03 · How It Works ----------------------------------------- */
+
+  .works-intro {
+    max-width: 36rem;
+  }
+
+  .works-intro h2 {
+    margin-top: 0.75rem;
+  }
+
+  .works-intro .lede {
+    margin-top: 1rem;
+  }
+
+  .works-timeline {
+    position: relative;
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .works-timeline__line {
+    position: absolute;
+    top: 1.1rem;
+    left: 1.1rem;
+    right: 1.1rem;
+    height: 1px;
+    background: var(--gunmetal-line);
+  }
+
+  .works-timeline__steps {
+    position: relative;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.1rem 1.75rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
   }
 
-  .domains-grid li {
+  .works-timeline__steps li {
     display: flex;
+    flex-direction: column;
     gap: 0.75rem;
-    align-items: flex-start;
   }
 
-  .domains-grid__icon {
-    flex-shrink: 0;
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-top: 0.1rem;
+  .works-timeline__node {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: var(--gunmetal-raised);
+    border: 1px solid var(--aquamarine);
+    color: var(--aquamarine);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step--1);
+  }
+
+  .works-timeline__steps h4 {
+    color: var(--white-smoke);
+    font-size: var(--step-0);
+  }
+
+  .works-timeline__steps p {
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.45;
+  }
+
+  .works-timeline__statement {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    max-width: 46rem;
+  }
+
+  @media (max-width: 800px) {
+    .works-timeline__line {
+      display: none;
+    }
+
+    .works-timeline__steps {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  /* ---- 04 · What We Standardise ----------------------------------- */
+
+  .standardise-intro {
+    max-width: 36rem;
+  }
+
+  .standardise-intro h2 {
+    margin-top: 0.75rem;
+  }
+
+  .standardise-intro .lede {
+    margin-top: 1rem;
+  }
+
+  /* A seamless grid — 1px hairlines via the container's own
+     background showing through, rather than six individually
+     bordered boxes with gaps between them. */
+  .foundations-grid {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--gunmetal-line);
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+  }
+
+  .foundations-grid li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: clamp(1.5rem, 3vw, 1.85rem);
+    background: var(--gunmetal);
+  }
+
+  .foundations-grid__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--aquamarine) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--aquamarine) 28%, transparent);
+  }
+
+  .foundations-grid__icon svg {
+    width: 1.35rem;
+    height: 1.35rem;
     fill: none;
     stroke: var(--aquamarine);
     stroke-width: 1.5;
@@ -527,40 +662,95 @@ import CTAButton from '../components/CTAButton.astro';
     stroke-linejoin: round;
   }
 
-  .domains-grid__label {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: var(--step--1);
+  .foundations-grid h4 {
+    font-size: var(--step-0);
     color: var(--white-smoke);
   }
 
-  .domains-grid__desc {
-    margin-top: 0.15rem;
-    line-height: 1.3;
+  .foundations-grid p {
     color: var(--silver);
     font-size: var(--step--1);
+    line-height: 1.5;
+  }
+
+  .foundations-grid__statement {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    max-width: 46rem;
+  }
+
+  @media (max-width: 900px) {
+    .foundations-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   @media (max-width: 560px) {
-    .domains-grid {
+    .foundations-grid {
       grid-template-columns: 1fr;
     }
   }
 
-  /* The bold highlight box each booklet page closes on ("More
-     platforms did not create simplicity...", "One platform. Less
-     chaos.", etc.). */
-  .statement {
-    margin-top: 1.75rem;
-    padding: 1rem 1.5rem;
-    border: 1px solid color-mix(in srgb, var(--aquamarine) 35%, transparent);
-    border-radius: var(--border-radius);
-    background: color-mix(in srgb, var(--aquamarine) 8%, transparent);
+  /* ---- 05 · Customer Outcomes -------------------------------------- */
+
+  .outcomes-intro {
+    max-width: 36rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .outcomes-intro h2 {
+    margin-top: 0.75rem;
+  }
+
+  .outcomes-intro .lede {
+    margin-top: 1rem;
+    margin-inline: auto;
+  }
+
+  .stat-grid {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+  }
+
+  .stat-grid li {
+    padding-top: 1.35rem;
+    border-top: 2px solid color-mix(in srgb, var(--aquamarine) 45%, transparent);
+  }
+
+  .stat-grid__num {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-2);
+    color: var(--aquamarine);
+  }
+
+  .stat-grid h4 {
+    margin-top: 0.6rem;
+    font-size: var(--step-0);
     color: var(--white-smoke);
+    line-height: 1.25;
+  }
+
+  .stat-grid p {
+    margin-top: 0.5rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.4;
+  }
+
+  .outcomes-close {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    text-align: center;
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: var(--step-0);
+    font-size: var(--step-3);
+    color: var(--white-smoke);
   }
+
+  /* ---- Proof ------------------------------------------------------- */
 
   .proof__context {
     margin-top: 1.25rem;
@@ -571,14 +761,13 @@ import CTAButton from '../components/CTAButton.astro';
     margin-top: clamp(2.5rem, 5vw, 3.5rem);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-    gap: clamp(1.25rem, 3vw, 2rem);
+    gap: clamp(1.5rem, 3vw, 2rem);
   }
 
   .proof__card {
-    padding: 1.25rem;
-    border: 1px solid var(--gunmetal-line);
-    border-radius: var(--border-radius);
-    background: var(--gunmetal-raised);
+    padding: 1.35rem 1.25rem;
+    border-top: 2px solid color-mix(in srgb, var(--aquamarine) 45%, transparent);
+    background: color-mix(in srgb, var(--silver) 4%, transparent);
   }
 
   .proof__card-tag {
@@ -618,49 +807,39 @@ import CTAButton from '../components/CTAButton.astro';
     color: var(--silver);
   }
 
-  .closing {
-    max-width: 40rem;
-    margin-inline: auto;
+  /* ---- Closing CTA band ---------------------------------------------
+     The one high-contrast, full-bleed moment on the page — everything
+     else stays within the gunmetal palette, so this is reserved for
+     the single thing the page most wants a visitor to do. */
+  .cta-band {
+    background: var(--aquamarine);
+    padding-block: clamp(3rem, 7vw, 5rem);
+  }
+
+  .cta-band__inner {
     text-align: center;
   }
 
-  .closing h2 {
-    font-size: var(--step-3);
-  }
-
-  .closing .lede {
-    margin-top: 1.25rem;
+  .cta-band h2 {
+    max-width: 36rem;
     margin-inline: auto;
+    color: var(--gunmetal);
   }
 
-  .closing__list {
-    margin-top: clamp(2rem, 4vw, 2.75rem);
-    display: inline-flex;
-    flex-direction: column;
-    gap: 0.65rem;
-    text-align: left;
-    color: var(--silver);
-  }
-
-  .closing__list li {
-    padding-left: 1.5rem;
-    position: relative;
-  }
-
-  .closing__list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.5em;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--aquamarine);
-  }
-
-  .closing__cta {
-    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  .cta-band__action {
+    margin-top: clamp(1.75rem, 4vw, 2.5rem);
     display: flex;
     justify-content: center;
+  }
+
+  .cta-band__action :global(.btn) {
+    border-color: var(--gunmetal);
+    color: var(--gunmetal);
+  }
+
+  .cta-band__action :global(.btn:hover) {
+    background: var(--gunmetal);
+    color: var(--aquamarine);
+    border-color: var(--gunmetal);
   }
 </style>
