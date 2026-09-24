@@ -75,7 +75,10 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 600;
+  /* Bold, not semibold: the brand guide's Type Treatment Formula is
+     explicit — "Headline - Barlow Semi Condensed Bold" — and this base
+     rule is what every real heading site-wide inherits from. */
+  font-weight: 700;
   line-height: 1.05;
   letter-spacing: 0.005em;
   margin: 0;
