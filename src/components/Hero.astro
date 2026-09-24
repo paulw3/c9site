@@ -76,7 +76,13 @@ const { heading, subheading, trustText } = Astro.props;
   .hero {
     position: sticky;
     top: 0;
+    /* 100vh is taller than what's actually visible on mobile before the
+       browser's own address-bar chrome collapses — anything positioned
+       from the hero's bottom edge (the scroll cue, the trust strip) sits
+       below that chrome and off-screen at rest. 100svh accounts for it;
+       plain vh stays as the fallback for browsers that don't support svh. */
     min-height: 100vh;
+    min-height: 100svh;
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -244,6 +250,10 @@ const { heading, subheading, trustText } = Astro.props;
     .hero__image {
       object-position: 62% center;
       transform: scale(1.05) translateY(2%);
+    }
+
+    .hero__scroll-cue {
+      bottom: calc(7.5rem + env(safe-area-inset-bottom, 0px));
     }
   }
 
