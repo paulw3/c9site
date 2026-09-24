@@ -11,18 +11,14 @@ import CTAButton from '../components/CTAButton.astro';
   <PageIntro eyebrow="Resources">
     <h1>Resources</h1>
     <p class="lede">
-      Product briefs for what we've built, and case studies from what we've delivered. We're
-      clearing engagements with clients before publishing those — in the meantime, read about
-      ANFAA and aSaaS below.
+      Product briefs for ANFAA and aSaaS, and case studies from our cloud migration and Google
+      Distributed Cloud engagements.
     </p>
   </PageIntro>
 
   <section class="section-tight section-raised">
     <div class="container">
-      <div class="products-intro">
-        <p class="eyebrow">Product Briefs</p>
-        <h2>Our products</h2>
-      </div>
+      <h2>Our Products</h2>
 
       <div class="resource-grid">
         <a class="resource-card resource-card--anfaa" href="/resources/anfaa">
@@ -67,10 +63,6 @@ import CTAButton from '../components/CTAButton.astro';
 </BaseLayout>
 
 <style>
-  .products-intro h2 {
-    margin-top: 0.75rem;
-  }
-
   /* The global p{max-width:38rem} reset (see base type rules) caps
      any plain paragraph's own box at that width with no auto
      margins, so inside .empty-state's centred layout the eyebrow was
