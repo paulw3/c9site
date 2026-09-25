@@ -74,4 +74,20 @@ import CTAButton from '../../components/CTAButton.astro';
     flex-wrap: wrap;
     gap: 1rem;
   }
+
+  /* The getting-started guide is the most useful next step for anyone
+     evaluating aSaaS, so it gets a solid fill like the primary CTA
+     rather than sitting flat as a third outline button — sky blue
+     (this page's own accent, matching ProductBrief accent="sky") keeps
+     it visually distinct from the aquamarine "Talk to us" action. */
+  :global(.page-intro__cta a:nth-child(2)) {
+    background: var(--vivid-sky-blue);
+    border-color: var(--vivid-sky-blue);
+    color: var(--gunmetal);
+  }
+
+  :global(.page-intro__cta a:nth-child(2):hover) {
+    background: var(--white-smoke);
+    border-color: var(--white-smoke);
+  }
 </style>
