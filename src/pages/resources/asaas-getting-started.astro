@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import CTAButton from '../../components/CTAButton.astro';
+import ProofPoint from '../../components/ProofPoint.astro';
 
 const prerequisites = [
   'A Google Cloud organisation with billing enabled',
@@ -12,28 +13,49 @@ const prerequisites = [
 const steps = [
   {
     title: 'Get access to aSaaS',
-    body: "Contact C-9INE to discuss your requirements. We send a private offer through Google Cloud Marketplace — review pricing, select your billing account, and accept the offer. Your subscription activates immediately and is visible any time in your Marketplace Orders.",
+    body: "Contact C-9INE to discuss your landing zone requirements — we send a private offer through Google Cloud Marketplace. Review the pricing, select your billing account, and accept the offer; your subscription activates immediately and stays visible any time in your Marketplace Orders.",
   },
   {
     title: 'Sign up and activate your account',
-    body: 'Google Cloud sends a secure identity verification token. Your aSaaS account is created and approved within seconds, and you land in the aSaaS Marketplace Portal.',
+    body: "After subscribing, Google Cloud redirects you to the aSaaS sign-up page and automatically sends a secure token (JWT) to verify your identity. Your account is created and approved within seconds, and you land on the aSaaS Marketplace Portal.",
   },
   {
     title: 'Connect your Google Cloud organisation',
-    body: 'Click "Connect Organization" in the portal, sign in as an Organization Administrator, and authorise aSaaS. It creates a dedicated service account in your organisation scoped to the minimum permissions it needs: Folder Admin, Organization Admin, Project Creator and Billing User.',
+    body: 'Click "Connect Organization" in the portal, sign in as an Organization Administrator, and authorise aSaaS. It creates a dedicated service account in your organisation scoped to the minimum permissions it needs — Folder Admin, Organization Admin, Project Creator and Billing User — and every action stays scoped to landing zone resources only.',
   },
   {
     title: 'Choose your foundation type',
-    body: 'Proof of Concept, Production, or Enhanced Security — see the three options below.',
+    body: 'Proof of Concept, Production, or Enhanced Security — the AI assistant adapts the deployment workflow to match. See the three options below.',
   },
   {
     title: 'Deploy your first landing zone',
-    body: "Open the Landing Zone Dashboard and let the AI assistant guide you through deployment, stage by stage. It pauses for your approval at every critical point — no infrastructure change is ever made without it — and you can track progress in real time, including auto-generated architecture diagrams of your landing zone topology.",
+    body: "Open the Landing Zone Dashboard and let the AI assistant guide you stage by stage. At every critical step it explains what it's about to create or change, waits for your approval before applying anything, then verifies the change succeeded.",
   },
   {
     title: 'Post-deployment',
-    body: 'Your landing zone is live with enforced organisation policies, Shared VPC networking, active security controls (Cloud Armor, Security Command Center, IAM), provisioned environment folders and projects, and a GitOps pipeline — all infrastructure managed through a GitLab IaC repository with Cloud Build.',
+    body: 'Once every stage completes, your landing zone is live and ready to use — see the checklist below.',
   },
+];
+
+const reviewLoop = [
+  { label: 'Review', desc: 'The assistant explains what will be created or modified.' },
+  { label: 'Approve', desc: 'Click Approve to proceed, or ask the assistant for more detail.' },
+  { label: 'Apply', desc: 'OpenTofu applies the infrastructure changes to your Google Cloud environment.' },
+  { label: 'Verify', desc: 'The assistant confirms the changes were applied successfully.' },
+];
+
+const monitorItems = [
+  'Stage progress — see which stages are complete, in progress, or pending.',
+  'Resource details — view the specific Google Cloud resources being created.',
+  'Architecture diagrams — auto-generated diagrams of your landing zone topology.',
+];
+
+const postDeployment = [
+  'Organisation policies are enforced.',
+  'Networking is configured with Shared VPC and proper segmentation.',
+  'Security controls are active (Cloud Armor, Security Command Center, IAM).',
+  'Environment folders and projects are provisioned.',
+  'A GitOps pipeline is set up — all infrastructure is managed via a GitLab IaC repository with Cloud Build pipelines for ongoing management.',
 ];
 
 const foundations = [
@@ -84,8 +106,8 @@ const troubleshooting = [
     a: 'The AI assistant gives error details and remediation steps. You can retry any failed stage.',
   },
   {
-    q: 'Need to re-run signup',
-    a: 'Contact support to reset your account.',
+    q: 'Need to re-run the signup flow',
+    a: 'Contact support — we can reset your account to re-trigger the Marketplace signup.',
   },
 ];
 ---
@@ -150,6 +172,11 @@ const troubleshooting = [
           </div>
         ))}
       </div>
+      <p class="lede foundation-note">
+        The AI assistant adapts the deployment workflow to your choice — a Proof of Concept
+        deploys faster with sensible defaults, while Production and Enhanced Security guide you
+        through every configuration detail.
+      </p>
     </div>
   </section>
 
@@ -166,10 +193,61 @@ const troubleshooting = [
           </li>
         ))}
       </ol>
+      <p class="lede foundation-note">
+        Which stages you see depends on your foundation type: a Proof of Concept deploys a
+        subset with sensible defaults, while Production and Enhanced Security include every
+        stage.
+      </p>
     </div>
   </section>
 
   <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">Human-in-the-loop</p>
+      <h2>You approve every change before it happens</h2>
+      <p class="lede">At every critical step, the AI assistant pauses and asks for your approval before making changes:</p>
+      <ol class="review-loop">
+        {reviewLoop.map((item, i) => (
+          <li>
+            <span class="review-loop__num mono-tag">{String(i + 1).padStart(2, '0')}</span>
+            <h4>{item.label}</h4>
+            <p>{item.desc}</p>
+          </li>
+        ))}
+      </ol>
+      <ProofPoint eyebrow="Full control, throughout">
+        No infrastructure changes are ever made without your explicit approval. You maintain
+        full control throughout the process.
+      </ProofPoint>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
+      <p class="eyebrow">5.4 Monitor progress</p>
+      <h2>Track the deployment in real time</h2>
+      <ul class="check-list">
+        {monitorItems.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">Step 6</p>
+      <h2>Post-deployment</h2>
+      <p class="lede">After all stages complete, your landing zone is ready:</p>
+      <ul class="check-list">
+        {postDeployment.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
     <div class="container narrow">
       <p class="eyebrow">Next steps</p>
       <ul class="check-list">
@@ -180,7 +258,7 @@ const troubleshooting = [
     </div>
   </section>
 
-  <section class="section-tight section-raised">
+  <section class="section-tight">
     <div class="container narrow">
       <p class="eyebrow">Managing your subscription</p>
       <ul class="check-list">
@@ -194,7 +272,7 @@ const troubleshooting = [
     </div>
   </section>
 
-  <section class="section-tight">
+  <section class="section-tight section-raised">
     <div class="container narrow">
       <p class="eyebrow">Troubleshooting</p>
       <dl class="faq-list">
@@ -208,13 +286,13 @@ const troubleshooting = [
     </div>
   </section>
 
-  <section class="section-tight section-raised">
+  <section class="section-tight">
     <div class="container narrow support-block">
       <p class="eyebrow">Support</p>
       <h2>Need a hand?</h2>
       <p class="lede">
-        Email <a href="mailto:support@c9ine.com">support@c9ine.com</a>, or use the Support link
-        on the aSaaS listing in Google Cloud Marketplace.
+        Email <a href="mailto:support@c9ine.com">support@c9ine.com</a>, reach us through our
+        contact page, or use the Support link on the aSaaS listing in Google Cloud Marketplace.
       </p>
       <div class="page-intro__cta">
         <CTAButton href="/contact?intent=asaas">Talk to us about aSaaS</CTAButton>
@@ -333,6 +411,42 @@ const troubleshooting = [
     line-height: 1.5;
   }
 
+  .foundation-note {
+    margin-top: 1.5rem;
+    color: var(--silver);
+    max-width: 60ch;
+  }
+
+  .review-loop {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.25rem, 3vw, 1.75rem);
+  }
+
+  .review-loop li {
+    padding-top: 1.1rem;
+    border-top: 2px solid var(--aquamarine);
+  }
+
+  .review-loop__num {
+    display: block;
+    color: var(--aquamarine);
+  }
+
+  .review-loop h4 {
+    margin-top: 0.5rem;
+    font-size: var(--step-0);
+    color: var(--white-smoke);
+  }
+
+  .review-loop p {
+    margin-top: 0.4rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.4;
+  }
+
   .stage-grid {
     margin-top: 2.5rem;
     display: grid;
@@ -392,6 +506,10 @@ const troubleshooting = [
   @media (max-width: 700px) {
     .foundation-grid {
       grid-template-columns: 1fr;
+    }
+
+    .review-loop {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .step-list li {
