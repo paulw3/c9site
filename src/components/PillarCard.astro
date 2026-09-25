@@ -4,12 +4,16 @@ interface Props {
   description: string;
   href: string;
   linkText: string;
+  iconVariant?: 'aquamarine' | 'google';
 }
 
-const { title, description, href, linkText } = Astro.props;
+const { title, description, href, linkText, iconVariant = 'aquamarine' } = Astro.props;
 ---
 
 <a href={href} class="pillar-card">
+  <span class={`pillar-card__icon pillar-card__icon--${iconVariant}`}>
+    <slot name="icon" />
+  </span>
   <h3>{title}</h3>
   <p>{description}</p>
   <span class="pillar-card__link">{linkText}</span>
@@ -31,6 +35,53 @@ const { title, description, href, linkText } = Astro.props;
   .pillar-card:hover {
     border-color: var(--aquamarine);
     transform: translateY(-2px);
+  }
+
+  .pillar-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+  }
+
+  .pillar-card__icon :global(svg) {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .pillar-card__icon--aquamarine {
+    background: color-mix(in srgb, var(--aquamarine) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--aquamarine) 28%, transparent);
+  }
+
+  .pillar-card__icon--aquamarine :global(svg) {
+    stroke: var(--aquamarine);
+  }
+
+  /* A nod to Google's own identity for the one card that's literally
+     about a Google product — each border side takes one of Google's
+     four brand colours, echoing how Google's own icons frame a mark
+     with that four-colour set, rather than reusing this site's single
+     aquamarine accent everywhere. */
+  .pillar-card__icon--google {
+    background: var(--gunmetal-raised);
+    border-style: solid;
+    border-width: 2px;
+    border-top-color: #ea4335;
+    border-right-color: #fbbc04;
+    border-bottom-color: #34a853;
+    border-left-color: #4285f4;
+  }
+
+  .pillar-card__icon--google :global(svg) {
+    stroke: var(--white-smoke);
   }
 
   .pillar-card h3 {
