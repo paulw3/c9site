@@ -96,50 +96,63 @@ import CTAButton from '../components/CTAButton.astro';
           control, so VMs and containers can move in one strategic direction.
         </p>
 
-        <div class="plus-row">
-          <span class="plus-row__item">
-            <svg class="plus-row__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <rect x="3" y="5" width="18" height="11" rx="1.5" />
-              <rect x="7" y="8.5" width="10" height="4" rx="1" />
-            </svg>
-            VMs
-          </span>
-          <span class="plus-row__sign">+</span>
-          <span class="plus-row__item">
-            <svg class="plus-row__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M12,3 L20,7.5 L20,16.5 L12,21 L4,16.5 L4,7.5 Z" />
-              <path d="M4,7.5 L12,12 L20,7.5" />
-              <path d="M12,12 L12,21" />
-            </svg>
-            Containers
-          </span>
-          <span class="plus-row__sign">+</span>
-          <span class="plus-row__item">
-            <svg class="plus-row__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <rect x="6" y="4" width="12" height="17" rx="1.5" />
-              <rect x="9" y="2.5" width="6" height="3" rx="1" />
-              <path d="M9,12 L11,14 L15,9.5" />
-            </svg>
-            Policy
-          </span>
-          <span class="plus-row__sign">+</span>
-          <span class="plus-row__item">
-            <svg class="plus-row__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <circle cx="12" cy="12" r="3" />
-              <path d="M12,3 L12,6 M12,18 L12,21 M3,12 L6,12 M18,12 L21,12 M5.6,5.6 L7.8,7.8 M16.2,16.2 L18.4,18.4 M5.6,18.4 L7.8,16.2 M16.2,7.8 L18.4,5.6" />
-            </svg>
-            Operations
-          </span>
-          <span class="plus-row__sign">=</span>
-          <span class="plus-row__platform" title="Google Distributed Cloud">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M8,14 C5,14 5,9.5 8,9.5 C8.4,6.5 15.6,6.5 16,9.5 C19,9.5 19,14 16,14 Z" />
-              <path d="M9,14 L9,17" />
-              <path d="M15,14 L15,17" />
-              <rect x="6.5" y="17" width="5" height="3.5" rx="1" />
-              <rect x="12.5" y="17" width="5" height="3.5" rx="1" />
-            </svg>
-          </span>
+        <div class="platform-stack">
+          <div class="platform-stack__grid">
+            <div class="platform-stack__item">
+              <span class="platform-stack__icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <rect x="3" y="5" width="18" height="11" rx="1.5" />
+                  <rect x="7" y="8.5" width="10" height="4" rx="1" />
+                </svg>
+              </span>
+              <span>VMs</span>
+            </div>
+            <div class="platform-stack__item">
+              <span class="platform-stack__icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M12,3 L20,7.5 L20,16.5 L12,21 L4,16.5 L4,7.5 Z" />
+                  <path d="M4,7.5 L12,12 L20,7.5" />
+                  <path d="M12,12 L12,21" />
+                </svg>
+              </span>
+              <span>Containers</span>
+            </div>
+            <div class="platform-stack__item">
+              <span class="platform-stack__icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <rect x="6" y="4" width="12" height="17" rx="1.5" />
+                  <rect x="9" y="2.5" width="6" height="3" rx="1" />
+                  <path d="M9,12 L11,14 L15,9.5" />
+                </svg>
+              </span>
+              <span>Policy</span>
+            </div>
+            <div class="platform-stack__item">
+              <span class="platform-stack__icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M12,3 L12,6 M12,18 L12,21 M3,12 L6,12 M18,12 L21,12 M5.6,5.6 L7.8,7.8 M16.2,16.2 L18.4,18.4 M5.6,18.4 L7.8,16.2 M16.2,7.8 L18.4,5.6" />
+                </svg>
+              </span>
+              <span>Operations</span>
+            </div>
+          </div>
+
+          <div class="platform-stack__foundation">
+            <span class="platform-stack__foundation-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M8,14 C5,14 5,9.5 8,9.5 C8.4,6.5 15.6,6.5 16,9.5 C19,9.5 19,14 16,14 Z" />
+                <path d="M9,14 L9,17" />
+                <path d="M15,14 L15,17" />
+                <rect x="6.5" y="17" width="5" height="3.5" rx="1" />
+                <rect x="12.5" y="17" width="5" height="3.5" rx="1" />
+              </svg>
+            </span>
+            <div>
+              <h4>Google Distributed Cloud</h4>
+              <p>The foundation underneath all four</p>
+            </div>
+          </div>
         </div>
 
         <p class="belief-layout__statement">
@@ -529,36 +542,49 @@ import CTAButton from '../components/CTAButton.astro';
     margin-inline: auto;
   }
 
-  /* One bordered card holding all four items — the container itself
-     is the "one platform" the heading below names, rather than four
-     independent pills that only look related because of the + signs
-     between them. */
-  .plus-row {
+  /* A 2x2 grid of the four items resting directly on a solid
+     "foundation" bar — the bar is Google Distributed Cloud itself,
+     literally underneath what it carries, rather than a fifth item
+     tacked onto an equation. */
+  .platform-stack {
     margin-top: clamp(2.5rem, 5vw, 3.5rem);
     margin-inline: auto;
-    max-width: fit-content;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1.35rem clamp(1.5rem, 4vw, 2.5rem);
-    border: 1px solid color-mix(in srgb, var(--aquamarine) 35%, transparent);
-    border-radius: var(--border-radius);
-    background: color-mix(in srgb, var(--aquamarine) 5%, transparent);
+    max-width: 26rem;
   }
 
-  .plus-row__item {
-    display: inline-flex;
+  .platform-stack__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--gunmetal-line);
+    border: 1px solid var(--gunmetal-line);
+    border-bottom: none;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    overflow: hidden;
+  }
+
+  .platform-stack__item {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: var(--step-0);
-    color: var(--white-smoke);
+    padding: clamp(1.1rem, 2.5vw, 1.5rem) 0.75rem;
+    background: var(--gunmetal-raised);
+    text-align: center;
   }
 
-  .plus-row__icon {
+  .platform-stack__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--aquamarine) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--aquamarine) 30%, transparent);
+  }
+
+  .platform-stack__icon svg {
     width: 1.2rem;
     height: 1.2rem;
     fill: none;
@@ -568,34 +594,56 @@ import CTAButton from '../components/CTAButton.astro';
     stroke-linejoin: round;
   }
 
-  .plus-row__sign {
-    color: var(--aquamarine);
+  .platform-stack__item span:last-child {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: var(--step-1);
+    font-size: var(--step-0);
+    color: var(--white-smoke);
   }
 
-  /* Closes the equation with the same Google-inspired four-colour icon
-     used for the "Google Distributed Cloud" pillar card on the
-     homepage — VMs + Containers + Policy + Operations literally equal
-     the platform this page is about. */
-  .plus-row__platform {
+  /* The same Google-inspired four-colour border used for the
+     "Google Distributed Cloud" pillar card on the homepage — the
+     foundation this platform page is actually about. */
+  .platform-stack__foundation {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: 8px;
-    background: var(--gunmetal-raised);
-    border-style: solid;
-    border-width: 2px;
-    border-top-color: #ea4335;
-    border-right-color: #fbbc04;
-    border-bottom-color: #34a853;
-    border-left-color: #4285f4;
+    gap: 0.85rem;
+    padding: 1.1rem clamp(1.25rem, 3vw, 1.5rem);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    border: 2px solid transparent;
+    border-top: none;
+    position: relative;
+    background:
+      linear-gradient(var(--gunmetal-raised), var(--gunmetal-raised)) padding-box,
+      linear-gradient(90deg, #4285f4, #ea4335, #fbbc04, #34a853) border-box;
   }
 
-  .plus-row__platform svg {
+  /* Fills the top edge the border-box gradient can't reach once
+     border-top is removed, so the slab reads as one solid base
+     rather than an oddly-open top. */
+  .platform-stack__foundation::before {
+    content: '';
+    position: absolute;
+    left: -2px;
+    right: -2px;
+    top: -3px;
+    height: 3px;
+    background: linear-gradient(90deg, #4285f4, #ea4335, #fbbc04, #34a853);
+  }
+
+  .platform-stack__foundation-icon {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 8px;
+    background: var(--gunmetal);
+  }
+
+  .platform-stack__foundation-icon svg {
     width: 1.3rem;
     height: 1.3rem;
     fill: none;
@@ -605,17 +653,14 @@ import CTAButton from '../components/CTAButton.astro';
     stroke-linejoin: round;
   }
 
-  /* Flex-wrap leaves an orphaned "+ Operations" stranded alone on its
-     own line once the row can no longer fit all four items — stacking
-     vertically instead keeps every pill/sign pairing intact regardless
-     of item count. */
-  @media (max-width: 640px) {
-    .plus-row {
-      flex-direction: column;
-      gap: 0.5rem;
-      max-width: 100%;
-      width: 100%;
-    }
+  .platform-stack__foundation h4 {
+    font-size: var(--step-0);
+  }
+
+  .platform-stack__foundation p {
+    margin-top: 0.15rem;
+    color: var(--silver);
+    font-size: var(--step--1);
   }
 
   .belief-layout__statement {
