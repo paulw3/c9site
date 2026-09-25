@@ -21,10 +21,8 @@ import CTAButton from '../../components/CTAButton.astro';
       and hands it over with a GitOps pipeline already wired up.
     </p>
     <div class="page-intro__cta">
-      <div class="page-intro__cta-row">
-        <CTAButton href="/resources/asaas-booklet.pdf" variant="outline">Download the PDF</CTAButton>
-        <CTAButton href="/resources/asaas-getting-started" variant="outline">Getting started guide</CTAButton>
-      </div>
+      <CTAButton href="/resources/asaas-booklet.pdf" variant="outline">Download the PDF</CTAButton>
+      <CTAButton href="/resources/asaas-getting-started" variant="outline">Getting started guide</CTAButton>
       <CTAButton href="/contact?intent=asaas">Talk to us about aSaaS</CTAButton>
     </div>
   </PageIntro>
@@ -71,23 +69,19 @@ import CTAButton from '../../components/CTAButton.astro';
     color: var(--white-smoke);
   }
 
-  /* Three buttons don't fit on one line inside the page-intro's 46rem
-     column, and letting flex-wrap decide where the line breaks produced
-     an arbitrary "two fit, one doesn't" split. Grouped deliberately
-     instead: the two secondary/outline actions as their own row, the
-     primary CTA on its own line below — reads as an intentional 2+1,
-     not a wrap accident, at any width. */
+  /* Three buttons of different label lengths don't fit on one line
+     inside the page-intro's 46rem column. A 2-column grid instead of
+     flex-wrap gives every button an equal-width cell — the three read
+     as a deliberate grid (2 up, 1 below in column 1) instead of
+     content-sized rectangles wherever the text happened to end. */
   .page-intro__cta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
   }
 
-  .page-intro__cta-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+  :global(.page-intro__cta .btn) {
+    justify-content: center;
   }
 
   /* The getting-started guide is the most useful next step for anyone
@@ -95,14 +89,20 @@ import CTAButton from '../../components/CTAButton.astro';
      rather than sitting flat as a plain outline button — sky blue
      (this page's own accent, matching ProductBrief accent="sky") keeps
      it visually distinct from the aquamarine "Talk to us" action. */
-  :global(.page-intro__cta-row a:nth-child(2)) {
+  :global(.page-intro__cta a:nth-child(2)) {
     background: var(--vivid-sky-blue);
     border-color: var(--vivid-sky-blue);
     color: var(--gunmetal);
   }
 
-  :global(.page-intro__cta-row a:nth-child(2):hover) {
+  :global(.page-intro__cta a:nth-child(2):hover) {
     background: var(--white-smoke);
     border-color: var(--white-smoke);
+  }
+
+  @media (max-width: 560px) {
+    .page-intro__cta {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
