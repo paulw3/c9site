@@ -381,22 +381,27 @@ const troubleshooting = [
   }
 
   .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
     padding: 0.85rem 1rem;
-    padding-left: 1.5rem;
-    position: relative;
     border: 1px solid var(--gunmetal-line);
     border-radius: var(--border-radius);
     color: var(--silver);
+    line-height: 1.5;
     max-width: none;
   }
 
+  /* Flexbox row + a margin-top on the dot sized to the fixed
+     line-height above, instead of an absolutely-positioned dot with a
+     hand-guessed top offset that only matched one specific line-height
+     — stays aligned to the first line regardless of how the text wraps. */
   .check-list li::before {
     content: '';
-    position: absolute;
-    left: 0.65rem;
-    top: 1.15rem;
+    flex: none;
     width: 6px;
     height: 6px;
+    margin-top: 0.6rem;
     background: var(--aquamarine);
   }
 
@@ -411,13 +416,14 @@ const troubleshooting = [
     align-items: flex-start;
     gap: 0.75rem;
     color: var(--silver);
+    line-height: 1.5;
   }
 
   .icon-list__icon {
     flex: none;
     width: 1.15rem;
     height: 1.15rem;
-    margin-top: 0.15rem;
+    margin-top: 0.19rem;
     fill: none;
     stroke: var(--aquamarine);
     stroke-width: 2;
