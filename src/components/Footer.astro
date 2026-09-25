@@ -7,6 +7,11 @@ const navItems = [
   { href: '/contact', label: 'Contact' },
 ];
 
+const productItems = [
+  { href: '/resources/anfaa', label: 'ANFAA' },
+  { href: '/resources/asaas', label: 'aSaaS' },
+];
+
 const year = new Date().getFullYear();
 
 // TODO: replace with C-9INE's real social URLs
@@ -34,6 +39,15 @@ const socialLinks = [
     <nav class="site-footer__nav" aria-label="Footer">
       <ul>
         {navItems.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <nav class="site-footer__nav" aria-label="Products">
+      <p class="site-footer__nav-label mono-tag">Products</p>
+      <ul>
+        {productItems.map((item) => (
           <li><a href={item.href}>{item.label}</a></li>
         ))}
       </ul>
@@ -83,8 +97,8 @@ const socialLinks = [
 
   .site-footer__grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(2rem, 5vw, 4rem);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.5rem, 4vw, 3rem);
   }
 
   .site-footer__brand .wordmark {
@@ -99,6 +113,11 @@ const socialLinks = [
 
   .site-footer__brand p {
     margin-top: 0.75rem;
+  }
+
+  .site-footer__nav-label {
+    margin-bottom: 0.75rem;
+    color: var(--silver);
   }
 
   .site-footer__nav ul {
@@ -158,6 +177,12 @@ const socialLinks = [
     width: 1.1rem;
     height: 1.1rem;
     fill: currentColor;
+  }
+
+  @media (max-width: 900px) {
+    .site-footer__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   @media (max-width: 700px) {
