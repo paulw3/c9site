@@ -45,7 +45,6 @@ const socialLinks = [
     </nav>
 
     <nav class="site-footer__nav" aria-label="Products">
-      <p class="site-footer__nav-label mono-tag">Products</p>
       <ul>
         {productItems.map((item) => (
           <li><a href={item.href}>{item.label}</a></li>
@@ -113,11 +112,6 @@ const socialLinks = [
 
   .site-footer__brand p {
     margin-top: 0.75rem;
-  }
-
-  .site-footer__nav-label {
-    margin-bottom: 0.75rem;
-    color: var(--silver);
   }
 
   .site-footer__nav ul {
