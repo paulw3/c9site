@@ -1,0 +1,401 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import CTAButton from '../../components/CTAButton.astro';
+
+const prerequisites = [
+  'A Google Cloud organisation with billing enabled',
+  'Organization Administrator role (or equivalent) on your Google Cloud organisation',
+  'A Google Cloud Marketplace account linked to an active billing account',
+];
+
+const steps = [
+  {
+    title: 'Get access to aSaaS',
+    body: "Contact C-9INE to discuss your requirements. We send a private offer through Google Cloud Marketplace — review pricing, select your billing account, and accept the offer. Your subscription activates immediately and is visible any time in your Marketplace Orders.",
+  },
+  {
+    title: 'Sign up and activate your account',
+    body: 'Google Cloud sends a secure identity verification token. Your aSaaS account is created and approved within seconds, and you land in the aSaaS Marketplace Portal.',
+  },
+  {
+    title: 'Connect your Google Cloud organisation',
+    body: 'Click "Connect Organization" in the portal, sign in as an Organization Administrator, and authorise aSaaS. It creates a dedicated service account in your organisation scoped to the minimum permissions it needs: Folder Admin, Organization Admin, Project Creator and Billing User.',
+  },
+  {
+    title: 'Choose your foundation type',
+    body: 'Proof of Concept, Production, or Enhanced Security — see the three options below.',
+  },
+  {
+    title: 'Deploy your first landing zone',
+    body: "Open the Landing Zone Dashboard and let the AI assistant guide you through deployment, stage by stage. It pauses for your approval at every critical point — no infrastructure change is ever made without it — and you can track progress in real time, including auto-generated architecture diagrams of your landing zone topology.",
+  },
+  {
+    title: 'Post-deployment',
+    body: 'Your landing zone is live with enforced organisation policies, Shared VPC networking, active security controls (Cloud Armor, Security Command Center, IAM), provisioned environment folders and projects, and a GitOps pipeline — all infrastructure managed through a GitLab IaC repository with Cloud Build.',
+  },
+];
+
+const foundations = [
+  {
+    name: 'Proof of Concept',
+    use: 'Evaluating Google Cloud',
+    scope: 'Organisation and billing setup, basic IAM, minimal hierarchy.',
+  },
+  {
+    name: 'Production',
+    use: 'Production workloads',
+    scope: 'Full setup: networking, security, IAM, environments, monitoring.',
+  },
+  {
+    name: 'Enhanced Security',
+    use: 'Regulated industries',
+    scope: 'Everything in Production, plus Cloud KMS with Autokey encryption.',
+  },
+];
+
+const stages = [
+  { label: 'Bootstrap', desc: 'Creates the seed project, enables APIs, sets up OpenTofu state storage.' },
+  { label: 'Organization & Services', desc: 'Configures organisation policies, creates top-level folders, and enables required Google Cloud APIs across the organisation.' },
+  { label: 'Networking', desc: 'Sets up Shared VPC, subnets, Cloud NAT and firewall rules.' },
+  { label: 'Security', desc: 'Configures Security Command Center, Cloud Armor and IAM hardening.' },
+  { label: 'Environments', desc: 'Creates development, staging and production environment folders.' },
+  { label: 'Projects', desc: 'Provisions projects within each environment with the right IAM.' },
+  { label: 'App Deployment', desc: 'Deploys workload infrastructure: Cloud Run, GKE, and more.' },
+];
+
+const nextSteps = [
+  "Customise the OpenTofu templates for your organisation's requirements.",
+  'Extend the landing zone with more environments, projects or workloads through the AI assistant.',
+  "Monitor landing zone health using Google Cloud's operations suite.",
+];
+
+const troubleshooting = [
+  {
+    q: '"No Active Subscription" on the portal',
+    a: 'Make sure you subscribed via Marketplace and are signed in with the same Google account.',
+  },
+  {
+    q: 'Organisation connection fails',
+    a: 'Confirm you have Organization Administrator permissions and that billing is enabled on the organisation.',
+  },
+  {
+    q: 'A deployment stage fails',
+    a: 'The AI assistant gives error details and remediation steps. You can retry any failed stage.',
+  },
+  {
+    q: 'Need to re-run signup',
+    a: 'Contact support to reset your account.',
+  },
+];
+---
+
+<BaseLayout
+  title="Getting Started with aSaaS"
+  description="Deploy secure, compliant Google Cloud landing zones in minutes with aSaaS — available directly through Google Cloud Marketplace."
+>
+  <PageIntro eyebrow="aSaaS · Getting Started">
+    <h1>Getting started with aSaaS on Google Cloud Marketplace</h1>
+    <p class="lede">
+      Deploy secure, compliant Google Cloud landing zones in minutes, with AI-guided automation
+      and human approval at every step. aSaaS is available directly through Google Cloud
+      Marketplace — this guide walks through getting access, connecting your organisation, and
+      deploying your first landing zone.
+    </p>
+    <div class="page-intro__cta">
+      <CTAButton href="/resources/asaas" variant="outline">Back to the aSaaS brief</CTAButton>
+      <CTAButton href="/contact?intent=asaas">Talk to us about aSaaS</CTAButton>
+    </div>
+  </PageIntro>
+
+  <section class="section-tight">
+    <div class="container">
+      <p class="eyebrow">Prerequisites</p>
+      <ul class="check-list">
+        {prerequisites.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container">
+      <p class="eyebrow">Setup</p>
+      <h2>Six steps to a running landing zone</h2>
+      <ol class="step-list">
+        {steps.map((step, i) => (
+          <li>
+            <span class="step-list__num mono-tag">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <p class="eyebrow">Step 4</p>
+      <h2>Choose your foundation type</h2>
+      <div class="foundation-grid">
+        {foundations.map((f) => (
+          <div class="foundation-card">
+            <span class="foundation-card__name">{f.name}</span>
+            <span class="foundation-card__use mono-tag">{f.use}</span>
+            <p>{f.scope}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container">
+      <p class="eyebrow">Step 5</p>
+      <h2>What the AI assistant deploys, stage by stage</h2>
+      <ol class="stage-grid">
+        {stages.map((stage, i) => (
+          <li>
+            <span class="stage-grid__num mono-tag">{String(i).padStart(2, '0')}</span>
+            <h4>{stage.label}</h4>
+            <p>{stage.desc}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">Next steps</p>
+      <ul class="check-list">
+        {nextSteps.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
+      <p class="eyebrow">Managing your subscription</p>
+      <ul class="check-list">
+        <li>View subscription status in the aSaaS Portal.</li>
+        <li>View offer and billing details in Google Cloud Marketplace Orders.</li>
+        <li>
+          To cancel, contact C-9INE or manage it through Marketplace Orders — your existing
+          infrastructure stays in place.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">Troubleshooting</p>
+      <dl class="faq-list">
+        {troubleshooting.map((item) => (
+          <>
+            <dt>{item.q}</dt>
+            <dd>{item.a}</dd>
+          </>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow support-block">
+      <p class="eyebrow">Support</p>
+      <h2>Need a hand?</h2>
+      <p class="lede">
+        Email <a href="mailto:support@c9ine.com">support@c9ine.com</a>, or use the Support link
+        on the aSaaS listing in Google Cloud Marketplace.
+      </p>
+      <div class="page-intro__cta">
+        <CTAButton href="/contact?intent=asaas">Talk to us about aSaaS</CTAButton>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-intro__cta {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .container.narrow {
+    max-width: 46rem;
+  }
+
+  h2 {
+    margin-top: 0.75rem;
+  }
+
+  .check-list {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .check-list li {
+    padding: 0.85rem 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    color: var(--silver);
+    max-width: none;
+  }
+
+  .check-list li::before {
+    content: '';
+    position: absolute;
+    left: 0.65rem;
+    top: 1.15rem;
+    width: 6px;
+    height: 6px;
+    background: var(--aquamarine);
+  }
+
+  .step-list {
+    margin-top: 2.5rem;
+    display: grid;
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+  }
+
+  .step-list li {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1rem;
+    padding-bottom: clamp(1.75rem, 3vw, 2.5rem);
+    border-bottom: 1px solid var(--gunmetal-line);
+  }
+
+  .step-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .step-list__num {
+    color: var(--aquamarine);
+    font-size: var(--step-1);
+  }
+
+  .step-list h3 {
+    font-size: var(--step-1);
+  }
+
+  .step-list p {
+    margin-top: 0.5rem;
+    color: var(--silver);
+    max-width: 52ch;
+  }
+
+  .foundation-grid {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .foundation-card {
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    border-top: 2px solid var(--aquamarine);
+    background: var(--gunmetal-raised);
+  }
+
+  .foundation-card__name {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-1);
+    color: var(--white-smoke);
+  }
+
+  .foundation-card__use {
+    display: block;
+    margin-top: 0.4rem;
+    color: var(--aquamarine);
+  }
+
+  .foundation-card p {
+    margin-top: 1rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.5;
+  }
+
+  .stage-grid {
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .stage-grid li {
+    padding-top: 1.1rem;
+    border-top: 2px solid color-mix(in srgb, var(--aquamarine) 45%, transparent);
+  }
+
+  .stage-grid__num {
+    display: block;
+    color: var(--aquamarine);
+    font-size: var(--step-0);
+  }
+
+  .stage-grid h4 {
+    margin-top: 0.5rem;
+    font-size: var(--step-0);
+    color: var(--white-smoke);
+  }
+
+  .stage-grid p {
+    margin-top: 0.4rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.4;
+  }
+
+  .faq-list {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .faq-list dt {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--white-smoke);
+  }
+
+  .faq-list dd {
+    margin: 0.4rem 0 0;
+    color: var(--silver);
+  }
+
+  .support-block .lede {
+    margin-top: 1rem;
+  }
+
+  .support-block a {
+    color: var(--aquamarine);
+  }
+
+  @media (max-width: 700px) {
+    .foundation-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .step-list li {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
