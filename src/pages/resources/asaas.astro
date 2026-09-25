@@ -21,8 +21,10 @@ import CTAButton from '../../components/CTAButton.astro';
       and hands it over with a GitOps pipeline already wired up.
     </p>
     <div class="page-intro__cta">
-      <CTAButton href="/resources/asaas-booklet.pdf" variant="outline">Download the PDF</CTAButton>
-      <CTAButton href="/resources/asaas-getting-started" variant="outline">Getting started guide</CTAButton>
+      <div class="page-intro__cta-row">
+        <CTAButton href="/resources/asaas-booklet.pdf" variant="outline">Download the PDF</CTAButton>
+        <CTAButton href="/resources/asaas-getting-started" variant="outline">Getting started guide</CTAButton>
+      </div>
       <CTAButton href="/contact?intent=asaas">Talk to us about aSaaS</CTAButton>
     </div>
   </PageIntro>
@@ -69,7 +71,20 @@ import CTAButton from '../../components/CTAButton.astro';
     color: var(--white-smoke);
   }
 
+  /* Three buttons don't fit on one line inside the page-intro's 46rem
+     column, and letting flex-wrap decide where the line breaks produced
+     an arbitrary "two fit, one doesn't" split. Grouped deliberately
+     instead: the two secondary/outline actions as their own row, the
+     primary CTA on its own line below — reads as an intentional 2+1,
+     not a wrap accident, at any width. */
   .page-intro__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .page-intro__cta-row {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
@@ -77,16 +92,16 @@ import CTAButton from '../../components/CTAButton.astro';
 
   /* The getting-started guide is the most useful next step for anyone
      evaluating aSaaS, so it gets a solid fill like the primary CTA
-     rather than sitting flat as a third outline button — sky blue
+     rather than sitting flat as a plain outline button — sky blue
      (this page's own accent, matching ProductBrief accent="sky") keeps
      it visually distinct from the aquamarine "Talk to us" action. */
-  :global(.page-intro__cta a:nth-child(2)) {
+  :global(.page-intro__cta-row a:nth-child(2)) {
     background: var(--vivid-sky-blue);
     border-color: var(--vivid-sky-blue);
     color: var(--gunmetal);
   }
 
-  :global(.page-intro__cta a:nth-child(2):hover) {
+  :global(.page-intro__cta-row a:nth-child(2):hover) {
     background: var(--white-smoke);
     border-color: var(--white-smoke);
   }
