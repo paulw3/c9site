@@ -24,13 +24,29 @@ import CTAButton from '../components/CTAButton.astro';
           description="Move to Google Cloud from on-premise or another hyperscaler, in governed waves across every domain the workload touches — not just the landing zone."
           href="/cloud-migration"
           linkText="View Cloud Migration"
-        />
+        >
+          <svg slot="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <rect x="2" y="8" width="7" height="8" rx="1.2" />
+            <path d="M11,12 L14.2,12" />
+            <path d="M12.7,10 L15,12 L12.7,14" />
+            <path d="M16.5,16.5 C14,16.5 14,13 16.5,13 C16.8,10.3 21,10.3 21.3,13 C23.6,13 23.4,16.5 21,16.5 Z" />
+          </svg>
+        </PillarCard>
         <PillarCard
           title="Google Distributed Cloud"
           description="Run VMs and containers on your own infrastructure with a genuine cloud operating model — one platform, less chaos, full sovereign control."
           href="/google-distributed-cloud"
           linkText="View Google Distributed Cloud"
-        />
+          iconVariant="google"
+        >
+          <svg slot="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M8,14 C5,14 5,9.5 8,9.5 C8.4,6.5 15.6,6.5 16,9.5 C19,9.5 19,14 16,14 Z" />
+            <path d="M9,14 L9,17" />
+            <path d="M15,14 L15,17" />
+            <rect x="6.5" y="17" width="5" height="3.5" rx="1" />
+            <rect x="12.5" y="17" width="5" height="3.5" rx="1" />
+          </svg>
+        </PillarCard>
       </div>
     </div>
   </section>
