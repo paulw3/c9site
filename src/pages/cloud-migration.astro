@@ -200,11 +200,11 @@ import CTAButton from '../components/CTAButton.astro';
       <div class="belief-layout">
         <p class="eyebrow">Run</p>
         <h2 class="belief-layout__heading">We hand you the keys.</h2>
-        <p class="lede">
+        <p class="lede belief-layout__primary">
           Documentation, knowledge transfer, hypercare, and a managed transition to steady
           state — until your team can run what we built without us.
         </p>
-        <p class="lede belief-layout__closing">
+        <p class="belief-layout__closing">
           No in-house security leadership? We continue as CISO-as-a-Service, built on two
           decades of security leadership across global banks.
         </p>
@@ -506,15 +506,28 @@ import CTAButton from '../components/CTAButton.astro';
     font-size: var(--step-4);
   }
 
-  .belief-layout .lede {
+  /* A narrower measure than the section's own 40rem so the centred
+     text wraps into a shorter, more even rag instead of the odd
+     line-length mismatch a wide centred paragraph produces. */
+  .belief-layout__primary {
     margin-top: 1.25rem;
     margin-inline: auto;
+    max-width: 32rem;
   }
 
+  /* Deliberately smaller and set apart from the primary statement, so
+     the two paragraphs read as a main point plus a secondary aside —
+     not two equal-weight blocks of grey text stacked on top of each
+     other. */
   .belief-layout__closing {
-    margin-top: 1.75rem;
+    margin-top: 2rem;
     margin-inline: auto;
+    max-width: 28rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gunmetal-line);
     color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.6;
   }
 
   .products-intro {
