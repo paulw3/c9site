@@ -97,13 +97,49 @@ import CTAButton from '../components/CTAButton.astro';
         </p>
 
         <div class="plus-row">
-          <span class="plus-row__item">VMs</span>
+          <span class="plus-row__item">
+            <svg class="plus-row__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="3" y="5" width="18" height="11" rx="1.5" />
+              <rect x="7" y="8.5" width="10" height="4" rx="1" />
+            </svg>
+            VMs
+          </span>
           <span class="plus-row__sign">+</span>
-          <span class="plus-row__item">Containers</span>
+          <span class="plus-row__item">
+            <svg class="plus-row__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12,3 L20,7.5 L20,16.5 L12,21 L4,16.5 L4,7.5 Z" />
+              <path d="M4,7.5 L12,12 L20,7.5" />
+              <path d="M12,12 L12,21" />
+            </svg>
+            Containers
+          </span>
           <span class="plus-row__sign">+</span>
-          <span class="plus-row__item">Policy</span>
+          <span class="plus-row__item">
+            <svg class="plus-row__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="6" y="4" width="12" height="17" rx="1.5" />
+              <rect x="9" y="2.5" width="6" height="3" rx="1" />
+              <path d="M9,12 L11,14 L15,9.5" />
+            </svg>
+            Policy
+          </span>
           <span class="plus-row__sign">+</span>
-          <span class="plus-row__item">Operations</span>
+          <span class="plus-row__item">
+            <svg class="plus-row__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M12,3 L12,6 M12,18 L12,21 M3,12 L6,12 M18,12 L21,12 M5.6,5.6 L7.8,7.8 M16.2,16.2 L18.4,18.4 M5.6,18.4 L7.8,16.2 M16.2,7.8 L18.4,5.6" />
+            </svg>
+            Operations
+          </span>
+          <span class="plus-row__sign">=</span>
+          <span class="plus-row__platform" title="Google Distributed Cloud">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M8,14 C5,14 5,9.5 8,9.5 C8.4,6.5 15.6,6.5 16,9.5 C19,9.5 19,14 16,14 Z" />
+              <path d="M9,14 L9,17" />
+              <path d="M15,14 L15,17" />
+              <rect x="6.5" y="17" width="5" height="3.5" rx="1" />
+              <rect x="12.5" y="17" width="5" height="3.5" rx="1" />
+            </svg>
+          </span>
         </div>
 
         <p class="belief-layout__statement">
@@ -513,10 +549,23 @@ import CTAButton from '../components/CTAButton.astro';
   }
 
   .plus-row__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     font-family: var(--font-display);
     font-weight: 600;
     font-size: var(--step-0);
     color: var(--white-smoke);
+  }
+
+  .plus-row__icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: none;
+    stroke: var(--aquamarine);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   .plus-row__sign {
@@ -524,6 +573,36 @@ import CTAButton from '../components/CTAButton.astro';
     font-family: var(--font-display);
     font-weight: 700;
     font-size: var(--step-1);
+  }
+
+  /* Closes the equation with the same Google-inspired four-colour icon
+     used for the "Google Distributed Cloud" pillar card on the
+     homepage — VMs + Containers + Policy + Operations literally equal
+     the platform this page is about. */
+  .plus-row__platform {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 8px;
+    background: var(--gunmetal-raised);
+    border-style: solid;
+    border-width: 2px;
+    border-top-color: #ea4335;
+    border-right-color: #fbbc04;
+    border-bottom-color: #34a853;
+    border-left-color: #4285f4;
+  }
+
+  .plus-row__platform svg {
+    width: 1.3rem;
+    height: 1.3rem;
+    fill: none;
+    stroke: var(--white-smoke);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   /* Flex-wrap leaves an orphaned "+ Operations" stranded alone on its
