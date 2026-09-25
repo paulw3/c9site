@@ -16,7 +16,7 @@ import CTAButton from '../components/CTAButton.astro';
     trustText="Google Cloud Premier Partner, based in Riyadh, Saudi Arabia"
   />
 
-  <section class="section section-ge4">
+  <section class="section">
     <div class="container">
       <div class="pillars">
         <PillarCard
@@ -45,7 +45,7 @@ import CTAButton from '../components/CTAButton.astro';
     </div>
   </section>
 
-  <section class="section-tight">
+  <section class="cta-section">
     <div class="container cta-band">
       <h2>Bring us the workload you can't afford to get wrong.</h2>
       <CTAButton href="/contact">Talk to us</CTAButton>
@@ -54,10 +54,13 @@ import CTAButton from '../components/CTAButton.astro';
 </BaseLayout>
 
 <style>
+  /* No card kit here — a split spec-sheet: two halves sharing one
+     hairline divider (drawn by PillarCard itself, on its non-first
+     instance) rather than two boxes with a gap between them. */
   .pillars {
+    border-top: 1px solid var(--gunmetal-line);
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(1.5rem, 3vw, 2rem);
   }
 
   .methodology-eyebrow {
@@ -68,12 +71,35 @@ import CTAButton from '../components/CTAButton.astro';
     margin-top: 2.5rem;
   }
 
+  /* The one loud moment on the page — everywhere else stays quiet
+     gunmetal/silver/aquamarine-as-accent; this is the single place
+     aquamarine is the surface itself. */
+  .cta-section {
+    background: var(--aquamarine);
+    padding-block: clamp(3rem, 7vw, 5rem);
+  }
+
   .cta-band {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
     flex-wrap: wrap;
+  }
+
+  .cta-band h2 {
+    color: var(--gunmetal);
+    max-width: 20ch;
+  }
+
+  .cta-band :global(.btn) {
+    background: var(--gunmetal);
+    color: var(--white-smoke);
+  }
+
+  .cta-band :global(.btn:hover) {
+    background: var(--white-smoke);
+    color: var(--gunmetal);
   }
 
   @media (max-width: 700px) {

@@ -16,20 +16,23 @@ const { title, description, href, linkText } = Astro.props;
 </a>
 
 <style>
+  /* No card kit — a split spec-sheet instead: two adjoining halves
+     separated by one hairline, not two boxes with their own borders
+     and a gap between them. */
   .pillar-card {
     display: block;
-    padding: clamp(1.75rem, 3vw, 2.5rem);
-    border: 1px solid var(--gunmetal-line);
-    border-radius: var(--border-radius);
-    background: var(--gunmetal-raised);
+    padding: clamp(2.5rem, 5vw, 4rem) 0;
     text-decoration: none;
     color: inherit;
-    transition: border-color 200ms ease, transform 200ms ease;
   }
 
-  .pillar-card:hover {
-    border-color: var(--aquamarine);
-    transform: translateY(-2px);
+  .pillar-card:not(:first-child) {
+    border-left: 1px solid var(--gunmetal-line);
+    padding-left: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .pillar-card:first-child {
+    padding-right: clamp(1.5rem, 4vw, 3rem);
   }
 
   .pillar-card h3 {
@@ -40,11 +43,30 @@ const { title, description, href, linkText } = Astro.props;
   .pillar-card p {
     margin-top: 1rem;
     color: var(--silver);
+    max-width: 34ch;
   }
 
   .pillar-card__link {
-    display: block;
+    display: inline-block;
     margin-top: 1.75rem;
     color: var(--aquamarine);
+    border-bottom: 1px solid transparent;
+    transition: border-color 160ms ease;
+  }
+
+  .pillar-card:hover .pillar-card__link {
+    border-color: var(--aquamarine);
+  }
+
+  @media (max-width: 700px) {
+    .pillar-card:not(:first-child) {
+      border-left: none;
+      border-top: 1px solid var(--gunmetal-line);
+      padding-left: 0;
+    }
+
+    .pillar-card:first-child {
+      padding-right: 0;
+    }
   }
 </style>
