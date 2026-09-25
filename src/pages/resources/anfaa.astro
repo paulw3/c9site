@@ -10,6 +10,9 @@ import CTAButton from '../../components/CTAButton.astro';
   description="ANFAA turns cloud spend into a continuous FinOps operating discipline — visibility, ownership, optimisation and control, across every provider you run."
 >
   <PageIntro eyebrow="Resources · Product Brief">
+    <div class="product-logo">
+      <img src="/logos/anfaa-logo.png" alt="ANFAA — Multi-Cloud FinOps" width="411" height="306" />
+    </div>
     <h1>Cloud should create value, not just cost.</h1>
     <p class="gdc-subhead">Spend smarter. Stay in control.</p>
     <p class="lede">
@@ -63,6 +66,23 @@ import CTAButton from '../../components/CTAButton.astro';
     font-size: var(--step-1);
     font-weight: 500;
     color: var(--white-smoke);
+  }
+
+  /* The product's own logo artwork is full-colour and drawn on white —
+     out of place directly on the dark page background, so it gets a
+     small white card of its own rather than sitting bare. */
+  .product-logo {
+    display: inline-flex;
+    margin-bottom: 1.75rem;
+    padding: 0.65rem;
+    background: var(--white-smoke);
+    border-radius: var(--border-radius);
+  }
+
+  .product-logo img {
+    display: block;
+    height: 5.5rem;
+    width: auto;
   }
 
   .page-intro__cta {
