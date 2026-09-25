@@ -36,8 +36,15 @@ const trustRest = rest.join(', ');
 </section>
 
 <style>
+  /* Previously scaled almost purely off viewport WIDTH (vw), which
+     grows unbounded on wide monitors regardless of viewport HEIGHT —
+     on a wide-but-not-tall screen the whole block (down through the
+     button) no longer fit above the fold on first load. Same 4-line
+     headline (max-width:17ch produces the same wrap at any font-size,
+     since ch scales with it), just a smaller, less width-hungry scale
+     with tighter spacing throughout so the button stays in view. */
   .hero {
-    padding-block: clamp(4rem, 11vw, 8rem) clamp(3rem, 8vw, 6rem);
+    padding-block: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 3vw, 2.5rem);
   }
 
   .hero__eyebrow {
@@ -51,16 +58,16 @@ const trustRest = rest.join(', ');
   }
 
   .hero h1 {
-    margin: 2rem 0 0;
-    font-size: clamp(3.2rem, 2rem + 6vw, 7.2rem);
+    margin: 1.25rem 0 0;
+    font-size: clamp(2.6rem, 1.6rem + 3.5vw, 5.6rem);
     line-height: 0.98;
     letter-spacing: -0.01em;
     max-width: 17ch;
   }
 
   .hero__sub {
-    margin-top: 2.5rem;
-    font-size: clamp(1.15rem, 1rem + 0.6vw, 1.4rem);
+    margin-top: 1.5rem;
+    font-size: clamp(1.1rem, 1rem + 0.4vw, 1.3rem);
     line-height: 1.5;
     color: var(--silver);
     max-width: 38ch;
@@ -72,7 +79,7 @@ const trustRest = rest.join(', ');
     justify-content: space-between;
     gap: 2rem;
     flex-wrap: wrap;
-    margin-top: 3.5rem;
+    margin-top: 2rem;
   }
 
   .hero__trust {

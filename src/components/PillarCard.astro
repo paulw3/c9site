@@ -9,21 +9,18 @@ interface Props {
 const { title, description, href, linkText } = Astro.props;
 ---
 
-<a href={href} class="pillar-card">
+<div class="pillar-card">
   <h3>{title}</h3>
   <p>{description}</p>
-  <span class="pillar-card__link mono-tag">{linkText}</span>
-</a>
+  <a href={href} class="btn btn-outline pillar-card__link">{linkText}</a>
+</div>
 
 <style>
   /* No card kit — a split spec-sheet instead: two adjoining halves
      separated by one hairline, not two boxes with their own borders
      and a gap between them. */
   .pillar-card {
-    display: block;
     padding: clamp(2.5rem, 5vw, 4rem) 0;
-    text-decoration: none;
-    color: inherit;
   }
 
   .pillar-card:not(:first-child) {
@@ -47,15 +44,7 @@ const { title, description, href, linkText } = Astro.props;
   }
 
   .pillar-card__link {
-    display: inline-block;
     margin-top: 1.75rem;
-    color: var(--aquamarine);
-    border-bottom: 1px solid transparent;
-    transition: border-color 160ms ease;
-  }
-
-  .pillar-card:hover .pillar-card__link {
-    border-color: var(--aquamarine);
   }
 
   @media (max-width: 700px) {
