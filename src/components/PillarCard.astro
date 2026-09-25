@@ -9,27 +9,28 @@ interface Props {
 const { title, description, href, linkText } = Astro.props;
 ---
 
-<div class="pillar-card">
+<a href={href} class="pillar-card">
   <h3>{title}</h3>
   <p>{description}</p>
-  <a href={href} class="btn btn-outline pillar-card__link">{linkText}</a>
-</div>
+  <span class="pillar-card__link">{linkText}</span>
+</a>
 
 <style>
-  /* No card kit — a split spec-sheet instead: two adjoining halves
-     separated by one hairline, not two boxes with their own borders
-     and a gap between them. */
+  /* The whole card is the button — bordered panel, full-area hover,
+     not just a small button tucked at the bottom of a plain block. */
   .pillar-card {
-    padding: clamp(2.5rem, 5vw, 4rem) 0;
+    display: block;
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 160ms ease, transform 160ms ease;
   }
 
-  .pillar-card:not(:first-child) {
-    border-left: 1px solid var(--gunmetal-line);
-    padding-left: clamp(1.5rem, 4vw, 3rem);
-  }
-
-  .pillar-card:first-child {
-    padding-right: clamp(1.5rem, 4vw, 3rem);
+  .pillar-card:hover {
+    border-color: var(--aquamarine);
+    transform: translateY(-2px);
   }
 
   .pillar-card h3 {
@@ -44,18 +45,10 @@ const { title, description, href, linkText } = Astro.props;
   }
 
   .pillar-card__link {
+    display: inline-block;
     margin-top: 1.75rem;
-  }
-
-  @media (max-width: 700px) {
-    .pillar-card:not(:first-child) {
-      border-left: none;
-      border-top: 1px solid var(--gunmetal-line);
-      padding-left: 0;
-    }
-
-    .pillar-card:first-child {
-      padding-right: 0;
-    }
+    color: var(--aquamarine);
+    font-weight: 600;
+    font-size: var(--step--1);
   }
 </style>

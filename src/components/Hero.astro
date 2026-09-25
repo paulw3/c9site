@@ -12,8 +12,7 @@ const { heading, subheading, trustText } = Astro.props;
 // short first clause as the eyebrow above the headline, and the whole
 // thing as a two-line strip in the corner — so it's split once here
 // rather than asking every caller to pass both forms separately.
-const [eyebrow, ...rest] = trustText.split(', ');
-const trustRest = rest.join(', ');
+const [eyebrow] = trustText.split(', ');
 ---
 
 <!--
@@ -30,7 +29,7 @@ const trustRest = rest.join(', ');
     <p class="hero__sub hero__reveal hero__reveal--2">{subheading}</p>
     <div class="hero__row hero__reveal hero__reveal--3">
       <a class="btn btn-primary" href="/contact">Talk to us</a>
-      <p class="hero__trust">{eyebrow}<br />{trustRest}</p>
+      <p class="hero__trust">Born and based in Saudi Arabia</p>
     </div>
   </div>
 </section>

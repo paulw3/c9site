@@ -54,13 +54,10 @@ import CTAButton from '../components/CTAButton.astro';
 </BaseLayout>
 
 <style>
-  /* No card kit here — a split spec-sheet: two halves sharing one
-     hairline divider (drawn by PillarCard itself, on its non-first
-     instance) rather than two boxes with a gap between them. */
   .pillars {
-    border-top: 1px solid var(--gunmetal-line);
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2rem);
   }
 
   .methodology-eyebrow {
