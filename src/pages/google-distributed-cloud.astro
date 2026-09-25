@@ -797,8 +797,30 @@ import CTAButton from '../components/CTAButton.astro';
   .proof__grid {
     margin-top: clamp(2.5rem, 5vw, 3.5rem);
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-    gap: clamp(1.5rem, 3vw, 2rem);
+    /* Fixed 5 columns rather than auto-fit's 15rem minimum, which left
+       the 5th card stranded on its own row once 4 filled the line —
+       these are short tag + 2-3 line blurbs, so 5 narrow columns still
+       read fine on a real desktop width. */
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+
+  @media (max-width: 1150px) {
+    .proof__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 700px) {
+    .proof__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 480px) {
+    .proof__grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   .proof__card {
