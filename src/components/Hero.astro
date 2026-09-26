@@ -138,4 +138,20 @@ const [eyebrow] = trustText.split(', ');
   :global([dir='rtl']) .hero h1 {
     letter-spacing: normal;
   }
+
+  /* Arabic headlines routinely wrap one line shorter than their English
+     source at the same max-width (shorter word count, denser script),
+     leaving the CTA row sitting high with a slab of empty space below
+     it instead of near the bottom of the block. Extra margin here
+     pushes the button down to close that gap rather than leaving it
+     bunched under the lede. */
+  :global([dir='rtl']) .hero__row {
+    margin-top: clamp(4rem, 10vw, 7.5rem);
+  }
+
+  @media (max-width: 700px) {
+    :global([dir='rtl']) .hero__row {
+      margin-top: 2.5rem;
+    }
+  }
 </style>
