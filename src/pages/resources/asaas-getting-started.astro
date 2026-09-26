@@ -16,9 +16,9 @@ const stepSections = [
     title: 'Get access to aSaaS',
     intro: 'aSaaS is available through Google Cloud Marketplace via private offer.',
     bullets: [
-      'Contact C-9INE — reach out to discuss your landing zone requirements.',
-      'Receive a private offer — we send a customised offer through Google Cloud Marketplace.',
-      'Accept the offer — review the pricing, select your billing account, and accept it.',
+      'Contact C-9INE: reach out to discuss your landing zone requirements.',
+      'Receive a private offer: we send a customised offer through Google Cloud Marketplace.',
+      'Accept the offer: review the pricing, select your billing account, and accept it.',
       'Your subscription activates immediately, and stays visible any time in your Marketplace Orders.',
     ],
   },
@@ -40,7 +40,7 @@ const stepSections = [
       'Click "Connect Organization".',
       'Sign in with an account that has Organization Administrator permissions.',
       'Authorise aSaaS to manage landing zone resources in your organisation.',
-      'Behind the scenes: a dedicated service account is created, scoped to Folder Admin, Organization Admin, Project Creator and Billing User — every action stays scoped to landing zone resources only.',
+      'Behind the scenes: a dedicated service account is created, scoped to Folder Admin, Organization Admin, Project Creator and Billing User. Every action stays scoped to landing zone resources only.',
     ],
   },
 ];
@@ -53,9 +53,9 @@ const reviewLoop = [
 ];
 
 const monitorItems = [
-  'Stage progress — see which stages are complete, in progress, or pending.',
-  'Resource details — view the specific Google Cloud resources being created.',
-  'Architecture diagrams — auto-generated diagrams of your landing zone topology.',
+  'Stage progress: see which stages are complete, in progress, or pending.',
+  'Resource details: view the specific Google Cloud resources being created.',
+  'Architecture diagrams: auto-generated diagrams of your landing zone topology.',
 ];
 
 const postDeployment = [
@@ -63,7 +63,7 @@ const postDeployment = [
   'Networking is configured with Shared VPC and proper segmentation.',
   'Security controls are active (Cloud Armor, Security Command Center, IAM).',
   'Environment folders and projects are provisioned.',
-  'A GitOps pipeline is set up — all infrastructure is managed via a GitLab IaC repository with Cloud Build pipelines for ongoing management.',
+  'A GitOps pipeline is set up: all infrastructure is managed via a GitLab IaC repository with Cloud Build pipelines for ongoing management.',
 ];
 
 const foundations = [
@@ -85,14 +85,14 @@ const foundations = [
 ];
 
 const stages = [
-  { stage: '0 — Bootstrap', desc: 'Creates the seed project, enables APIs, sets up OpenTofu state storage' },
-  { stage: '1 — Organization', desc: 'Configures organisation policies, creates top-level folders' },
-  { stage: '1 — Services', desc: 'Enables required Google Cloud APIs across the organisation' },
-  { stage: '2 — Networking', desc: 'Sets up Shared VPC, subnets, Cloud NAT, firewall rules' },
-  { stage: '3 — Security', desc: 'Configures Security Command Center, Cloud Armor, IAM hardening' },
-  { stage: '4 — Environments', desc: 'Creates development, staging, and production environment folders' },
-  { stage: '5 — Projects', desc: 'Provisions projects within each environment with proper IAM' },
-  { stage: '6 — App Deployment', desc: 'Deploys workload infrastructure (Cloud Run, GKE, etc.)' },
+  { stage: '0: Bootstrap', desc: 'Creates the seed project, enables APIs, sets up OpenTofu state storage' },
+  { stage: '1: Organization', desc: 'Configures organisation policies, creates top-level folders' },
+  { stage: '1: Services', desc: 'Enables required Google Cloud APIs across the organisation' },
+  { stage: '2: Networking', desc: 'Sets up Shared VPC, subnets, Cloud NAT, firewall rules' },
+  { stage: '3: Security', desc: 'Configures Security Command Center, Cloud Armor, IAM hardening' },
+  { stage: '4: Environments', desc: 'Creates development, staging, and production environment folders' },
+  { stage: '5: Projects', desc: 'Provisions projects within each environment with proper IAM' },
+  { stage: '6: App Deployment', desc: 'Deploys workload infrastructure (Cloud Run, GKE, etc.)' },
 ];
 
 const nextSteps = [
@@ -116,21 +116,21 @@ const troubleshooting = [
   },
   {
     issue: 'Need to re-run the signup flow',
-    solution: 'Contact support — we can reset your account to re-trigger the Marketplace signup.',
+    solution: 'Contact support: we can reset your account to re-trigger the Marketplace signup.',
   },
 ];
 ---
 
 <BaseLayout
   title="Getting Started with aSaaS"
-  description="Deploy secure, compliant Google Cloud landing zones in minutes with aSaaS — available directly through Google Cloud Marketplace."
+  description="Deploy secure, compliant Google Cloud landing zones in minutes with aSaaS, available directly through Google Cloud Marketplace."
 >
   <PageIntro eyebrow="aSaaS · Getting Started">
     <h1>Getting started with aSaaS on Google Cloud Marketplace</h1>
     <p class="lede">
       Deploy secure, compliant Google Cloud landing zones in minutes, with AI-guided automation
       and human approval at every step. aSaaS is available directly through Google Cloud
-      Marketplace — this guide walks through getting access, connecting your organisation, and
+      Marketplace. This guide walks through getting access, connecting your organisation, and
       deploying your first landing zone.
     </p>
     <div class="page-intro__cta">
@@ -193,7 +193,7 @@ const troubleshooting = [
         </table>
       </div>
       <p class="lede foundation-note">
-        The AI assistant adapts the deployment workflow to your choice — a Proof of Concept
+        The AI assistant adapts the deployment workflow to your choice: a Proof of Concept
         deploys faster with sensible defaults, while Production and Enhanced Security guide you
         through every configuration detail.
       </p>
@@ -210,7 +210,7 @@ const troubleshooting = [
       </p>
       <div class="substep">
         <p class="eyebrow">5.1 Open the Landing Zone Dashboard</p>
-        <p>Navigate to the main aSaaS dashboard — the AI assistant is ready to start.</p>
+        <p>Navigate to the main aSaaS dashboard. The AI assistant is ready to start.</p>
       </div>
     </div>
   </section>
@@ -312,7 +312,7 @@ const troubleshooting = [
         <li>View subscription status in the aSaaS Portal.</li>
         <li>View offer and billing details in Google Cloud Marketplace Orders.</li>
         <li>
-          To cancel, contact C-9INE or manage it through Marketplace Orders — your existing
+          To cancel, contact C-9INE or manage it through Marketplace Orders; your existing
           infrastructure stays in place.
         </li>
       </ul>
