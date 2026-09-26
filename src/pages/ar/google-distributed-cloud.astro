@@ -1,0 +1,979 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import ProofPoint from '../../components/ProofPoint.astro';
+import CTAButton from '../../components/CTAButton.astro';
+
+// Draft machine translation, for visual/design review only — pending a
+// native-speaker pass. Mirrors src/pages/google-distributed-cloud.astro
+// structure and styles exactly; only the copy and internal hrefs differ.
+---
+
+<BaseLayout
+  title="السحابة الموزعة من جوجل"
+  description="تساعد C-9INE البنوك والجهات الحكومية ومؤسسات البنية التحتية الحيوية على تحويل السحابة الموزعة من جوجل إلى منصة تشغيل آمنة وجاهزة للإنتاج."
+  locale="ar"
+>
+  <PageIntro eyebrow="السحابة الموزعة من جوجل">
+    <h1>منصة واحدة. فوضى أقل.</h1>
+    <p class="gdc-subhead">شغّل الأجهزة الافتراضية والحاويات ونماذج الذكاء الاصطناعي على بنيتك التحتية بنموذج تشغيل سحابي.</p>
+    <p class="lede">
+      بنيتك التحتية. نموذج تشغيل سحابي. تحكم سيادي. تساعد C-9INE البنوك والجهات الحكومية ومؤسسات
+      البنية التحتية الحيوية على تحويل السحابة الموزعة من جوجل إلى منصة تشغيل آمنة وجاهزة للإنتاج،
+      تغطي كل شيء من الجاهزية إلى نقل القدرات.
+    </p>
+    <div class="page-intro__cta">
+      <CTAButton href="/ar/contact?intent=gdc-pilot">احجز مكالمة تحديد نطاق تجربة GDC</CTAButton>
+    </div>
+  </PageIntro>
+
+  <section class="section-tight section-raised">
+    <div class="container">
+      <div class="problem-layout">
+        <div class="problem-layout__intro">
+          <p class="eyebrow">المشكلة</p>
+          <h2>لم يكن من المفترض أن يصبح مركز بياناتك بهذا التعقيد.</h2>
+          <p class="lede">
+            غالبًا ما تتحول مشاريع VMware وNutanix وHyper-V وKubernetes والسحابة إلى منصات منفصلة،
+            لكل منها مهاراتها ونموذج تشغيلها الخاص.
+          </p>
+          <p class="pull-statement">
+            المزيد من المنصات لم يخلق بساطة. بل خلق مشكلة تشغيلية أخرى.
+          </p>
+        </div>
+
+        <ol class="editorial-list">
+          <li>
+            <span class="editorial-list__num">01</span>
+            <div>
+              <h4>ضغط التراخيص</h4>
+              <p>التجديدات والحزم وتداخل المنصات تجعل وضع الميزانية أصعب.</p>
+            </div>
+          </li>
+          <li>
+            <span class="editorial-list__num">02</span>
+            <div>
+              <h4>تشتت المنصات</h4>
+              <p>الأنظمة المختلفة تخلق أدوات وفرقًا وإجراءات تشغيل مختلفة.</p>
+            </div>
+          </li>
+          <li>
+            <span class="editorial-list__num">03</span>
+            <div>
+              <h4>تشتت المهارات</h4>
+              <p>المتخصصون موزعون عبر نماذج تشغيل كثيرة جدًا.</p>
+            </div>
+          </li>
+          <li>
+            <span class="editorial-list__num">04</span>
+            <div>
+              <h4>أعباء تشغيلية</h4>
+              <p>تتكرر ضوابط الأمان والامتثال ودورة الحياة في كل نظام.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="belief-layout">
+        <p class="eyebrow">الحل</p>
+        <h2 class="belief-layout__heading">
+          يجب أن يقلل التحديث من التعقيد، لا أن ينقله إلى مكان آخر.
+        </h2>
+        <p class="lede">
+          تجلب السحابة الموزعة من جوجل نموذج تشغيل سحابي إلى بنية تحتية تتحكم بها أنت، بحيث يمكن
+          للأجهزة الافتراضية والحاويات وأحمال عمل الذكاء الاصطناعي التحرك في اتجاه استراتيجي واحد.
+        </p>
+
+        <div class="platform-stack">
+          <div class="platform-stack__grid">
+            <div class="platform-stack__item">
+              <span class="platform-stack__icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <rect x="3" y="5" width="18" height="11" rx="1.5" />
+                  <rect x="7" y="8.5" width="10" height="4" rx="1" />
+                </svg>
+              </span>
+              <span>الأجهزة الافتراضية</span>
+            </div>
+            <div class="platform-stack__item">
+              <span class="platform-stack__icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M12,3 L20,7.5 L20,16.5 L12,21 L4,16.5 L4,7.5 Z" />
+                  <path d="M4,7.5 L12,12 L20,7.5" />
+                  <path d="M12,12 L12,21" />
+                </svg>
+              </span>
+              <span>الحاويات</span>
+            </div>
+            <div class="platform-stack__item">
+              <span class="platform-stack__icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M12,3 C12.4,7 13,11.6 17,12 C13,12.4 12.4,17 12,21 C11.6,17 11,12.4 7,12 C11,11.6 11.6,7 12,3 Z" />
+                </svg>
+              </span>
+              <span>نماذج الذكاء الاصطناعي</span>
+            </div>
+            <div class="platform-stack__item platform-stack__item--wide">
+              <span class="platform-stack__icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <rect x="6" y="4" width="12" height="17" rx="1.5" />
+                  <rect x="9" y="2.5" width="6" height="3" rx="1" />
+                  <path d="M9,12 L11,14 L15,9.5" />
+                </svg>
+              </span>
+              <span>السياسات</span>
+            </div>
+            <div class="platform-stack__item platform-stack__item--wide">
+              <span class="platform-stack__icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M12,3 L12,6 M12,18 L12,21 M3,12 L6,12 M18,12 L21,12 M5.6,5.6 L7.8,7.8 M16.2,16.2 L18.4,18.4 M5.6,18.4 L7.8,16.2 M16.2,7.8 L18.4,5.6" />
+                </svg>
+              </span>
+              <span>العمليات</span>
+            </div>
+          </div>
+
+          <div class="platform-stack__foundation">
+            <span class="platform-stack__foundation-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M8,14 C5,14 5,9.5 8,9.5 C8.4,6.5 15.6,6.5 16,9.5 C19,9.5 19,14 16,14 Z" />
+                <path d="M9,14 L9,17" />
+                <path d="M15,14 L15,17" />
+                <rect x="6.5" y="17" width="5" height="3.5" rx="1" />
+                <rect x="12.5" y="17" width="5" height="3.5" rx="1" />
+              </svg>
+            </span>
+            <div>
+              <h4>السحابة الموزعة من جوجل</h4>
+              <p>الأساس الذي يقوم عليه الخمسة جميعًا</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="belief-layout__statement">
+          منصة واحدة لأحمال العمل القديمة والتطبيقات الحديثة.
+        </p>
+
+        <p class="lede belief-layout__closing">
+          تجربة المنصة مهمة لأن العملاء بحاجة إلى مسار محكوم من بيئتهم الحالية إلى نموذج السحابة
+          المستقبلي.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container">
+      <div class="works-intro">
+        <p class="eyebrow">كيف تعمل</p>
+        <h2>من بيئات مجزأة إلى نموذج تشغيل واحد.</h2>
+        <p class="lede">
+          مسار عملي يحوّل بنيتك التحتية الحالية إلى بنية وحوكمة وعمليات GDC قابلة للتكرار.
+        </p>
+      </div>
+
+      <div class="works-timeline">
+        <div class="works-timeline__line" aria-hidden="true"></div>
+        <ol class="works-timeline__steps">
+          <li>
+            <span class="works-timeline__node">01</span>
+            <h4>التقييم</h4>
+            <p>جرد المنصات، ومواعيد التجديد، والتبعيات، وملاءمة أحمال العمل.</p>
+          </li>
+          <li>
+            <span class="works-timeline__node">02</span>
+            <h4>الدمج</h4>
+            <p>تقريب الأجهزة الافتراضية والحاويات نحو اتجاه منصة واحد.</p>
+          </li>
+          <li>
+            <span class="works-timeline__node">03</span>
+            <h4>الحوكمة</h4>
+            <p>تطبيق سياسات وأمان وإدارة هوية وضوابط دورة حياة متسقة.</p>
+          </li>
+          <li>
+            <span class="works-timeline__node">04</span>
+            <h4>التشغيل</h4>
+            <p>توحيد ممارسات المراقبة والأتمتة والتسليم.</p>
+          </li>
+        </ol>
+      </div>
+
+      <p class="pull-statement works-timeline__statement">
+        قيّم البيئة. ادمج المنصة. احكم باتساق. شغّل بثقة.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="standardise-intro">
+        <p class="eyebrow">ما نوحّده</p>
+        <h2>الأساسيات التي يعتمد عليها كل برنامج GDC.</h2>
+        <p class="lede">
+          تساعد C-9INE على تصنيع الأنماط المهمة جدًا لإعادة بنائها يدويًا، منصة تلو الأخرى.
+        </p>
+      </div>
+
+      <ul class="foundations-grid">
+        <li>
+          <span class="foundations-grid__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="3" y="4" width="18" height="12" rx="1.5" />
+              <path d="M12,16 L12,20" />
+              <path d="M9,20 L15,20" />
+            </svg>
+          </span>
+          <h4>بيئة تشغيل الأجهزة الافتراضية</h4>
+          <p>تشغيل الأجهزة الافتراضية الحالية ضمن نموذج تشغيل سحابي</p>
+        </li>
+        <li>
+          <span class="foundations-grid__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="4" y="4" width="12" height="12" rx="2" />
+              <rect x="8" y="8" width="12" height="12" rx="2" />
+            </svg>
+          </span>
+          <h4>Kubernetes</h4>
+          <p>توحيد عمليات منصة الحاويات</p>
+        </li>
+        <li>
+          <span class="foundations-grid__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="5" r="2" />
+              <circle cx="5" cy="18" r="2" />
+              <circle cx="19" cy="18" r="2" />
+              <path d="M12,7 L6.5,16.3" />
+              <path d="M12,7 L17.5,16.3" />
+            </svg>
+          </span>
+          <h4>الشبكات</h4>
+          <p>أنماط اتصال وتجزئة قابلة للتكرار</p>
+        </li>
+        <li>
+          <span class="foundations-grid__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12,3 L20,6 L20,12 C20,17 16.5,20.5 12,22 C7.5,20.5 4,17 4,12 L4,6 Z" />
+              <path d="M8.5,12 L11,14.5 L16,9" />
+            </svg>
+          </span>
+          <h4>إدارة الهوية والوصول</h4>
+          <p>أدوار وصلاحيات وحدود واضحة</p>
+        </li>
+        <li>
+          <span class="foundations-grid__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M2,12 C5,6 19,6 22,12 C19,18 5,18 2,12 Z" />
+              <circle cx="12" cy="12" r="2.5" />
+            </svg>
+          </span>
+          <h4>المراقبة</h4>
+          <p>التسجيل والمراقبة والرؤية التشغيلية</p>
+        </li>
+        <li>
+          <span class="foundations-grid__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M6,3 L15,3 L19,7 L19,21 L6,21 Z" />
+              <path d="M15,3 L15,7 L19,7" />
+              <path d="M9,12 L16,12 M9,15.5 L16,15.5 M9,9 L12,9" />
+            </svg>
+          </span>
+          <h4>الأمان والامتثال</h4>
+          <p>ضوابط متسقة وأدلة رقابية</p>
+        </li>
+      </ul>
+
+      <p class="pull-statement foundations-grid__statement">
+        التوحيد هو ما يحوّل البنية التحتية إلى منصة.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container">
+      <div class="outcomes-intro">
+        <p class="eyebrow">نتائج العملاء</p>
+        <h2>من بيئة بنية تحتية إلى نموذج تشغيل سحابي.</h2>
+        <p class="lede">
+          الهدف ليس جزيرة تقنية أخرى. الهدف هو طريقة أبسط ومحكومة لتشغيل أحمال العمل الحالية أثناء
+          التحديث.
+        </p>
+      </div>
+
+      <ol class="stat-grid">
+        <li>
+          <span class="stat-grid__num">01</span>
+          <h4>تقليل ضغط التراخيص</h4>
+          <p>طبقات منصة مكررة أقل.</p>
+        </li>
+        <li>
+          <span class="stat-grid__num">02</span>
+          <h4>خفض الأعباء التشغيلية</h4>
+          <p>نموذج واحد للأجهزة الافتراضية والحاويات ونماذج الذكاء الاصطناعي.</p>
+        </li>
+        <li>
+          <span class="stat-grid__num">03</span>
+          <h4>تحسين الاستفادة من المهارات</h4>
+          <p>أنماط مشتركة عبر الفرق.</p>
+        </li>
+        <li>
+          <span class="stat-grid__num">04</span>
+          <h4>تعزيز التحكم</h4>
+          <p>سياسات وأمان ورؤية مدمجة.</p>
+        </li>
+        <li>
+          <span class="stat-grid__num">05</span>
+          <h4>التحديث بأمان</h4>
+          <p>تشغيل أحمال العمل الحالية أثناء بناء تطبيقات المستقبل.</p>
+        </li>
+      </ol>
+
+      <p class="outcomes-close">منصة واحدة. فوضى أقل.</p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="proof">
+        <ProofPoint eyebrow="دليل واقعي">
+          تنفيذ GDC حقيقي في السعودية، لا نظري: جهة تنظيمية وطنية، وبنك تجاري من الدرجة الأولى،
+          وطرح إنتاجي واسع النطاق.
+        </ProofPoint>
+        <p class="lede proof__context">
+          نُفِّذ في أكثر البيئات التنظيمية صرامة بالمنطقة، إلى جانب منطقة الدمام الخاصة بـ Google
+          Cloud (me-central2) وترخيص الفئة C الذي منحته هيئة الاتصالات وتقنية المعلومات هناك.
+        </p>
+
+        <div class="proof__grid">
+          <div class="proof__card">
+            <p class="proof__card-tag mono-tag">الأساس التنظيمي</p>
+            <p class="proof__card-desc">
+              تم التحقق من نسخة GDC البرمجية فقط مقابل متطلبات سيادة البيانات والامتثال التشغيلي
+              والأمان، لجهة تنظيمية مالية وطنية.
+            </p>
+          </div>
+          <div class="proof__card">
+            <p class="proof__card-tag mono-tag">بنك تجاري من الدرجة الأولى</p>
+            <p class="proof__card-desc">
+              تطبيقات قديمة بالغة الأهمية وخدمات مصغّرة تعمل جنبًا إلى جنب على بنية تحتية مملوكة
+              للعميل، في بيئة إنتاج.
+            </p>
+          </div>
+          <div class="proof__card">
+            <p class="proof__card-tag mono-tag">طرح إنتاجي واسع النطاق</p>
+            <p class="proof__card-desc">
+              مسار ترحيل من Anthos إلى GDC وجاهزية بنية متعددة العناقيد، بنطاق واسع.
+            </p>
+          </div>
+          <div class="proof__card">
+            <p class="proof__card-tag mono-tag">بيئة تشغيل الأجهزة الافتراضية، في الإنتاج</p>
+            <p class="proof__card-desc">
+              تعمل حاليًا في بنك سعودي: أجهزة افتراضية وحاويات محكومة ضمن نموذج تشغيل واحد، وليست
+              بيئة تجريبية.
+            </p>
+          </div>
+          <div class="proof__card">
+            <p class="proof__card-tag mono-tag">ذكاء اصطناعي سيادي بشكل أصيل</p>
+            <p class="proof__card-desc">
+              يعمل Gemini أو نماذج مفتوحة مثل Llama وGemma داخل المنصة، بما في ذلك بيئات معزولة
+              تمامًا، بحيث لا يحتاج استدلال النموذج للخروج من المبنى أبدًا.
+            </p>
+          </div>
+        </div>
+
+        <div class="proof__assets">
+          <span class="proof__assets-label mono-tag">أصول قابلة لإعادة الاستخدام</span>
+          <div class="proof__tags">
+            <span class="proof__tag mono-tag">أسس تصميم عالي ومنخفض المستوى (HLD/LLD)</span>
+            <span class="proof__tag mono-tag">التحقق من بيئة تشغيل الأجهزة الافتراضية</span>
+            <span class="proof__tag mono-tag">تصميم بنية تحتية فعلية متعددة مراكز البيانات</span>
+            <span class="proof__tag mono-tag">إجراءات تشغيل مصنع الترحيل</span>
+            <span class="proof__tag mono-tag">نموذج التسليم التشغيلي</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container cta-band__inner">
+      <h2>هل أنت مستعد لتحويل السحابة الموزعة من جوجل إلى منصة جاهزة للإنتاج؟</h2>
+      <div class="cta-band__action">
+        <CTAButton href="/ar/contact?intent=gdc-pilot" variant="outline">احجز مكالمة تحديد نطاق تجربة GDC</CTAButton>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .gdc-subhead {
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: 500;
+    color: var(--white-smoke);
+  }
+
+  .pull-statement {
+    padding-inline-start: 1.15rem;
+    border-inline-start: 2px solid var(--aquamarine);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-1);
+    line-height: 1.35;
+    color: var(--white-smoke);
+  }
+
+  .problem-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 21rem) 1fr;
+    gap: clamp(2.5rem, 6vw, 5.5rem);
+    align-items: start;
+  }
+
+  .problem-layout__intro h2 {
+    margin-top: 0.75rem;
+  }
+
+  .problem-layout__intro .lede {
+    margin-top: 1rem;
+  }
+
+  .problem-layout__intro .pull-statement {
+    margin-top: 2.25rem;
+  }
+
+  .editorial-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .editorial-list li {
+    display: flex;
+    gap: clamp(1.25rem, 3vw, 2rem);
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--gunmetal-line);
+  }
+
+  .editorial-list li:first-child {
+    padding-top: 0;
+  }
+
+  .editorial-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .editorial-list__num {
+    flex-shrink: 0;
+    width: 2.75rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-2);
+    line-height: 1.15;
+    color: color-mix(in srgb, var(--aquamarine) 55%, var(--gunmetal-line));
+  }
+
+  .editorial-list h4 {
+    font-size: var(--step-0);
+    color: var(--white-smoke);
+  }
+
+  .editorial-list p {
+    margin-top: 0.4rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 850px) {
+    .problem-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .belief-layout {
+    max-width: 46rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .belief-layout > .eyebrow {
+    margin-inline: auto;
+  }
+
+  .belief-layout__heading {
+    margin-top: 0.85rem;
+    font-size: var(--step-4);
+  }
+
+  .belief-layout .lede {
+    margin-top: 1.25rem;
+    margin-inline: auto;
+  }
+
+  .platform-stack {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    margin-inline: auto;
+    max-width: 34rem;
+  }
+
+  .platform-stack__grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--gunmetal-line);
+    border: 1px solid var(--gunmetal-line);
+    border-bottom: none;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    overflow: hidden;
+  }
+
+  .platform-stack__item {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: clamp(1.1rem, 2.5vw, 1.5rem) 0.75rem;
+    background: var(--gunmetal-raised);
+    text-align: center;
+  }
+
+  .platform-stack__item--wide {
+    grid-column: span 3;
+  }
+
+  .platform-stack__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--aquamarine) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--aquamarine) 30%, transparent);
+  }
+
+  .platform-stack__icon svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: none;
+    stroke: var(--aquamarine);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .platform-stack__item span:last-child {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-0);
+    color: var(--white-smoke);
+  }
+
+  .platform-stack__foundation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    padding: 1.1rem clamp(1.25rem, 3vw, 1.5rem);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    border: 2px solid transparent;
+    border-top: none;
+    position: relative;
+    background:
+      linear-gradient(var(--gunmetal-raised), var(--gunmetal-raised)) padding-box,
+      linear-gradient(90deg, #4285f4, #ea4335, #fbbc04, #34a853) border-box;
+  }
+
+  .platform-stack__foundation::before {
+    content: '';
+    position: absolute;
+    left: -2px;
+    right: -2px;
+    top: -3px;
+    height: 3px;
+    background: linear-gradient(90deg, #4285f4, #ea4335, #fbbc04, #34a853);
+  }
+
+  .platform-stack__foundation-icon {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 8px;
+    background: var(--gunmetal);
+  }
+
+  .platform-stack__foundation-icon svg {
+    width: 1.3rem;
+    height: 1.3rem;
+    fill: none;
+    stroke: var(--white-smoke);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .platform-stack__foundation h4 {
+    font-size: var(--step-0);
+  }
+
+  .platform-stack__foundation p {
+    margin-top: 0.15rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+  }
+
+  .belief-layout__statement {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    margin-inline: auto;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-3);
+    line-height: 1.2;
+    color: var(--aquamarine);
+  }
+
+  .belief-layout__closing {
+    margin-top: 1.75rem;
+    color: var(--silver);
+  }
+
+  .works-intro {
+    max-width: 36rem;
+  }
+
+  .works-intro h2 {
+    margin-top: 0.75rem;
+  }
+
+  .works-intro .lede {
+    margin-top: 1rem;
+  }
+
+  .works-timeline {
+    position: relative;
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .works-timeline__line {
+    position: absolute;
+    top: 1.1rem;
+    inset-inline-start: 1.1rem;
+    inset-inline-end: 1.1rem;
+    height: 1px;
+    background: var(--gunmetal-line);
+  }
+
+  .works-timeline__steps {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .works-timeline__steps li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .works-timeline__node {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: var(--gunmetal-raised);
+    border: 1px solid var(--aquamarine);
+    color: var(--aquamarine);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step--1);
+  }
+
+  .works-timeline__steps h4 {
+    color: var(--white-smoke);
+    font-size: var(--step-0);
+  }
+
+  .works-timeline__steps p {
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.45;
+  }
+
+  .works-timeline__statement {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    max-width: 46rem;
+  }
+
+  @media (max-width: 800px) {
+    .works-timeline__line {
+      display: none;
+    }
+
+    .works-timeline__steps {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  .standardise-intro {
+    max-width: 36rem;
+  }
+
+  .standardise-intro h2 {
+    margin-top: 0.75rem;
+  }
+
+  .standardise-intro .lede {
+    margin-top: 1rem;
+  }
+
+  .foundations-grid {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--gunmetal-line);
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+  }
+
+  .foundations-grid li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: clamp(1.5rem, 3vw, 1.85rem);
+    background: var(--gunmetal);
+  }
+
+  .foundations-grid__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--aquamarine) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--aquamarine) 28%, transparent);
+  }
+
+  .foundations-grid__icon svg {
+    width: 1.35rem;
+    height: 1.35rem;
+    fill: none;
+    stroke: var(--aquamarine);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .foundations-grid h4 {
+    font-size: var(--step-0);
+    color: var(--white-smoke);
+  }
+
+  .foundations-grid p {
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.5;
+  }
+
+  .foundations-grid__statement {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    max-width: 46rem;
+  }
+
+  @media (max-width: 900px) {
+    .foundations-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 560px) {
+    .foundations-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .outcomes-intro {
+    max-width: 36rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .outcomes-intro > .eyebrow {
+    margin-inline: auto;
+  }
+
+  .outcomes-intro h2 {
+    margin-top: 0.75rem;
+  }
+
+  .outcomes-intro .lede {
+    margin-top: 1rem;
+    margin-inline: auto;
+  }
+
+  .stat-grid {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+  }
+
+  .stat-grid li {
+    padding-top: 1.35rem;
+    border-top: 2px solid color-mix(in srgb, var(--aquamarine) 45%, transparent);
+  }
+
+  .stat-grid__num {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-2);
+    color: var(--aquamarine);
+  }
+
+  .stat-grid h4 {
+    margin-top: 0.6rem;
+    font-size: var(--step-0);
+    color: var(--white-smoke);
+    line-height: 1.25;
+  }
+
+  .stat-grid p {
+    margin-top: 0.5rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.4;
+  }
+
+  .outcomes-close {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    margin-inline: auto;
+    text-align: center;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-3);
+    color: var(--white-smoke);
+  }
+
+  .proof__context {
+    margin-top: 1.25rem;
+    max-width: 46rem;
+  }
+
+  .proof__grid {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+
+  @media (max-width: 1150px) {
+    .proof__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 700px) {
+    .proof__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 480px) {
+    .proof__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .proof__card {
+    padding: 1.35rem 1.25rem;
+    border-top: 2px solid color-mix(in srgb, var(--aquamarine) 45%, transparent);
+    background: color-mix(in srgb, var(--silver) 4%, transparent);
+  }
+
+  .proof__card-tag {
+    color: var(--aquamarine);
+  }
+
+  .proof__card-desc {
+    margin-top: 0.6rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.45;
+  }
+
+  .proof__assets {
+    margin-top: clamp(2rem, 4vw, 2.75rem);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.75rem 0.6rem;
+  }
+
+  .proof__assets-label {
+    color: var(--silver);
+  }
+
+  .proof__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .proof__tag {
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--gunmetal-line);
+    background: color-mix(in srgb, var(--silver) 6%, transparent);
+    color: var(--silver);
+  }
+
+  .cta-band {
+    background: var(--aquamarine);
+    padding-block: clamp(1.5rem, 3.5vw, 2.5rem);
+  }
+
+  .cta-band__inner {
+    text-align: center;
+  }
+
+  .cta-band h2 {
+    max-width: 42rem;
+    margin-inline: auto;
+    font-size: var(--step-2);
+    color: var(--gunmetal);
+  }
+
+  .cta-band__action {
+    margin-top: clamp(1.1rem, 2.5vw, 1.5rem);
+    display: flex;
+    justify-content: center;
+  }
+
+  .cta-band__action :global(.btn) {
+    border-color: var(--gunmetal);
+    color: var(--gunmetal);
+  }
+
+  .cta-band__action :global(.btn:hover) {
+    background: var(--gunmetal);
+    color: var(--aquamarine);
+    border-color: var(--gunmetal);
+  }
+</style>

@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageIntro from '../../../components/PageIntro.astro';
+import ProductBrief from '../../../components/ProductBrief.astro';
+import CTAButton from '../../../components/CTAButton.astro';
+
+// Draft machine translation, for visual/design review only — pending a
+// native-speaker pass. Mirrors src/pages/resources/anfaa.astro structure
+// and styles exactly; only the copy and internal hrefs differ.
+---
+
+<BaseLayout
+  title="ANFAA: إدارة مالية سحابية متعددة المزودين"
+  description="تحوّل ANFAA إنفاق السحابة إلى انضباط تشغيلي مستمر لإدارة التكاليف: رؤية، وملكية، وتحسين، وتحكم، عبر كل مزوّد تعمل معه."
+  locale="ar"
+>
+  <PageIntro eyebrow="الموارد · نبذة المنتج">
+    <h1>يجب أن تخلق السحابة قيمة، لا أن تكون مجرد تكلفة.</h1>
+    <p class="gdc-subhead">أنفق بذكاء. حافظ على السيطرة.</p>
+    <p class="lede">
+      تحوّل ANFAA (أنفع) إنفاق السحابة إلى انضباط تشغيلي مستمر لإدارة التكاليف: رؤية، وملكية،
+      وتحسين، وتحكم، عبر كل مزوّد سحابي تعمل معه، وليس فقط Google Cloud.
+    </p>
+    <div class="page-intro__cta">
+      <CTAButton href="/resources/anfaa-booklet.pdf" variant="outline">تنزيل الملف (PDF)</CTAButton>
+      <CTAButton href="/ar/contact?intent=anfaa">تواصل معنا حول ANFAA</CTAButton>
+    </div>
+  </PageIntro>
+
+  <ProductBrief
+    accent="aquamarine"
+    locale="ar"
+    productTag="إدارة مالية سحابية متعددة المزودين"
+    beliefHeading="يجب أن يكون لكل وحدة من إنفاق السحابة غرض واضح."
+    beliefLede="تربط ANFAA بين الاستخدام والمساءلة والحوكمة والتحسين، بحيث تصبح إدارة التكاليف المالية جزءًا من نموذج التشغيل السحابي، لا تمرينًا ماليًا لاحقًا."
+    plusItems={['الرؤية', 'الملكية', 'التحسين', 'التحكم']}
+    beliefStatement="يجب أن يكون تحسين التكلفة مستمرًا، لا تنظيفًا ربع سنوي."
+    beliefClosing="تأتي قيمة FinOps من تحويل بيانات التكلفة إلى انضباط يومي مشترك بين المالية والهندسة وأصحاب الأعمال."
+    loopHeading="من بيانات إنفاق السحابة إلى إجراءات FinOps محكومة."
+    loopLede="مسار قابل للتكرار يحوّل بيانات الاستخدام والفوترة إلى ملكية وتحسين وحوكمة مالية."
+    loopStages={[
+      { label: 'الاكتشاف', desc: 'جمع بيانات تكلفة واستخدام السحابة المهمة.' },
+      { label: 'التخصيص', desc: 'ربط الإنفاق بالفرق والمنتجات والبيئات والمسؤولين.' },
+      { label: 'التحسين والتنسيق', desc: 'تحديد الهدر وفرص الموازنة والإجراءات التي تحسّن القيمة.' },
+      { label: 'الحوكمة', desc: 'استخدام الميزانيات والضوابط وممارسات FinOps للحفاظ على التحكم.' },
+    ]}
+    loopStatement="شاهدها. امتلكها. حسّنها. احكمها."
+    outcomesHeading="من فاتورة سحابية إلى قيمة سحابية."
+    outcomesLede="الهدف ليس لوحة تحكم أخرى. الهدف هو طريقة قابلة للتكرار لإدارة اقتصاديات السحابة بملكية واضحة وإجراءات مستمرة."
+    outcomes={[
+      { label: 'رؤية أوضح للإنفاق', desc: 'فهم إلى أين تذهب تكلفة السحابة.' },
+      { label: 'مساءلة أوضح', desc: 'ربط الإنفاق بالفرق والمسؤولين.' },
+      { label: 'تحسين وتنسيق أسرع', desc: 'التعامل مع الهدر والفرص بشكل أسرع.' },
+      { label: 'ميزانية أقوى', desc: 'إدماج الضوابط في قرارات السحابة اليومية.' },
+      { label: 'تحكم متعدد السحابات', desc: 'توسيع خيارات المزودين دون فقدان الانضباط المالي.' },
+    ]}
+    outcomesClose="افهمها. حسّنها. احكمها."
+    pdfHref="/resources/anfaa-booklet.pdf"
+    pdfLabel="نبذة منتج ANFAA"
+    contactIntent="anfaa"
+  />
+</BaseLayout>
+
+<style>
+  .gdc-subhead {
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: 500;
+    color: var(--white-smoke);
+  }
+
+  .page-intro__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+</style>

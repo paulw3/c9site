@@ -1,0 +1,536 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageIntro from '../../../components/PageIntro.astro';
+import CTAButton from '../../../components/CTAButton.astro';
+import ProofPoint from '../../../components/ProofPoint.astro';
+
+// Draft machine translation, for visual/design review only — pending a
+// native-speaker pass. Mirrors src/pages/resources/asaas-getting-started.astro
+// structure and styles exactly; only the copy and internal hrefs differ.
+
+const prerequisites = [
+  'مؤسسة Google Cloud مفعّل عليها الفوترة',
+  'دور مسؤول المؤسسة (أو ما يعادله) على مؤسسة Google Cloud الخاصة بك',
+  'حساب على Google Cloud Marketplace مرتبط بحساب فوترة نشط',
+];
+
+const stepSections = [
+  {
+    eyebrow: 'الخطوة 1',
+    title: 'احصل على وصول إلى aSaaS',
+    intro: 'تتوفر aSaaS عبر Google Cloud Marketplace من خلال عرض خاص.',
+    bullets: [
+      'تواصل مع C-9INE: تواصل معنا لمناقشة متطلبات منطقة الهبوط الخاصة بك.',
+      'استلم عرضًا خاصًا: نرسل لك عرضًا مخصصًا عبر Google Cloud Marketplace.',
+      'اقبل العرض: راجع التسعير، واختر حساب الفوترة الخاص بك، واقبله.',
+      'يُفعَّل اشتراكك فورًا، ويبقى مرئيًا في أي وقت ضمن طلبات Marketplace الخاصة بك.',
+    ],
+  },
+  {
+    eyebrow: 'الخطوة 2',
+    title: 'سجّل وفعّل حسابك',
+    intro: 'بعد الاشتراك، يُعيدك Google Cloud إلى صفحة التسجيل في aSaaS.',
+    bullets: [
+      'يتحقق رمز آمن (JWT) من هويتك تلقائيًا.',
+      'يُنشأ حسابك في aSaaS ويُعتمد خلال ثوانٍ.',
+      'تصل إلى بوابة aSaaS في Marketplace، التي تعرض حالة حسابك.',
+    ],
+  },
+  {
+    eyebrow: 'الخطوة 3',
+    title: 'اربط مؤسسة Google Cloud الخاصة بك',
+    intro: 'من بوابة aSaaS في Marketplace:',
+    bullets: [
+      'انقر على "ربط المؤسسة".',
+      'سجّل الدخول بحساب يملك صلاحيات مسؤول المؤسسة.',
+      'امنح aSaaS الإذن لإدارة موارد منطقة الهبوط في مؤسستك.',
+      'خلف الكواليس: يُنشأ حساب خدمة مخصص، بصلاحيات محددة لمسؤول المجلد، ومسؤول المؤسسة، ومنشئ المشاريع، ومستخدم الفوترة. يبقى كل إجراء مقتصرًا على موارد منطقة الهبوط فقط.',
+    ],
+  },
+];
+
+const reviewLoop = [
+  { label: 'المراجعة', desc: 'يشرح المساعد ما سيتم إنشاؤه أو تعديله.' },
+  { label: 'الموافقة', desc: 'انقر على موافقة للمتابعة، أو اطلب من المساعد مزيدًا من التفاصيل.' },
+  { label: 'التطبيق', desc: 'يطبّق OpenTofu تغييرات البنية التحتية على بيئة Google Cloud الخاصة بك.' },
+  { label: 'التحقق', desc: 'يؤكد المساعد أن التغييرات طُبِّقت بنجاح.' },
+];
+
+const monitorItems = [
+  'تقدم المراحل: اطّلع على المراحل المكتملة، وقيد التنفيذ، والمعلّقة.',
+  'تفاصيل الموارد: اعرض موارد Google Cloud المحددة التي يجري إنشاؤها.',
+  'مخططات البنية: مخططات تُنشأ تلقائيًا لطوبولوجيا منطقة الهبوط الخاصة بك.',
+];
+
+const postDeployment = [
+  'تُطبَّق سياسات المؤسسة.',
+  'تُهيَّأ الشبكات باستخدام Shared VPC وتجزئة مناسبة.',
+  'ضوابط الأمان مفعّلة (Cloud Armor، وSecurity Command Center، وIAM).',
+  'تُوفَّر مجلدات البيئات والمشاريع.',
+  'يُنشأ خط أنابيب GitOps: تُدار كل البنية التحتية عبر مستودع GitLab للبنية التحتية ككود مع خطوط أنابيب Cloud Build للإدارة المستمرة.',
+];
+
+const foundations = [
+  {
+    type: 'إثبات المفهوم',
+    bestFor: 'تقييم Google Cloud',
+    included: 'إعداد المؤسسة والفوترة، إدارة هوية أساسية، تسلسل هرمي بسيط',
+  },
+  {
+    type: 'الإنتاج',
+    bestFor: 'أحمال عمل الإنتاج',
+    included: 'إعداد كامل: الشبكات، والأمان، وإدارة الهوية، والبيئات، والمراقبة',
+  },
+  {
+    type: 'أمان معزز',
+    bestFor: 'القطاعات الخاضعة للتنظيم',
+    included: 'كل ما في الإنتاج + Cloud KMS مع تشفير Autokey',
+  },
+];
+
+const stages = [
+  { stage: '0: التمهيد', desc: 'إنشاء المشروع الأساسي، وتفعيل واجهات البرمجة، وإعداد تخزين حالة OpenTofu' },
+  { stage: '1: المؤسسة', desc: 'تهيئة سياسات المؤسسة، وإنشاء المجلدات الرئيسية' },
+  { stage: '1: الخدمات', desc: 'تفعيل واجهات برمجة Google Cloud المطلوبة عبر المؤسسة' },
+  { stage: '2: الشبكات', desc: 'إعداد Shared VPC، والشبكات الفرعية، وCloud NAT، وقواعد الجدار الناري' },
+  { stage: '3: الأمان', desc: 'تهيئة Security Command Center، وCloud Armor، وتعزيز IAM' },
+  { stage: '4: البيئات', desc: 'إنشاء مجلدات بيئات التطوير والتجريب والإنتاج' },
+  { stage: '5: المشاريع', desc: 'توفير المشاريع ضمن كل بيئة مع إدارة هوية مناسبة' },
+  { stage: '6: نشر التطبيقات', desc: 'نشر بنية أحمال العمل (Cloud Run، وGKE، وغيرها)' },
+];
+
+const nextSteps = [
+  'خصّص قوالب OpenTofu وفقًا لمتطلبات مؤسستك.',
+  'وسّع منطقة الهبوط بمزيد من البيئات أو المشاريع أو أحمال العمل عبر المساعد الذكي.',
+  'راقب سلامة منطقة الهبوط باستخدام مجموعة أدوات العمليات في Google Cloud.',
+];
+
+const troubleshooting = [
+  {
+    issue: '"لا يوجد اشتراك نشط" في صفحة البوابة',
+    solution: 'تأكد من أنك اشتركت عبر Marketplace وأنك مسجل الدخول بنفس حساب Google.',
+  },
+  {
+    issue: 'فشل ربط المؤسسة',
+    solution: 'تحقق من امتلاكك صلاحيات مسؤول المؤسسة. وتأكد من تفعيل الفوترة على المؤسسة.',
+  },
+  {
+    issue: 'فشل إحدى مراحل النشر',
+    solution: 'يوفر المساعد الذكي تفاصيل الخطأ وخطوات الإصلاح. يمكنك إعادة محاولة أي مرحلة فاشلة.',
+  },
+  {
+    issue: 'بحاجة لإعادة تشغيل عملية التسجيل',
+    solution: 'تواصل مع الدعم: يمكننا إعادة ضبط حسابك لإعادة تفعيل التسجيل عبر Marketplace.',
+  },
+];
+---
+
+<BaseLayout
+  title="البدء مع aSaaS"
+  description="انشر مناطق هبوط آمنة ومتوافقة على Google Cloud في دقائق مع aSaaS، المتوفرة مباشرة عبر Google Cloud Marketplace."
+  locale="ar"
+>
+  <PageIntro eyebrow="aSaaS · البدء">
+    <h1>البدء مع aSaaS على Google Cloud Marketplace</h1>
+    <p class="lede">
+      انشر مناطق هبوط آمنة ومتوافقة على Google Cloud في دقائق، بأتمتة موجهة بالذكاء الاصطناعي
+      وموافقة بشرية في كل خطوة. تتوفر aSaaS مباشرة عبر Google Cloud Marketplace. يشرح هذا الدليل
+      كيفية الحصول على الوصول، وربط مؤسستك، ونشر منطقة الهبوط الأولى.
+    </p>
+    <div class="page-intro__cta">
+      <CTAButton href="/ar/resources/asaas" variant="outline">العودة إلى نبذة aSaaS</CTAButton>
+      <CTAButton href="/ar/contact?intent=asaas">تواصل معنا حول aSaaS</CTAButton>
+    </div>
+  </PageIntro>
+
+  <section class="section-tight">
+    <div class="container">
+      <p class="eyebrow">المتطلبات الأساسية</p>
+      <ul class="check-list">
+        {prerequisites.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {stepSections.map((step, i) => (
+    <section class={`section-tight ${i % 2 === 0 ? 'section-raised' : ''}`}>
+      <div class="container narrow">
+        <p class="eyebrow">{step.eyebrow}</p>
+        <h2>{step.title}</h2>
+        <p class="lede">{step.intro}</p>
+        <ul class="icon-list">
+          {step.bullets.map((bullet) => (
+            <li>
+              <svg class="icon-list__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+              <span>{bullet}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
+
+  <section class="section-tight">
+    <div class="container">
+      <p class="eyebrow">الخطوة 4</p>
+      <h2>اختر نوع الأساس الخاص بك</h2>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>النوع</th>
+              <th>الأنسب لـ</th>
+              <th>ما المُتضمَّن</th>
+            </tr>
+          </thead>
+          <tbody>
+            {foundations.map((f) => (
+              <tr>
+                <td><strong>{f.type}</strong></td>
+                <td>{f.bestFor}</td>
+                <td>{f.included}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="lede foundation-note">
+        يكيّف المساعد الذكي سير عمل النشر وفقًا لاختيارك: يُنشر إثبات المفهوم بشكل أسرع بإعدادات
+        افتراضية معقولة، بينما يرشدك الإنتاج والأمان المعزز خلال كل تفصيل من تفاصيل الإعداد.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
+      <p class="eyebrow">الخطوة 5</p>
+      <h2>انشر منطقة الهبوط الأولى الخاصة بك</h2>
+      <p class="lede">
+        بمجرد ربط مؤسستك واختيار نوع الأساس، يرشدك مساعد aSaaS الذكي خلال عملية نشر منطقة الهبوط
+        بأكملها.
+      </p>
+      <div class="substep">
+        <p class="eyebrow">5.1 افتح لوحة تحكم منطقة الهبوط</p>
+        <p>انتقل إلى لوحة تحكم aSaaS الرئيسية. المساعد الذكي جاهز للبدء.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <p class="eyebrow">5.2 ابدأ النشر الموجه</p>
+      <h2>ما الذي ينشره المساعد الذكي، مرحلة تلو الأخرى</h2>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>المرحلة</th>
+              <th>ماذا تفعل</th>
+            </tr>
+          </thead>
+          <tbody>
+            {stages.map((stage) => (
+              <tr>
+                <td><strong>{stage.stage}</strong></td>
+                <td>{stage.desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="lede foundation-note">
+        تعتمد المراحل التي تراها على نوع الأساس الذي اخترته: ينشر إثبات المفهوم مجموعة فرعية
+        بإعدادات افتراضية معقولة، بينما يشمل الإنتاج والأمان المعزز كل مرحلة.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
+      <p class="eyebrow">5.3 راجع ووافق على كل خطوة</p>
+      <h2>أنت من يوافق على كل تغيير قبل حدوثه</h2>
+      <p class="lede">عند كل خطوة حرجة، يتوقف المساعد الذكي ويطلب موافقتك قبل إجراء أي تغيير:</p>
+      <ol class="review-loop">
+        {reviewLoop.map((item, i) => (
+          <li>
+            <span class="review-loop__num mono-tag">{String(i + 1).padStart(2, '0')}</span>
+            <h4>{item.label}</h4>
+            <p>{item.desc}</p>
+          </li>
+        ))}
+      </ol>
+      <ProofPoint eyebrow="تحكم كامل، طوال الوقت">
+        لا يتم إجراء أي تغيير في البنية التحتية دون موافقتك الصريحة. تحتفظ بالتحكم الكامل طوال
+        العملية.
+      </ProofPoint>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">5.4 راقب التقدم</p>
+      <h2>تابع النشر في الوقت الفعلي</h2>
+      <ul class="check-list">
+        {monitorItems.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
+      <p class="eyebrow">الخطوة 6</p>
+      <h2>بعد النشر</h2>
+      <p class="lede">بعد اكتمال جميع المراحل، تكون منطقة الهبوط جاهزة:</p>
+      <ul class="icon-list">
+        {postDeployment.map((item) => (
+          <li>
+            <svg class="icon-list__icon icon-list__icon--check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" /></svg>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">الخطوات التالية</p>
+      <ul class="check-list">
+        {nextSteps.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
+      <p class="eyebrow">إدارة اشتراكك</p>
+      <ul class="check-list">
+        <li>اطّلع على حالة الاشتراك في بوابة aSaaS.</li>
+        <li>اطّلع على تفاصيل العرض والفوترة في طلبات Google Cloud Marketplace.</li>
+        <li>
+          للإلغاء، تواصل مع C-9INE أو أدره عبر طلبات Marketplace؛ تبقى بنيتك التحتية الحالية في
+          مكانها.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">استكشاف الأخطاء وإصلاحها</p>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>المشكلة</th>
+              <th>الحل</th>
+            </tr>
+          </thead>
+          <tbody>
+            {troubleshooting.map((item) => (
+              <tr>
+                <td>{item.issue}</td>
+                <td>{item.solution}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow support-block">
+      <p class="eyebrow">الدعم</p>
+      <h2>بحاجة إلى مساعدة؟</h2>
+      <p class="lede">
+        راسلنا عبر البريد الإلكتروني <a href="mailto:support@c9ine.com">support@c9ine.com</a>،
+        أو تواصل معنا عبر صفحة التواصل، أو استخدم رابط الدعم في قائمة aSaaS على Google Cloud
+        Marketplace.
+      </p>
+      <div class="page-intro__cta">
+        <CTAButton href="/ar/contact?intent=asaas">تواصل معنا حول aSaaS</CTAButton>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-intro__cta {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .container.narrow {
+    max-width: 46rem;
+  }
+
+  h2 {
+    margin-top: 0.75rem;
+  }
+
+  .check-list {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    color: var(--silver);
+    line-height: 1.5;
+    max-width: none;
+  }
+
+  .check-list li::before {
+    content: '';
+    flex: none;
+    width: 6px;
+    height: 6px;
+    margin-top: 0.6rem;
+    background: var(--aquamarine);
+  }
+
+  .icon-list {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .icon-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    color: var(--silver);
+    line-height: 1.5;
+  }
+
+  .icon-list__icon {
+    flex: none;
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: 0.19rem;
+    fill: none;
+    stroke: var(--aquamarine);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transform: scaleX(-1);
+  }
+
+  .table-wrap {
+    margin-top: 2rem;
+    overflow-x: auto;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--step--1);
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 0.85rem 1.1rem;
+    text-align: start;
+    vertical-align: top;
+    max-width: none;
+  }
+
+  .data-table thead th {
+    background: var(--gunmetal-raised);
+    color: var(--aquamarine);
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .data-table tbody tr {
+    border-top: 1px solid var(--gunmetal-line);
+  }
+
+  .data-table tbody td {
+    color: var(--silver);
+  }
+
+  .data-table tbody td strong {
+    color: var(--white-smoke);
+  }
+
+  .substep {
+    margin-top: 2rem;
+    padding-inline-start: 1.15rem;
+    border-inline-start: 2px solid var(--gunmetal-line);
+  }
+
+  .substep .eyebrow + p {
+    margin-top: 0.4rem;
+    color: var(--silver);
+  }
+
+  .foundation-note {
+    margin-top: 1.5rem;
+    color: var(--silver);
+    max-width: 60ch;
+  }
+
+  .review-loop {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.25rem, 3vw, 1.75rem);
+  }
+
+  .review-loop li {
+    padding-top: 1.1rem;
+    border-top: 2px solid var(--aquamarine);
+  }
+
+  .review-loop__num {
+    display: block;
+    color: var(--aquamarine);
+  }
+
+  .review-loop h4 {
+    margin-top: 0.5rem;
+    font-size: var(--step-0);
+    color: var(--white-smoke);
+  }
+
+  .review-loop p {
+    margin-top: 0.4rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.4;
+  }
+
+  .support-block .lede {
+    margin-top: 1rem;
+  }
+
+  .support-block a {
+    color: var(--aquamarine);
+  }
+
+  @media (max-width: 700px) {
+    .review-loop {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

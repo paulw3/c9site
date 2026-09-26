@@ -18,6 +18,7 @@ interface Outcome {
 
 interface Props {
   accent: 'aquamarine' | 'sky';
+  locale?: Locale;
   productTag: string;
   beliefHeading: string;
   beliefLede: string;
@@ -38,9 +39,11 @@ interface Props {
 }
 
 import CTAButton from './CTAButton.astro';
+import { t, type Locale } from '../i18n/ui';
 
 const {
   accent,
+  locale = 'en',
   productTag,
   beliefHeading,
   beliefLede,
@@ -67,7 +70,7 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
   <section class="section-tight section-raised">
     <div class="container">
       <div class="belief-layout">
-        <p class="eyebrow">The Belief</p>
+        <p class="eyebrow">{t(locale, 'productBriefBelief')}</p>
         <h2 class="belief-layout__heading">{beliefHeading}</h2>
         <p class="lede">{beliefLede}</p>
 
@@ -89,7 +92,7 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
   <section class="section-tight">
     <div class="container">
       <div class="works-intro">
-        <p class="eyebrow">The Operating Loop</p>
+        <p class="eyebrow">{t(locale, 'productBriefOperatingLoop')}</p>
         <h2>{loopHeading}</h2>
         <p class="lede">{loopLede}</p>
       </div>
@@ -114,7 +117,7 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
   <section class="section-tight section-raised">
     <div class="container">
       <div class="outcomes-intro">
-        <p class="eyebrow">Customer Outcomes</p>
+        <p class="eyebrow">{t(locale, 'productBriefCustomerOutcomes')}</p>
         <h2>{outcomesHeading}</h2>
         <p class="lede">{outcomesLede}</p>
       </div>
@@ -137,13 +140,13 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
     <div class="container">
       <div class="brief-cta">
         <span class="brief-cta__tag mono-tag">{productTag}</span>
-        <h2>Get the full product brief</h2>
+        <h2>{t(locale, 'productBriefGetBrief')}</h2>
         <p class="lede">
-          The complete {pdfLabel}: problem, approach, operating model and outcomes in one PDF.
+          {t(locale, 'briefCtaLedeTemplate').replace('{pdf}', pdfLabel)}
         </p>
         <div class="brief-cta__actions">
-          <CTAButton href={pdfHref} variant="outline">Download the {pdfLabel} (PDF)</CTAButton>
-          <CTAButton href={`/contact?intent=${contactIntent}`}>Talk to us about it</CTAButton>
+          <CTAButton href={pdfHref} variant="outline">{t(locale, 'downloadLabel')} {pdfLabel} (PDF)</CTAButton>
+          <CTAButton href={locale === 'ar' ? `/ar/contact?intent=${contactIntent}` : `/contact?intent=${contactIntent}`}>{t(locale, 'talkAboutIt')}</CTAButton>
         </div>
       </div>
     </div>

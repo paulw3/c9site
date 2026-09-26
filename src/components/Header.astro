@@ -7,21 +7,25 @@ interface Props {
 
 const { locale = 'en' } = Astro.props;
 
-// Only the homepage exists in Arabic so far — other nav items stay pointed
-// at their English routes until the rest of the site is translated, so
-// none of these links 404. Revisit once every page has an /ar/ version.
+const prefix = locale === 'ar' ? '/ar' : '';
 const navItems = [
-  { href: '/cloud-migration', label: t(locale, 'navCloudMigration') },
-  { href: '/google-distributed-cloud', label: t(locale, 'navGdc') },
-  { href: '/resources', label: t(locale, 'navResources') },
-  { href: '/about', label: t(locale, 'navAbout') },
-  { href: '/contact', label: t(locale, 'navContact') },
+  { href: `${prefix}/cloud-migration`, label: t(locale, 'navCloudMigration') },
+  { href: `${prefix}/google-distributed-cloud`, label: t(locale, 'navGdc') },
+  { href: `${prefix}/resources`, label: t(locale, 'navResources') },
+  { href: `${prefix}/about`, label: t(locale, 'navAbout') },
+  { href: `${prefix}/contact`, label: t(locale, 'navContact') },
 ];
 
 const homeHref = locale === 'ar' ? '/ar/' : '/';
-const langSwitchHref = locale === 'ar' ? '/' : '/ar/';
 
 const { pathname } = Astro.url;
+
+// Same page, other language: strip or add the /ar prefix rather than
+// always bouncing to that language's homepage.
+const langSwitchHref =
+  locale === 'ar'
+    ? pathname.replace(/^\/ar\/?/, '/') || '/'
+    : `/ar${pathname === '/' ? '/' : pathname}`;
 
 // TODO: replace with C-9INE's real WhatsApp Business number (digits only, country code first, no leading +)
 const WHATSAPP_NUMBER = '15551234567';

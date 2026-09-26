@@ -1,11 +1,14 @@
 ---
+import { t, type Locale } from '../i18n/ui';
+
 interface Props {
   name: string;
   role: string;
   bio?: string;
+  locale?: Locale;
 }
 
-const { name, role, bio } = Astro.props;
+const { name, role, bio, locale = 'en' } = Astro.props;
 ---
 
 <article class="leadership-card">
@@ -14,7 +17,7 @@ const { name, role, bio } = Astro.props;
   {bio ? (
     <p class="leadership-card__bio">{bio}</p>
   ) : (
-    <p class="leadership-card__bio leadership-card__bio--pending">Bio to follow.</p>
+    <p class="leadership-card__bio leadership-card__bio--pending">{t(locale, 'leadershipBioPending')}</p>
   )}
 </article>
 
