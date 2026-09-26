@@ -120,6 +120,14 @@ import CTAButton from '../components/CTAButton.astro';
             <div class="platform-stack__item">
               <span class="platform-stack__icon">
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M12,3 C12.4,7 13,11.6 17,12 C13,12.4 12.4,17 12,21 C11.6,17 11,12.4 7,12 C11,11.6 11.6,7 12,3 Z" />
+                </svg>
+              </span>
+              <span>AI Models</span>
+            </div>
+            <div class="platform-stack__item platform-stack__item--wide">
+              <span class="platform-stack__icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                   <rect x="6" y="4" width="12" height="17" rx="1.5" />
                   <rect x="9" y="2.5" width="6" height="3" rx="1" />
                   <path d="M9,12 L11,14 L15,9.5" />
@@ -127,7 +135,7 @@ import CTAButton from '../components/CTAButton.astro';
               </span>
               <span>Policy</span>
             </div>
-            <div class="platform-stack__item">
+            <div class="platform-stack__item platform-stack__item--wide">
               <span class="platform-stack__icon">
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                   <circle cx="12" cy="12" r="3" />
@@ -150,7 +158,7 @@ import CTAButton from '../components/CTAButton.astro';
             </span>
             <div>
               <h4>Google Distributed Cloud</h4>
-              <p>The foundation underneath all four</p>
+              <p>The foundation underneath all five</p>
             </div>
           </div>
         </div>
@@ -542,19 +550,23 @@ import CTAButton from '../components/CTAButton.astro';
     margin-inline: auto;
   }
 
-  /* A 2x2 grid of the four items resting directly on a solid
+  /* A pyramid of the five items resting directly on a solid
      "foundation" bar — the bar is Google Distributed Cloud itself,
-     literally underneath what it carries, rather than a fifth item
-     tacked onto an equation. */
+     literally underneath what it carries, rather than a sixth item
+     tacked onto an equation. Two rows on a 6-column base grid: three
+     workload types (VMs, Containers, AI Models) each span 2 columns,
+     the two operating capabilities (Policy, Operations) below each
+     span 3 — reads as "what runs" over "how it's governed", not an
+     odd 2x2-plus-one. */
   .platform-stack {
     margin-top: clamp(2.5rem, 5vw, 3.5rem);
     margin-inline: auto;
-    max-width: 26rem;
+    max-width: 34rem;
   }
 
   .platform-stack__grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 1px;
     background: var(--gunmetal-line);
     border: 1px solid var(--gunmetal-line);
@@ -564,6 +576,7 @@ import CTAButton from '../components/CTAButton.astro';
   }
 
   .platform-stack__item {
+    grid-column: span 2;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -571,6 +584,10 @@ import CTAButton from '../components/CTAButton.astro';
     padding: clamp(1.1rem, 2.5vw, 1.5rem) 0.75rem;
     background: var(--gunmetal-raised);
     text-align: center;
+  }
+
+  .platform-stack__item--wide {
+    grid-column: span 3;
   }
 
   .platform-stack__icon {
