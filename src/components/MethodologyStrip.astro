@@ -1,10 +1,17 @@
 ---
 import StageIcon from './StageIcon.astro';
+import { t, type Locale } from '../i18n/ui';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
 
 const stages = [
-  { label: 'Design', icon: 'design' as const, copy: 'Target-state architecture, mapped before a single workload moves.' },
-  { label: 'Engineer', icon: 'engineer' as const, copy: 'Governed execution: migration factory or GDC deployment, whichever the destination needs.' },
-  { label: 'Run', icon: 'run' as const, copy: 'Documentation, knowledge transfer and support to keep it running, or we hand you the keys entirely.' },
+  { label: t(locale, 'methodologyDesignLabel'), icon: 'design' as const, copy: t(locale, 'methodologyDesignCopy') },
+  { label: t(locale, 'methodologyEngineerLabel'), icon: 'engineer' as const, copy: t(locale, 'methodologyEngineerCopy') },
+  { label: t(locale, 'methodologyRunLabel'), icon: 'run' as const, copy: t(locale, 'methodologyRunCopy') },
 ];
 ---
 

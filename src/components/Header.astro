@@ -1,11 +1,25 @@
 ---
+import { t, type Locale } from '../i18n/ui';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+
+// Only the homepage exists in Arabic so far — other nav items stay pointed
+// at their English routes until the rest of the site is translated, so
+// none of these links 404. Revisit once every page has an /ar/ version.
 const navItems = [
-  { href: '/cloud-migration', label: 'Cloud Migration & Transformation' },
-  { href: '/google-distributed-cloud', label: 'Google Distributed Cloud' },
-  { href: '/resources', label: 'Resources' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/cloud-migration', label: t(locale, 'navCloudMigration') },
+  { href: '/google-distributed-cloud', label: t(locale, 'navGdc') },
+  { href: '/resources', label: t(locale, 'navResources') },
+  { href: '/about', label: t(locale, 'navAbout') },
+  { href: '/contact', label: t(locale, 'navContact') },
 ];
+
+const homeHref = locale === 'ar' ? '/ar/' : '/';
+const langSwitchHref = locale === 'ar' ? '/' : '/ar/';
 
 const { pathname } = Astro.url;
 
@@ -15,7 +29,7 @@ const WHATSAPP_NUMBER = '15551234567';
 
 <header class="site-header">
   <div class="container site-header__inner">
-    <a href="/" class="wordmark" aria-label="C-9INE, home">
+    <a href={homeHref} class="wordmark" aria-label={t(locale, 'wordmarkAria')}>
       <svg viewBox="311.65625 310.49609375 1366.96875 316.12890625" class="wordmark__mark" aria-hidden="true" focusable="false">
         <path fill-rule="nonzero" d="M 536.96875 535.808594 C 519.757812 553.019531 495.984375 563.664062 469.722656 563.664062 C 417.199219 563.664062 374.617188 521.085938 374.617188 468.558594 C 374.617188 416.035156 417.199219 373.457031 469.722656 373.457031 C 495.984375 373.457031 519.757812 384.101562 536.96875 401.3125 L 581.492188 356.792969 C 552.886719 328.1875 513.371094 310.496094 469.722656 310.496094 C 382.425781 310.496094 311.65625 381.261719 311.65625 468.558594 C 311.65625 555.855469 382.425781 626.625 469.722656 626.625 C 513.367188 626.625 552.886719 608.933594 581.492188 580.328125 Z M 536.96875 535.808594 "/>
         <path fill-rule="nonzero" d="M 601.722656 448.710938 L 704.257812 448.710938 L 704.257812 504.285156 L 601.722656 504.285156 Z M 601.722656 448.710938 "/>
@@ -44,7 +58,7 @@ const WHATSAPP_NUMBER = '15551234567';
         class="header-whatsapp"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Message us on WhatsApp"
+        aria-label={t(locale, 'whatsappAria')}
       >
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path
@@ -54,11 +68,13 @@ const WHATSAPP_NUMBER = '15551234567';
             d="M12.001 2c-5.523 0-10 4.477-10 10 0 1.769.462 3.484 1.34 4.995L2 22l5.146-1.35A9.955 9.955 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2Zm0 18a7.94 7.94 0 0 1-4.062-1.115l-.29-.172-3.055.801.815-2.978-.188-.306A7.94 7.94 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8Z"
           ></path>
         </svg>
-        <span>Message us</span>
+        <span>{t(locale, 'navWhatsapp')}</span>
       </a>
 
+      <a href={langSwitchHref} class="lang-switch">{t(locale, 'navLangSwitch')}</a>
+
       <details class="nav-mobile">
-        <summary aria-label="Open menu">
+        <summary aria-label={t(locale, 'menuAria')}>
           <span class="nav-mobile__icon" aria-hidden="true"></span>
         </summary>
         <nav class="nav-mobile__panel" aria-label="Primary">
@@ -70,6 +86,7 @@ const WHATSAPP_NUMBER = '15551234567';
                 </a>
               </li>
             ))}
+            <li><a href={langSwitchHref}>{t(locale, 'navLangSwitch')}</a></li>
           </ul>
         </nav>
       </details>
@@ -142,6 +159,20 @@ const WHATSAPP_NUMBER = '15551234567';
   .header-whatsapp:hover {
     border-color: var(--aquamarine);
     background: color-mix(in srgb, var(--aquamarine) 10%, transparent);
+  }
+
+  .lang-switch {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step--1);
+    color: var(--silver);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 160ms ease;
+  }
+
+  .lang-switch:hover {
+    color: var(--aquamarine);
   }
 
   .wordmark {
@@ -266,7 +297,7 @@ const WHATSAPP_NUMBER = '15551234567';
 
     .nav-mobile__panel {
       position: absolute;
-      right: 0;
+      inset-inline-end: 0;
       top: calc(100% + 0.75rem);
       background: var(--gunmetal-raised);
       border: 1px solid var(--gunmetal-line);

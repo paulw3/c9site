@@ -1,0 +1,125 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import PillarCard from '../../components/PillarCard.astro';
+import MethodologyStrip from '../../components/MethodologyStrip.astro';
+import CTAButton from '../../components/CTAButton.astro';
+
+// Draft machine translation of the English homepage, for visual review
+// only — pending a native-speaker pass on wording before this is
+// treated as final copy. The rest of the site is still English-only;
+// see the TODOs in Header.astro / Footer.astro for nav links.
+---
+
+<BaseLayout
+  title="C-9INE"
+  description="الترحيل إلى السحابة والسحابة الموزعة من جوجل، بتنفيذ متكامل من البداية للنهاية، للبنوك والجهات الحكومية ومؤسسات البنية التحتية الحيوية في المملكة العربية السعودية وخارجها."
+  locale="ar"
+>
+  <Hero
+    heading="جوجل كلاود، مصمم للمؤسسات التي لا تحتمل الخطأ."
+    subheading="الترحيل إلى السحابة والسحابة الموزعة من جوجل، بتنفيذ متكامل من البداية للنهاية، للبنوك والجهات الحكومية ومؤسسات البنية التحتية الحيوية في المملكة العربية السعودية وخارجها."
+    trustText="شريك Google Cloud المفضّل، ومقرّنا في الرياض، المملكة العربية السعودية"
+    locale="ar"
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="pillars">
+        <PillarCard
+          title="الترحيل والتحول السحابي"
+          description="انتقل إلى Google Cloud من بيئتك المحلية أو من مزوّد سحابي آخر، عبر مراحل محكومة تغطي كل جانب يتأثر بحمل العمل، وليس فقط منطقة الهبوط."
+          href="/cloud-migration"
+          linkText="عرض صفحة الترحيل السحابي"
+        >
+          <svg slot="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="stroke-width: 1.8">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12,3.5 L12,6.3 M12,17.7 L12,20.5 M3.5,12 L6.3,12 M17.7,12 L20.5,12 M6.1,6.1 L8.1,8.1 M15.9,15.9 L17.9,17.9 M6.1,17.9 L8.1,15.9 M15.9,8.1 L17.9,6.1" />
+          </svg>
+        </PillarCard>
+        <PillarCard
+          title="السحابة الموزعة من جوجل"
+          description="شغّل الأجهزة الافتراضية والحاويات ونماذج الذكاء الاصطناعي على بنيتك التحتية الخاصة، بنموذج تشغيل سحابي أصيل: منصة واحدة، فوضى أقل، وتحكم سيادي كامل."
+          href="/google-distributed-cloud"
+          linkText="عرض السحابة الموزعة من جوجل"
+          iconVariant="google"
+        >
+          <svg slot="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M8,14 C5,14 5,9.5 8,9.5 C8.4,6.5 15.6,6.5 16,9.5 C19,9.5 19,14 16,14 Z" />
+            <path d="M9,14 L9,17" />
+            <path d="M15,14 L15,17" />
+            <rect x="6.5" y="17" width="5" height="3.5" rx="1" />
+            <rect x="12.5" y="17" width="5" height="3.5" rx="1" />
+          </svg>
+        </PillarCard>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-raised">
+    <div class="container">
+      <p class="eyebrow methodology-eyebrow">كيف نعمل</p>
+      <h2>نصمم. نهندس. نُشغّل.</h2>
+      <div class="methodology-wrap">
+        <MethodologyStrip locale="ar" />
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container cta-band">
+      <h2>أحضر لنا حمل العمل الذي لا يمكنك تحمّل الخطأ فيه.</h2>
+      <CTAButton href="/contact">تواصل معنا</CTAButton>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .methodology-eyebrow {
+    margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
+  }
+
+  .methodology-wrap {
+    margin-top: 2.5rem;
+  }
+
+  .cta-section {
+    background: var(--aquamarine);
+    padding-block: clamp(3rem, 7vw, 5rem);
+  }
+
+  .cta-band {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .cta-band h2 {
+    color: var(--gunmetal);
+    max-width: 20ch;
+  }
+
+  .cta-band :global(.btn) {
+    background: var(--gunmetal);
+    color: var(--white-smoke);
+  }
+
+  .cta-band :global(.btn:hover) {
+    background: var(--white-smoke);
+    color: var(--gunmetal);
+  }
+
+  @media (max-width: 700px) {
+    .pillars {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

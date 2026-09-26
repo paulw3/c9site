@@ -1,10 +1,20 @@
 ---
+import { t, type Locale } from '../i18n/ui';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+
+// See the same TODO in Header.astro: other pages aren't translated yet,
+// so these keep pointing at their English routes for now.
 const navItems = [
-  { href: '/cloud-migration', label: 'Cloud Migration & Transformation' },
-  { href: '/google-distributed-cloud', label: 'Google Distributed Cloud' },
-  { href: '/resources', label: 'Resources' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/cloud-migration', label: t(locale, 'navCloudMigration') },
+  { href: '/google-distributed-cloud', label: t(locale, 'navGdc') },
+  { href: '/resources', label: t(locale, 'navResources') },
+  { href: '/about', label: t(locale, 'navAbout') },
+  { href: '/contact', label: t(locale, 'navContact') },
 ];
 
 const productItems = [
@@ -12,6 +22,7 @@ const productItems = [
   { href: '/resources/asaas', label: 'aSaaS' },
 ];
 
+const homeHref = locale === 'ar' ? '/ar/' : '/';
 const year = new Date().getFullYear();
 
 // TODO: replace with C-9INE's real social URLs
@@ -24,7 +35,7 @@ const socialLinks = [
 <footer class="site-footer">
   <div class="container site-footer__grid">
     <div class="site-footer__brand">
-      <a href="/" class="wordmark" aria-label="C-9INE, home">
+      <a href={homeHref} class="wordmark" aria-label={t(locale, 'wordmarkAria')}>
         <svg viewBox="0 0 21.89 32" class="wordmark__mark" aria-hidden="true" focusable="false">
           <path
             fill-rule="evenodd"
@@ -33,7 +44,7 @@ const socialLinks = [
           ></path>
         </svg>
       </a>
-      <p class="mono-tag">Google Cloud Preferred Partner</p>
+      <p class="mono-tag">{t(locale, 'footerPartner')}</p>
     </div>
 
     <nav class="site-footer__nav" aria-label="Footer">
@@ -53,15 +64,15 @@ const socialLinks = [
     </nav>
 
     <address class="site-footer__address">
-      Sahaba Tissa (Cloud 9)<br />
-      7586 King Fahad Road, Ar Rahmaniyah<br />
-      Riyadh 12341, Saudi Arabia
+      {t(locale, 'footerAddress1')}<br />
+      {t(locale, 'footerAddress2')}<br />
+      {t(locale, 'footerAddress3')}
       <!-- TODO: confirm current company registration number (two conflicting numbers on file) and add it here -->
     </address>
   </div>
 
   <div class="container site-footer__bottom">
-    <p class="mono-tag">&copy; {year} C-9INE. All rights reserved.</p>
+    <p class="mono-tag">&copy; {year} C-9INE. {t(locale, 'footerRights')}</p>
 
     <ul class="site-footer__social">
       {socialLinks.map((social) => (

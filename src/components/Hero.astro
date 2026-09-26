@@ -1,11 +1,14 @@
 ---
+import { t, type Locale } from '../i18n/ui';
+
 interface Props {
   heading: string;
   subheading: string;
   trustText: string;
+  locale?: Locale;
 }
 
-const { heading, subheading, trustText } = Astro.props;
+const { heading, subheading, trustText, locale = 'en' } = Astro.props;
 
 // trustText arrives as one sentence ("Google Cloud Preferred Partner, based
 // in Riyadh, Saudi Arabia") but the design needs it in two places: the
@@ -28,8 +31,8 @@ const [eyebrow] = trustText.split(', ');
     <h1 class="hero__reveal hero__reveal--1">{heading}</h1>
     <p class="hero__sub hero__reveal hero__reveal--2">{subheading}</p>
     <div class="hero__row hero__reveal hero__reveal--3">
-      <a class="btn btn-primary" href="/contact">Talk to us</a>
-      <p class="hero__trust">Born and based in Saudi Arabia</p>
+      <a class="btn btn-primary" href="/contact">{t(locale, 'talkToUs')}</a>
+      <p class="hero__trust">{t(locale, 'heroTrustLine')}</p>
     </div>
   </div>
 </section>
@@ -85,7 +88,7 @@ const [eyebrow] = trustText.split(', ');
     font-family: var(--font-display);
     font-size: var(--step--1);
     color: var(--silver);
-    text-align: right;
+    text-align: end;
     max-width: none;
   }
 
@@ -125,7 +128,14 @@ const [eyebrow] = trustText.split(', ');
     }
 
     .hero__trust {
-      text-align: left;
+      text-align: start;
     }
+  }
+
+  /* Scoped styles here would otherwise out-specificity the global RTL
+     letter-spacing reset in global.css. */
+  :global([dir='rtl']) .hero__eyebrow,
+  :global([dir='rtl']) .hero h1 {
+    letter-spacing: normal;
   }
 </style>
