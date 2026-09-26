@@ -41,6 +41,26 @@
   color-scheme: dark;
 }
 
+/* Arabic pages swap the single house typeface for one that actually
+   covers the script; everything downstream already reads this variable,
+   so nothing else needs to know which language it's rendering. */
+html[dir='rtl'] {
+  --font-display: 'IBM Plex Sans Arabic', sans-serif;
+}
+
+/* Letter-spacing tuned for Latin letterforms pinches Arabic's joined
+   script and can visually break letter connections — reset it wherever
+   the site sets its own value explicitly. */
+html[dir='rtl'] h1,
+html[dir='rtl'] h2,
+html[dir='rtl'] h3,
+html[dir='rtl'] h4,
+html[dir='rtl'] .eyebrow,
+html[dir='rtl'] .mono-tag,
+html[dir='rtl'] .btn {
+  letter-spacing: normal;
+}
+
 *,
 *::before,
 *::after {

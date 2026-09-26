@@ -3,18 +3,21 @@ import SEO from '../components/SEO.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SmoothScroll from '../components/SmoothScroll.astro';
+import { t, type Locale } from '../i18n/ui';
 import '../styles/global.css';
 
 interface Props {
   title: string;
   description: string;
+  locale?: Locale;
 }
 
-const { title, description } = Astro.props;
+const { title, description, locale = 'en' } = Astro.props;
+const dir = locale === 'ar' ? 'rtl' : 'ltr';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale} dir={dir}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,14 +35,24 @@ const { title, description } = Astro.props;
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700&display=swap"
     />
+    {locale === 'ar' && (
+      <!-- Barlow has no Arabic glyphs. IBM Plex Sans Arabic pairs with it as
+           the closest match in tone (a clean, technical, geometric grotesque)
+           while covering the script properly. Swapped in only for Arabic
+           pages via the --font-display override in global.css. -->
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
+      />
+    )}
   </head>
   <body>
     <SmoothScroll />
-    <a class="visually-hidden" href="#main">Skip to content</a>
-    <Header />
+    <a class="visually-hidden" href="#main">{t(locale, 'skipToContent')}</a>
+    <Header locale={locale} />
     <main id="main">
       <slot />
     </main>
-    <Footer />
+    <Footer locale={locale} />
   </body>
 </html>
