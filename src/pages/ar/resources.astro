@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import CTAButton from '../../components/CTAButton.astro';
+
+// Draft machine translation, for visual/design review only — pending a
+// native-speaker pass. Mirrors src/pages/resources.astro structure and
+// styles exactly; only the copy and internal hrefs differ.
+---
+
+<BaseLayout
+  title="الموارد"
+  description="نبذات تعريفية بمنتجي ANFAA وaSaaS، إضافة إلى دراسات حالة من مشاريع C-9INE في الترحيل السحابي والسحابة الموزعة من جوجل، قريبًا."
+  locale="ar"
+>
+  <PageIntro eyebrow="الموارد">
+    <h1>الموارد</h1>
+    <p class="lede">
+      نبذات تعريفية بمنتجي ANFAA وaSaaS، ودراسات حالة من مشاريعنا في الترحيل السحابي والسحابة
+      الموزعة من جوجل.
+    </p>
+  </PageIntro>
+
+  <section class="section-tight section-raised">
+    <div class="container">
+      <h2>منتجاتنا</h2>
+
+      <div class="resource-grid">
+        <a class="resource-card resource-card--anfaa" href="/ar/resources/anfaa">
+          <span class="resource-card__type mono-tag">نبذة المنتج</span>
+          <span class="resource-card__mark">ANFAA</span>
+          <span class="resource-card__tag">إدارة مالية سحابية متعددة المزودين</span>
+          <p class="resource-card__desc">
+            يجب أن تخلق السحابة قيمة، لا أن تكون مجرد تكلفة: انضباط تشغيلي مستمر لإدارة التكاليف
+            عبر كل مزوّد تعمل معه.
+          </p>
+          <span class="resource-card__link">اقرأ النبذة</span>
+        </a>
+
+        <a class="resource-card resource-card--asaas" href="/ar/resources/asaas">
+          <span class="resource-card__type mono-tag">نبذة المنتج</span>
+          <span class="resource-card__mark">aSaaS</span>
+          <span class="resource-card__tag">مشغّل سحابي ذكي</span>
+          <p class="resource-card__desc">
+            لا ينبغي لأساسيات السحابة أن تبطئ الابتكار: معايير معتمدة، تُلتقط مرة واحدة، وتُقدَّم
+            كتجربة موجهة وقابلة للتكرار.
+          </p>
+          <span class="resource-card__link">اقرأ النبذة</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight empty-state">
+    <div class="container">
+      <p class="eyebrow empty-state__eyebrow">دراسات الحالة</p>
+      <h2>قريبًا</h2>
+      <p class="lede empty-state__lede">
+        سيتم نشر دراسات الحالة هنا قريبًا. في هذه الأثناء، تواصل معنا مباشرة للتعرف على الأعمال
+        التي أنجزناها للبنوك والجهات الحكومية ومؤسسات البنية التحتية الحيوية في المملكة العربية
+        السعودية.
+      </p>
+      <div class="empty-state__cta">
+        <CTAButton href="/ar/contact" variant="outline">تواصل معنا في هذه الأثناء</CTAButton>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .empty-state__eyebrow {
+    margin-inline: auto;
+  }
+
+  .resource-grid {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .resource-card {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.5rem, 3vw, 2rem);
+    border-top: 2px solid var(--accent, var(--aquamarine));
+    background: var(--gunmetal-raised);
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 160ms ease;
+  }
+
+  .resource-card:hover {
+    background: color-mix(in srgb, var(--gunmetal-raised) 80%, var(--accent, var(--aquamarine)) 8%);
+  }
+
+  .resource-card--anfaa {
+    --accent: var(--aquamarine);
+  }
+
+  .resource-card--asaas {
+    --accent: var(--vivid-sky-blue);
+  }
+
+  .resource-card__type {
+    color: var(--accent, var(--aquamarine));
+  }
+
+  .resource-card__mark {
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-2);
+    color: var(--white-smoke);
+  }
+
+  .resource-card__tag {
+    margin-top: 0.25rem;
+    display: block;
+    color: var(--silver);
+    font-size: var(--step--1);
+  }
+
+  .resource-card__desc {
+    margin-top: 1rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.5;
+  }
+
+  .resource-card__link {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--gunmetal-line);
+    color: var(--accent, var(--aquamarine));
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step--1);
+  }
+
+  @media (max-width: 700px) {
+    .resource-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .empty-state {
+    text-align: center;
+    border-top: 1px solid var(--gunmetal-line);
+  }
+
+  .empty-state__lede {
+    margin-top: 1rem;
+    margin-inline: auto;
+  }
+
+  .empty-state__cta {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+</style>

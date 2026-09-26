@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageIntro from '../../../components/PageIntro.astro';
+import ProductBrief from '../../../components/ProductBrief.astro';
+import CTAButton from '../../../components/CTAButton.astro';
+
+// Draft machine translation, for visual/design review only — pending a
+// native-speaker pass. Mirrors src/pages/resources/asaas.astro structure
+// and styles exactly; only the copy and internal hrefs differ.
+---
+
+<BaseLayout
+  title="aSaaS: مشغّل سحابي ذكي"
+  description="تلتقط aSaaS معايير السحابة المعتمدة مرة واحدة، ثم تحوّلها إلى تجربة تسليم موجهة وقابلة للتكرار للفرق التي تحتاج إلى السحابة دون أن تصبح متخصصة فيها."
+  locale="ar"
+>
+  <PageIntro eyebrow="الموارد · نبذة المنتج">
+    <h1>لا ينبغي لأساسيات السحابة أن تبطئ الابتكار.</h1>
+    <p class="gdc-subhead">ابنِ أسرع. وحّد مرة واحدة. توسّع بثقة.</p>
+    <p class="lede">
+      تلتقط aSaaS (أساس) معايير السحابة المعتمدة مرة واحدة، ثم تحوّلها إلى تجربة تسليم موجهة
+      وقابلة للتكرار للفرق التي تحتاج إلى السحابة دون أن تصبح متخصصة فيها (نفس الأتمتة التي تُسرّع
+      مشاريع الترحيل الخاصة بـ C-9INE). وهي متاحة مباشرة عبر Google Cloud Marketplace: يقوم مساعد
+      ذكاء اصطناعي بنشر منطقة الهبوط الخاصة بك مرحلة تلو الأخرى، متوقفًا لطلب موافقتك قبل كل تغيير
+      في البنية التحتية، ويسلّمها إليك مع خط أنابيب GitOps جاهز مسبقًا.
+    </p>
+    <div class="page-intro__cta">
+      <CTAButton href="/resources/asaas-booklet.pdf" variant="outline">تنزيل الملف (PDF)</CTAButton>
+      <CTAButton href="/ar/resources/asaas-getting-started" variant="outline">دليل البدء</CTAButton>
+      <CTAButton href="/ar/contact?intent=asaas">تواصل معنا حول aSaaS</CTAButton>
+    </div>
+  </PageIntro>
+
+  <ProductBrief
+    accent="sky"
+    locale="ar"
+    productTag="مشغّل سحابي ذكي"
+    beliefHeading="يجب أن تكون البنية التحتية سهلة الاستخدام."
+    beliefLede="تلتقط aSaaS معايير السحابة المعتمدة مرة واحدة، ثم تحوّلها إلى تجربة تسليم موجهة وقابلة للتكرار للفرق التي تحتاج إلى السحابة دون أن تصبح متخصصة فيها."
+    plusItems={['المعايير', 'التوجيه', 'الأتمتة', 'التحكم']}
+    beliefStatement="يجب أن تجعل التقنية السرعة والتحكم أسهل تحقيقًا، لا أصعب توازنًا."
+    beliefClosing="تجربة المنتج مهمة لأن العملاء لا يريدون بناءً سحابيًا معقدًا آخر. بل يريدون مسارًا محكومًا من النية إلى أساس عملي جاهز."
+    loopHeading="من مدخلات العمل إلى أساس سحابي محكوم."
+    loopLede="مسار موجه يحوّل المتطلبات إلى تسليم بنية تحتية سحابية قابل للتكرار."
+    loopStages={[
+      { label: 'الالتقاط', desc: 'جمع متطلبات السحابة والأمان والبيئة والحوكمة.' },
+      { label: 'الإعداد', desc: 'توليد تعريفات منظمة وأنماط جاهزة للنشر.' },
+      { label: 'البناء', desc: 'أتمتة توفير الأساس السحابي عبر بنية تحتية ككود قابلة لإعادة الاستخدام.' },
+      { label: 'التحقق', desc: 'التأكد من المعايير والضوابط والجاهزية قبل التسليم.' },
+    ]}
+    loopStatement="مدخلات موجهة. إعداد قابل للتكرار. تسليم مؤتمت. تسليم محكوم."
+    outcomesHeading="من مشروع سحابي إلى مصنع سحابي."
+    outcomesLede="الهدف ليس بيئة ناجحة واحدة. الهدف هو طريقة قابلة للتكرار لبناء العديد منها بتحكم."
+    outcomes={[
+      { label: 'قيمة أسرع', desc: 'وقت أقل في بناء الأساسيات.' },
+      { label: 'اتساق أكبر', desc: 'أنماط معتمدة تُعاد استخدامها بين الفرق.' },
+      { label: 'مخاطر إعداد أقل', desc: 'انحراف يدوي أقل وأخطاء إعداد أقل.' },
+      { label: 'قابلية توسع أفضل', desc: 'البيئة التالية أسهل من سابقتها.' },
+      { label: 'اعتماد أقل على المهارات النادرة', desc: 'يمكن لفرق أوسع استخدام السحابة بثقة.' },
+    ]}
+    outcomesClose="ابنِ مرة. أعد الاستخدام في كل مكان."
+    pdfHref="/resources/asaas-booklet.pdf"
+    pdfLabel="نبذة منتج aSaaS"
+    contactIntent="asaas"
+  />
+</BaseLayout>
+
+<style>
+  .gdc-subhead {
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: 500;
+    color: var(--white-smoke);
+  }
+
+  .page-intro__cta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  :global(.page-intro__cta .btn) {
+    justify-content: center;
+  }
+
+  :global(.page-intro__cta a:nth-child(2)) {
+    background: var(--vivid-sky-blue);
+    border-color: var(--vivid-sky-blue);
+    color: var(--gunmetal);
+  }
+
+  :global(.page-intro__cta a:nth-child(2):hover) {
+    background: var(--white-smoke);
+    border-color: var(--white-smoke);
+  }
+
+  @media (max-width: 560px) {
+    .page-intro__cta {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

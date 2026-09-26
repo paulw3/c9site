@@ -7,19 +7,18 @@ interface Props {
 
 const { locale = 'en' } = Astro.props;
 
-// See the same TODO in Header.astro: other pages aren't translated yet,
-// so these keep pointing at their English routes for now.
+const prefix = locale === 'ar' ? '/ar' : '';
 const navItems = [
-  { href: '/cloud-migration', label: t(locale, 'navCloudMigration') },
-  { href: '/google-distributed-cloud', label: t(locale, 'navGdc') },
-  { href: '/resources', label: t(locale, 'navResources') },
-  { href: '/about', label: t(locale, 'navAbout') },
-  { href: '/contact', label: t(locale, 'navContact') },
+  { href: `${prefix}/cloud-migration`, label: t(locale, 'navCloudMigration') },
+  { href: `${prefix}/google-distributed-cloud`, label: t(locale, 'navGdc') },
+  { href: `${prefix}/resources`, label: t(locale, 'navResources') },
+  { href: `${prefix}/about`, label: t(locale, 'navAbout') },
+  { href: `${prefix}/contact`, label: t(locale, 'navContact') },
 ];
 
 const productItems = [
-  { href: '/resources/anfaa', label: 'ANFAA' },
-  { href: '/resources/asaas', label: 'aSaaS' },
+  { href: `${prefix}/resources/anfaa`, label: 'ANFAA' },
+  { href: `${prefix}/resources/asaas`, label: 'aSaaS' },
 ];
 
 const homeHref = locale === 'ar' ? '/ar/' : '/';

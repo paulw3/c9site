@@ -31,7 +31,7 @@ const [eyebrow] = trustText.split(', ');
     <h1 class="hero__reveal hero__reveal--1">{heading}</h1>
     <p class="hero__sub hero__reveal hero__reveal--2">{subheading}</p>
     <div class="hero__row hero__reveal hero__reveal--3">
-      <a class="btn btn-primary" href="/contact">{t(locale, 'talkToUs')}</a>
+      <a class="btn btn-primary" href={locale === 'ar' ? '/ar/contact' : '/contact'}>{t(locale, 'talkToUs')}</a>
       <p class="hero__trust">{t(locale, 'heroTrustLine')}</p>
     </div>
   </div>

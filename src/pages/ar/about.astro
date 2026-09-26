@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import LeadershipCard from '../../components/LeadershipCard.astro';
+import ProofPoint from '../../components/ProofPoint.astro';
+
+// Draft machine translation, for visual/design review only — pending a
+// native-speaker pass. Mirrors src/pages/about.astro structure and
+// styles exactly; only the copy and internal hrefs differ.
+
+const leadership = [
+  {
+    name: 'Ali Aktar',
+    role: 'الرئيس التنفيذي',
+    bio: 'ستة وعشرون عامًا في التقنية: التطوير، والهندسة، والبنية، والسحابة، والأجايل، وDevOps. بنى علي فرق هندسة البرمجيات والمنصات من الصفر، وتولى مناصب رئيس الهندسة والرئيس التقني في مؤسسات القطاعين الخاص والعام حول العالم، في الاتصالات، ومزودي خدمة الإنترنت، والنفط والغاز، والاتصالات الفضائية، والدفاع والجيش، والقطاع المصرفي، والخدمات الصحية الوطنية. وهو داعية لمنهجية الأجايل والسحابة وDevOps، ومساهم منذ زمن طويل في مشاريع مفتوحة المصدر.',
+  },
+  {
+    name: 'Irfan A Ansari',
+    role: 'الرئيس التقني',
+    bio: undefined,
+  },
+  {
+    name: 'Tahir Alam',
+    role: 'الرئيس التشغيلي',
+    bio: 'خمسة عشر عامًا كمتخصص في إدارة المشاريع والبرامج، شملت مناصب مدير أول عبر الحكومة البريطانية: وزارة العدل، وهيئة الإيرادات والجمارك، ومكتب مجلس الوزراء ورئيس الوزراء. قاد طاهر فرقًا كبيرة متعددة الوظائف لتنفيذ برامج بمليارات الجنيهات الإسترلينية، بخبرة عميقة في الاستراتيجية، والتحول، والتصميم المؤسسي، والحوكمة، والتواصل مع أصحاب المصلحة حتى المستوى الوزاري. يحمل درجة جامعية وماجستير من UCL، وهو متخصص معتمد في إدارة البرامج وممارس إدارة التغيير، ويحمل دبلوم CIPD من المستوى الخامس في إدارة الموارد البشرية.',
+  },
+  {
+    name: 'Paul Wagenaar',
+    role: 'الرئيس التنفيذي لأمن المعلومات',
+    bio: 'عقدان من الزمن في الأمن السيبراني، بمسيرة مهنية امتدت عبر أستراليا والمملكة المتحدة وجنوب أفريقيا والإمارات العربية المتحدة. تولى بول مناصب قيادية أمنية في بنوك عالمية وشركات كبرى، وبنى استراتيجيات وقدرات أمنية من الصفر في بعض أكثر البيئات تنظيمًا في العالم.',
+  },
+];
+
+const teamRoles = [
+  'رئيس هندسة الترحيل السحابي ومناطق الهبوط',
+  'رئيس السحابة الموزعة من جوجل',
+  'رئيس الأمان والامتثال',
+  'رئيس هندسة البيانات والمنصات',
+  'رئيس DevOps والأتمتة (aSaaS)',
+];
+---
+
+<BaseLayout
+  title="من نحن"
+  description="C-9INE هي شركة متخصصة في Google Cloud تقدم خدماتها للبنوك والجهات الحكومية ومؤسسات البنية التحتية الحيوية في المملكة العربية السعودية وخارجها."
+  locale="ar"
+>
+  <PageIntro eyebrow="من نحن">
+    <h1>بجانبك، وضمن فريقك.</h1>
+    <p class="lede">
+      C-9INE هي شركة متخصصة في Google Cloud تقدم خدماتها للبنوك والجهات الحكومية ومؤسسات البنية
+      التحتية الحيوية في المملكة العربية السعودية وخارجها. نصمم، ونهندس، ونُشغّل، وننضم إلى فريقك
+      بدلاً من تسليم عرض تقديمي والرحيل.
+    </p>
+    <p class="lede">
+      تتمتع القيادة التنفيذية لشركة C-9INE ومهندسو التنفيذ الأساسيون بخبرة فريدة ومباشرة الصلة:
+      فقد بنينا بنكين رقميين كاملين من الصفر في المملكة العربية السعودية.
+    </p>
+  </PageIntro>
+
+  <section class="section section-raised">
+    <div class="container">
+      <h2>القيادة</h2>
+      <div class="leadership-grid">
+        {leadership.map((person) => (
+          <LeadershipCard name={person.name} role={person.role} bio={person.bio} locale="ar" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <h2>الفريق خلف الفريق</h2>
+      <p class="lede team-roles__intro">
+        تضم C-9INE أيضًا فريقًا من أفضل الخبراء، تم اختيارهم بعناية لعمق واتساع مهاراتهم ومعرفتهم
+        وخبرتهم، وقد عملوا عبر قطاعات صناعية متعددة ومع علامات تجارية كبرى.
+      </p>
+      <ul class="team-roles">
+        {teamRoles.map((role) => (
+          <li class="mono-tag">{role}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <ProofPoint eyebrow="لماذا C-9INE">
+        نسلّمك المفاتيح. ينتهي كل تعاون، سواء كان ترحيلًا أو GDC، بفريقك قادرًا تمامًا على تشغيل ما
+        بنيناه، دون الاعتماد علينا لإبقائه يعمل. يعيش الكود والمخططات والأدلة والتوثيق في
+        مستودعاتك، لا مستودعاتنا.
+      </ProofPoint>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .leadership-grid {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem) clamp(2rem, 4vw, 3rem);
+  }
+
+  .team-roles__intro {
+    margin-top: 1rem;
+    max-width: 58ch;
+  }
+
+  .team-roles {
+    margin-top: 2rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .team-roles li {
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    color: var(--silver);
+  }
+
+  @media (max-width: 700px) {
+    .leadership-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
