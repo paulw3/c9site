@@ -60,6 +60,27 @@ const teamRoles = [
     </p>
   </PageIntro>
 
+  <section class="section-tight">
+    <div class="container press-feature">
+      <img
+        src="/press/money2020.jpg"
+        alt="فريق C-9INE مع Google Cloud في Money20/20 الشرق الأوسط"
+        class="press-feature__image"
+        width="1447"
+        height="1087"
+      />
+      <div class="press-feature__body">
+        <p class="eyebrow">C-9INE × Google Cloud</p>
+        <h2>نهندس السحابة السيادية، معا.</h2>
+        <p class="lede">
+          فريقنا مع Google Cloud في Money20/20 الشرق الأوسط: علاقة نمت بشكل كبير منذ 2023، مبنية
+          على هندسة GDC عميقة لا مجرد إدراج كشريك عادي. استثمرنا في بحثنا الخاص، والأتمتة، وملكية
+          فكرية قابلة لإعادة الاستخدام حول كيفية تصميم البيئات السيادية ونشرها وتشغيلها.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <section class="section section-raised">
     <div class="container">
       <h2>القيادة</h2>
@@ -98,6 +119,34 @@ const teamRoles = [
 </BaseLayout>
 
 <style>
+  .press-feature {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: center;
+  }
+
+  .press-feature__image {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+  }
+
+  .press-feature__body h2 {
+    margin-top: 0.75rem;
+    font-size: var(--step-3);
+  }
+
+  .press-feature__body .lede {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 800px) {
+    .press-feature {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .leadership-grid {
     margin-top: 2rem;
     display: flex;
