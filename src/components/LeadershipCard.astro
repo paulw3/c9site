@@ -5,30 +5,92 @@ interface Props {
   name: string;
   role: string;
   bio?: string;
+  photo?: string;
   locale?: Locale;
 }
 
-const { name, role, bio, locale = 'en' } = Astro.props;
+const { name, role, bio, photo, locale = 'en' } = Astro.props;
+
+// Placeholder avatar for anyone without a photo yet (Irfan, Tahir) — initials
+// on the same aquamarine-on-gunmetal treatment used for icons elsewhere on
+// the site, so the row still reads as a deliberate placeholder, not a
+// missing image.
+const initials = name
+  .split(' ')
+  .map((part) => part[0])
+  .join('')
+  .slice(0, 2)
+  .toUpperCase();
 ---
 
 <article class="leadership-card">
-  <h3>{name}</h3>
-  <p class="leadership-card__role mono-tag">{role}</p>
-  {bio ? (
-    <p class="leadership-card__bio">{bio}</p>
-  ) : (
-    <p class="leadership-card__bio leadership-card__bio--pending">{t(locale, 'leadershipBioPending')}</p>
-  )}
+  <div class="leadership-card__photo">
+    {photo ? (
+      <img src={photo} alt={name} width="176" height="176" />
+    ) : (
+      <span class="leadership-card__initials" aria-hidden="true">{initials}</span>
+    )}
+  </div>
+  <div class="leadership-card__body">
+    <h3>{name}</h3>
+    <p class="leadership-card__role mono-tag">{role}</p>
+    {bio ? (
+      <p class="leadership-card__bio">{bio}</p>
+    ) : (
+      <p class="leadership-card__bio leadership-card__bio--pending">{t(locale, 'leadershipBioPending')}</p>
+    )}
+  </div>
 </article>
 
 <style>
   .leadership-card {
-    padding-top: 1.5rem;
+    display: flex;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    align-items: flex-start;
+    padding-top: clamp(2rem, 4vw, 2.75rem);
     border-top: 1px solid var(--gunmetal-line);
   }
 
+  .leadership-card:first-child {
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .leadership-card__photo {
+    flex: none;
+    width: clamp(7rem, 12vw, 11rem);
+    height: clamp(7rem, 12vw, 11rem);
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--gunmetal-raised);
+    border: 1px solid var(--gunmetal-line);
+  }
+
+  .leadership-card__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .leadership-card__initials {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-2);
+    color: var(--aquamarine);
+  }
+
+  .leadership-card__body {
+    flex: 1;
+    min-width: 0;
+  }
+
   .leadership-card h3 {
-    font-size: var(--step-1);
+    font-size: var(--step-2);
   }
 
   .leadership-card__role {
@@ -39,11 +101,18 @@ const { name, role, bio, locale = 'en' } = Astro.props;
   .leadership-card__bio {
     margin-top: 1rem;
     color: var(--silver);
-    max-width: 42ch;
+    max-width: 62ch;
   }
 
   .leadership-card__bio--pending {
     font-style: italic;
     color: color-mix(in srgb, var(--silver) 65%, transparent);
+  }
+
+  @media (max-width: 560px) {
+    .leadership-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 </style>

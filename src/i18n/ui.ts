@@ -52,6 +52,7 @@ export const ui = {
     formSend: 'Send',
     formBookPilot: 'Book a GDC pilot scoping call',
     briefCtaLedeTemplate: 'The complete {pdf}: problem, approach, operating model and outcomes in one PDF.',
+    credibilityLabel: 'Working with the ecosystem',
   },
   ar: {
     skipToContent: 'تخطّ إلى المحتوى',
@@ -96,6 +97,7 @@ export const ui = {
     formSend: 'إرسال',
     formBookPilot: 'احجز مكالمة تجريبية لـ GDC',
     briefCtaLedeTemplate: 'نبذة {pdf} الكاملة: المشكلة، النهج، نموذج التشغيل والنتائج في ملف PDF واحد.',
+    credibilityLabel: 'نعمل ضمن منظومة القطاع',
   },
 } as const;
 
