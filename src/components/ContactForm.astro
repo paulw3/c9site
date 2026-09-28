@@ -51,10 +51,7 @@ const { defaultIntent, locale = 'en' } = Astro.props;
   </div>
 
   <div class="contact-form__actions">
-    <button type="submit" name="intent" value="general" class="btn btn-primary">{t(locale, 'formSend')}</button>
-    <button type="submit" name="intent" value="gdc-pilot" class="btn btn-outline">
-      {t(locale, 'formBookPilot')}
-    </button>
+    <button type="submit" class="btn btn-primary">{t(locale, 'formSend')}</button>
   </div>
 </form>
 
