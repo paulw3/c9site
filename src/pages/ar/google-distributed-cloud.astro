@@ -407,6 +407,36 @@ import CTAButton from '../../components/CTAButton.astro';
       </div>
     </div>
   </section>
+
+  <script>
+    // Plays the platform-stack build-up once, the first time it scrolls
+    // into view — never on no-JS visits or under reduced-motion, where
+    // the CSS above just leaves it in its finished state.
+    const stack = document.querySelector<HTMLElement>('.platform-stack');
+    if (stack && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      stack.classList.add('js-animate');
+      // Force a paint of the hidden state before the observer can add
+      // is-visible — otherwise, for a stack that's already in view on
+      // load, both classes can land in the same frame and the browser
+      // never renders the "hidden" starting point to transition from.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const io = new IntersectionObserver(
+            (entries) => {
+              for (const entry of entries) {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add('is-visible');
+                  io.unobserve(entry.target);
+                }
+              }
+            },
+            { threshold: 0.35 }
+          );
+          io.observe(stack);
+        });
+      });
+    }
+  </script>
 </BaseLayout>
 
 <style>
@@ -544,6 +574,41 @@ import CTAButton from '../../components/CTAButton.astro';
     text-align: center;
   }
 
+  /* Progressive enhancement: only hidden-then-revealed once JS has
+     confirmed motion is welcome and attached the observer below — so
+     no-JS and reduced-motion visitors just see the finished stack.
+     The hide state below deliberately carries no `transition` of its
+     own (it should snap instantly) — only the reveal (`.is-visible`)
+     rule animates, so the stagger delay always measures from the
+     moment the stack actually comes into view, never gets a head
+     start from however long the element sat hidden beforehand. */
+  .platform-stack.js-animate .platform-stack__item {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+
+  .platform-stack.js-animate.is-visible .platform-stack__item {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+
+  .platform-stack.js-animate.is-visible .platform-stack__grid .platform-stack__item:nth-child(1) {
+    transition-delay: 0.05s;
+  }
+  .platform-stack.js-animate.is-visible .platform-stack__grid .platform-stack__item:nth-child(2) {
+    transition-delay: 0.15s;
+  }
+  .platform-stack.js-animate.is-visible .platform-stack__grid .platform-stack__item:nth-child(3) {
+    transition-delay: 0.25s;
+  }
+  .platform-stack.js-animate.is-visible .platform-stack__grid .platform-stack__item:nth-child(4) {
+    transition-delay: 0.35s;
+  }
+  .platform-stack.js-animate.is-visible .platform-stack__grid .platform-stack__item:nth-child(5) {
+    transition-delay: 0.45s;
+  }
+
   .platform-stack__item--wide {
     grid-column: span 3;
   }
@@ -589,6 +654,43 @@ import CTAButton from '../../components/CTAButton.astro';
     background:
       linear-gradient(var(--gunmetal-raised), var(--gunmetal-raised)) padding-box,
       linear-gradient(90deg, #4285f4, #ea4335, #fbbc04, #34a853) border-box;
+  }
+
+  .platform-stack.js-animate .platform-stack__foundation {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+
+  .platform-stack.js-animate.is-visible .platform-stack__foundation {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.55s ease, transform 0.55s ease;
+    transition-delay: 0.55s;
+    animation: platform-stack-wrap 1.1s ease-out;
+    animation-delay: 0.6s;
+    animation-fill-mode: backwards;
+  }
+
+  @keyframes platform-stack-wrap {
+    0% {
+      box-shadow: 0 0 0 rgba(66, 133, 244, 0);
+    }
+    45% {
+      box-shadow: 0 0 24px rgba(66, 133, 244, 0.3), 0 0 12px rgba(52, 168, 83, 0.2);
+    }
+    100% {
+      box-shadow: 0 0 0 rgba(66, 133, 244, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .platform-stack.js-animate .platform-stack__item,
+    .platform-stack.js-animate .platform-stack__foundation {
+      opacity: 1;
+      transform: none;
+      transition: none;
+      animation: none;
+    }
   }
 
   .platform-stack__foundation::before {
