@@ -22,7 +22,7 @@ const stages = [
         <StageIcon stage={stage.icon} />
         <span class="methodology__index mono-tag">{String(i + 1).padStart(2, '0')}</span>
       </div>
-      <h4>{stage.label}</h4>
+      <h3>{stage.label}</h3>
       <p>{stage.copy}</p>
     </li>
   ))}
@@ -50,7 +50,7 @@ const stages = [
     color: var(--aquamarine);
   }
 
-  .methodology h4 {
+  .methodology h3 {
     margin-top: 0.75rem;
   }
 

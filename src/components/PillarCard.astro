@@ -14,7 +14,7 @@ const { title, description, href, linkText, iconVariant = 'aquamarine' } = Astro
   <span class={`pillar-card__icon pillar-card__icon--${iconVariant}`}>
     <slot name="icon" />
   </span>
-  <h3>{title}</h3>
+  <h2>{title}</h2>
   <p>{description}</p>
   <span class="pillar-card__link">{linkText}</span>
 </a>
@@ -84,7 +84,7 @@ const { title, description, href, linkText, iconVariant = 'aquamarine' } = Astro
     stroke: var(--white-smoke);
   }
 
-  .pillar-card h3 {
+  .pillar-card h2 {
     font-size: var(--step-2);
     max-width: 16ch;
   }
