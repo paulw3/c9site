@@ -39,6 +39,8 @@ const { defaultIntent, locale = 'en' } = Astro.props;
       <option value="gdc-pilot" selected={defaultIntent === 'gdc-pilot'}>
         {t(locale, 'formLookingForGdc')}
       </option>
+      <option value="anfaa">{t(locale, 'formLookingForAnfaa')}</option>
+      <option value="asaas">{t(locale, 'formLookingForAsaas')}</option>
       <option value="not-sure">{t(locale, 'formLookingForUnsure')}</option>
     </select>
   </div>
