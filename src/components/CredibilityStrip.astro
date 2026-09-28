@@ -7,59 +7,100 @@ interface Props {
 
 const { locale = 'en' } = Astro.props;
 
-// Only what's real today (Google Cloud partnership, Money20/20 Middle
-// East) — deliberately not padded out with aspirational entries. Add
-// more here as they happen; the component itself doesn't need to change.
-const items = ['Google Cloud', 'Money20/20 Middle East'];
+// Only what's real today — deliberately not padded out with aspirational
+// entries. Add more tiles here as they happen; the ticker itself doesn't
+// need to change.
+const items = [
+  { src: '/logos/google-cloud-summit.jpg', alt: 'Google Cloud Summit — Saudi Arabia, 13 October 2026' },
+  { src: '/logos/money2020.jpg', alt: 'Money20/20 Middle East' },
+];
+
+// Duplicated once so the CSS animation can loop seamlessly from 0 to -50%
+// instead of snapping back to the start.
+const looped = [...items, ...items];
 ---
 
-<div class="credibility-strip">
-  <p class="credibility-strip__label mono-tag">{t(locale, 'credibilityLabel')}</p>
-  <ul class="credibility-strip__list">
-    {items.map((item, i) => (
-      <>
-        {i > 0 && <li class="credibility-strip__dot mono-tag" aria-hidden="true">·</li>}
-        <li class="mono-tag">{item}</li>
-      </>
-    ))}
-  </ul>
-</div>
+<section class="credibility-strip">
+  <div class="container">
+    <p class="credibility-strip__label mono-tag">{t(locale, 'credibilityLabel')}</p>
+
+    <!-- The moving track is decorative/duplicated for the loop — screen
+         readers get the real list once, here, instead. -->
+    <p class="visually-hidden">{items.map((item) => item.alt).join(', ')}</p>
+  </div>
+
+  <div class="credibility-strip__viewport" aria-hidden="true">
+    <div class="credibility-strip__track">
+      {looped.map((item) => (
+        <span class="credibility-strip__tile">
+          <img src={item.src} alt={item.alt} loading="lazy" />
+        </span>
+      ))}
+    </div>
+  </div>
+</section>
 
 <style>
   .credibility-strip {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem 2rem;
-    padding-block: clamp(1.25rem, 3vw, 1.75rem);
+    padding-block: clamp(2rem, 4vw, 2.75rem);
     border-block: 1px solid var(--gunmetal-line);
+    background: var(--gunmetal-raised);
   }
 
   .credibility-strip__label {
     color: var(--silver);
-    white-space: nowrap;
+    margin-bottom: clamp(1.25rem, 3vw, 1.75rem);
   }
 
-  .credibility-strip__list {
+  .credibility-strip__viewport {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  .credibility-strip__track {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    gap: 0.6rem;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    width: max-content;
+    animation: credibility-scroll 24s linear infinite;
   }
 
-  .credibility-strip__list li {
-    color: var(--silver);
+  .credibility-strip__viewport:hover .credibility-strip__track {
+    animation-play-state: paused;
   }
 
-  .credibility-strip__dot {
-    color: var(--gunmetal-line);
+  .credibility-strip__tile {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: clamp(3.75rem, 7vw, 5.5rem);
+    padding-inline: clamp(1rem, 2vw, 1.5rem);
+    border-radius: var(--border-radius);
+    background: var(--gunmetal);
+    border: 1px solid var(--gunmetal-line);
   }
 
-  @media (max-width: 700px) {
-    .credibility-strip {
-      flex-direction: column;
-      align-items: flex-start;
+  .credibility-strip__tile img {
+    height: 100%;
+    width: auto;
+    max-width: 14rem;
+    object-fit: contain;
+  }
+
+  @keyframes credibility-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .credibility-strip__track {
+      animation: none;
     }
   }
 </style>
