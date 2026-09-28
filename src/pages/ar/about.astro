@@ -13,6 +13,7 @@ const leadership = [
     name: 'Ali Aktar',
     role: 'الرئيس التنفيذي',
     bio: 'ستة وعشرون عاما في التقنية: التطوير، والهندسة، والبنية، والسحابة، والأجايل، وDevOps. بنى علي فرق هندسة البرمجيات والمنصات من الصفر، وتولى مناصب رئيس الهندسة والرئيس التقني في مؤسسات القطاعين الخاص والعام حول العالم، في الاتصالات، ومزودي خدمة الإنترنت، والنفط والغاز، والاتصالات الفضائية، والدفاع والجيش، والقطاع المصرفي، والخدمات الصحية الوطنية. وهو داعية لمنهجية الأجايل والسحابة وDevOps، ومساهم منذ زمن طويل في مشاريع مفتوحة المصدر.',
+    photo: '/team/ali.png',
   },
   {
     name: 'Irfan A Ansari',
@@ -28,6 +29,7 @@ const leadership = [
     name: 'Paul Wagenaar',
     role: 'الرئيس التنفيذي لأمن المعلومات',
     bio: 'عقدان من الزمن في الأمن السيبراني، بمسيرة مهنية امتدت عبر أستراليا والمملكة المتحدة وجنوب أفريقيا والإمارات العربية المتحدة. تولى بول مناصب قيادية أمنية في بنوك عالمية وشركات كبرى، وبنى استراتيجيات وقدرات أمنية من الصفر في بعض أكثر البيئات تنظيما في العالم.',
+    photo: '/team/paul.jpg',
   },
 ];
 
@@ -63,7 +65,7 @@ const teamRoles = [
       <h2>القيادة</h2>
       <div class="leadership-grid">
         {leadership.map((person) => (
-          <LeadershipCard name={person.name} role={person.role} bio={person.bio} locale="ar" />
+          <LeadershipCard name={person.name} role={person.role} bio={person.bio} photo={person.photo} locale="ar" />
         ))}
       </div>
     </div>
@@ -98,9 +100,8 @@ const teamRoles = [
 <style>
   .leadership-grid {
     margin-top: 2rem;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(1.5rem, 3vw, 2.5rem) clamp(2rem, 4vw, 3rem);
+    display: flex;
+    flex-direction: column;
   }
 
   .team-roles__intro {
@@ -119,11 +120,5 @@ const teamRoles = [
     border: 1px solid var(--gunmetal-line);
     border-radius: var(--border-radius);
     color: var(--silver);
-  }
-
-  @media (max-width: 700px) {
-    .leadership-grid {
-      grid-template-columns: 1fr;
-    }
   }
 </style>
