@@ -32,26 +32,31 @@ import CTAButton from '../../components/CTAButton.astro';
     productTag="Intelligent Cloud Operator"
     beliefHeading="Infrastructure should be easy to consume."
     beliefLede="aSaaS captures approved cloud standards once, then turns them into a guided and repeatable delivery experience for teams who need cloud without becoming cloud specialists."
-    plusItems={['Standards', 'Guidance', 'Automation', 'Control']}
+    plusItems={[
+      { label: 'Standards', icon: ['M6,3 L14,3 L18,7 L18,21 L6,21 Z', 'M14,3 L14,7 L18,7', 'M9,12 L15,12 M9,15 L15,15 M9,18 L13,18'] },
+      { label: 'Guidance', icon: ['M12,3 L12,21', 'M12,7 L18,7 L16,10 L18,13 L12,13'] },
+      { label: 'Automation', icon: ['M12,9 A3,3 0 1 1 12,15 A3,3 0 1 1 12,9 Z', 'M12,3 L12,6 M12,18 L12,21 M3,12 L6,12 M18,12 L21,12 M5.6,5.6 L7.8,7.8 M16.2,16.2 L18.4,18.4 M5.6,18.4 L7.8,16.2 M16.2,7.8 L18.4,5.6'] },
+      { label: 'Control', icon: ['M4,7 L20,7 M4,12 L15,12 M4,17 L18,17'] },
+    ]}
     beliefStatement="Technology should make speed and control easier to achieve, not harder to balance."
     beliefClosing="The product experience matters because customers do not want another complex cloud build. They want a controlled path from intent to working foundation."
     loopHeading="From business input to governed cloud foundation."
     loopLede="A guided path that translates requirements into repeatable cloud infrastructure delivery."
     loopStages={[
-      { label: 'Capture', desc: 'Collect cloud, security, environment and governance requirements.' },
-      { label: 'Configure', desc: 'Generate structured definitions and deployment-ready patterns.' },
-      { label: 'Build', desc: 'Automate cloud foundation provisioning through reusable IaC.' },
-      { label: 'Validate', desc: 'Confirm standards, controls and readiness before handover.' },
+      { label: 'Capture', desc: 'Collect cloud, security, environment and governance requirements.', icon: ['M12,3 L12,14', 'M7,10 L12,15 L17,10', 'M4,18 L20,18 L20,21 L4,21 Z'] },
+      { label: 'Configure', desc: 'Generate structured definitions and deployment-ready patterns.', icon: ['M12,9 A3,3 0 1 1 12,15 A3,3 0 1 1 12,9 Z', 'M12,3 L12,6 M12,18 L12,21 M3,12 L6,12 M18,12 L21,12 M5.6,5.6 L7.8,7.8 M16.2,16.2 L18.4,18.4 M5.6,18.4 L7.8,16.2 M16.2,7.8 L18.4,5.6'] },
+      { label: 'Build', desc: 'Automate cloud foundation provisioning through reusable IaC.', icon: ['M3,3 L10,3 L10,10 L3,10 Z', 'M13,3 L20,3 L20,10 L13,10 Z', 'M3,13 L10,13 L10,20 L3,20 Z', 'M13,13 L20,13 L20,20 L13,20 Z'] },
+      { label: 'Validate', desc: 'Confirm standards, controls and readiness before handover.', icon: ['M12,3 L19,6 L19,12 C19,16.5 16,19.5 12,21 C8,19.5 5,16.5 5,12 L5,6 Z', 'M9,12 L11,14 L15.5,9'] },
     ]}
     loopStatement="Guided input. Repeatable configuration. Automated delivery. Governed handover."
     outcomesHeading="From cloud project to cloud factory."
     outcomesLede="The goal is not one successful environment. The goal is a repeatable way to build many of them with control."
     outcomes={[
-      { label: 'Faster time to value', desc: 'Less time spent assembling foundations.' },
-      { label: 'More consistency', desc: 'Approved patterns reused across teams.' },
-      { label: 'Lower configuration risk', desc: 'Less manual drift and fewer setup errors.' },
-      { label: 'Better scalability', desc: 'The next environment is easier than the last.' },
-      { label: 'Less dependence on scarce skills', desc: 'Broader teams can consume cloud confidently.' },
+      { label: 'Faster time to value', desc: 'Less time spent assembling foundations.', icon: ['M13,2 L4,14 L11,14 L10,22 L20,9 L13,9 Z'] },
+      { label: 'More consistency', desc: 'Approved patterns reused across teams.', icon: ['M4,10 A8,8 0 1 1 6.2,16.2', 'M4,10 L1.7,6.8 M4,10 L7.3,11.3'] },
+      { label: 'Lower configuration risk', desc: 'Less manual drift and fewer setup errors.', icon: ['M12,3 L19,6 L19,12 C19,16.5 16,19.5 12,21 C8,19.5 5,16.5 5,12 L5,6 Z', 'M9,12 L11,14 L15.5,9'] },
+      { label: 'Better scalability', desc: 'The next environment is easier than the last.', icon: ['M9,3 L3,3 L3,9', 'M15,21 L21,21 L21,15', 'M21,3 L15,9', 'M3,21 L9,15'] },
+      { label: 'Less dependence on scarce skills', desc: 'Broader teams can consume cloud confidently.', icon: ['M12,4.5 A3.5,3.5 0 1 1 12,11.5 A3.5,3.5 0 1 1 12,4.5 Z', 'M5,20 C5,15.5 8,13 12,13 C16,13 19,15.5 19,20'] },
     ]}
     outcomesClose="Build once. Reuse everywhere."
     pdfHref="/resources/asaas-booklet.pdf"
