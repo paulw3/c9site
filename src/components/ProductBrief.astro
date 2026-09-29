@@ -154,16 +154,7 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
       <ol class="stat-grid" style={`--outcome-count: ${outcomes.length}`}>
         {outcomes.map((outcome, i) => (
           <li>
-            <div class="stat-grid__top">
-              <span class="stat-grid__num">{String(i + 1).padStart(2, '0')}</span>
-              {outcome.icon && (
-                <span class="stat-grid__icon">
-                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                    {outcome.icon.map((d) => <path d={d} />)}
-                  </svg>
-                </span>
-              )}
-            </div>
+            <span class="stat-grid__num">{String(i + 1).padStart(2, '0')}</span>
             <h4>{outcome.label}</h4>
             <p>{outcome.desc}</p>
           </li>
@@ -449,40 +440,12 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
     border-top: 2px solid color-mix(in srgb, var(--accent) 45%, transparent);
   }
 
-  .stat-grid__top {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-  }
-
   .stat-grid__num {
     display: block;
     font-family: var(--font-display);
     font-weight: 700;
     font-size: var(--step-2);
     color: var(--accent);
-  }
-
-  .stat-grid__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.9rem;
-    height: 1.9rem;
-    flex: none;
-    border-radius: 7px;
-    background: color-mix(in srgb, var(--accent) 8%, transparent);
-    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
-  }
-
-  .stat-grid__icon svg {
-    width: 1.05rem;
-    height: 1.05rem;
-    fill: none;
-    stroke: var(--accent);
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
   }
 
   .stat-grid h4 {
