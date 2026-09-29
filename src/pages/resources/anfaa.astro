@@ -195,6 +195,7 @@ import CTAButton from '../../components/CTAButton.astro';
   }
 
   .anfaa-flow {
+    --flow-gap: clamp(1.5rem, 3vw, 2.5rem);
     margin-top: clamp(3rem, 6vw, 4.5rem);
     display: flex;
     flex-direction: column;
@@ -204,10 +205,9 @@ import CTAButton from '../../components/CTAButton.astro';
   }
 
   .anfaa-flow__row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: clamp(1.5rem, 3vw, 2.5rem);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--flow-gap);
     width: 100%;
   }
 
@@ -220,7 +220,6 @@ import CTAButton from '../../components/CTAButton.astro';
     background: var(--gunmetal-raised);
     border: 1px solid var(--gunmetal-line);
     border-radius: var(--border-radius);
-    min-width: 9rem;
     text-align: center;
     font-family: var(--font-display);
     font-weight: 600;
@@ -257,8 +256,8 @@ import CTAButton from '../../components/CTAButton.astro';
 
   .anfaa-flow__bus {
     position: absolute;
-    left: 16.6667%;
-    right: 16.6667%;
+    left: calc((100% - 2 * var(--flow-gap)) / 6);
+    right: calc((100% - 2 * var(--flow-gap)) / 6);
     top: 50%;
     height: 1px;
     background: var(--gunmetal-line);
@@ -271,7 +270,7 @@ import CTAButton from '../../components/CTAButton.astro';
   }
 
   .anfaa-flow__stem--left {
-    left: 16.6667%;
+    left: calc((100% - 2 * var(--flow-gap)) / 6);
   }
 
   .anfaa-flow__stem--center {
@@ -281,7 +280,7 @@ import CTAButton from '../../components/CTAButton.astro';
   }
 
   .anfaa-flow__stem--right {
-    right: 16.6667%;
+    right: calc((100% - 2 * var(--flow-gap)) / 6);
   }
 
   .anfaa-flow__branch--top .anfaa-flow__stem--left,
@@ -341,7 +340,7 @@ import CTAButton from '../../components/CTAButton.astro';
 
   @media (max-width: 560px) {
     .anfaa-flow__row {
-      flex-direction: column;
+      grid-template-columns: 1fr;
     }
   }
 </style>
