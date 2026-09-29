@@ -9,11 +9,18 @@
 interface Stage {
   label: string;
   desc: string;
+  icon?: string[];
 }
 
 interface Outcome {
   label: string;
   desc: string;
+  icon?: string[];
+}
+
+interface PlusItem {
+  label: string;
+  icon?: string[];
 }
 
 interface Props {
@@ -22,7 +29,7 @@ interface Props {
   productTag: string;
   beliefHeading: string;
   beliefLede: string;
-  plusItems: string[];
+  plusItems: (string | PlusItem)[];
   beliefStatement: string;
   beliefClosing: string;
   loopHeading: string;
@@ -75,12 +82,25 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
         <p class="lede">{beliefLede}</p>
 
         <div class="plus-row">
-          {plusItems.map((item, i) => (
-            <>
-              {i > 0 && <span class="plus-row__sign">+</span>}
-              <span class="plus-row__item">{item}</span>
-            </>
-          ))}
+          {plusItems.map((item, i) => {
+            const label = typeof item === 'string' ? item : item.label;
+            const icon = typeof item === 'string' ? undefined : item.icon;
+            return (
+              <>
+                {i > 0 && <span class="plus-row__sign">+</span>}
+                <span class="plus-row__item">
+                  {icon && (
+                    <span class="plus-row__icon">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        {icon.map((d) => <path d={d} />)}
+                      </svg>
+                    </span>
+                  )}
+                  {label}
+                </span>
+              </>
+            );
+          })}
         </div>
 
         <p class="belief-layout__statement">{beliefStatement}</p>
@@ -102,7 +122,16 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
         <ol class="works-timeline__steps">
           {loopStages.map((stage, i) => (
             <li>
-              <span class="works-timeline__node">{String(i + 1).padStart(2, '0')}</span>
+              <div class="works-timeline__top">
+                <span class="works-timeline__node">{String(i + 1).padStart(2, '0')}</span>
+                {stage.icon && (
+                  <span class="works-timeline__icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      {stage.icon.map((d) => <path d={d} />)}
+                    </svg>
+                  </span>
+                )}
+              </div>
               <h4>{stage.label}</h4>
               <p>{stage.desc}</p>
             </li>
@@ -122,10 +151,19 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
         <p class="lede">{outcomesLede}</p>
       </div>
 
-      <ol class="stat-grid">
+      <ol class="stat-grid" style={`--outcome-count: ${outcomes.length}`}>
         {outcomes.map((outcome, i) => (
           <li>
-            <span class="stat-grid__num">{String(i + 1).padStart(2, '0')}</span>
+            <div class="stat-grid__top">
+              <span class="stat-grid__num">{String(i + 1).padStart(2, '0')}</span>
+              {outcome.icon && (
+                <span class="stat-grid__icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    {outcome.icon.map((d) => <path d={d} />)}
+                  </svg>
+                </span>
+              )}
+            </div>
             <h4>{outcome.label}</h4>
             <p>{outcome.desc}</p>
           </li>
@@ -186,7 +224,10 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
   }
 
   .plus-row__item {
-    padding: 0.75rem 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.6rem 1.5rem;
     border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
     border-radius: 999px;
     background: color-mix(in srgb, var(--accent) 7%, transparent);
@@ -194,6 +235,25 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
     font-weight: 600;
     font-size: var(--step-0);
     color: var(--white-smoke);
+  }
+
+  .plus-row__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    flex: none;
+  }
+
+  .plus-row__icon svg {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   .plus-row__sign {
@@ -278,12 +338,19 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
     gap: 0.75rem;
   }
 
+  .works-timeline__top {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
   .works-timeline__node {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 2.25rem;
     height: 2.25rem;
+    flex: none;
     border-radius: 50%;
     background: var(--gunmetal-raised);
     border: 1px solid var(--accent);
@@ -291,6 +358,28 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
     font-family: var(--font-display);
     font-weight: 700;
     font-size: var(--step--1);
+  }
+
+  .works-timeline__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex: none;
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+
+  .works-timeline__icon svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   .works-timeline__steps h4 {
@@ -343,12 +432,27 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
     margin-top: clamp(3rem, 6vw, 4.5rem);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-    gap: clamp(1.75rem, 3vw, 2.5rem);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  /* Above the point where minmax(11rem,1fr) would start wrapping,
+     force exactly one column per outcome instead — reads as one
+     deliberate row rather than an orphaned item wrapping alone. */
+  @media (min-width: 900px) {
+    .stat-grid {
+      grid-template-columns: repeat(var(--outcome-count, 4), minmax(0, 1fr));
+    }
   }
 
   .stat-grid li {
     padding-top: 1.35rem;
     border-top: 2px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+
+  .stat-grid__top {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
   }
 
   .stat-grid__num {
@@ -357,6 +461,28 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
     font-weight: 700;
     font-size: var(--step-2);
     color: var(--accent);
+  }
+
+  .stat-grid__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.9rem;
+    height: 1.9rem;
+    flex: none;
+    border-radius: 7px;
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+
+  .stat-grid__icon svg {
+    width: 1.05rem;
+    height: 1.05rem;
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   .stat-grid h4 {

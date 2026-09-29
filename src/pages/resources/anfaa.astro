@@ -28,27 +28,32 @@ import CTAButton from '../../components/CTAButton.astro';
     productTag="Multi-cloud FinOps"
     beliefHeading="Every unit of cloud spend should have a clear purpose."
     beliefLede="ANFAA connects usage, accountability, governance and optimisation so FinOps becomes part of the cloud operating model, not a finance exercise after the fact."
-    plusItems={['Visibility', 'Ownership', 'Optimisation', 'Control']}
+    plusItems={[
+      { label: 'Visibility', icon: ['M2,12 C5,6 19,6 22,12 C19,18 5,18 2,12 Z', 'M12,9.5 A2.5,2.5 0 1 1 12,14.5 A2.5,2.5 0 1 1 12,9.5 Z'] },
+      { label: 'Ownership', icon: ['M12,4.5 A3.5,3.5 0 1 1 12,11.5 A3.5,3.5 0 1 1 12,4.5 Z', 'M5,20 C5,15.5 8,13 12,13 C16,13 19,15.5 19,20'] },
+      { label: 'Optimisation', icon: ['M4,16 A8,8 0 1 1 20,16', 'M12,16 L15.5,11'] },
+      { label: 'Control', icon: ['M4,7 L20,7 M4,12 L15,12 M4,17 L18,17'] },
+    ]}
     beliefStatement="Cost optimisation should be continuous, not a quarterly clean-up."
     beliefClosing="The value of FinOps comes from turning cost data into an everyday discipline shared by finance, engineering and business owners."
     loopHeading="From cloud spend data to governed FinOps action."
     loopLede="A repeatable path that turns usage and billing data into ownership, optimisation and financial governance."
     loopStages={[
-      { label: 'Discover', desc: 'Bring together the cloud cost and usage data that matters.' },
-      { label: 'Allocate', desc: 'Map spend to teams, products, environments and accountable owners.' },
-      { label: 'Optimise & Orchestrate', desc: 'Identify waste, right-size over-provisioned resources, and capture reserved and spot capacity savings where they fit the workload.' },
-      { label: 'Govern', desc: 'Use budgets, guardrails and FinOps practices to sustain control.' },
+      { label: 'Discover', desc: 'Bring together the cloud cost and usage data that matters.', icon: ['M10.5,4 A6.5,6.5 0 1 1 10.5,17 A6.5,6.5 0 1 1 10.5,4 Z', 'M15.3,15.3 L20,20'] },
+      { label: 'Allocate', desc: 'Map spend to teams, products, environments and accountable owners.', icon: ['M3,3 L10,3 L10,10 L3,10 Z', 'M13,3 L20,3 L20,10 L13,10 Z', 'M3,13 L10,13 L10,20 L3,20 Z', 'M13,13 L20,13 L20,20 L13,20 Z'] },
+      { label: 'Optimise & Orchestrate', desc: 'Identify waste, right-size over-provisioned resources, and capture reserved and spot capacity savings where they fit the workload.', icon: ['M12,9 A3,3 0 1 1 12,15 A3,3 0 1 1 12,9 Z', 'M12,3 L12,6 M12,18 L12,21 M3,12 L6,12 M18,12 L21,12 M5.6,5.6 L7.8,7.8 M16.2,16.2 L18.4,18.4 M5.6,18.4 L7.8,16.2 M16.2,7.8 L18.4,5.6'] },
+      { label: 'Govern', desc: 'Use budgets, guardrails and FinOps practices to sustain control.', icon: ['M12,3 L19,6 L19,12 C19,16.5 16,19.5 12,21 C8,19.5 5,16.5 5,12 L5,6 Z', 'M9,12 L11,14 L15.5,9'] },
     ]}
     loopStatement="See it. Own it. Optimise it. Govern it."
     outcomesHeading="From cloud bill to cloud value."
     outcomesLede="The goal is not another dashboard. The goal is a repeatable way to manage cloud economics with clear ownership and continuous action."
     outcomes={[
-      { label: 'Better spend visibility', desc: 'Understand where cloud cost is going.' },
-      { label: 'Clearer accountability', desc: 'Connect spend to teams and owners.' },
-      { label: 'Faster optimisation & orchestration', desc: 'Act on waste and opportunities sooner.' },
-      { label: 'Stronger budgeting', desc: 'Bring guardrails into everyday cloud decisions.' },
-      { label: 'Multi-cloud control', desc: 'Expand provider choice without losing financial discipline.' },
-      { label: 'Fits how your team already works', desc: 'Export to PDF and CSV, alert over Slack and email, and integrate via webhooks into your existing tools.' },
+      { label: 'Better spend visibility', desc: 'Understand where cloud cost is going.', icon: ['M2,12 C5,6 19,6 22,12 C19,18 5,18 2,12 Z', 'M12,9.5 A2.5,2.5 0 1 1 12,14.5 A2.5,2.5 0 1 1 12,9.5 Z'] },
+      { label: 'Clearer accountability', desc: 'Connect spend to teams and owners.', icon: ['M12,4.5 A3.5,3.5 0 1 1 12,11.5 A3.5,3.5 0 1 1 12,4.5 Z', 'M5,20 C5,15.5 8,13 12,13 C16,13 19,15.5 19,20'] },
+      { label: 'Faster optimisation & orchestration', desc: 'Act on waste and opportunities sooner.', icon: ['M12,9 A3,3 0 1 1 12,15 A3,3 0 1 1 12,9 Z', 'M12,3 L12,6 M12,18 L12,21 M3,12 L6,12 M18,12 L21,12 M5.6,5.6 L7.8,7.8 M16.2,16.2 L18.4,18.4 M5.6,18.4 L7.8,16.2 M16.2,7.8 L18.4,5.6'] },
+      { label: 'Stronger budgeting', desc: 'Bring guardrails into everyday cloud decisions.', icon: ['M4,20 L4,11 M10,20 L10,5 M16,20 L16,14 M20,20 L20,8'] },
+      { label: 'Multi-cloud control', desc: 'Expand provider choice without losing financial discipline.', icon: ['M8,14 C5,14 5,9.5 8,9.5 C8.4,6.5 15.6,6.5 16,9.5 C19,9.5 19,14 16,14 Z'] },
+      { label: 'Fits how your team already works', desc: 'Export to PDF and CSV, alert over Slack and email, and integrate via webhooks into your existing tools.', icon: ['M9,15 L15,9', 'M7,17 C5,15 5,12 7,10 L9,8', 'M17,7 C19,9 19,12 17,14 L15,16'] },
     ]}
     outcomesClose="Understand it. Optimise it. Govern it."
     pdfHref="/resources/anfaa-booklet.pdf"
@@ -95,7 +100,12 @@ import CTAButton from '../../components/CTAButton.astro';
               </div>
             </div>
 
-            <div class="anfaa-flow__connector" aria-hidden="true"></div>
+            <div class="anfaa-flow__branch anfaa-flow__branch--top" aria-hidden="true">
+              <span class="anfaa-flow__bus"></span>
+              <span class="anfaa-flow__stem anfaa-flow__stem--left"></span>
+              <span class="anfaa-flow__stem anfaa-flow__stem--center"></span>
+              <span class="anfaa-flow__stem anfaa-flow__stem--right"></span>
+            </div>
 
             <div class="anfaa-flow__hub">
               <span class="anfaa-flow__hub-icon">
@@ -106,7 +116,12 @@ import CTAButton from '../../components/CTAButton.astro';
               <span>ANFAA</span>
             </div>
 
-            <div class="anfaa-flow__connector" aria-hidden="true"></div>
+            <div class="anfaa-flow__branch anfaa-flow__branch--bottom" aria-hidden="true">
+              <span class="anfaa-flow__bus"></span>
+              <span class="anfaa-flow__stem anfaa-flow__stem--left"></span>
+              <span class="anfaa-flow__stem anfaa-flow__stem--center"></span>
+              <span class="anfaa-flow__stem anfaa-flow__stem--right"></span>
+            </div>
 
             <div class="anfaa-flow__row">
               <div class="anfaa-flow__tile">
@@ -234,10 +249,59 @@ import CTAButton from '../../components/CTAButton.astro';
     stroke-linejoin: round;
   }
 
-  .anfaa-flow__connector {
-    width: 1px;
-    height: clamp(2rem, 4vw, 2.75rem);
+  .anfaa-flow__branch {
+    position: relative;
+    width: 100%;
+    height: clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  .anfaa-flow__bus {
+    position: absolute;
+    left: 16.6667%;
+    right: 16.6667%;
+    top: 50%;
+    height: 1px;
     background: var(--gunmetal-line);
+  }
+
+  .anfaa-flow__stem {
+    position: absolute;
+    width: 1px;
+    background: var(--gunmetal-line);
+  }
+
+  .anfaa-flow__stem--left {
+    left: 16.6667%;
+  }
+
+  .anfaa-flow__stem--center {
+    left: 50%;
+    top: 0;
+    height: 100%;
+  }
+
+  .anfaa-flow__stem--right {
+    right: 16.6667%;
+  }
+
+  .anfaa-flow__branch--top .anfaa-flow__stem--left,
+  .anfaa-flow__branch--top .anfaa-flow__stem--right {
+    top: 0;
+    height: 50%;
+  }
+
+  .anfaa-flow__branch--bottom .anfaa-flow__stem--left,
+  .anfaa-flow__branch--bottom .anfaa-flow__stem--right {
+    bottom: 0;
+    height: 50%;
+  }
+
+  @media (max-width: 560px) {
+    .anfaa-flow__bus,
+    .anfaa-flow__stem--left,
+    .anfaa-flow__stem--right {
+      display: none;
+    }
   }
 
   .anfaa-flow__hub {
