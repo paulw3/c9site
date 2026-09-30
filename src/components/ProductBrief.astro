@@ -23,15 +23,24 @@ interface PlusItem {
   icon?: string[];
 }
 
+interface Feature {
+  label: string;
+  desc: string;
+  icon: string[];
+}
+
 interface Props {
   accent: 'aquamarine' | 'sky';
   locale?: Locale;
   productTag: string;
   beliefHeading: string;
   beliefLede: string;
-  plusItems: (string | PlusItem)[];
+  plusItems?: (string | PlusItem)[];
   beliefStatement: string;
   beliefClosing: string;
+  featuresHeading?: string;
+  featuresLede?: string;
+  features?: Feature[];
   loopHeading: string;
   loopLede: string;
   loopStages: Stage[];
@@ -57,6 +66,9 @@ const {
   plusItems,
   beliefStatement,
   beliefClosing,
+  featuresHeading,
+  featuresLede,
+  features,
   loopHeading,
   loopLede,
   loopStages,
@@ -81,33 +93,61 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
         <h2 class="belief-layout__heading">{beliefHeading}</h2>
         <p class="lede">{beliefLede}</p>
 
-        <div class="plus-row">
-          {plusItems.map((item, i) => {
-            const label = typeof item === 'string' ? item : item.label;
-            const icon = typeof item === 'string' ? undefined : item.icon;
-            return (
-              <>
-                {i > 0 && <span class="plus-row__sign">+</span>}
-                <span class="plus-row__item">
-                  {icon && (
-                    <span class="plus-row__icon">
-                      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                        {icon.map((d) => <path d={d} />)}
-                      </svg>
-                    </span>
-                  )}
-                  {label}
-                </span>
-              </>
-            );
-          })}
-        </div>
+        {plusItems && plusItems.length > 0 && (
+          <div class="plus-row">
+            {plusItems.map((item, i) => {
+              const label = typeof item === 'string' ? item : item.label;
+              const icon = typeof item === 'string' ? undefined : item.icon;
+              return (
+                <>
+                  {i > 0 && <span class="plus-row__sign">+</span>}
+                  <span class="plus-row__item">
+                    {icon && (
+                      <span class="plus-row__icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                          {icon.map((d) => <path d={d} />)}
+                        </svg>
+                      </span>
+                    )}
+                    {label}
+                  </span>
+                </>
+              );
+            })}
+          </div>
+        )}
 
         <p class="belief-layout__statement">{beliefStatement}</p>
         <p class="lede belief-layout__closing">{beliefClosing}</p>
       </div>
     </div>
   </section>
+
+  {features && features.length > 0 && (
+    <section class="section-tight">
+      <div class="container">
+        <div class="features-intro">
+          <p class="eyebrow">{t(locale, 'productBriefFeatures')}</p>
+          <h2>{featuresHeading}</h2>
+          <p class="lede">{featuresLede}</p>
+        </div>
+
+        <ul class="features-grid">
+          {features.map((feature) => (
+            <li>
+              <span class="features-grid__icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  {feature.icon.map((d) => <path d={d} />)}
+                </svg>
+              </span>
+              <h3>{feature.label}</h3>
+              <p>{feature.desc}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
 
   <section class="section-tight">
     <div class="container">
@@ -278,6 +318,73 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
   .belief-layout__closing {
     margin-top: 1.75rem;
     color: var(--silver);
+  }
+
+  .features-intro {
+    max-width: 36rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .features-intro > .eyebrow {
+    margin-inline: auto;
+  }
+
+  .features-intro h2 {
+    margin-top: 0.75rem;
+  }
+
+  .features-intro .lede {
+    margin-top: 1rem;
+    margin-inline: auto;
+  }
+
+  .features-grid {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .features-grid li {
+    padding: clamp(1.75rem, 3vw, 2.25rem);
+    background: var(--gunmetal-raised);
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+  }
+
+  .features-grid__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 9px;
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+
+  .features-grid__icon svg {
+    width: 1.4rem;
+    height: 1.4rem;
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .features-grid h3 {
+    margin-top: 1.1rem;
+    font-size: var(--step-0);
+    color: var(--white-smoke);
+  }
+
+  .features-grid p {
+    margin-top: 0.6rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.5;
   }
 
   .pull-statement {

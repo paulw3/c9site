@@ -28,21 +28,25 @@ import CTAButton from '../../components/CTAButton.astro';
     productTag="Multi-cloud FinOps"
     beliefHeading="Every unit of cloud spend should have a clear purpose."
     beliefLede="ANFAA connects usage, accountability, governance and optimisation so FinOps becomes part of the cloud operating model, not a finance exercise after the fact."
-    plusItems={[
-      { label: 'Visibility', icon: ['M2,12 C5,6 19,6 22,12 C19,18 5,18 2,12 Z', 'M12,9.5 A2.5,2.5 0 1 1 12,14.5 A2.5,2.5 0 1 1 12,9.5 Z'] },
-      { label: 'Ownership', icon: ['M12,4.5 A3.5,3.5 0 1 1 12,11.5 A3.5,3.5 0 1 1 12,4.5 Z', 'M5,20 C5,15.5 8,13 12,13 C16,13 19,15.5 19,20'] },
-      { label: 'Optimisation', icon: ['M4,16 A8,8 0 1 1 20,16', 'M12,16 L15.5,11'] },
-      { label: 'Control', icon: ['M4,7 L20,7 M4,12 L15,12 M4,17 L18,17'] },
-    ]}
     beliefStatement="Cost optimisation should be continuous, not a quarterly clean-up."
     beliefClosing="The value of FinOps comes from turning cost data into an everyday discipline shared by finance, engineering and business owners."
+    featuresHeading="Powerful Features for Modern FinOps"
+    featuresLede="ANFAA provides everything your team needs to master cloud financial management with intelligent automation and real-time insights."
+    features={[
+      { label: 'Unified Cost Visibility', desc: 'Get real-time visibility into your cloud spend across AWS, Azure, and Google Cloud with granular cost allocation and tagging intelligence.', icon: ['M2,12 C5,6 19,6 22,12 C19,18 5,18 2,12 Z', 'M12,9.5 A2.5,2.5 0 1 1 12,14.5 A2.5,2.5 0 1 1 12,9.5 Z'] },
+      { label: 'AI-Powered Optimization', desc: 'Leverage machine learning to identify waste, right-size resources, and recommend cost-saving opportunities automatically.', icon: ['M12,9 A3,3 0 1 1 12,15 A3,3 0 1 1 12,9 Z', 'M12,3 L12,6 M12,18 L12,21 M3,12 L6,12 M18,12 L21,12 M5.6,5.6 L7.8,7.8 M16.2,16.2 L18.4,18.4 M5.6,18.4 L7.8,16.2 M16.2,7.8 L18.4,5.6'] },
+      { label: 'Budget & Forecasting', desc: 'Set intelligent budget alerts and leverage predictive analytics for accurate cloud cost forecasting and anomaly detection.', icon: ['M4,20 L4,11 M10,20 L10,5 M16,20 L16,14 M20,20 L20,8'] },
+      { label: 'Chargeback & Allocation', desc: 'Automatically allocate cloud costs to teams, projects, and departments with custom allocation rules and shareback reporting.', icon: ['M3,3 L10,3 L10,10 L3,10 Z', 'M13,3 L20,3 L20,10 L13,10 Z', 'M3,13 L10,13 L10,20 L3,20 Z', 'M13,13 L20,13 L20,20 L13,20 Z'] },
+      { label: 'Automated Governance', desc: 'Enforce cloud financial governance with policy-driven automation and real-time compliance monitoring.', icon: ['M12,3 L19,6 L19,12 C19,16.5 16,19.5 12,21 C8,19.5 5,16.5 5,12 L5,6 Z', 'M9,12 L11,14 L15.5,9'] },
+      { label: 'Team Collaboration', desc: 'Enable cross-functional collaboration with shared workspaces, role-based access control, and integrated communication tools.', icon: ['M8,4.5 A3,3 0 1 1 8,10.5 A3,3 0 1 1 8,4.5 Z', 'M16,6 A2.3,2.3 0 1 1 16,10.6 A2.3,2.3 0 1 1 16,6 Z', 'M2,20 C2,15.8 4.7,13.5 8,13.5 C11.3,13.5 14,15.8 14,20', 'M14.5,14 C17.2,14.3 19,16.5 19,20'] },
+    ]}
     loopHeading="From cloud spend data to governed FinOps action."
     loopLede="A repeatable path that turns usage and billing data into ownership, optimisation and financial governance."
     loopStages={[
       { label: 'Discover', desc: 'Bring together the cloud cost and usage data that matters.', icon: ['M10.5,4 A6.5,6.5 0 1 1 10.5,17 A6.5,6.5 0 1 1 10.5,4 Z', 'M15.3,15.3 L20,20'] },
       { label: 'Allocate', desc: 'Map spend to teams, products, environments and accountable owners.', icon: ['M3,3 L10,3 L10,10 L3,10 Z', 'M13,3 L20,3 L20,10 L13,10 Z', 'M3,13 L10,13 L10,20 L3,20 Z', 'M13,13 L20,13 L20,20 L13,20 Z'] },
       { label: 'Optimise & Orchestrate', desc: 'Identify waste, right-size over-provisioned resources, and capture reserved and spot capacity savings where they fit the workload.', icon: ['M12,9 A3,3 0 1 1 12,15 A3,3 0 1 1 12,9 Z', 'M12,3 L12,6 M12,18 L12,21 M3,12 L6,12 M18,12 L21,12 M5.6,5.6 L7.8,7.8 M16.2,16.2 L18.4,18.4 M5.6,18.4 L7.8,16.2 M16.2,7.8 L18.4,5.6'] },
-      { label: 'Govern', desc: 'Use budgets, guardrails and FinOps practices to sustain control.', icon: ['M12,3 L19,6 L19,12 C19,16.5 16,19.5 12,21 C8,19.5 5,16.5 5,12 L5,6 Z', 'M9,12 L11,14 L15.5,9'] },
+      { label: 'Govern', desc: 'Use budgets, guardrails and role-based access, backed by a full audit trail, to sustain control across teams.', icon: ['M12,3 L19,6 L19,12 C19,16.5 16,19.5 12,21 C8,19.5 5,16.5 5,12 L5,6 Z', 'M9,12 L11,14 L15.5,9'] },
     ]}
     loopStatement="See it. Own it. Optimise it. Govern it."
     outcomesHeading="From cloud bill to cloud value."
