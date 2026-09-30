@@ -35,6 +35,7 @@ export const ui = {
     methodologyRunCopy:
       'Documentation, knowledge transfer and support to keep it running, or we hand you the keys entirely.',
     productBriefBelief: 'The Belief',
+    productBriefFeatures: 'Features',
     productBriefOperatingLoop: 'The Operating Loop',
     productBriefCustomerOutcomes: 'Customer Outcomes',
     productBriefGetBrief: 'Get the full product brief',
@@ -81,6 +82,7 @@ export const ui = {
     methodologyRunLabel: 'التشغيل',
     methodologyRunCopy: 'توثيق، ونقل معرفة، ودعم لإبقاء النظام يعمل، أو نسلّمك المفاتيح بالكامل.',
     productBriefBelief: 'الرؤية',
+    productBriefFeatures: 'الميزات',
     productBriefOperatingLoop: 'حلقة التشغيل',
     productBriefCustomerOutcomes: 'نتائج العملاء',
     productBriefGetBrief: 'احصل على نبذة المنتج الكاملة',
