@@ -34,10 +34,10 @@ interface Props {
   locale?: Locale;
   productTag: string;
   beliefHeading: string;
-  beliefLede: string;
+  beliefLede?: string;
   plusItems?: (string | PlusItem)[];
   beliefStatement: string;
-  beliefClosing: string;
+  beliefClosing?: string;
   featuresHeading?: string;
   featuresLede?: string;
   features?: Feature[];
@@ -91,7 +91,7 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
       <div class="belief-layout">
         <p class="eyebrow">{t(locale, 'productBriefBelief')}</p>
         <h2 class="belief-layout__heading">{beliefHeading}</h2>
-        <p class="lede">{beliefLede}</p>
+        {beliefLede && <p class="lede">{beliefLede}</p>}
 
         {plusItems && plusItems.length > 0 && (
           <div class="plus-row">
@@ -118,7 +118,7 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
         )}
 
         <p class="belief-layout__statement">{beliefStatement}</p>
-        <p class="lede belief-layout__closing">{beliefClosing}</p>
+        {beliefClosing && <p class="lede belief-layout__closing">{beliefClosing}</p>}
       </div>
     </div>
   </section>
