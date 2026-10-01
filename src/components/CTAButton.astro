@@ -2,11 +2,20 @@
 interface Props {
   href: string;
   variant?: 'primary' | 'outline';
+  external?: boolean;
+  icon?: string[];
+  iconSrc?: string;
 }
 
-const { href, variant = 'primary' } = Astro.props;
+const { href, variant = 'primary', external = false, icon, iconSrc } = Astro.props;
 ---
 
-<a href={href} class={`btn btn-${variant}`}>
+<a href={href} class={`btn btn-${variant}`} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>
+  {icon && (
+    <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      {icon.map((d) => <path d={d} />)}
+    </svg>
+  )}
+  {iconSrc && <img class="btn__icon" src={iconSrc} alt="" />}
   <slot />
 </a>

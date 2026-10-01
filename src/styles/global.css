@@ -237,6 +237,18 @@ button {
   color: var(--aquamarine);
 }
 
+.btn__icon {
+  width: 1.1em;
+  height: 1.1em;
+  flex: none;
+  object-fit: contain;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /* ---------------------------------------------------------------
    Section texture — used sparingly (never on every section in a row)
    to break up otherwise-flat gunmetal panels on the interior pages.
