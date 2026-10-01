@@ -23,6 +23,7 @@ import CTAButton from '../../components/CTAButton.astro';
     <div class="page-intro__cta">
       <CTAButton href="/resources/asaas-booklet.pdf" variant="outline">Download the PDF</CTAButton>
       <CTAButton href="/resources/asaas-getting-started" variant="outline">Getting started guide</CTAButton>
+      <CTAButton href="https://console.cloud.google.com/marketplace/product/c9ine-public-479908/asaas" variant="outline" external icon={['M3,4 L5,4 L7,15 L18,15 L20,7 L6,7', 'M9,19 A1,1 0 1 1 9,19.01', 'M16,19 A1,1 0 1 1 16,19.01']}>View on Google Cloud Marketplace</CTAButton>
       <CTAButton href="/contact?intent=asaas">Talk to us about aSaaS</CTAButton>
     </div>
   </PageIntro>
@@ -74,11 +75,11 @@ import CTAButton from '../../components/CTAButton.astro';
     color: var(--white-smoke);
   }
 
-  /* Three buttons of different label lengths don't fit on one line
+  /* Four buttons of different label lengths don't fit on one line
      inside the page-intro's 46rem column. A 2-column grid instead of
-     flex-wrap gives every button an equal-width cell — the three read
-     as a deliberate grid (2 up, 1 below in column 1) instead of
-     content-sized rectangles wherever the text happened to end. */
+     flex-wrap gives every button an equal-width cell — they read as a
+     deliberate 2x2 grid instead of content-sized rectangles wherever
+     the text happened to end. */
   .page-intro__cta {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
