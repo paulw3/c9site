@@ -2,7 +2,6 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import ProductBrief from '../../components/ProductBrief.astro';
-import CTAButton from '../../components/CTAButton.astro';
 ---
 
 <BaseLayout
@@ -21,10 +20,58 @@ import CTAButton from '../../components/CTAButton.astro';
       and hands it over with a GitOps pipeline already wired up.
     </p>
     <div class="page-intro__cta">
-      <CTAButton href="/resources/asaas-booklet.pdf" variant="outline">Download the PDF</CTAButton>
-      <CTAButton href="/resources/asaas-getting-started" variant="outline">Getting started guide</CTAButton>
-      <CTAButton href="https://console.cloud.google.com/marketplace/product/c9ine-public-479908/asaas" variant="outline" external iconSrc="/logos/gcp-marketplace-cart.png">View on Google Cloud Marketplace</CTAButton>
-      <CTAButton href="/contact?intent=asaas">Talk to us about aSaaS</CTAButton>
+      <a class="intro-link" href="/resources/asaas-booklet.pdf">
+        <span class="intro-link__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <rect x="6" y="3" width="12" height="18" rx="1.5"></rect>
+            <path d="M9,9 L15,9 M9,12.5 L15,12.5 M9,16 L13,16"></path>
+          </svg>
+        </span>
+        <span class="intro-link__text">
+          <span class="intro-link__label">Download the PDF</span>
+          <span class="intro-link__desc">The complete aSaaS product brief, in one document.</span>
+        </span>
+      </a>
+
+      <a class="intro-link" href="/resources/asaas-getting-started">
+        <span class="intro-link__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M15,9 L13,13 L9,15 L11,11 Z"></path>
+          </svg>
+        </span>
+        <span class="intro-link__text">
+          <span class="intro-link__label">Getting started guide</span>
+          <span class="intro-link__desc">A step-by-step walkthrough for your first deployment.</span>
+        </span>
+      </a>
+
+      <a
+        class="intro-link"
+        href="https://console.cloud.google.com/marketplace/product/c9ine-public-479908/asaas"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="intro-link__icon intro-link__icon--image">
+          <img src="/logos/gcp-marketplace-cart.png" alt="" />
+        </span>
+        <span class="intro-link__text">
+          <span class="intro-link__label">Get it on Google Marketplace</span>
+          <span class="intro-link__desc">Deploy aSaaS directly from Google Cloud.</span>
+        </span>
+      </a>
+
+      <a class="intro-link" href="/contact?intent=asaas">
+        <span class="intro-link__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4,5 L20,5 L20,16 L9,16 L4,20 Z"></path>
+          </svg>
+        </span>
+        <span class="intro-link__text">
+          <span class="intro-link__label">Talk to us about aSaaS</span>
+          <span class="intro-link__desc">Get in touch with our team.</span>
+        </span>
+      </a>
     </div>
   </PageIntro>
 
@@ -75,35 +122,76 @@ import CTAButton from '../../components/CTAButton.astro';
     color: var(--white-smoke);
   }
 
-  /* Four buttons of different label lengths don't fit on one line
-     inside the page-intro's 46rem column. A 2-column grid instead of
-     flex-wrap gives every button an equal-width cell — they read as a
-     deliberate 2x2 grid instead of content-sized rectangles wherever
-     the text happened to end. */
   .page-intro__cta {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
+    gap: 1.5rem 2rem;
   }
 
-  :global(.page-intro__cta .btn) {
+  .intro-link {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .intro-link__icon {
+    display: flex;
+    align-items: center;
     justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: none;
+    border-radius: 9px;
+    background: color-mix(in srgb, var(--vivid-sky-blue) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--vivid-sky-blue) 30%, transparent);
+    transition: border-color 160ms ease, background-color 160ms ease;
   }
 
-  /* The getting-started guide is the most useful next step for anyone
-     evaluating aSaaS, so it gets a solid fill like the primary CTA
-     rather than sitting flat as a plain outline button — sky blue
-     (this page's own accent, matching ProductBrief accent="sky") keeps
-     it visually distinct from the aquamarine "Talk to us" action. */
-  :global(.page-intro__cta a:nth-child(2)) {
-    background: var(--vivid-sky-blue);
+  .intro-link__icon svg {
+    width: 1.3rem;
+    height: 1.3rem;
+    fill: none;
+    stroke: var(--vivid-sky-blue);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .intro-link__icon--image img {
+    width: 1.4rem;
+    height: 1.4rem;
+    object-fit: contain;
+  }
+
+  .intro-link__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .intro-link__label {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-0);
+    color: var(--white-smoke);
+    transition: color 160ms ease;
+  }
+
+  .intro-link__desc {
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.4;
+  }
+
+  .intro-link:hover .intro-link__icon {
+    background: color-mix(in srgb, var(--vivid-sky-blue) 18%, transparent);
     border-color: var(--vivid-sky-blue);
-    color: var(--gunmetal);
   }
 
-  :global(.page-intro__cta a:nth-child(2):hover) {
-    background: var(--white-smoke);
-    border-color: var(--white-smoke);
+  .intro-link:hover .intro-link__label {
+    color: var(--vivid-sky-blue);
   }
 
   @media (max-width: 560px) {
