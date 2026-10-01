@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import ContactForm from '../../components/ContactForm.astro';
+import CTAButton from '../../components/CTAButton.astro';
 import { t } from '../../i18n/ui';
 
 // Draft machine translation, for visual/design review only — pending a
@@ -29,13 +30,28 @@ const defaultIntent = params.get('intent') === 'gdc-pilot' ? 'gdc-pilot' : undef
     <div class="container contact-grid">
       <ContactForm defaultIntent={defaultIntent} locale="ar" />
 
-      <div class="contact-details">
-        <h2>زرنا</h2>
-        <address>
-          {t('ar', 'footerAddress1')}<br />
-          {t('ar', 'footerAddress2')}<br />
-          {t('ar', 'footerAddress3')}
-        </address>
+      <div class="contact-sidebar">
+        <div class="contact-details">
+          <h2>احجز مكالمة</h2>
+          <p class="contact-details__copy">تفضّل الحديث مباشرة؟ احجز موعدا على تقويمنا.</p>
+          <CTAButton
+            href="https://calendly.com/azaki-c9ine/30min"
+            variant="outline"
+            external
+            icon={['M4,5 L20,5 L20,20 L4,20 Z', 'M4,9.5 L20,9.5', 'M8,3 L8,7', 'M16,3 L16,7']}
+          >
+            حدد موعد مكالمة
+          </CTAButton>
+        </div>
+
+        <div class="contact-details">
+          <h2>زرنا</h2>
+          <address>
+            {t('ar', 'footerAddress1')}<br />
+            {t('ar', 'footerAddress2')}<br />
+            {t('ar', 'footerAddress3')}
+          </address>
+        </div>
       </div>
     </div>
   </section>
@@ -50,6 +66,22 @@ const defaultIntent = params.get('intent') === 'gdc-pilot' ? 'gdc-pilot' : undef
 
   .contact-details h2 {
     font-size: var(--step-1);
+  }
+
+  .contact-sidebar .contact-details + .contact-details {
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--gunmetal-line);
+  }
+
+  .contact-details__copy {
+    margin-top: 1rem;
+    color: var(--silver);
+    line-height: 1.7;
+  }
+
+  .contact-details :global(.btn) {
+    margin-top: 1.25rem;
   }
 
   .contact-details address {
