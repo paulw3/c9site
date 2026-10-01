@@ -52,7 +52,7 @@ import ProductBrief from '../../components/ProductBrief.astro';
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span class="intro-link__icon intro-link__icon--image">
+        <span class="intro-link__icon intro-link__icon--image intro-link__icon--google">
           <img src="/logos/gcp-marketplace-cart.png" alt="" />
         </span>
         <span class="intro-link__text">
@@ -163,6 +163,20 @@ import ProductBrief from '../../components/ProductBrief.astro';
     width: 1.4rem;
     height: 1.4rem;
     object-fit: contain;
+  }
+
+  /* A nod to Google's own identity for the one link that's literally
+     about a Google product — each border side takes one of Google's
+     four brand colours, matching the same treatment already used for
+     the GDC pillar card icon, rather than this page's sky-blue accent. */
+  .intro-link__icon--google {
+    background: var(--gunmetal-raised);
+    border-style: solid;
+    border-width: 2px;
+    border-top-color: #ea4335;
+    border-right-color: #fbbc04;
+    border-bottom-color: #34a853;
+    border-left-color: #4285f4;
   }
 
   .intro-link__text {
