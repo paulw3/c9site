@@ -4,9 +4,10 @@ interface Props {
   variant?: 'primary' | 'outline';
   external?: boolean;
   icon?: string[];
+  iconSrc?: string;
 }
 
-const { href, variant = 'primary', external = false, icon } = Astro.props;
+const { href, variant = 'primary', external = false, icon, iconSrc } = Astro.props;
 ---
 
 <a href={href} class={`btn btn-${variant}`} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>
@@ -15,5 +16,6 @@ const { href, variant = 'primary', external = false, icon } = Astro.props;
       {icon.map((d) => <path d={d} />)}
     </svg>
   )}
+  {iconSrc && <img class="btn__icon" src={iconSrc} alt="" />}
   <slot />
 </a>
