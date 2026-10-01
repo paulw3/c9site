@@ -3,6 +3,7 @@
   "name": "c9site",
   "compatibility_date": "2026-09-15",
   "assets": {
-    "directory": "./dist"
+    "directory": "./dist",
+    "not_found_handling": "404-page"
   }
 }
