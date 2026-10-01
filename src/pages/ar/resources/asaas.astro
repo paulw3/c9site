@@ -6,12 +6,31 @@ import ProductBrief from '../../../components/ProductBrief.astro';
 // Draft machine translation, for visual/design review only — pending a
 // native-speaker pass. Mirrors src/pages/resources/asaas.astro structure
 // and styles exactly; only the copy and internal hrefs differ.
+
+const asaasSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'aSaaS',
+  alternateName: 'مشغّل سحابي ذكي',
+  description:
+    'تلتقط aSaaS معايير السحابة المعتمدة مرة واحدة، ثم تحوّلها إلى تجربة تسليم موجهة وقابلة للتكرار للفرق التي تحتاج إلى السحابة دون أن تصبح متخصصة فيها.',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Cloud',
+  url: 'https://c9ine.com/ar/resources/asaas',
+  inLanguage: 'ar',
+  provider: { '@id': 'https://c9ine.com/#organization' },
+  offers: {
+    '@type': 'Offer',
+    url: 'https://console.cloud.google.com/marketplace/product/c9ine-public-479908/asaas',
+  },
+};
 ---
 
 <BaseLayout
   title="aSaaS: مشغّل سحابي ذكي"
   description="تلتقط aSaaS معايير السحابة المعتمدة مرة واحدة، ثم تحوّلها إلى تجربة تسليم موجهة وقابلة للتكرار للفرق التي تحتاج إلى السحابة دون أن تصبح متخصصة فيها."
   locale="ar"
+  schema={asaasSchema}
 >
   <PageIntro eyebrow="الموارد · نبذة المنتج">
     <h1>لا ينبغي لأساسيات السحابة أن تبطئ الابتكار.</h1>

@@ -2,11 +2,25 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import ProductBrief from '../../components/ProductBrief.astro';
+
+const anfaaSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'ANFAA',
+  alternateName: 'Multi-cloud FinOps',
+  description:
+    'ANFAA turns cloud spend into a continuous FinOps operating discipline: visibility, ownership, optimisation and control, across every provider you run.',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Cloud',
+  url: 'https://c9ine.com/resources/anfaa',
+  provider: { '@id': 'https://c9ine.com/#organization' },
+};
 ---
 
 <BaseLayout
   title="ANFAA: Multi-cloud FinOps"
   description="ANFAA turns cloud spend into a continuous FinOps operating discipline: visibility, ownership, optimisation and control, across every provider you run."
+  schema={anfaaSchema}
 >
   <PageIntro eyebrow="Resources · Product Brief">
     <h1>Cloud should create value, not just cost.</h1>

@@ -1,0 +1,59 @@
+name: Ping IndexNow
+
+# Cloudflare's Git integration auto-builds and deploys on push to main.
+# This runs alongside it: once the deploy has had time to land, it reads
+# the live sitemap and tells IndexNow (Bing, and anyone else listening)
+# which URLs changed, instead of waiting for the next crawl.
+on:
+  push:
+    branches: [main]
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for Cloudflare deploy to land
+        run: sleep 90
+
+      - name: Submit sitemap URLs to IndexNow
+        run: |
+          python3 - <<'PY'
+          import json
+          import urllib.request
+          import xml.etree.ElementTree as ET
+
+          NS = '{http://www.sitemaps.org/schemas/sitemap/0.9}'
+          KEY = '6a337e4f5f358837565281700c784127'
+          HOST = 'c9ine.com'
+
+          def fetch(url):
+              with urllib.request.urlopen(url, timeout=30) as resp:
+                  return resp.read()
+
+          index = ET.fromstring(fetch('https://c9ine.com/sitemap-index.xml'))
+          sitemap_urls = [el.text for el in index.iter(f'{NS}loc')]
+
+          urls = []
+          for sitemap_url in sitemap_urls:
+              doc = ET.fromstring(fetch(sitemap_url))
+              urls.extend(el.text for el in doc.iter(f'{NS}loc'))
+
+          if not urls:
+              raise SystemExit('No URLs found in sitemap — aborting IndexNow submission.')
+
+          payload = json.dumps({
+              'host': HOST,
+              'key': KEY,
+              'keyLocation': f'https://{HOST}/{KEY}.txt',
+              'urlList': urls,
+          }).encode('utf-8')
+
+          req = urllib.request.Request(
+              'https://api.indexnow.org/indexnow',
+              data=payload,
+              headers={'Content-Type': 'application/json; charset=utf-8'},
+              method='POST',
+          )
+          with urllib.request.urlopen(req, timeout=30) as resp:
+              print(f'IndexNow responded {resp.status} for {len(urls)} URLs')
+          PY

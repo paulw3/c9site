@@ -6,12 +6,27 @@ import ProductBrief from '../../../components/ProductBrief.astro';
 // Draft machine translation, for visual/design review only — pending a
 // native-speaker pass. Mirrors src/pages/resources/anfaa.astro structure
 // and styles exactly; only the copy and internal hrefs differ.
+
+const anfaaSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'ANFAA',
+  alternateName: 'إدارة مالية سحابية متعددة المزودين',
+  description:
+    'تحوّل ANFAA إنفاق السحابة إلى انضباط تشغيلي مستمر لإدارة التكاليف: رؤية، وملكية، وتحسين، وتحكم، عبر كل مزوّد تعمل معه.',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Cloud',
+  url: 'https://c9ine.com/ar/resources/anfaa',
+  inLanguage: 'ar',
+  provider: { '@id': 'https://c9ine.com/#organization' },
+};
 ---
 
 <BaseLayout
   title="ANFAA: إدارة مالية سحابية متعددة المزودين"
   description="تحوّل ANFAA إنفاق السحابة إلى انضباط تشغيلي مستمر لإدارة التكاليف: رؤية، وملكية، وتحسين، وتحكم، عبر كل مزوّد تعمل معه."
   locale="ar"
+  schema={anfaaSchema}
 >
   <PageIntro eyebrow="الموارد · نبذة المنتج">
     <h1>يجب أن تخلق السحابة قيمة، لا أن تكون مجرد تكلفة.</h1>

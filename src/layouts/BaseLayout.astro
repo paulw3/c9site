@@ -1,5 +1,6 @@
 ---
 import SEO from '../components/SEO.astro';
+import SchemaOrg from '../components/SchemaOrg.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SmoothScroll from '../components/SmoothScroll.astro';
@@ -10,10 +11,31 @@ interface Props {
   title: string;
   description: string;
   locale?: Locale;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, description, locale = 'en' } = Astro.props;
+const { title, description, locale = 'en', schema } = Astro.props;
 const dir = locale === 'ar' ? 'rtl' : 'ltr';
+
+// Sitewide Organization node — every page carries it so crawlers and AI
+// engines can resolve "C-9INE" to one stable entity (referenced by @id
+// from any page-specific schema, e.g. a Product's provider).
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': 'https://c9ine.com/#organization',
+  name: 'C-9INE',
+  url: 'https://c9ine.com',
+  logo: 'https://c9ine.com/favicon.svg',
+  sameAs: ['https://www.linkedin.com/company/c-9ine/'],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Sahaba Tissa (Cloud 9), 7586 King Fahad Road, Ar Rahmaniyah',
+    addressLocality: 'Riyadh',
+    postalCode: '12341',
+    addressCountry: 'SA',
+  },
+};
 ---
 
 <!doctype html>
@@ -26,6 +48,7 @@ const dir = locale === 'ar' ? 'rtl' : 'ltr';
     </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <SEO title={title} description={description} locale={locale} />
+    <SchemaOrg data={schema ? [organizationSchema, ...(Array.isArray(schema) ? schema : [schema])] : organizationSchema} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
