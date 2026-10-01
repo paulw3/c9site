@@ -34,7 +34,14 @@ const defaultIntent = params.get('intent') === 'gdc-pilot' ? 'gdc-pilot' : undef
         <div class="contact-details">
           <h2>احجز مكالمة</h2>
           <p class="contact-details__copy">تفضّل الحديث مباشرة؟ احجز موعدا على تقويمنا.</p>
-          <CTAButton href="https://calendly.com/azaki-c9ine/30min" variant="outline" external>حدد موعد مكالمة</CTAButton>
+          <CTAButton
+            href="https://calendly.com/azaki-c9ine/30min"
+            variant="outline"
+            external
+            icon={['M4,5 L20,5 L20,20 L4,20 Z', 'M4,9.5 L20,9.5', 'M8,3 L8,7', 'M16,3 L16,7']}
+          >
+            حدد موعد مكالمة
+          </CTAButton>
         </div>
 
         <div class="contact-details">
