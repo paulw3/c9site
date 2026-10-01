@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import CTAButton from '../components/CTAButton.astro';
+---
+
+<BaseLayout title="Page not found" description="This page doesn't exist — here's how to find what you're looking for on C-9INE.">
+  <PageIntro eyebrow="404">
+    <h1>This page doesn't exist.</h1>
+    <p class="lede">
+      The link you followed may be broken, or the page may have moved. Here are a few places to
+      start instead.
+    </p>
+    <div class="page-intro__cta">
+      <CTAButton href="/">Back to home</CTAButton>
+      <CTAButton href="/resources" variant="outline">Browse resources</CTAButton>
+      <CTAButton href="/contact" variant="outline">Contact us</CTAButton>
+    </div>
+  </PageIntro>
+</BaseLayout>
+
+<style>
+  .page-intro__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+</style>
