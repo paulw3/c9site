@@ -2,11 +2,29 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import ProductBrief from '../../components/ProductBrief.astro';
+
+const asaasSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'aSaaS',
+  alternateName: 'Intelligent Cloud Operator',
+  description:
+    "aSaaS captures approved cloud standards once, then turns them into a guided, repeatable delivery experience for teams who need cloud, not cloud expertise.",
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Cloud',
+  url: 'https://c9ine.com/resources/asaas',
+  provider: { '@id': 'https://c9ine.com/#organization' },
+  offers: {
+    '@type': 'Offer',
+    url: 'https://console.cloud.google.com/marketplace/product/c9ine-public-479908/asaas',
+  },
+};
 ---
 
 <BaseLayout
   title="aSaaS: Intelligent Cloud Operator"
   description="aSaaS captures approved cloud standards once, then turns them into a guided, repeatable delivery experience for teams who need cloud, not cloud expertise."
+  schema={asaasSchema}
 >
   <PageIntro eyebrow="Resources · Product Brief">
     <h1>Cloud foundations shouldn't slow innovation down.</h1>
