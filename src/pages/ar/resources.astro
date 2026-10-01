@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
-import CTAButton from '../../components/CTAButton.astro';
 
 // Draft machine translation, for visual/design review only — pending a
 // native-speaker pass. Mirrors src/pages/resources.astro structure and
@@ -10,14 +9,13 @@ import CTAButton from '../../components/CTAButton.astro';
 
 <BaseLayout
   title="الموارد"
-  description="نبذات تعريفية بمنتجي ANFAA وaSaaS، إضافة إلى دراسات حالة من مشاريع C-9INE في الترحيل السحابي والسحابة الموزعة من جوجل، قريبا."
+  description="نبذات تعريفية بمنتجي ANFAA وaSaaS، منتجا C-9INE لإدارة مالية سحابية متعددة المزودين وتشغيل سحابي ذكي."
   locale="ar"
 >
   <PageIntro eyebrow="الموارد">
     <h1>الموارد</h1>
     <p class="lede">
-      نبذات تعريفية بمنتجي ANFAA وaSaaS، ودراسات حالة من مشاريعنا في الترحيل السحابي والسحابة
-      الموزعة من جوجل.
+      نبذات تعريفية بمنتجي ANFAA وaSaaS.
     </p>
   </PageIntro>
 
@@ -50,28 +48,9 @@ import CTAButton from '../../components/CTAButton.astro';
       </div>
     </div>
   </section>
-
-  <section class="section-tight empty-state">
-    <div class="container">
-      <p class="eyebrow empty-state__eyebrow">دراسات الحالة</p>
-      <h2>قريبا</h2>
-      <p class="lede empty-state__lede">
-        سيتم نشر دراسات الحالة هنا قريبا. في هذه الأثناء، تواصل معنا مباشرة للتعرف على الأعمال
-        التي أنجزناها للبنوك والجهات الحكومية ومؤسسات البنية التحتية الحيوية في المملكة العربية
-        السعودية.
-      </p>
-      <div class="empty-state__cta">
-        <CTAButton href="/ar/contact" variant="outline">تواصل معنا في هذه الأثناء</CTAButton>
-      </div>
-    </div>
-  </section>
 </BaseLayout>
 
 <style>
-  .empty-state__eyebrow {
-    margin-inline: auto;
-  }
-
   .resource-grid {
     margin-top: clamp(2.5rem, 5vw, 3.5rem);
     display: grid;
@@ -142,21 +121,5 @@ import CTAButton from '../../components/CTAButton.astro';
     .resource-grid {
       grid-template-columns: 1fr;
     }
-  }
-
-  .empty-state {
-    text-align: center;
-    border-top: 1px solid var(--gunmetal-line);
-  }
-
-  .empty-state__lede {
-    margin-top: 1rem;
-    margin-inline: auto;
-  }
-
-  .empty-state__cta {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
   }
 </style>
