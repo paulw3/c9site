@@ -2,7 +2,6 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageIntro from '../../../components/PageIntro.astro';
 import ProductBrief from '../../../components/ProductBrief.astro';
-import CTAButton from '../../../components/CTAButton.astro';
 
 // Draft machine translation, for visual/design review only — pending a
 // native-speaker pass. Mirrors src/pages/resources/asaas.astro structure
@@ -25,10 +24,58 @@ import CTAButton from '../../../components/CTAButton.astro';
       في البنية التحتية، ويسلّمها إليك مع خط أنابيب GitOps جاهز مسبقا.
     </p>
     <div class="page-intro__cta">
-      <CTAButton href="/resources/asaas-booklet.pdf" variant="outline">تنزيل الملف (PDF)</CTAButton>
-      <CTAButton href="/ar/resources/asaas-getting-started" variant="outline">دليل البدء</CTAButton>
-      <CTAButton href="https://console.cloud.google.com/marketplace/product/c9ine-public-479908/asaas" variant="outline" external iconSrc="/logos/gcp-marketplace-cart.png">عرضه على Google Cloud Marketplace</CTAButton>
-      <CTAButton href="/ar/contact?intent=asaas">تواصل معنا حول aSaaS</CTAButton>
+      <a class="intro-link" href="/resources/asaas-booklet.pdf">
+        <span class="intro-link__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <rect x="6" y="3" width="12" height="18" rx="1.5"></rect>
+            <path d="M9,9 L15,9 M9,12.5 L15,12.5 M9,16 L13,16"></path>
+          </svg>
+        </span>
+        <span class="intro-link__text">
+          <span class="intro-link__label">تنزيل الملف (PDF)</span>
+          <span class="intro-link__desc">نبذة منتج aSaaS الكاملة في مستند واحد.</span>
+        </span>
+      </a>
+
+      <a class="intro-link" href="/ar/resources/asaas-getting-started">
+        <span class="intro-link__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M15,9 L13,13 L9,15 L11,11 Z"></path>
+          </svg>
+        </span>
+        <span class="intro-link__text">
+          <span class="intro-link__label">دليل البدء</span>
+          <span class="intro-link__desc">دليل تفصيلي خطوة بخطوة لأول عملية نشر.</span>
+        </span>
+      </a>
+
+      <a
+        class="intro-link"
+        href="https://console.cloud.google.com/marketplace/product/c9ine-public-479908/asaas"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="intro-link__icon intro-link__icon--image">
+          <img src="/logos/gcp-marketplace-cart.png" alt="" />
+        </span>
+        <span class="intro-link__text">
+          <span class="intro-link__label">احصل عليه من Google Marketplace</span>
+          <span class="intro-link__desc">انشر aSaaS مباشرة من Google Cloud.</span>
+        </span>
+      </a>
+
+      <a class="intro-link" href="/ar/contact?intent=asaas">
+        <span class="intro-link__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4,5 L20,5 L20,16 L9,16 L4,20 Z"></path>
+          </svg>
+        </span>
+        <span class="intro-link__text">
+          <span class="intro-link__label">تواصل معنا حول aSaaS</span>
+          <span class="intro-link__desc">تواصل مع فريقنا مباشرة.</span>
+        </span>
+      </a>
     </div>
   </PageIntro>
 
@@ -83,22 +130,73 @@ import CTAButton from '../../../components/CTAButton.astro';
   .page-intro__cta {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
+    gap: 1.5rem 2rem;
   }
 
-  :global(.page-intro__cta .btn) {
+  .intro-link {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .intro-link__icon {
+    display: flex;
+    align-items: center;
     justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: none;
+    border-radius: 9px;
+    background: color-mix(in srgb, var(--vivid-sky-blue) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--vivid-sky-blue) 30%, transparent);
+    transition: border-color 160ms ease, background-color 160ms ease;
   }
 
-  :global(.page-intro__cta a:nth-child(2)) {
-    background: var(--vivid-sky-blue);
+  .intro-link__icon svg {
+    width: 1.3rem;
+    height: 1.3rem;
+    fill: none;
+    stroke: var(--vivid-sky-blue);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .intro-link__icon--image img {
+    width: 1.4rem;
+    height: 1.4rem;
+    object-fit: contain;
+  }
+
+  .intro-link__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .intro-link__label {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-0);
+    color: var(--white-smoke);
+    transition: color 160ms ease;
+  }
+
+  .intro-link__desc {
+    color: var(--silver);
+    font-size: var(--step--1);
+    line-height: 1.4;
+  }
+
+  .intro-link:hover .intro-link__icon {
+    background: color-mix(in srgb, var(--vivid-sky-blue) 18%, transparent);
     border-color: var(--vivid-sky-blue);
-    color: var(--gunmetal);
   }
 
-  :global(.page-intro__cta a:nth-child(2):hover) {
-    background: var(--white-smoke);
-    border-color: var(--white-smoke);
+  .intro-link:hover .intro-link__label {
+    color: var(--vivid-sky-blue);
   }
 
   @media (max-width: 560px) {

@@ -21,25 +21,23 @@ import PageIntro from '../components/PageIntro.astro';
 
       <div class="resource-grid">
         <a class="resource-card resource-card--anfaa" href="/resources/anfaa">
-          <span class="resource-card__type mono-tag">Product Brief</span>
           <span class="resource-card__mark">ANFAA</span>
           <span class="resource-card__tag">Multi-cloud FinOps</span>
           <p class="resource-card__desc">
             Cloud should create value, not just cost: a continuous FinOps operating discipline
             across every provider you run.
           </p>
-          <span class="resource-card__link">Read the brief</span>
+          <span class="resource-card__link">Explore ANFAA</span>
         </a>
 
         <a class="resource-card resource-card--asaas" href="/resources/asaas">
-          <span class="resource-card__type mono-tag">Product Brief</span>
           <span class="resource-card__mark">aSaaS</span>
           <span class="resource-card__tag">Intelligent Cloud Operator</span>
           <p class="resource-card__desc">
             Cloud foundations shouldn't slow innovation down: approved standards, captured
             once, delivered as a guided, repeatable experience.
           </p>
-          <span class="resource-card__link">Read the brief</span>
+          <span class="resource-card__link">Explore aSaaS</span>
         </a>
       </div>
     </div>
@@ -77,12 +75,7 @@ import PageIntro from '../components/PageIntro.astro';
     --accent: var(--vivid-sky-blue);
   }
 
-  .resource-card__type {
-    color: var(--accent, var(--aquamarine));
-  }
-
   .resource-card__mark {
-    margin-top: 1rem;
     font-family: var(--font-display);
     font-weight: 700;
     font-size: var(--step-2);
