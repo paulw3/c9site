@@ -11,7 +11,11 @@ export interface Env {
 
 const CONTACT_PATH = '/api/contact';
 const TO_EMAIL = 'contact@c9ine.com';
-const FROM_EMAIL = 'C-9INE Website <contact@c9ine.com>';
+// Email Sending is onboarded on the notify.c9ine.com subdomain, not the
+// root domain — keeps its DNS (MX/SPF/DKIM/DMARC) isolated from the root's
+// existing records (Google Workspace mail), so the FROM address has to
+// live on that subdomain too.
+const FROM_EMAIL = 'C-9INE Website <contact@notify.c9ine.com>';
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
