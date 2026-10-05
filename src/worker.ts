@@ -7,10 +7,12 @@
 export interface Env {
   ASSETS: Fetcher;
   EMAIL: SendEmail;
+  TURNSTILE_SECRET_KEY: string;
 }
 
 const CONTACT_PATH = '/api/contact';
 const TO_EMAIL = 'contact@c9ine.com';
+const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 // Email Sending is onboarded on the notify.c9ine.com subdomain, not the
 // root domain — keeps its DNS (MX/SPF/DKIM/DMARC) isolated from the root's
 // existing records (Google Workspace mail), so the FROM address has to
@@ -66,6 +68,28 @@ function isValidEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+async function verifyTurnstile(token: string, secret: string, remoteIp: string | null): Promise<boolean> {
+  if (!token) return false;
+
+  const body = new URLSearchParams();
+  body.set('secret', secret);
+  body.set('response', token);
+  if (remoteIp) body.set('remoteip', remoteIp);
+
+  try {
+    const res = await fetch(TURNSTILE_VERIFY_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body,
+    });
+    const data = (await res.json()) as { success?: boolean };
+    return data.success === true;
+  } catch (err) {
+    console.error('Turnstile verification request failed', err);
+    return false;
+  }
+}
+
 function redirectTarget(origin: string, locale: string, ok: boolean): string {
   const path = locale === 'ar' ? '/ar/contact' : '/contact';
   const target = new URL(path, origin);
@@ -91,6 +115,20 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
   // telling the bot what tripped it.
   if (String(form.get('website') || '').trim() !== '') {
     return respond(wantsJson, origin, locale, true, 200);
+  }
+
+  // Turnstile: catches the bots sophisticated enough to skip the honeypot
+  // and fill the real fields out properly. Unlike the honeypot, a failure
+  // here is a genuine error response — a human whose token expired or
+  // failed just needs to retry, not be quietly let through.
+  const turnstileToken = String(form.get('cf-turnstile-response') || '').trim();
+  const turnstileOk = await verifyTurnstile(
+    turnstileToken,
+    env.TURNSTILE_SECRET_KEY,
+    request.headers.get('CF-Connecting-IP')
+  );
+  if (!turnstileOk) {
+    return respond(wantsJson, origin, locale, false, 400);
   }
 
   const name = String(form.get('name') || '').trim();

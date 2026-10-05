@@ -7,6 +7,11 @@ interface Props {
 }
 
 const { defaultIntent, locale = 'en' } = Astro.props;
+
+// Not a secret — Turnstile site keys are meant to be public and live in
+// the page itself. The matching secret key lives server-side only, as a
+// Worker secret, and is never shipped to the client (see src/worker.ts).
+const TURNSTILE_SITE_KEY = '0x4AAAAAAFOhBrVVDwX-YJPd';
 ---
 
 <form
@@ -62,12 +67,22 @@ const { defaultIntent, locale = 'en' } = Astro.props;
     <textarea id="message" name="message" rows="5"></textarea>
   </div>
 
+  {/* Cloudflare Turnstile: the bot check. Invisible for most real visitors
+     (Managed mode), only challenges traffic that looks automated. The
+     widget injects its own "cf-turnstile-response" hidden input once it
+     resolves, which the submit handler's FormData picks up automatically
+     — no extra wiring needed here. Verified server-side in src/worker.ts
+     before any email gets sent. */}
+  <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-language={locale} data-theme="dark"></div>
+
   <div class="contact-form__actions">
     <button type="submit" class="btn btn-primary">{t(locale, 'formSend')}</button>
   </div>
 
   <p class="contact-form__status" role="status" aria-live="polite"></p>
 </form>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <script>
   // This site builds to fully static HTML (no SSR adapter), so Astro.url
