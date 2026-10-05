@@ -12,6 +12,7 @@ npm-debug.log*
 # environment
 .env
 .env.production
+.dev.vars
 
 # editor
 .vscode/*

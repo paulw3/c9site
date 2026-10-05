@@ -9,12 +9,24 @@ interface Props {
 const { defaultIntent, locale = 'en' } = Astro.props;
 ---
 
-<!-- TODO: wire a submission endpoint (e.g. a Cloudflare Worker or Formspree) —
-     the brief doesn't specify one, so this posts nowhere yet. The two submit
-     buttons share the form but carry different `intent` values so a future
-     backend/analytics setup can tell general enquiries from GDC pilot
-     requests apart, per the brief's "tracked separately" requirement. -->
-<form class="contact-form" method="POST" action="#">
+<form
+  class="contact-form"
+  method="POST"
+  action="/api/contact"
+  data-sending-label={t(locale, 'formSending')}
+  data-success-message={t(locale, 'formSentOk')}
+  data-error-message={t(locale, 'formSentError')}
+>
+  <input type="hidden" name="locale" value={locale} />
+
+  {/* Honeypot: hidden off-screen (not display:none, which some bots skip),
+     never seen or filled by a real visitor. Anything submitted in it marks
+     the request as a bot — see src/worker.ts. */}
+  <div class="contact-form__hp" aria-hidden="true">
+    <label for="website">Website</label>
+    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+  </div>
+
   <div class="contact-form__row">
     <label for="name">{t(locale, 'formName')}</label>
     <input type="text" id="name" name="name" required autocomplete="name" />
@@ -53,7 +65,71 @@ const { defaultIntent, locale = 'en' } = Astro.props;
   <div class="contact-form__actions">
     <button type="submit" class="btn btn-primary">{t(locale, 'formSend')}</button>
   </div>
+
+  <p class="contact-form__status" role="status" aria-live="polite"></p>
 </form>
+
+<script>
+  // This site builds to fully static HTML (no SSR adapter), so Astro.url
+  // can never see the live request's query string — a server-rendered
+  // "?sent=1 -> show a banner" only works with per-request rendering,
+  // which this site doesn't have. Both the on-submit banner (JS-enhanced
+  // path) and this on-load check (the plain-HTML form's redirect target,
+  // for whenever JS loads after that redirect lands) are handled here
+  // instead, client-side. A visitor with no JS at all still gets a
+  // working submission via the form's own action/method, handled
+  // server-side in src/worker.ts — they just land back on a blank form
+  // with no banner, which is the honest limit of a static site with no
+  // JS, not a broken submission.
+  document.querySelectorAll<HTMLFormElement>('.contact-form').forEach((form) => {
+    const status = form.querySelector<HTMLElement>('.contact-form__status');
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (!status || !button) return;
+
+    const sendLabel = button.textContent ?? '';
+    const sendingLabel = form.dataset.sendingLabel ?? sendLabel;
+    const successMessage = form.dataset.successMessage ?? '';
+    const errorMessage = form.dataset.errorMessage ?? '';
+
+    const params = new URLSearchParams(location.search);
+    if (params.has('sent') || params.has('error')) {
+      const ok = params.has('sent');
+      status.textContent = ok ? successMessage : errorMessage;
+      status.classList.add(ok ? 'contact-form__status--ok' : 'contact-form__status--error');
+      params.delete('sent');
+      params.delete('error');
+      const query = params.toString();
+      history.replaceState(null, '', location.pathname + (query ? `?${query}` : ''));
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      button.disabled = true;
+      button.textContent = sendingLabel;
+      status.textContent = '';
+      status.classList.remove('contact-form__status--ok', 'contact-form__status--error');
+
+      let ok = false;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+        const data = (await res.json().catch(() => ({ ok: false }))) as { ok?: boolean };
+        ok = res.ok && data.ok === true;
+      } catch {
+        ok = false;
+      }
+
+      status.textContent = ok ? successMessage : errorMessage;
+      status.classList.add(ok ? 'contact-form__status--ok' : 'contact-form__status--error');
+      button.disabled = false;
+      button.textContent = sendLabel;
+      if (ok) form.reset();
+    });
+  });
+</script>
 
 <style>
   .contact-form {
@@ -100,5 +176,27 @@ const { defaultIntent, locale = 'en' } = Astro.props;
     flex-wrap: wrap;
     gap: 1rem;
     margin-top: 0.5rem;
+  }
+
+  .contact-form__hp {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .contact-form__status {
+    min-height: 1.5em;
+    font-size: var(--step--1);
+  }
+
+  .contact-form__status--ok {
+    color: var(--aquamarine);
+  }
+
+  .contact-form__status--error {
+    color: #f08080;
   }
 </style>
