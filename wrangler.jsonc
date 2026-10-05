@@ -7,5 +7,10 @@
     "directory": "./dist",
     "binding": "ASSETS",
     "not_found_handling": "404-page"
-  }
+  },
+  "send_email": [
+    {
+      "name": "EMAIL"
+    }
+  ]
 }

@@ -1,10 +1,12 @@
 // Serves the static site for every route except /api/contact, which this
 // handles directly: validates the submission, emails it to contact@c9ine.com
-// via Resend, and responds either as JSON (the JS-enhanced form) or a
-// redirect with a status query param (the plain-HTML fallback for no-JS).
+// via Cloudflare's own Email Service (the `EMAIL` send_email binding below —
+// no third-party API, nothing to sign up for beyond Cloudflare itself), and
+// responds either as JSON (the JS-enhanced form) or a redirect with a status
+// query param (the plain-HTML fallback for no-JS).
 export interface Env {
   ASSETS: Fetcher;
-  RESEND_API_KEY: string;
+  EMAIL: SendEmail;
 }
 
 const CONTACT_PATH = '/api/contact';
@@ -77,27 +79,15 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
   ].filter((line): line is string => line !== null);
 
   try {
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${env.RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: FROM_EMAIL,
-        to: [TO_EMAIL],
-        reply_to: email,
-        subject: `New contact form submission from ${name}`,
-        text: bodyLines.join('\n'),
-      }),
+    await env.EMAIL.send({
+      from: FROM_EMAIL,
+      to: TO_EMAIL,
+      replyTo: email,
+      subject: `New contact form submission from ${name}`,
+      text: bodyLines.join('\n'),
     });
-
-    if (!res.ok) {
-      console.error('Resend API error', res.status, await res.text());
-      return respond(wantsJson, origin, locale, false, 502);
-    }
   } catch (err) {
-    console.error('Resend request failed', err);
+    console.error('Email Service send failed', err);
     return respond(wantsJson, origin, locale, false, 502);
   }
 
