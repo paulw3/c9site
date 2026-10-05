@@ -73,7 +73,7 @@ export const ui = {
     menuAria: 'افتح القائمة',
     footerPartner: 'شريك Google Cloud المفضّل',
     footerRights: 'جميع الحقوق محفوظة.',
-    footerAddress1: 'صحابة تسعة (Cloud 9)',
+    footerAddress1: 'سحابة تسعة (Cloud 9)',
     footerAddress2: '٧٥٨٦ طريق الملك فهد، الرحمانية',
     footerAddress3: 'الرياض ١٢٣٤١، المملكة العربية السعودية',
     talkToUs: 'تواصل معنا',
