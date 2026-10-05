@@ -17,6 +17,30 @@ const TO_EMAIL = 'contact@c9ine.com';
 // live on that subdomain too.
 const FROM_EMAIL = 'C-9INE Website <contact@notify.c9ine.com>';
 
+// The previous WordPress site (c9ine.com) has been live for ~2 years and
+// has indexed pages/posts with no equivalent URL on the new site. Rather
+// than let those hard-404 on cutover (losing whatever search ranking and
+// backlinks they've accumulated), 301 them to the closest relevant page.
+const LEGACY_REDIRECTS: Record<string, string> = {
+  '/asaas-getting-started': '/resources/asaas-getting-started',
+  '/asaas-support': '/resources/asaas',
+  '/products-and-services': '/resources',
+  '/clients': '/about',
+  '/articles': '/resources',
+  '/quality-assurance-automation-and-ai-revolutionizing-software-development-with-c-9ine-solution':
+    '/resources',
+  '/digital-transformation-the-journey-from-chaos-to-c-9ine': '/resources',
+  '/c-9ines-multi-cloud-accelerator-for-startup-supremacy': '/resources',
+  '/why-chaos-engineering-no-longer-optional': '/resources',
+  '/the-startup-graveyard': '/resources',
+  '/introducing-c-9ine-devops-accelerator': '/resources',
+  '/startups-ditch-the-chaos': '/resources',
+  '/navigating-the-chaos-maze': '/resources',
+  '/how-c-9ine-codegen-engine-supercharges-your-startup': '/resources',
+  '/why-technical-smarts-are-your-startups-secret-weapon': '/resources',
+  '/branching-out-right': '/resources',
+};
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
@@ -26,6 +50,12 @@ export default {
         return new Response('Method not allowed', { status: 405 });
       }
       return handleContact(request, env);
+    }
+
+    const normalizedPath = url.pathname.length > 1 ? url.pathname.replace(/\/+$/, '') : url.pathname;
+    const legacyTarget = LEGACY_REDIRECTS[normalizedPath];
+    if (legacyTarget) {
+      return Response.redirect(new URL(legacyTarget, url.origin).toString(), 301);
     }
 
     return env.ASSETS.fetch(request);
