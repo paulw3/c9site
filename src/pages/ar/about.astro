@@ -35,6 +35,31 @@ const leadership = [
   },
 ];
 
+const events = [
+  {
+    eyebrow: 'C-9INE × Google Cloud',
+    heading: 'نهندس السحابة السيادية، معا.',
+    body: 'C-9INE مع فريق Google في Money20/20 السعودية. علاقة نمت بشكل كبير منذ 2023، مبنية على هندسة GDC وGoogle Cloud عميقة، لا مجرد إدراج كشريك عادي.',
+    image: '/press/money2020.jpg',
+    alt: 'فريق C-9INE مع Google Cloud في Money20/20 السعودية',
+    imageWidth: 1447,
+    imageHeight: 1087,
+  },
+  {
+    eyebrow: 'قمة Google Cloud · المملكة العربية السعودية',
+    heading: 'خمس جوائز GenAI، وبطلان من فريقنا.',
+    body: 'فازت C-9INE بخمس جوائز GenAI في قمة Google Cloud بالمملكة العربية السعودية، وحصل كل من الرئيس التنفيذي لأمن المعلومات Paul Wagenaar والرئيس التقني Irfan Ansari على لقب بطل شراكة GenAI من Google Cloud بشكل فردي.',
+    image: '/press/google-summit.jpg',
+    alt: 'فريق C-9INE على المسرح في قمة Google Cloud بالمملكة العربية السعودية، كشريك معتمد في GenAI',
+    imageWidth: 1600,
+    imageHeight: 1200,
+    gallery: [
+      { src: '/press/google-summit-paul.jpg', alt: 'تكريم Paul Wagenaar بلقب بطل شراكة GenAI من Google Cloud', caption: 'Paul Wagenaar' },
+      { src: '/press/google-summit-irfan.jpg', alt: 'تكريم Irfan Ansari بلقب بطل شراكة GenAI من Google Cloud', caption: 'Irfan Ansari' },
+    ],
+  },
+];
+
 const teamRoleGroups = [
   {
     label: 'الانتقال والتحول السحابي',
@@ -70,21 +95,35 @@ const teamRoleGroups = [
   </PageIntro>
 
   <section class="section-tight">
-    <div class="container press-feature">
-      <img
-        src="/press/money2020.jpg"
-        alt="فريق C-9INE مع Google Cloud في Money20/20 السعودية"
-        class="press-feature__image"
-        width="1447"
-        height="1087"
-      />
-      <div class="press-feature__body">
-        <p class="eyebrow">C-9INE × Google Cloud</p>
-        <h2>نهندس السحابة السيادية، معا.</h2>
-        <p class="lede">
-          C-9INE مع فريق Google في Money20/20 السعودية. علاقة نمت بشكل كبير منذ 2023، مبنية على
-          هندسة GDC وGoogle Cloud عميقة، لا مجرد إدراج كشريك عادي.
-        </p>
+    <div class="container">
+      <h2>الفعاليات</h2>
+      <div class="events-list">
+        {events.map((event) => (
+          <div class="press-feature">
+            <img
+              src={event.image}
+              alt={event.alt}
+              class="press-feature__image"
+              width={event.imageWidth}
+              height={event.imageHeight}
+            />
+            <div class="press-feature__body">
+              <p class="eyebrow">{event.eyebrow}</p>
+              <h3>{event.heading}</h3>
+              <p class="lede">{event.body}</p>
+            </div>
+            {event.gallery && (
+              <div class="press-feature__gallery">
+                {event.gallery.map((item) => (
+                  <figure>
+                    <img src={item.src} alt={item.alt} width="400" height="300" />
+                    <figcaption>{item.caption}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -134,6 +173,13 @@ const teamRoleGroups = [
 </BaseLayout>
 
 <style>
+  .events-list {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3rem, 6vw, 4.5rem);
+  }
+
   .press-feature {
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
@@ -147,13 +193,40 @@ const teamRoleGroups = [
     border-radius: var(--border-radius);
   }
 
-  .press-feature__body h2 {
+  .press-feature__body h3 {
     margin-top: 0.75rem;
     font-size: var(--step-3);
   }
 
   .press-feature__body .lede {
     margin-top: 1rem;
+  }
+
+  .press-feature__gallery {
+    grid-column: 1 / -1;
+    margin-top: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    max-width: 34rem;
+  }
+
+  .press-feature__gallery figure {
+    margin: 0;
+  }
+
+  .press-feature__gallery img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+  }
+
+  .press-feature__gallery figcaption {
+    margin-top: 0.5rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+    text-align: center;
   }
 
   @media (max-width: 800px) {

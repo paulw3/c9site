@@ -31,6 +31,31 @@ const leadership = [
   },
 ];
 
+const events = [
+  {
+    eyebrow: 'C-9INE × Google Cloud',
+    heading: 'Engineering sovereign cloud, together.',
+    body: "C-9INE with the Google team at Money20/20 KSA. A relationship that's grown significantly since 2023, built on deep GDC and Google Cloud engineering rather than a standard partner listing.",
+    image: '/press/money2020.jpg',
+    alt: 'The C-9INE team with Google Cloud at Money20/20 KSA',
+    imageWidth: 1447,
+    imageHeight: 1087,
+  },
+  {
+    eyebrow: 'Google Cloud Summit · Saudi Arabia',
+    heading: 'Five GenAI awards, two Partner Champions.',
+    body: 'C-9INE won five GenAI awards at the Google Cloud Summit in Saudi Arabia, with CISO Paul Wagenaar and CTO Irfan Ansari individually recognised as Google Cloud Gen AI Partner Champions.',
+    image: '/press/google-summit.jpg',
+    alt: 'The C-9INE team on stage at Google Cloud Summit Saudi Arabia, recognised as a Gen AI partner',
+    imageWidth: 1600,
+    imageHeight: 1200,
+    gallery: [
+      { src: '/press/google-summit-paul.jpg', alt: 'Paul Wagenaar recognised as a Google Cloud Gen AI Partner Champion', caption: 'Paul Wagenaar' },
+      { src: '/press/google-summit-irfan.jpg', alt: 'Irfan Ansari recognised as a Google Cloud Gen AI Partner Champion', caption: 'Irfan Ansari' },
+    ],
+  },
+];
+
 // Draft role titles aligned to the two pillars — not confirmed against the
 // actual team roster, needs a final pass from Ali/Tahir before publishing.
 const teamRoleGroups = [
@@ -68,22 +93,35 @@ const teamRoleGroups = [
   </PageIntro>
 
   <section class="section-tight">
-    <div class="container press-feature">
-      <img
-        src="/press/money2020.jpg"
-        alt="The C-9INE team with Google Cloud at Money20/20 KSA"
-        class="press-feature__image"
-        width="1447"
-        height="1087"
-      />
-      <div class="press-feature__body">
-        <p class="eyebrow">C-9INE × Google Cloud</p>
-        <h2>Engineering sovereign cloud, together.</h2>
-        <p class="lede">
-          C-9INE with the Google team at Money20/20 KSA. A relationship that's grown
-          significantly since 2023, built on deep GDC and Google Cloud engineering rather than a
-          standard partner listing.
-        </p>
+    <div class="container">
+      <h2>Events</h2>
+      <div class="events-list">
+        {events.map((event) => (
+          <div class="press-feature">
+            <img
+              src={event.image}
+              alt={event.alt}
+              class="press-feature__image"
+              width={event.imageWidth}
+              height={event.imageHeight}
+            />
+            <div class="press-feature__body">
+              <p class="eyebrow">{event.eyebrow}</p>
+              <h3>{event.heading}</h3>
+              <p class="lede">{event.body}</p>
+            </div>
+            {event.gallery && (
+              <div class="press-feature__gallery">
+                {event.gallery.map((item) => (
+                  <figure>
+                    <img src={item.src} alt={item.alt} width="400" height="300" />
+                    <figcaption>{item.caption}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -135,6 +173,13 @@ const teamRoleGroups = [
 </BaseLayout>
 
 <style>
+  .events-list {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3rem, 6vw, 4.5rem);
+  }
+
   .press-feature {
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
@@ -148,13 +193,40 @@ const teamRoleGroups = [
     border-radius: var(--border-radius);
   }
 
-  .press-feature__body h2 {
+  .press-feature__body h3 {
     margin-top: 0.75rem;
     font-size: var(--step-3);
   }
 
   .press-feature__body .lede {
     margin-top: 1rem;
+  }
+
+  .press-feature__gallery {
+    grid-column: 1 / -1;
+    margin-top: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    max-width: 34rem;
+  }
+
+  .press-feature__gallery figure {
+    margin: 0;
+  }
+
+  .press-feature__gallery img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+  }
+
+  .press-feature__gallery figcaption {
+    margin-top: 0.5rem;
+    color: var(--silver);
+    font-size: var(--step--1);
+    text-align: center;
   }
 
   @media (max-width: 800px) {
