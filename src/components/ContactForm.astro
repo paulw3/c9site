@@ -2,7 +2,7 @@
 import { t, type Locale } from '../i18n/ui';
 
 interface Props {
-  defaultIntent?: 'gdc-pilot';
+  defaultIntent?: 'gdc-pilot' | 'assurance';
   locale?: Locale;
 }
 
@@ -50,7 +50,7 @@ const TURNSTILE_SITE_KEY = '0x4AAAAAAFOhBrVVDwX-YJPd';
   <div class="contact-form__row">
     <label for="looking-for">{t(locale, 'formLookingFor')}</label>
     <select id="looking-for" name="looking-for">
-      <option value="cloud-migration" selected={defaultIntent !== 'gdc-pilot'}>
+      <option value="cloud-migration" selected={defaultIntent === undefined}>
         {t(locale, 'formLookingForMigration')}
       </option>
       <option value="gdc-pilot" selected={defaultIntent === 'gdc-pilot'}>
@@ -58,6 +58,9 @@ const TURNSTILE_SITE_KEY = '0x4AAAAAAFOhBrVVDwX-YJPd';
       </option>
       <option value="anfaa">{t(locale, 'formLookingForAnfaa')}</option>
       <option value="asaas">{t(locale, 'formLookingForAsaas')}</option>
+      <option value="assurance" selected={defaultIntent === 'assurance'}>
+        {t(locale, 'formLookingForAssurance')}
+      </option>
       <option value="not-sure">{t(locale, 'formLookingForUnsure')}</option>
     </select>
   </div>

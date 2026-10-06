@@ -5,7 +5,8 @@ import ContactForm from '../components/ContactForm.astro';
 import CTAButton from '../components/CTAButton.astro';
 
 const params = Astro.url.searchParams;
-const defaultIntent = params.get('intent') === 'gdc-pilot' ? 'gdc-pilot' : undefined;
+const intentParam = params.get('intent');
+const defaultIntent = intentParam === 'gdc-pilot' || intentParam === 'assurance' ? intentParam : undefined;
 ---
 
 <BaseLayout

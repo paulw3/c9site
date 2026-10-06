@@ -10,7 +10,8 @@ import { t } from '../../i18n/ui';
 // styles exactly; only the copy and internal hrefs differ.
 
 const params = Astro.url.searchParams;
-const defaultIntent = params.get('intent') === 'gdc-pilot' ? 'gdc-pilot' : undefined;
+const intentParam = params.get('intent');
+const defaultIntent = intentParam === 'gdc-pilot' || intentParam === 'assurance' ? intentParam : undefined;
 ---
 
 <BaseLayout

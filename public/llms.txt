@@ -1,11 +1,12 @@
 # C-9INE
 
-> C-9INE is a Google Cloud specialist delivering cloud migration, Google Distributed Cloud deployment, and two cloud operations products (ANFAA, aSaaS) to banks, government institutions and critical-infrastructure organisations in Saudi Arabia and beyond.
+> C-9INE is a Google Cloud specialist partner delivering cloud migration, Google Distributed Cloud deployment, independent production readiness assurance, and two cloud operations products (ANFAA, aSaaS) to banks, government institutions and critical-infrastructure organisations in Saudi Arabia and beyond.
 
 ## Services
 
 - [Cloud Migration & Transformation](https://c9ine.com/cloud-migration): End-to-end cloud migration — design the target state, engineer it in governed waves, and run it after go-live.
 - [Google Distributed Cloud](https://c9ine.com/google-distributed-cloud): Turning Google Distributed Cloud into a secure, production-ready operating platform for regulated and sovereign environments.
+- [GCP Production Readiness & Assurance](https://c9ine.com/production-readiness): Independent review and verification of Google Cloud environments for banks, fintechs, regulators and regulated organisations, with clear findings and remediation actions before production activation.
 
 ## Products
 

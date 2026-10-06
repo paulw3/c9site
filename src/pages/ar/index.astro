@@ -52,6 +52,19 @@ import CTAButton from '../../components/CTAButton.astro';
             <rect x="12.5" y="17" width="5" height="3.5" rx="1" />
           </svg>
         </PillarCard>
+        <PillarCard
+          title="جاهزية الإنتاج والتدقيق المستقل لـ GCP"
+          description="مراجعة وتدقيق مستقلان لبيئات Google Cloud، بتقييم البنية والأمان والامتثال والمرونة والتشغيل قبل تفعيل بيئة الإنتاج."
+          href="/ar/production-readiness"
+          linkText="عرض جاهزية الإنتاج والتدقيق"
+        >
+          <svg slot="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <rect x="5" y="3" width="11" height="15" rx="1.5" />
+            <path d="M8,8 L13,8 M8,11.5 L12,11.5" />
+            <circle cx="17" cy="17" r="3.2" />
+            <path d="M19.3,19.3 L21.5,21.5" />
+          </svg>
+        </PillarCard>
       </div>
     </div>
   </section>
@@ -79,7 +92,7 @@ import CTAButton from '../../components/CTAButton.astro';
 <style>
   .pillars {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: clamp(1.5rem, 3vw, 2rem);
   }
 
@@ -119,7 +132,13 @@ import CTAButton from '../../components/CTAButton.astro';
     color: var(--gunmetal);
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 900px) {
+    .pillars {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 600px) {
     .pillars {
       grid-template-columns: 1fr;
     }

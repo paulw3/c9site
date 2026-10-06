@@ -11,6 +11,7 @@ const prefix = locale === 'ar' ? '/ar' : '';
 const navItems = [
   { href: `${prefix}/cloud-migration`, label: t(locale, 'navCloudMigration') },
   { href: `${prefix}/google-distributed-cloud`, label: t(locale, 'navGdc') },
+  { href: `${prefix}/production-readiness`, label: t(locale, 'navAssurance') },
   { href: `${prefix}/resources`, label: t(locale, 'navResources') },
   { href: `${prefix}/about`, label: t(locale, 'navAbout') },
   { href: `${prefix}/contact`, label: t(locale, 'navContact') },
@@ -204,6 +205,7 @@ const WHATSAPP_NUMBER = '966504957148';
     font-size: var(--step--1);
     text-decoration: none;
     color: var(--silver);
+    white-space: nowrap;
     border-bottom: 1px solid transparent;
     padding-block: 0.3rem;
     transition: color 160ms ease, border-color 160ms ease;
