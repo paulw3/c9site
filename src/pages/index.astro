@@ -19,6 +19,7 @@ import CTAButton from '../components/CTAButton.astro';
 
   <section class="section">
     <div class="container">
+      <p class="eyebrow pillars-eyebrow">Services</p>
       <div class="pillars">
         <PillarCard
           title="Cloud Migration & Transformation"
@@ -88,6 +89,10 @@ import CTAButton from '../components/CTAButton.astro';
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .pillars-eyebrow {
+    margin-bottom: clamp(0.75rem, 2vw, 1.25rem);
   }
 
   .methodology-eyebrow {
