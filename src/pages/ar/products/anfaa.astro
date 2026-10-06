@@ -4,7 +4,7 @@ import PageIntro from '../../../components/PageIntro.astro';
 import ProductBrief from '../../../components/ProductBrief.astro';
 
 // Draft machine translation, for visual/design review only — pending a
-// native-speaker pass. Mirrors src/pages/resources/anfaa.astro structure
+// native-speaker pass. Mirrors src/pages/products/anfaa.astro structure
 // and styles exactly; only the copy and internal hrefs differ.
 
 const anfaaSchema = {
@@ -16,7 +16,7 @@ const anfaaSchema = {
     'تحوّل أنفع إنفاق السحابة إلى انضباط تشغيلي مستمر لإدارة التكاليف: رؤية، وملكية، وتحسين، وتحكم، عبر كل مزوّد تعمل معه.',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Cloud',
-  url: 'https://c9ine.com/ar/resources/anfaa',
+  url: 'https://c9ine.com/ar/products/anfaa',
   inLanguage: 'ar',
   provider: { '@id': 'https://c9ine.com/#organization' },
 };
@@ -28,7 +28,7 @@ const anfaaSchema = {
   locale="ar"
   schema={anfaaSchema}
 >
-  <PageIntro eyebrow="الموارد · نبذة المنتج">
+  <PageIntro eyebrow="نبذة المنتج">
     <h1>يجب أن تخلق السحابة قيمة، لا أن تكون مجرد تكلفة.</h1>
     <p class="gdc-subhead">أنفق بذكاء. حافظ على السيطرة.</p>
     <p class="lede">
@@ -36,7 +36,7 @@ const anfaaSchema = {
       وتحسين، وتحكم، عبر كل مزوّد سحابي تعمل معه، وليس فقط Google Cloud.
     </p>
     <div class="page-intro__cta">
-      <a class="intro-link" href="/resources/anfaa-booklet.pdf">
+      <a class="intro-link" href="/products/anfaa-booklet.pdf">
         <span class="intro-link__icon">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <rect x="6" y="3" width="12" height="18" rx="1.5"></rect>
@@ -99,7 +99,7 @@ const anfaaSchema = {
       { label: 'يتكامل مع أدوات فريقك', desc: 'تصدير إلى PDF وCSV، وتنبيهات عبر Slack والبريد الإلكتروني، وتكامل عبر webhooks مع أدواتك الحالية.', icon: ['M9,15 L15,9', 'M7,17 C5,15 5,12 7,10 L9,8', 'M17,7 C19,9 19,12 17,14 L15,16'] },
     ]}
     outcomesClose="افهمها. حسّنها. احكمها."
-    pdfHref="/resources/anfaa-booklet.pdf"
+    pdfHref="/products/anfaa-booklet.pdf"
     pdfLabel="نبذة منتج أنفع"
     contactIntent="anfaa"
   >

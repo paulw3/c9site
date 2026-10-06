@@ -4,7 +4,7 @@ import PageIntro from '../../../components/PageIntro.astro';
 import ProductBrief from '../../../components/ProductBrief.astro';
 
 // Draft machine translation, for visual/design review only — pending a
-// native-speaker pass. Mirrors src/pages/resources/asaas.astro structure
+// native-speaker pass. Mirrors src/pages/products/asaas.astro structure
 // and styles exactly; only the copy and internal hrefs differ.
 
 const asaasSchema = {
@@ -16,7 +16,7 @@ const asaasSchema = {
     'تلتقط أساس معايير السحابة المعتمدة مرة واحدة، ثم تحوّلها إلى تجربة تسليم موجهة وقابلة للتكرار للفرق التي تحتاج إلى السحابة دون أن تصبح متخصصة فيها.',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Cloud',
-  url: 'https://c9ine.com/ar/resources/asaas',
+  url: 'https://c9ine.com/ar/products/asaas',
   inLanguage: 'ar',
   provider: { '@id': 'https://c9ine.com/#organization' },
   offers: {
@@ -32,7 +32,7 @@ const asaasSchema = {
   locale="ar"
   schema={asaasSchema}
 >
-  <PageIntro eyebrow="الموارد · نبذة المنتج">
+  <PageIntro eyebrow="نبذة المنتج">
     <h1>لا ينبغي لأساسيات السحابة أن تبطئ الابتكار.</h1>
     <p class="gdc-subhead">ابن أسرع. وحّد مرة واحدة. توسّع بثقة.</p>
     <p class="lede">
@@ -43,7 +43,7 @@ const asaasSchema = {
       في البنية التحتية، ويسلّمها إليك مع خطة عمل GitOps جاهزة مسبقا.
     </p>
     <div class="page-intro__cta">
-      <a class="intro-link" href="/resources/asaas-booklet.pdf">
+      <a class="intro-link" href="/products/asaas-booklet.pdf">
         <span class="intro-link__icon">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <rect x="6" y="3" width="12" height="18" rx="1.5"></rect>
@@ -56,7 +56,7 @@ const asaasSchema = {
         </span>
       </a>
 
-      <a class="intro-link" href="/ar/resources/asaas-getting-started">
+      <a class="intro-link" href="/ar/products/asaas-getting-started">
         <span class="intro-link__icon">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <circle cx="12" cy="12" r="9"></circle>
@@ -131,7 +131,7 @@ const asaasSchema = {
       { label: 'اعتماد أقل على المهارات النادرة', desc: 'يمكن لفرق أوسع استخدام السحابة بثقة.', icon: ['M12,4.5 A3.5,3.5 0 1 1 12,11.5 A3.5,3.5 0 1 1 12,4.5 Z', 'M5,20 C5,15.5 8,13 12,13 C16,13 19,15.5 19,20'] },
     ]}
     outcomesClose="ابن مرة. أعد الاستخدام في كل مكان."
-    pdfHref="/resources/asaas-booklet.pdf"
+    pdfHref="/products/asaas-booklet.pdf"
     pdfLabel="نبذة منتج أساس"
     contactIntent="asaas"
   />

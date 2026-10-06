@@ -10,8 +10,8 @@
 
 ## Products
 
-- [ANFAA](https://c9ine.com/resources/anfaa): Multi-cloud FinOps platform — continuous visibility, ownership, optimisation and control of cloud spend across every provider.
-- [aSaaS](https://c9ine.com/resources/asaas): Intelligent Cloud Operator — AI-guided, repeatable Google Cloud landing zone deployment, available on Google Cloud Marketplace.
+- [ANFAA](https://c9ine.com/products/anfaa): Multi-cloud FinOps platform — continuous visibility, ownership, optimisation and control of cloud spend across every provider.
+- [aSaaS](https://c9ine.com/products/asaas): Intelligent Cloud Operator — AI-guided, repeatable Google Cloud landing zone deployment, available on Google Cloud Marketplace.
 
 ## Company
 

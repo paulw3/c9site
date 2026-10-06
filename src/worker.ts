@@ -23,24 +23,37 @@ const FROM_EMAIL = 'C-9INE Website <contact@notify.c9ine.com>';
 // has indexed pages/posts with no equivalent URL on the new site. Rather
 // than let those hard-404 on cutover (losing whatever search ranking and
 // backlinks they've accumulated), 301 them to the closest relevant page.
+//
+// Also covers this site's own "Resources" section, renamed to "Products"
+// (page files, nav, everything) after it had already been live — so its
+// old /resources* URLs get the same treatment as the WordPress ones,
+// rather than hard-404ing anyone with an old link or bookmark.
 const LEGACY_REDIRECTS: Record<string, string> = {
-  '/asaas-getting-started': '/resources/asaas-getting-started',
-  '/asaas-support': '/resources/asaas',
-  '/products-and-services': '/resources',
+  '/asaas-getting-started': '/products/asaas-getting-started',
+  '/asaas-support': '/products/asaas',
+  '/products-and-services': '/products',
   '/clients': '/about',
-  '/articles': '/resources',
+  '/articles': '/products',
   '/quality-assurance-automation-and-ai-revolutionizing-software-development-with-c-9ine-solution':
-    '/resources',
-  '/digital-transformation-the-journey-from-chaos-to-c-9ine': '/resources',
-  '/c-9ines-multi-cloud-accelerator-for-startup-supremacy': '/resources',
-  '/why-chaos-engineering-no-longer-optional': '/resources',
-  '/the-startup-graveyard': '/resources',
-  '/introducing-c-9ine-devops-accelerator': '/resources',
-  '/startups-ditch-the-chaos': '/resources',
-  '/navigating-the-chaos-maze': '/resources',
-  '/how-c-9ine-codegen-engine-supercharges-your-startup': '/resources',
-  '/why-technical-smarts-are-your-startups-secret-weapon': '/resources',
-  '/branching-out-right': '/resources',
+    '/products',
+  '/digital-transformation-the-journey-from-chaos-to-c-9ine': '/products',
+  '/c-9ines-multi-cloud-accelerator-for-startup-supremacy': '/products',
+  '/why-chaos-engineering-no-longer-optional': '/products',
+  '/the-startup-graveyard': '/products',
+  '/introducing-c-9ine-devops-accelerator': '/products',
+  '/startups-ditch-the-chaos': '/products',
+  '/navigating-the-chaos-maze': '/products',
+  '/how-c-9ine-codegen-engine-supercharges-your-startup': '/products',
+  '/why-technical-smarts-are-your-startups-secret-weapon': '/products',
+  '/branching-out-right': '/products',
+  '/resources': '/products',
+  '/resources/anfaa': '/products/anfaa',
+  '/resources/asaas': '/products/asaas',
+  '/resources/asaas-getting-started': '/products/asaas-getting-started',
+  '/ar/resources': '/ar/products',
+  '/ar/resources/anfaa': '/ar/products/anfaa',
+  '/ar/resources/asaas': '/ar/products/asaas',
+  '/ar/resources/asaas-getting-started': '/ar/products/asaas-getting-started',
 };
 
 export default {
