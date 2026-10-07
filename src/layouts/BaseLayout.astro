@@ -10,11 +10,12 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description: string;
+  ogDescription?: string;
   locale?: Locale;
   schema?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, description, locale = 'en', schema } = Astro.props;
+const { title, description, ogDescription, locale = 'en', schema } = Astro.props;
 const dir = locale === 'ar' ? 'rtl' : 'ltr';
 
 // Sitewide Organization node — every page carries it so crawlers and AI
@@ -47,7 +48,7 @@ const organizationSchema = {
       document.documentElement.classList.add('js');
     </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <SEO title={title} description={description} locale={locale} />
+    <SEO title={title} description={description} ogDescription={ogDescription} locale={locale} />
     <SchemaOrg data={schema ? [organizationSchema, ...(Array.isArray(schema) ? schema : [schema])] : organizationSchema} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />

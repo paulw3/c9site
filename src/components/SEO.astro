@@ -4,10 +4,15 @@ import type { Locale } from '../i18n/ui';
 interface Props {
   title: string;
   description: string;
+  // The social-share blurb, when it should read differently from the SEO
+  // meta description (e.g. the homepage's social card wants the short
+  // headline, while search engines still get the longer, keyword-bearing
+  // description). Falls back to `description` when not given.
+  ogDescription?: string;
   locale?: Locale;
 }
 
-const { title, description, locale = 'en' } = Astro.props;
+const { title, description, ogDescription = description, locale = 'en' } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const pageTitle = title === 'C-9INE' ? title : `${title} · C-9INE`;
 
@@ -32,7 +37,7 @@ const arPath = locale === 'ar' ? pathname : otherLocalePath;
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="C-9INE" />
 <meta property="og:title" content={pageTitle} />
-<meta property="og:description" content={description} />
+<meta property="og:description" content={ogDescription} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:image" content={new URL('/og/default.png', Astro.site)} />
 <meta property="og:image:width" content="1200" />
@@ -40,5 +45,5 @@ const arPath = locale === 'ar' ? pathname : otherLocalePath;
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={pageTitle} />
-<meta name="twitter:description" content={description} />
+<meta name="twitter:description" content={ogDescription} />
 <meta name="twitter:image" content={new URL('/og/default.png', Astro.site)} />
