@@ -68,6 +68,7 @@ const { href, variant = 'primary', external = false, icon, iconSrc, terminalHove
     label.setAttribute('dir', 'ltr');
     label.classList.add('btn__label--terminal');
     label.textContent = COMMAND;
+    label.appendChild(makeCursor(true)); // match render()'s output exactly — the trailing cursor also takes up width
     btn.style.minWidth = `${btn.getBoundingClientRect().width}px`;
     btn.style.height = `${restingHeight}px`;
 
