@@ -59,6 +59,13 @@ const organizationSchema = {
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700&display=swap"
     />
+    <!-- IBM Plex Mono: used only for the CTA button terminal-hover
+         command text (CTAButton.astro) — a deliberate, narrow exception
+         to the single-typeface brand guide for that one effect. -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap"
+    />
     {locale === 'ar' && (
       <!-- Barlow has no Arabic glyphs. IBM Plex Sans Arabic pairs with it as
            the closest match in tone (a clean, technical, geometric grotesque)

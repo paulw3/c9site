@@ -249,6 +249,31 @@ button {
   stroke-linejoin: round;
 }
 
+/* Hover micro-interaction for CTAs opted into data-terminal-hover="true"
+   (driven from CTAButton.astro's script): on hover/focus the label swaps
+   to a monospace "terminal" look, types a shell command, then reverts.
+   The command is always LTR (unicode-bidi: isolate) even inside an RTL
+   (Arabic) button, since shell commands aren't themselves translated. */
+.btn__label--terminal {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85em;
+  font-weight: 500;
+  unicode-bidi: isolate;
+}
+
+.btn__cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-inline-start: 1px;
+  background: currentColor;
+  vertical-align: text-bottom;
+}
+
+.btn__cursor--off {
+  background: transparent;
+}
+
 /* ---------------------------------------------------------------
    Section texture — used sparingly (never on every section in a row)
    to break up otherwise-flat gunmetal panels on the interior pages.

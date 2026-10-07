@@ -217,7 +217,7 @@ const accentVar = accent === 'sky' ? 'var(--vivid-sky-blue)' : 'var(--aquamarine
         </p>
         <div class="brief-cta__actions">
           <CTAButton href={pdfHref} variant="outline">{`${t(locale, 'downloadLabel')} ${pdfLabel} (PDF)`}</CTAButton>
-          <CTAButton href={locale === 'ar' ? `/ar/contact?intent=${contactIntent}` : `/contact?intent=${contactIntent}`}>{t(locale, 'talkAboutIt')}</CTAButton>
+          <CTAButton href={locale === 'ar' ? `/ar/contact?intent=${contactIntent}` : `/contact?intent=${contactIntent}`} terminalHover>{t(locale, 'talkAboutIt')}</CTAButton>
         </div>
       </div>
     </div>

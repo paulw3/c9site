@@ -5,17 +5,123 @@ interface Props {
   external?: boolean;
   icon?: string[];
   iconSrc?: string;
+  terminalHover?: boolean;
 }
 
-const { href, variant = 'primary', external = false, icon, iconSrc } = Astro.props;
+const { href, variant = 'primary', external = false, icon, iconSrc, terminalHover = false } = Astro.props;
 ---
 
-<a href={href} class={`btn btn-${variant}`} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>
+<a
+  href={href}
+  class={`btn btn-${variant}`}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+  data-terminal-hover={terminalHover ? 'true' : undefined}
+>
   {icon && (
     <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       {icon.map((d) => <path d={d} />)}
     </svg>
   )}
   {iconSrc && <img class="btn__icon" src={iconSrc} alt="" />}
-  <slot />
+  <span class="btn__label"><slot /></span>
 </a>
+
+<script>
+  // Hover micro-interaction for CTAs opted in via data-terminal-hover="true":
+  // the label flashes a cursor, "types" a shell command, holds, backspaces it
+  // away, then reverts to the real label. The real label stays in the DOM at
+  // all times (this only runs client-side on top of it), and the command is
+  // the same fixed phrase everywhere rather than per-button text.
+  const COMMAND = './talk-to-us.sh';
+  const FLASH_MS = 200;
+  const FLASH_FINAL_MS = 140;
+  const TYPE_MS = 38;
+  const HOLD_MS = 700;
+  const BACKSPACE_MS = 26;
+  const END_FLASH_MS = 150;
+
+  function wait(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  function makeCursor(on: boolean): HTMLSpanElement {
+    const span = document.createElement('span');
+    span.className = 'btn__cursor' + (on ? '' : ' btn__cursor--off');
+    return span;
+  }
+
+  async function animate(btn: HTMLElement, label: HTMLElement, originalText: string, originalDir: string | null) {
+    btn.dataset.animating = 'true';
+
+    // Lock the button to the width of its widest state (the full command)
+    // for the duration of the animation. Without this, the button's own
+    // edge shifts under a stationary mouse pointer as the label grows and
+    // shrinks, which can cross back under the cursor and fire a genuine
+    // new mouseenter mid-sequence, restarting the whole thing.
+    label.setAttribute('dir', 'ltr');
+    label.classList.add('btn__label--terminal');
+    label.textContent = COMMAND;
+    btn.style.minWidth = `${btn.getBoundingClientRect().width}px`;
+
+    function render(text: string, cursorOn: boolean) {
+      label.setAttribute('dir', 'ltr');
+      label.classList.add('btn__label--terminal');
+      label.textContent = text;
+      label.appendChild(makeCursor(cursorOn));
+    }
+
+    for (let i = 0; i < 3; i++) {
+      render('', true);
+      await wait(FLASH_MS);
+      render('', false);
+      await wait(FLASH_MS);
+    }
+    render('', true);
+    await wait(FLASH_FINAL_MS);
+
+    for (let c = 0; c <= COMMAND.length; c++) {
+      render(COMMAND.slice(0, c), true);
+      await wait(TYPE_MS);
+    }
+
+    await wait(HOLD_MS);
+
+    for (let c = COMMAND.length - 1; c >= 0; c--) {
+      render(COMMAND.slice(0, c), true);
+      await wait(BACKSPACE_MS);
+    }
+
+    render('', true);
+    await wait(END_FLASH_MS);
+    render('', false);
+    await wait(END_FLASH_MS);
+    render('', true);
+    await wait(END_FLASH_MS);
+
+    label.classList.remove('btn__label--terminal');
+    if (originalDir) label.setAttribute('dir', originalDir);
+    else label.removeAttribute('dir');
+    label.textContent = originalText;
+    btn.style.minWidth = '';
+    btn.dataset.animating = 'false';
+  }
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduceMotion) {
+    document.querySelectorAll<HTMLElement>('.btn[data-terminal-hover="true"]').forEach((btn) => {
+      const label = btn.querySelector<HTMLElement>('.btn__label');
+      if (!label) return;
+      const originalText = label.textContent ?? '';
+      const originalDir = label.getAttribute('dir');
+
+      const trigger = () => {
+        if (btn.dataset.animating === 'true') return;
+        animate(btn, label, originalText, originalDir);
+      };
+      btn.addEventListener('mouseenter', trigger);
+      btn.addEventListener('focus', trigger);
+    });
+  }
+</script>
