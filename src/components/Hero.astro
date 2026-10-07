@@ -1,5 +1,6 @@
 ---
 import { t, type Locale } from '../i18n/ui';
+import CTAButton from './CTAButton.astro';
 
 interface Props {
   heading: string;
@@ -31,7 +32,7 @@ const [eyebrow] = trustText.split(', ');
     <h1 class="hero__reveal hero__reveal--1">{heading}</h1>
     <p class="hero__sub hero__reveal hero__reveal--2">{subheading}</p>
     <div class="hero__row hero__reveal hero__reveal--3">
-      <a class="btn btn-primary" href={locale === 'ar' ? '/ar/contact' : '/contact'}>{t(locale, 'talkToUs')}</a>
+      <CTAButton href={locale === 'ar' ? '/ar/contact' : '/contact'} terminalHover>{t(locale, 'talkToUs')}</CTAButton>
       <p class="hero__trust">{t(locale, 'heroTrustLine')}</p>
     </div>
   </div>
