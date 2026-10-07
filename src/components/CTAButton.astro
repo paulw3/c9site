@@ -54,15 +54,22 @@ const { href, variant = 'primary', external = false, icon, iconSrc, terminalHove
   async function animate(btn: HTMLElement, label: HTMLElement, originalText: string, originalDir: string | null) {
     btn.dataset.animating = 'true';
 
-    // Lock the button to the width of its widest state (the full command)
-    // for the duration of the animation. Without this, the button's own
-    // edge shifts under a stationary mouse pointer as the label grows and
-    // shrinks, which can cross back under the cursor and fire a genuine
-    // new mouseenter mid-sequence, restarting the whole thing.
+    // Lock height to the resting state (measured before any change) and
+    // width to the widest state (the full command, measured after
+    // switching font/content) for the whole animation. Without the width
+    // lock, the button's edge shifts under a stationary mouse pointer as
+    // the label grows and shrinks, which can cross back under the cursor
+    // and fire a genuine new mouseenter mid-sequence, restarting the
+    // whole thing. Without the height lock, swapping to the monospace
+    // font changes the line-box metrics and grows the button vertically,
+    // shifting whatever sits next to it (e.g. the hero's trust line).
+    const restingHeight = btn.getBoundingClientRect().height;
+
     label.setAttribute('dir', 'ltr');
     label.classList.add('btn__label--terminal');
     label.textContent = COMMAND;
     btn.style.minWidth = `${btn.getBoundingClientRect().width}px`;
+    btn.style.height = `${restingHeight}px`;
 
     function render(text: string, cursorOn: boolean) {
       label.setAttribute('dir', 'ltr');
@@ -104,6 +111,7 @@ const { href, variant = 'primary', external = false, icon, iconSrc, terminalHove
     else label.removeAttribute('dir');
     label.textContent = originalText;
     btn.style.minWidth = '';
+    btn.style.height = '';
     btn.dataset.animating = 'false';
   }
 
