@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Wagenaar;Paul;;;
+FN:Paul Wagenaar
+ORG:C-9INE
+TITLE:CISO
+TEL;TYPE=CELL,VOICE:+971559958262
+EMAIL;TYPE=WORK,INTERNET:pwagenaar@c9ine.com
+URL:https://www.c9ine.com/
+END:VCARD
