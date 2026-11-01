@@ -11,10 +11,9 @@ interface Props {
 
 const { name, role, bio, photo, locale = 'en' } = Astro.props;
 
-// Placeholder avatar for anyone without a photo yet (Irfan, Tahir) — initials
-// on the same aquamarine-on-gunmetal treatment used for icons elsewhere on
-// the site, so the row still reads as a deliberate placeholder, not a
-// missing image.
+// Placeholder avatar for anyone without a photo yet — initials on the same
+// aquamarine-on-gunmetal treatment used for icons elsewhere on the site,
+// so the row still reads as a deliberate placeholder, not a missing image.
 const initials = name
   .split(' ')
   .map((part) => part[0])
