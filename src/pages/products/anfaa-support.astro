@@ -1,16 +1,23 @@
 ---
-// Unlike asaas-support.astro, there's no archived version of this page to
-// restore — the Wayback Machine has no record of /anfaa-support/ ever
-// existing on the old site. So this intentionally stays generic (contact
-// details only) rather than inventing ANFAA-specific common issues or
-// portal links that haven't been confirmed. Flagged to Paul/Ali to fill
-// in product-specific troubleshooting once that content exists.
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import CTAButton from '../../components/CTAButton.astro';
 
+const resources = [
+  { label: 'Getting Started Guide', href: '/products/anfaa-getting-started', desc: 'Step-by-step walkthrough from requesting access to connecting your first cloud provider.' },
+  { label: 'Product Brief', href: '/products/anfaa', desc: 'Full product overview, hosting options, and features.' },
+];
+
+const commonIssues = [
+  { issue: 'Forgot your administrator password', solution: 'There is no self-service password reset in this release. Contact your platform administrator, or email contact@c9ine.com.' },
+  { issue: 'Custom domain certificate not validating', solution: 'If you use a CDN or proxy in front of your custom domain, set it to DNS-only mode so automated certificate validation can reach the origin directly.' },
+  { issue: 'Data source won’t connect', solution: 'Verify your billing export is configured and delivered to object storage, and that the federated trust relationship is set up correctly for that provider.' },
+  { issue: 'No cost data after connecting a provider', solution: 'Dashboard charts populate after the first ingestion, which can take time depending on your export schedule. Confirm the provider shows as "Connected" under Settings → Data Sources.' },
+];
+
 const requestChecklist = [
-  'The cloud provider(s) and account(s) involved',
+  'Your organisation name and platform URL',
+  'The cloud provider involved (AWS, GCP, or Azure)',
   'Any error messages you saw, or a screenshot',
   'A brief description of what you were trying to do and what happened instead',
 ];
@@ -18,7 +25,7 @@ const requestChecklist = [
 
 <BaseLayout
   title="ANFAA (أنفع) Support"
-  description="Support for ANFAA (أنفع): email support, what to include in a support request, and other support channels."
+  description="Support for ANFAA (أنفع): email support, common issues and fixes, what to include in a support request, and other support channels."
 >
   <PageIntro eyebrow="ANFAA (أنفع) · Support">
     <h1>ANFAA (أنفع) Support</h1>
@@ -46,6 +53,55 @@ const requestChecklist = [
 
   <section class="section-tight section-raised">
     <div class="container narrow">
+      <p class="eyebrow">Before You Contact Us</p>
+      <h2>Many common questions can be resolved using the resources below</h2>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Resource</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {resources.map((r) => (
+              <tr>
+                <td><a href={r.href}>{r.label}</a></td>
+                <td>{r.desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">Common Issues</p>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Issue</th>
+              <th>What to do</th>
+            </tr>
+          </thead>
+          <tbody>
+            {commonIssues.map((item) => (
+              <tr>
+                <td><strong>{item.issue}</strong></td>
+                <td>{item.solution}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
       <p class="eyebrow">What to Include in Your Support Request</p>
       <h2>To help us resolve your issue quickly, please include:</h2>
       <ul class="check-list">
@@ -61,8 +117,8 @@ const requestChecklist = [
       <p class="eyebrow">Additional Support Channels</p>
       <div class="support-cards">
         <div class="support-card">
-          <h3>Product Brief</h3>
-          <p>Read the <a href="/products/anfaa">ANFAA (أنفع) product page</a> or download the <a href="/products/anfaa-booklet.pdf">full product brief</a>.</p>
+          <h3>Self-Deployed Instances</h3>
+          <p>If you're running a self-deployed instance, contact us for deployment and infrastructure support.</p>
         </div>
         <div class="support-card">
           <h3>General Inquiries</h3>
@@ -147,6 +203,52 @@ const requestChecklist = [
     height: 6px;
     margin-top: 0.6rem;
     background: var(--aquamarine);
+  }
+
+  .table-wrap {
+    margin-top: 2rem;
+    overflow-x: auto;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--step--1);
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 0.85rem 1.1rem;
+    text-align: left;
+    vertical-align: top;
+    max-width: none;
+  }
+
+  .data-table thead th {
+    background: var(--gunmetal-raised);
+    color: var(--aquamarine);
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .data-table tbody tr {
+    border-top: 1px solid var(--gunmetal-line);
+  }
+
+  .data-table tbody td {
+    color: var(--silver);
+  }
+
+  .data-table tbody td strong {
+    color: var(--white-smoke);
+  }
+
+  .data-table a {
+    color: var(--aquamarine);
   }
 
   @media (max-width: 560px) {

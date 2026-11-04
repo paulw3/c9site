@@ -2,21 +2,33 @@
 // Draft machine translation, for visual/design review only — pending a
 // native-speaker pass. Mirrors src/pages/products/anfaa-support.astro
 // structure and styles exactly; only the copy and internal hrefs differ.
-// See that file's comment re: no archived content exists for this page.
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageIntro from '../../../components/PageIntro.astro';
 import CTAButton from '../../../components/CTAButton.astro';
 
+const resources = [
+  { label: 'دليل البدء', href: '/ar/products/anfaa-getting-started', desc: 'شرح تفصيلي خطوة بخطوة من طلب الوصول وحتى ربط أول مزود سحابة.' },
+  { label: 'موجز المنتج', href: '/ar/products/anfaa', desc: 'نظرة شاملة على المنتج وخيارات الاستضافة والميزات.' },
+];
+
+const commonIssues = [
+  { issue: 'نسيان كلمة مرور المسؤول', solution: 'لا توجد إعادة تعيين ذاتية لكلمة المرور في هذا الإصدار. تواصل مع مسؤول المنصة لديك، أو راسلنا على contact@c9ine.com.' },
+  { issue: 'عدم التحقق من شهادة النطاق المخصص', solution: 'إذا كنت تستخدم CDN أو وكيل (proxy) أمام نطاقك المخصص، اضبطه على وضع DNS فقط حتى يتمكن التحقق الآلي من الشهادات من الوصول إلى الخادم مباشرة.' },
+  { issue: 'تعذّر ربط مصدر البيانات', solution: 'تأكد من إعداد تصدير الفوترة الخاص بك وتسليمه إلى تخزين الكائنات، ومن إعداد علاقة الثقة الاتحادية بشكل صحيح لهذا المزود.' },
+  { issue: 'عدم ظهور بيانات التكلفة بعد ربط مزود', solution: 'تظهر الرسوم البيانية بعد أول استيعاب، وقد يستغرق ذلك وقتًا حسب جدول التصدير لديك. تأكد من ظهور المزود كـ"متصل" ضمن الإعدادات ← مصادر البيانات.' },
+];
+
 const requestChecklist = [
-  'مزود (مزودو) السحابة والحسابات المعنية',
-  'أي رسائل خطأ شاهدتها، أو لقطة شاشة',
+  'اسم مؤسستك ورابط منصتك',
+  'مزود السحابة المعني (AWS، GCP، أو Azure)',
+  'أي رسائل خطأ ظهرت، أو لقطة شاشة',
   'وصف موجز لما كنت تحاول القيام به وما حدث بدلاً من ذلك',
 ];
 ---
 
 <BaseLayout
   title="دعم أنفع"
-  description="الدعم الخاص بأنفع: الدعم عبر البريد الإلكتروني، ما يجب تضمينه في طلب الدعم، وقنوات الدعم الأخرى."
+  description="الدعم الخاص بأنفع: الدعم عبر البريد الإلكتروني، المشكلات الشائعة وحلولها، ما يجب تضمينه في طلب الدعم، وقنوات الدعم الأخرى."
   locale="ar"
 >
   <PageIntro eyebrow="أنفع · الدعم">
@@ -45,6 +57,55 @@ const requestChecklist = [
 
   <section class="section-tight section-raised">
     <div class="container narrow">
+      <p class="eyebrow">قبل التواصل معنا</p>
+      <h2>يمكن حل العديد من الأسئلة الشائعة باستخدام الموارد أدناه</h2>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>المورد</th>
+              <th>الوصف</th>
+            </tr>
+          </thead>
+          <tbody>
+            {resources.map((r) => (
+              <tr>
+                <td><a href={r.href}>{r.label}</a></td>
+                <td>{r.desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">المشكلات الشائعة</p>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>المشكلة</th>
+              <th>ماذا تفعل</th>
+            </tr>
+          </thead>
+          <tbody>
+            {commonIssues.map((item) => (
+              <tr>
+                <td><strong>{item.issue}</strong></td>
+                <td>{item.solution}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
       <p class="eyebrow">ما يجب تضمينه في طلب الدعم</p>
       <h2>لمساعدتنا في حل مشكلتك بسرعة، يرجى تضمين:</h2>
       <ul class="check-list">
@@ -60,8 +121,8 @@ const requestChecklist = [
       <p class="eyebrow">قنوات دعم إضافية</p>
       <div class="support-cards">
         <div class="support-card">
-          <h3>موجز المنتج</h3>
-          <p>اطّلع على <a href="/ar/products/anfaa">صفحة منتج أنفع</a> أو حمّل <a href="/products/anfaa-booklet.pdf">الموجز الكامل للمنتج</a>.</p>
+          <h3>النسخ المنشورة ذاتيًا</h3>
+          <p>إذا كنت تشغّل نسخة منشورة ذاتيًا، تواصل معنا للحصول على دعم النشر والبنية التحتية.</p>
         </div>
         <div class="support-card">
           <h3>استفسارات عامة</h3>
@@ -146,6 +207,52 @@ const requestChecklist = [
     height: 6px;
     margin-top: 0.6rem;
     background: var(--aquamarine);
+  }
+
+  .table-wrap {
+    margin-top: 2rem;
+    overflow-x: auto;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--step--1);
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 0.85rem 1.1rem;
+    text-align: right;
+    vertical-align: top;
+    max-width: none;
+  }
+
+  .data-table thead th {
+    background: var(--gunmetal-raised);
+    color: var(--aquamarine);
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .data-table tbody tr {
+    border-top: 1px solid var(--gunmetal-line);
+  }
+
+  .data-table tbody td {
+    color: var(--silver);
+  }
+
+  .data-table tbody td strong {
+    color: var(--white-smoke);
+  }
+
+  .data-table a {
+    color: var(--aquamarine);
   }
 
   @media (max-width: 560px) {

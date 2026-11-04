@@ -1,0 +1,430 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import CTAButton from '../../components/CTAButton.astro';
+
+const provisioningDetails = [
+  "Your organisation's platform URL (e.g. https://anfaa-<org>.c9ine.com)",
+  'Initial administrator credentials',
+  'Instructions for configuring your custom domain, if desired',
+];
+
+const domainSteps = [
+  'Contact contact@c9ine.com with your domain name.',
+  'C-9INE configures the platform to serve your domain over HTTPS with automated certificate management.',
+  'Create a CNAME record in your DNS provider pointing your domain to the target provided by C-9INE.',
+  'If you use a CDN or proxy, set it to DNS-only mode so automated certificate validation can reach the origin directly.',
+];
+
+const firstLoginSteps = [
+  'Open your platform URL in a browser.',
+  'Log in with the administrator credentials provided by C-9INE.',
+  'Change your administrator password immediately after first login.',
+];
+
+const connectProviderSteps = [
+  'Go to Settings → Data Sources → Add Data Source.',
+  'Choose your cloud provider.',
+  'Enter a tenant name (a unique identifier for this cloud account).',
+  'Fill in the provider connection details requested by the onboarding wizard.',
+  'Click Connect Provider. The platform validates access using short-lived credentials.',
+  'After connection, the platform creates a default cost allocation pool and begins ingesting billing data.',
+];
+
+const connectProviderNeeds = [
+  'A billing export configured for your cloud account, delivered to object storage.',
+  'A federated trust relationship allowing the platform to read the export using short-lived credentials.',
+];
+
+const verification = [
+  { check: 'HTTPS active', how: 'Browser shows a secure connection on your domain' },
+  { check: 'Administrator login', how: 'Can log in at your platform URL' },
+  { check: 'Data source connected', how: 'A provider appears in Settings → Data Sources' },
+  { check: 'Cost data visible', how: 'Dashboard charts populate after first ingestion' },
+];
+
+const nextSteps = [
+  'Configure budgets and alerts.',
+  'Set up automatic resource schedules to reduce idle spend.',
+  'Review commitment coverage and purchase recommendations.',
+  'Enable integrations for budget alerts (messaging and ticketing systems).',
+];
+
+const selfDeploySteps = [
+  'Contact contact@c9ine.com to request self-deployment details.',
+  'C-9INE will discuss your target infrastructure (virtual machine, containers, or Kubernetes) and provide the appropriate deployment artifacts and instructions.',
+  'Follow the instructions provided by C-9INE for provisioning infrastructure, deploying the platform, and connecting cloud providers.',
+];
+---
+
+<BaseLayout
+  title="Getting Started with ANFAA (أنفع)"
+  description="ANFAA (أنفع) is offered primarily as a hosted service, with self-deployed options also available. This guide covers requesting access, first login, and connecting your first cloud provider."
+>
+  <PageIntro eyebrow="ANFAA (أنفع) · Getting Started">
+    <h1>Getting started with ANFAA (أنفع)</h1>
+    <p class="lede">
+      ANFAA (أنفع) ingests billing data from your cloud providers, normalises it to a standard
+      cost schema, and surfaces spend analysis, recommendations, budgets, forecasts,
+      showback/chargeback, carbon footprint, and idle-resource detection. It's offered primarily
+      as a hosted service (SaaS); self-deployed options are also available on request.
+    </p>
+    <div class="page-intro__cta">
+      <CTAButton href="/products/anfaa" variant="outline">Back to the ANFAA (أنفع) brief</CTAButton>
+      <CTAButton href="/contact?intent=anfaa" terminalHover>Talk to us about ANFAA (أنفع)</CTAButton>
+    </div>
+  </PageIntro>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">Two ways to run ANFAA (أنفع)</p>
+      <div class="support-cards">
+        <div class="support-card support-card--primary">
+          <h3>Hosted service (SaaS) — primary</h3>
+          <p>Provisioned and operated by C-9INE. You don't provision infrastructure or run deployment scripts. Covered step by step below.</p>
+        </div>
+        <div class="support-card">
+          <h3>Self-deployed</h3>
+          <p>Containerised or Kubernetes-based deployment on your own infrastructure. Artifacts aren't published publicly — contact us for details.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
+      <p class="eyebrow">Step 1</p>
+      <h2>Request access</h2>
+      <p class="lede">
+        Contact <a href="mailto:contact@c9ine.com">contact@c9ine.com</a> to request access to the
+        hosted ANFAA (أنفع) service. Provide your organisation name, preferred contact email, and
+        the cloud providers you intend to connect (AWS, GCP, Azure).
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">Step 2</p>
+      <h2>Receive provisioning details</h2>
+      <p class="lede">C-9INE provisions a dedicated tenant for your organisation and sends you:</p>
+      <ul class="check-list">
+        {provisioningDetails.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
+      <p class="eyebrow">Step 3 · Optional</p>
+      <h2>Configure your custom domain</h2>
+      <p class="lede">To use your own domain (e.g. anfaa.yourdomain.com) instead of the provisioned URL:</p>
+      <ul class="icon-list">
+        {domainSteps.map((item) => (
+          <li>
+            <svg class="icon-list__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+            <span set:html={item.replace(/contact@c9ine\.com/g, '<a href="mailto:contact@c9ine.com">contact@c9ine.com</a>')} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">Step 4</p>
+      <h2>First login</h2>
+      <ul class="icon-list">
+        {firstLoginSteps.map((item) => (
+          <li>
+            <svg class="icon-list__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="lede foundation-note">
+        If you forget your password, contact your platform administrator — there is no
+        self-service password reset in this release.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
+      <p class="eyebrow">Step 5</p>
+      <h2>Connect a cloud provider</h2>
+      <p class="lede">
+        Cost data comes from your cloud billing exports. The platform uses federated, short-lived
+        identity and never stores permanent cloud access keys.
+      </p>
+      <ol class="icon-list numbered-list">
+        {connectProviderSteps.map((item, i) => (
+          <li>
+            <span class="numbered-list__num mono-tag">{String(i + 1).padStart(2, '0')}</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ol>
+      <div class="substep">
+        <p class="eyebrow">You will need</p>
+        <ul class="check-list">
+          {connectProviderNeeds.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">Verification checklist</p>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Check</th>
+              <th>How to verify</th>
+            </tr>
+          </thead>
+          <tbody>
+            {verification.map((v) => (
+              <tr>
+                <td><strong>{v.check}</strong></td>
+                <td>{v.how}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
+      <p class="eyebrow">Next steps</p>
+      <ul class="check-list">
+        {nextSteps.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">Self-deployed — contact C-9INE</p>
+      <h2>Deploying ANFAA (أنفع) on your own infrastructure</h2>
+      <p class="lede">
+        Self-deployed options, including containerised and Kubernetes-based deployments on
+        customer-provisioned infrastructure, are also available. C-9INE does not publish
+        self-deployment scripts or artifacts publicly. To deploy ANFAA (أنفع) yourself:
+      </p>
+      <ol class="icon-list numbered-list">
+        {selfDeploySteps.map((item, i) => (
+          <li>
+            <span class="numbered-list__num mono-tag">{String(i + 1).padStart(2, '0')}</span>
+            <span set:html={item.replace(/contact@c9ine\.com/g, '<a href="mailto:contact@c9ine.com">contact@c9ine.com</a>')} />
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow support-block">
+      <p class="eyebrow">Support</p>
+      <h2>Need a hand?</h2>
+      <p class="lede">
+        Email <a href="mailto:contact@c9ine.com">contact@c9ine.com</a> for provisioning
+        assistance, deployment questions, or production issues, or see the
+        <a href="/products/anfaa-support">ANFAA (أنفع) support page</a> for common issues and fixes.
+      </p>
+      <div class="page-intro__cta">
+        <CTAButton href="/contact?intent=anfaa" terminalHover>Talk to us about ANFAA (أنفع)</CTAButton>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-intro__cta {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .container.narrow {
+    max-width: 46rem;
+  }
+
+  h2 {
+    margin-top: 0.75rem;
+  }
+
+  .check-list {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    color: var(--silver);
+    line-height: 1.5;
+    max-width: none;
+  }
+
+  .check-list li::before {
+    content: '';
+    flex: none;
+    width: 6px;
+    height: 6px;
+    margin-top: 0.6rem;
+    background: var(--aquamarine);
+  }
+
+  .icon-list {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .icon-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    color: var(--silver);
+    line-height: 1.5;
+  }
+
+  .icon-list__icon {
+    flex: none;
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: 0.19rem;
+    fill: none;
+    stroke: var(--aquamarine);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .icon-list a,
+  .check-list a {
+    color: var(--aquamarine);
+  }
+
+  .numbered-list__num {
+    flex: none;
+    color: var(--aquamarine);
+    margin-top: 0.1rem;
+  }
+
+  .table-wrap {
+    margin-top: 2rem;
+    overflow-x: auto;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--step--1);
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 0.85rem 1.1rem;
+    text-align: left;
+    vertical-align: top;
+    max-width: none;
+  }
+
+  .data-table thead th {
+    background: var(--gunmetal-raised);
+    color: var(--aquamarine);
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .data-table tbody tr {
+    border-top: 1px solid var(--gunmetal-line);
+  }
+
+  .data-table tbody td {
+    color: var(--silver);
+  }
+
+  .data-table tbody td strong {
+    color: var(--white-smoke);
+  }
+
+  .substep {
+    margin-top: 2rem;
+    padding-left: 1.15rem;
+    border-left: 2px solid var(--gunmetal-line);
+  }
+
+  .substep .eyebrow + ul {
+    margin-top: 0.75rem;
+  }
+
+  .foundation-note {
+    margin-top: 1.5rem;
+    color: var(--silver);
+    max-width: 60ch;
+  }
+
+  .support-block .lede {
+    margin-top: 1rem;
+  }
+
+  .support-block a {
+    color: var(--aquamarine);
+  }
+
+  .support-cards {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .support-card {
+    padding: 1.5rem;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+  }
+
+  .support-card--primary {
+    border-color: var(--aquamarine);
+  }
+
+  .support-card h3 {
+    font-size: var(--step-0);
+  }
+
+  .support-card p {
+    margin-top: 0.6rem;
+    color: var(--silver);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 560px) {
+    .support-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -44,6 +44,19 @@ const anfaaSchema = {
         </span>
       </a>
 
+      <a class="intro-link" href="/products/anfaa-getting-started">
+        <span class="intro-link__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M15,9 L13,13 L9,15 L11,11 Z"></path>
+          </svg>
+        </span>
+        <span class="intro-link__text">
+          <span class="intro-link__label">Getting started guide</span>
+          <span class="intro-link__desc">Hosted and self-deployed options, step by step.</span>
+        </span>
+      </a>
+
       <a class="intro-link" href="/contact?intent=anfaa">
         <span class="intro-link__icon">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -71,6 +84,26 @@ const anfaaSchema = {
       </a>
     </div>
   </PageIntro>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">Two ways to run ANFAA (أنفع)</p>
+      <div class="hosting-cards">
+        <div class="hosting-card hosting-card--primary">
+          <h3>Hosted service (SaaS) — primary</h3>
+          <p>Provisioned and operated by C-9INE. You don't provision infrastructure or run deployment scripts — just request access and connect your cloud providers.</p>
+        </div>
+        <div class="hosting-card">
+          <h3>Self-deployed</h3>
+          <p>Containerised or Kubernetes-based deployment on your own infrastructure, for teams that need full control. Artifacts aren't published publicly — contact us for details.</p>
+        </div>
+      </div>
+      <p class="lede hosting-note">
+        See the <a href="/products/anfaa-getting-started">getting started guide</a> for the
+        step-by-step hosted-service walkthrough.
+      </p>
+    </div>
+  </section>
 
   <ProductBrief
     accent="aquamarine"
@@ -212,6 +245,52 @@ const anfaaSchema = {
 </BaseLayout>
 
 <style>
+  .container.narrow {
+    max-width: 46rem;
+  }
+
+  .hosting-cards {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .hosting-card {
+    padding: 1.5rem;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+  }
+
+  .hosting-card--primary {
+    border-color: var(--aquamarine);
+  }
+
+  .hosting-card h3 {
+    font-size: var(--step-0);
+  }
+
+  .hosting-card p {
+    margin-top: 0.6rem;
+    color: var(--silver);
+    line-height: 1.5;
+  }
+
+  .hosting-note {
+    margin-top: 1.5rem;
+    color: var(--silver);
+  }
+
+  .hosting-note a {
+    color: var(--aquamarine);
+  }
+
+  @media (max-width: 560px) {
+    .hosting-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .gdc-subhead {
     margin-top: 1rem;
     font-family: var(--font-display);

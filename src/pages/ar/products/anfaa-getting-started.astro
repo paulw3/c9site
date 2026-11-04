@@ -1,0 +1,433 @@
+---
+// Draft machine translation, for visual/design review only — pending a
+// native-speaker pass. Mirrors src/pages/products/anfaa-getting-started.astro
+// structure and styles exactly; only the copy and internal hrefs differ.
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageIntro from '../../../components/PageIntro.astro';
+import CTAButton from '../../../components/CTAButton.astro';
+
+const provisioningDetails = [
+  'رابط منصة مؤسستك (مثال: https://anfaa-<org>.c9ine.com)',
+  'بيانات اعتماد المسؤول الأولية',
+  'تعليمات إعداد نطاقك المخصص، إن رغبت',
+];
+
+const domainSteps = [
+  'تواصل مع contact@c9ine.com مع اسم نطاقك.',
+  'تقوم C-9INE بإعداد المنصة لخدمة نطاقك عبر HTTPS مع إدارة آلية للشهادات.',
+  'أنشئ سجل CNAME لدى مزود DNS الخاص بك يشير إلى الوجهة التي توفرها C-9INE.',
+  'إذا كنت تستخدم CDN أو وكيل (proxy)، اضبطه على وضع DNS فقط حتى يتمكن التحقق الآلي من الشهادات من الوصول إلى الخادم مباشرة.',
+];
+
+const firstLoginSteps = [
+  'افتح رابط منصتك في المتصفح.',
+  'سجّل الدخول باستخدام بيانات اعتماد المسؤول التي قدمتها C-9INE.',
+  'غيّر كلمة مرور المسؤول فورًا بعد أول تسجيل دخول.',
+];
+
+const connectProviderSteps = [
+  'اذهب إلى الإعدادات ← مصادر البيانات ← إضافة مصدر بيانات.',
+  'اختر مزود السحابة الخاص بك.',
+  'أدخل اسم مستأجر (معرّف فريد لهذا الحساب السحابي).',
+  'أكمل تفاصيل الاتصال بالمزود التي يطلبها معالج الإعداد.',
+  'انقر على "ربط المزود". تتحقق المنصة من الوصول باستخدام بيانات اعتماد قصيرة الأجل.',
+  'بعد الربط، تنشئ المنصة مجموعة تخصيص تكلفة افتراضية وتبدأ في استيعاب بيانات الفوترة.',
+];
+
+const connectProviderNeeds = [
+  'تصدير فوترة مُعد لحسابك السحابي، يُسلَّم إلى تخزين الكائنات (object storage).',
+  'علاقة ثقة اتحادية (federated) تسمح للمنصة بقراءة التصدير باستخدام بيانات اعتماد قصيرة الأجل.',
+];
+
+const verification = [
+  { check: 'HTTPS مفعّل', how: 'يظهر المتصفح اتصالاً آمنًا على نطاقك' },
+  { check: 'تسجيل دخول المسؤول', how: 'يمكنك تسجيل الدخول على رابط منصتك' },
+  { check: 'مصدر البيانات متصل', how: 'يظهر المزود في الإعدادات ← مصادر البيانات' },
+  { check: 'بيانات التكلفة ظاهرة', how: 'تظهر الرسوم البيانية في لوحة التحكم بعد أول استيعاب' },
+];
+
+const nextSteps = [
+  'إعداد الميزانيات والتنبيهات.',
+  'إعداد جداول موارد تلقائية لتقليل الإنفاق الخامل.',
+  'مراجعة تغطية الالتزامات وتوصيات الشراء.',
+  'تفعيل التكاملات لتنبيهات الميزانية (أنظمة المراسلة والتذاكر).',
+];
+
+const selfDeploySteps = [
+  'تواصل مع contact@c9ine.com لطلب تفاصيل النشر الذاتي.',
+  'ستناقش C-9INE البنية التحتية المستهدفة لديك (جهاز افتراضي، حاويات، أو Kubernetes) وتوفر عناصر ومستندات النشر المناسبة.',
+  'اتبع التعليمات التي تقدمها C-9INE لتجهيز البنية التحتية، ونشر المنصة، وربط مزودي السحابة.',
+];
+---
+
+<BaseLayout
+  title="البدء مع أنفع"
+  description="تُقدَّم أنفع بشكل أساسي كخدمة مستضافة، مع توفر خيارات النشر الذاتي أيضًا. يغطي هذا الدليل طلب الوصول، وأول تسجيل دخول، وربط أول مزود سحابة."
+  locale="ar"
+>
+  <PageIntro eyebrow="أنفع · البدء">
+    <h1>البدء مع أنفع</h1>
+    <p class="lede">
+      تستوعب أنفع بيانات الفوترة من مزودي السحابة لديك، وتوحّدها وفق مخطط تكلفة موحّد، وتعرض
+      تحليل الإنفاق، والتوصيات، والميزانيات، والتوقعات، وإعادة الفوترة الداخلية، والبصمة
+      الكربونية، واكتشاف الموارد الخاملة. تُقدَّم بشكل أساسي كخدمة مستضافة (SaaS)؛ وتتوفر خيارات
+      النشر الذاتي عند الطلب.
+    </p>
+    <div class="page-intro__cta">
+      <CTAButton href="/ar/products/anfaa" variant="outline">العودة إلى موجز أنفع</CTAButton>
+      <CTAButton href="/ar/contact?intent=anfaa" terminalHover>تواصل معنا حول أنفع</CTAButton>
+    </div>
+  </PageIntro>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">طريقتان لتشغيل أنفع</p>
+      <div class="support-cards">
+        <div class="support-card support-card--primary">
+          <h3>خدمة مستضافة (SaaS) — أساسية</h3>
+          <p>توفرها وتشغّلها C-9INE. لا تحتاج لتجهيز بنية تحتية أو تشغيل نصوص نشر. مشروحة خطوة بخطوة أدناه.</p>
+        </div>
+        <div class="support-card">
+          <h3>النشر الذاتي</h3>
+          <p>نشر عبر حاويات أو Kubernetes على بنيتك التحتية الخاصة. العناصر غير منشورة علنًا — تواصل معنا للتفاصيل.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
+      <p class="eyebrow">الخطوة 1</p>
+      <h2>طلب الوصول</h2>
+      <p class="lede">
+        تواصل مع <a href="mailto:contact@c9ine.com">contact@c9ine.com</a> لطلب الوصول إلى خدمة
+        أنفع المستضافة. قدّم اسم مؤسستك، والبريد الإلكتروني المفضل للتواصل، ومزودي السحابة الذين
+        تنوي ربطهم (AWS، GCP، Azure).
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">الخطوة 2</p>
+      <h2>استلام تفاصيل التهيئة</h2>
+      <p class="lede">تقوم C-9INE بتجهيز مستأجر مخصص لمؤسستك وترسل لك:</p>
+      <ul class="check-list">
+        {provisioningDetails.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
+      <p class="eyebrow">الخطوة 3 · اختياري</p>
+      <h2>إعداد نطاقك المخصص</h2>
+      <p class="lede">لاستخدام نطاقك الخاص (مثل anfaa.yourdomain.com) بدلاً من الرابط المُجهّز:</p>
+      <ul class="icon-list">
+        {domainSteps.map((item) => (
+          <li>
+            <svg class="icon-list__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+            <span set:html={item.replace(/contact@c9ine\.com/g, '<a href="mailto:contact@c9ine.com">contact@c9ine.com</a>')} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">الخطوة 4</p>
+      <h2>أول تسجيل دخول</h2>
+      <ul class="icon-list">
+        {firstLoginSteps.map((item) => (
+          <li>
+            <svg class="icon-list__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="lede foundation-note">
+        إذا نسيت كلمة المرور، تواصل مع مسؤول المنصة لديك — لا توجد إعادة تعيين ذاتية لكلمة
+        المرور في هذا الإصدار.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
+      <p class="eyebrow">الخطوة 5</p>
+      <h2>ربط مزود سحابة</h2>
+      <p class="lede">
+        تأتي بيانات التكلفة من تصديرات فوترة السحابة الخاصة بك. تستخدم المنصة هوية اتحادية
+        قصيرة الأجل ولا تخزّن مفاتيح وصول سحابية دائمة.
+      </p>
+      <ol class="icon-list numbered-list">
+        {connectProviderSteps.map((item, i) => (
+          <li>
+            <span class="numbered-list__num mono-tag">{String(i + 1).padStart(2, '0')}</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ol>
+      <div class="substep">
+        <p class="eyebrow">ستحتاج إلى</p>
+        <ul class="check-list">
+          {connectProviderNeeds.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">قائمة التحقق</p>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>التحقق</th>
+              <th>كيفية التأكد</th>
+            </tr>
+          </thead>
+          <tbody>
+            {verification.map((v) => (
+              <tr>
+                <td><strong>{v.check}</strong></td>
+                <td>{v.how}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
+      <p class="eyebrow">الخطوات التالية</p>
+      <ul class="check-list">
+        {nextSteps.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">النشر الذاتي — تواصل مع C-9INE</p>
+      <h2>نشر أنفع على بنيتك التحتية الخاصة</h2>
+      <p class="lede">
+        تتوفر أيضًا خيارات النشر الذاتي، بما في ذلك النشر عبر الحاويات أو Kubernetes على بنية
+        تحتية يوفرها العميل. لا تنشر C-9INE نصوص أو عناصر النشر الذاتي علنًا. لنشر أنفع بنفسك:
+      </p>
+      <ol class="icon-list numbered-list">
+        {selfDeploySteps.map((item, i) => (
+          <li>
+            <span class="numbered-list__num mono-tag">{String(i + 1).padStart(2, '0')}</span>
+            <span set:html={item.replace(/contact@c9ine\.com/g, '<a href="mailto:contact@c9ine.com">contact@c9ine.com</a>')} />
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow support-block">
+      <p class="eyebrow">الدعم</p>
+      <h2>بحاجة إلى مساعدة؟</h2>
+      <p class="lede">
+        راسلنا على <a href="mailto:contact@c9ine.com">contact@c9ine.com</a> للمساعدة في التجهيز،
+        أو أسئلة النشر، أو المشكلات في الإنتاج، أو اطّلع على
+        <a href="/ar/products/anfaa-support">صفحة دعم أنفع</a> للمشكلات الشائعة وحلولها.
+      </p>
+      <div class="page-intro__cta">
+        <CTAButton href="/ar/contact?intent=anfaa" terminalHover>تواصل معنا حول أنفع</CTAButton>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-intro__cta {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .container.narrow {
+    max-width: 46rem;
+  }
+
+  h2 {
+    margin-top: 0.75rem;
+  }
+
+  .check-list {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    color: var(--silver);
+    line-height: 1.5;
+    max-width: none;
+  }
+
+  .check-list li::before {
+    content: '';
+    flex: none;
+    width: 6px;
+    height: 6px;
+    margin-top: 0.6rem;
+    background: var(--aquamarine);
+  }
+
+  .icon-list {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .icon-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    color: var(--silver);
+    line-height: 1.5;
+  }
+
+  .icon-list__icon {
+    flex: none;
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: 0.19rem;
+    fill: none;
+    stroke: var(--aquamarine);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .icon-list a,
+  .check-list a {
+    color: var(--aquamarine);
+  }
+
+  .numbered-list__num {
+    flex: none;
+    color: var(--aquamarine);
+    margin-top: 0.1rem;
+  }
+
+  .table-wrap {
+    margin-top: 2rem;
+    overflow-x: auto;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--step--1);
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 0.85rem 1.1rem;
+    text-align: right;
+    vertical-align: top;
+    max-width: none;
+  }
+
+  .data-table thead th {
+    background: var(--gunmetal-raised);
+    color: var(--aquamarine);
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .data-table tbody tr {
+    border-top: 1px solid var(--gunmetal-line);
+  }
+
+  .data-table tbody td {
+    color: var(--silver);
+  }
+
+  .data-table tbody td strong {
+    color: var(--white-smoke);
+  }
+
+  .substep {
+    margin-top: 2rem;
+    padding-right: 1.15rem;
+    border-right: 2px solid var(--gunmetal-line);
+  }
+
+  .substep .eyebrow + ul {
+    margin-top: 0.75rem;
+  }
+
+  .foundation-note {
+    margin-top: 1.5rem;
+    color: var(--silver);
+    max-width: 60ch;
+  }
+
+  .support-block .lede {
+    margin-top: 1rem;
+  }
+
+  .support-block a {
+    color: var(--aquamarine);
+  }
+
+  .support-cards {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .support-card {
+    padding: 1.5rem;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+  }
+
+  .support-card--primary {
+    border-color: var(--aquamarine);
+  }
+
+  .support-card h3 {
+    font-size: var(--step-0);
+  }
+
+  .support-card p {
+    margin-top: 0.6rem;
+    color: var(--silver);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 560px) {
+    .support-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
