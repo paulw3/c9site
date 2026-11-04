@@ -119,7 +119,7 @@ const anfaaSchema = {
     featuresHeading="ميزات قوية لإدارة مالية سحابية حديثة"
     featuresLede="توفر أنفع كل ما يحتاجه فريقك لإتقان الإدارة المالية السحابية، بأتمتة ذكية ورؤى لحظية."
     features={[
-      { label: 'رؤية موحدة للتكلفة', desc: 'احصل على رؤية لحظية لإنفاقك السحابي عبر AWS وAzure وGoogle Cloud، مع تخصيص تكلفة دقيق وذكاء في وضع العلامات.', icon: ['M2,12 C5,6 19,6 22,12 C19,18 5,18 2,12 Z', 'M12,9.5 A2.5,2.5 0 1 1 12,14.5 A2.5,2.5 0 1 1 12,9.5 Z'] },
+      { label: 'رؤية موحدة للتكلفة', desc: 'احصل على رؤية لحظية لإنفاقك السحابي عبر AWS وAzure وGoogle Cloud وOCI، مع تخصيص تكلفة دقيق وذكاء في وضع العلامات.', icon: ['M2,12 C5,6 19,6 22,12 C19,18 5,18 2,12 Z', 'M12,9.5 A2.5,2.5 0 1 1 12,14.5 A2.5,2.5 0 1 1 12,9.5 Z'] },
       { label: 'تحسين مدعوم بالذكاء الاصطناعي', desc: 'استفد من تعلم الآلة لتحديد الهدر، وموازنة حجم الموارد، واقتراح فرص توفير التكلفة تلقائيا.', icon: ['M12,9 A3,3 0 1 1 12,15 A3,3 0 1 1 12,9 Z', 'M12,3 L12,6 M12,18 L12,21 M3,12 L6,12 M18,12 L21,12 M5.6,5.6 L7.8,7.8 M16.2,16.2 L18.4,18.4 M5.6,18.4 L7.8,16.2 M16.2,7.8 L18.4,5.6'] },
       { label: 'الميزانية والتنبؤ', desc: 'اضبط تنبيهات ميزانية ذكية واستفد من التحليلات التنبؤية للتنبؤ الدقيق بتكلفة السحابة واكتشاف الحالات الشاذة.', icon: ['M4,20 L4,11 M10,20 L10,5 M16,20 L16,14 M20,20 L20,8'] },
       { label: 'التخصيص وإعادة الفوترة', desc: 'خصص تكاليف السحابة تلقائيا للفرق والمشاريع والإدارات، بقواعد تخصيص مخصصة وتقارير مشاركة التكلفة.', icon: ['M3,3 L10,3 L10,10 L3,10 Z', 'M13,3 L20,3 L20,10 L13,10 Z', 'M3,13 L10,13 L10,20 L3,20 Z', 'M13,13 L20,13 L20,20 L13,20 Z'] },
@@ -163,7 +163,7 @@ const anfaaSchema = {
           </div>
 
           <div class="anfaa-flow">
-            <div class="anfaa-flow__row">
+            <div class="anfaa-flow__row anfaa-flow__row--providers">
               <div class="anfaa-flow__tile">
                 <span class="anfaa-flow__icon">
                   <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -187,6 +187,14 @@ const anfaaSchema = {
                   </svg>
                 </span>
                 <span>Google Cloud</span>
+              </div>
+              <div class="anfaa-flow__tile">
+                <span class="anfaa-flow__icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M8,14 C5,14 5,9.5 8,9.5 C8.4,6.5 15.6,6.5 16,9.5 C19,9.5 19,14 16,14 Z" />
+                  </svg>
+                </span>
+                <span>OCI</span>
               </div>
             </div>
 
@@ -497,7 +505,32 @@ const anfaaSchema = {
     height: 50%;
   }
 
+  /* Providers row has 4 tiles (3 gaps) instead of the 3 tiles (2 gaps)
+     every other row/branch here uses, so the bus/stem insets — which
+     only need to reach the center of the outermost tile — use a
+     different fraction of the row width for this branch only. */
+  .anfaa-flow__row--providers {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .anfaa-flow__branch--top .anfaa-flow__bus {
+    left: calc((100% - 3 * var(--flow-gap)) / 8);
+    right: calc((100% - 3 * var(--flow-gap)) / 8);
+  }
+
+  .anfaa-flow__branch--top .anfaa-flow__stem--left {
+    left: calc((100% - 3 * var(--flow-gap)) / 8);
+  }
+
+  .anfaa-flow__branch--top .anfaa-flow__stem--right {
+    right: calc((100% - 3 * var(--flow-gap)) / 8);
+  }
+
   @media (max-width: 560px) {
+    .anfaa-flow__row--providers {
+      grid-template-columns: 1fr;
+    }
+
     .anfaa-flow__bus,
     .anfaa-flow__stem--left,
     .anfaa-flow__stem--right {
