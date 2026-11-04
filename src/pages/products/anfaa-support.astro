@@ -1,0 +1,157 @@
+---
+// Unlike asaas-support.astro, there's no archived version of this page to
+// restore — the Wayback Machine has no record of /anfaa-support/ ever
+// existing on the old site. So this intentionally stays generic (contact
+// details only) rather than inventing ANFAA-specific common issues or
+// portal links that haven't been confirmed. Flagged to Paul/Ali to fill
+// in product-specific troubleshooting once that content exists.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import CTAButton from '../../components/CTAButton.astro';
+
+const requestChecklist = [
+  'The cloud provider(s) and account(s) involved',
+  'Any error messages you saw, or a screenshot',
+  'A brief description of what you were trying to do and what happened instead',
+];
+---
+
+<BaseLayout
+  title="ANFAA (أنفع) Support"
+  description="Support for ANFAA (أنفع): email support, what to include in a support request, and other support channels."
+>
+  <PageIntro eyebrow="ANFAA (أنفع) · Support">
+    <h1>ANFAA (أنفع) Support</h1>
+    <p class="lede">We're here to help you get the most out of ANFAA (أنفع)'s multi-cloud FinOps platform.</p>
+    <div class="page-intro__cta">
+      <CTAButton href="/contact?intent=anfaa" terminalHover>Talk to us about ANFAA (أنفع)</CTAButton>
+    </div>
+  </PageIntro>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <div class="support-cards">
+        <div class="support-card">
+          <p class="eyebrow">Email Support</p>
+          <p>For technical issues, account questions, or general inquiries.</p>
+          <a class="support-card__link" href="mailto:contact@c9ine.com">contact@c9ine.com</a>
+        </div>
+        <div class="support-card">
+          <p class="eyebrow">Response Time</p>
+          <p>We aim to respond to all support requests within <strong>1 business day</strong>. Critical issues are prioritised.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
+      <p class="eyebrow">What to Include in Your Support Request</p>
+      <h2>To help us resolve your issue quickly, please include:</h2>
+      <ul class="check-list">
+        {requestChecklist.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">Additional Support Channels</p>
+      <div class="support-cards">
+        <div class="support-card">
+          <h3>Product Brief</h3>
+          <p>Read the <a href="/products/anfaa">ANFAA (أنفع) product page</a> or download the <a href="/products/anfaa-booklet.pdf">full product brief</a>.</p>
+        </div>
+        <div class="support-card">
+          <h3>General Inquiries</h3>
+          <p>For sales, partnerships, or non-technical questions, visit our <a href="/contact">contact page</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-intro__cta {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .container.narrow {
+    max-width: 46rem;
+  }
+
+  h2 {
+    margin-top: 0.75rem;
+  }
+
+  .support-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .support-card {
+    padding: 1.5rem;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+  }
+
+  .support-card h3 {
+    font-size: var(--step-0);
+  }
+
+  .support-card p {
+    margin-top: 0.6rem;
+    color: var(--silver);
+    line-height: 1.5;
+  }
+
+  .support-card p a {
+    color: var(--aquamarine);
+  }
+
+  .support-card__link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    color: var(--aquamarine);
+    font-weight: 600;
+  }
+
+  .check-list {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    color: var(--silver);
+    line-height: 1.5;
+    max-width: none;
+  }
+
+  .check-list li::before {
+    content: '';
+    flex: none;
+    width: 6px;
+    height: 6px;
+    margin-top: 0.6rem;
+    background: var(--aquamarine);
+  }
+
+  @media (max-width: 560px) {
+    .support-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

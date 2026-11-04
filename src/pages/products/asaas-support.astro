@@ -1,0 +1,258 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import CTAButton from '../../components/CTAButton.astro';
+
+const resources = [
+  { label: 'Getting Started Guide', href: '/products/asaas-getting-started', desc: 'Step-by-step walkthrough from subscription to first landing zone deployment.' },
+  { label: 'Marketplace Orders', href: 'https://console.cloud.google.com/marketplace/orders', desc: 'View and manage your aSaaS (أساس) subscription, billing, and plan details.' },
+  { label: 'aSaaS Portal', href: 'https://asaas.c9ine.com', desc: 'Check your account status, active entitlements, and subscription details.' },
+  { label: 'Google Cloud Support', href: 'https://cloud.google.com/support', desc: 'For issues related to Google Cloud infrastructure, billing, or the Marketplace platform.' },
+];
+
+const commonIssues = [
+  { issue: '"No Active Subscription" on the portal', solution: 'Verify you subscribed via Google Cloud Marketplace and are signed in with the same Google account used during purchase.' },
+  { issue: 'Organization connection fails', solution: 'Ensure you have Organization Administrator permissions and that billing is enabled on the organisation.' },
+  { issue: 'A deployment stage fails', solution: 'The AI assistant provides detailed error information and remediation steps. You can retry any failed stage without losing progress.' },
+  { issue: 'Need to reset your account', solution: 'Email contact@c9ine.com — we can reset your Marketplace account to re-trigger the signup flow.' },
+  { issue: 'Billing or invoice questions', solution: 'Billing is handled by Google Cloud. Visit Marketplace Orders or contact Google Cloud Support.' },
+];
+
+const requestChecklist = [
+  'Your Google Cloud Organization ID',
+  'The deployment stage where the issue occurred (if applicable)',
+  'Any error messages shown by the AI assistant or in the Google Cloud Console',
+  'A brief description of what you were trying to do and what happened instead',
+];
+---
+
+<BaseLayout
+  title="aSaaS (أساس) Support"
+  description="Support for aSaaS (أساس): email support, common issues and fixes, what to include in a support request, and other support channels."
+>
+  <PageIntro eyebrow="aSaaS (أساس) · Support">
+    <h1>aSaaS (أساس) Support</h1>
+    <p class="lede">We're here to help you deploy and manage secure Google Cloud landing zones.</p>
+    <div class="page-intro__cta">
+      <CTAButton href="/contact?intent=asaas" terminalHover>Talk to us about aSaaS (أساس)</CTAButton>
+    </div>
+  </PageIntro>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <div class="support-cards">
+        <div class="support-card">
+          <p class="eyebrow">Email Support</p>
+          <p>For technical issues, account questions, or general inquiries.</p>
+          <a class="support-card__link" href="mailto:contact@c9ine.com">contact@c9ine.com</a>
+        </div>
+        <div class="support-card">
+          <p class="eyebrow">Response Time</p>
+          <p>We aim to respond to all support requests within <strong>1 business day</strong>. Critical issues are prioritised.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
+      <p class="eyebrow">Before You Contact Us</p>
+      <h2>Many common questions can be resolved using the resources below</h2>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Resource</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {resources.map((r) => (
+              <tr>
+                <td><a href={r.href}>{r.label}</a></td>
+                <td>{r.desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">Common Issues</p>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Issue</th>
+              <th>What to do</th>
+            </tr>
+          </thead>
+          <tbody>
+            {commonIssues.map((item) => (
+              <tr>
+                <td><strong>{item.issue}</strong></td>
+                <td>{item.solution}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight section-raised">
+    <div class="container narrow">
+      <p class="eyebrow">What to Include in Your Support Request</p>
+      <h2>To help us resolve your issue quickly, please include:</h2>
+      <ul class="check-list">
+        {requestChecklist.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container narrow">
+      <p class="eyebrow">Additional Support Channels</p>
+      <div class="support-cards">
+        <div class="support-card">
+          <h3>Google Cloud Marketplace</h3>
+          <p>Use the "Support" link on the aSaaS (أساس) listing page for Marketplace-specific questions.</p>
+        </div>
+        <div class="support-card">
+          <h3>General Inquiries</h3>
+          <p>For sales, partnerships, or non-technical questions, visit our <a href="/contact">contact page</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-intro__cta {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .container.narrow {
+    max-width: 46rem;
+  }
+
+  h2 {
+    margin-top: 0.75rem;
+  }
+
+  .support-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .support-card {
+    padding: 1.5rem;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+  }
+
+  .support-card h3 {
+    font-size: var(--step-0);
+  }
+
+  .support-card p {
+    margin-top: 0.6rem;
+    color: var(--silver);
+    line-height: 1.5;
+  }
+
+  .support-card__link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    color: var(--aquamarine);
+    font-weight: 600;
+  }
+
+  .check-list {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+    color: var(--silver);
+    line-height: 1.5;
+    max-width: none;
+  }
+
+  .check-list li::before {
+    content: '';
+    flex: none;
+    width: 6px;
+    height: 6px;
+    margin-top: 0.6rem;
+    background: var(--aquamarine);
+  }
+
+  .table-wrap {
+    margin-top: 2rem;
+    overflow-x: auto;
+    border: 1px solid var(--gunmetal-line);
+    border-radius: var(--border-radius);
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--step--1);
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 0.85rem 1.1rem;
+    text-align: left;
+    vertical-align: top;
+    max-width: none;
+  }
+
+  .data-table thead th {
+    background: var(--gunmetal-raised);
+    color: var(--aquamarine);
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .data-table tbody tr {
+    border-top: 1px solid var(--gunmetal-line);
+  }
+
+  .data-table tbody td {
+    color: var(--silver);
+  }
+
+  .data-table tbody td strong {
+    color: var(--white-smoke);
+  }
+
+  .data-table a {
+    color: var(--aquamarine);
+  }
+
+  @media (max-width: 560px) {
+    .support-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

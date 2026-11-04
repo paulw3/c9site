@@ -30,7 +30,8 @@ const FROM_EMAIL = 'C-9INE Website <contact@notify.c9ine.com>';
 // rather than hard-404ing anyone with an old link or bookmark.
 const LEGACY_REDIRECTS: Record<string, string> = {
   '/asaas-getting-started': '/products/asaas-getting-started',
-  '/asaas-support': '/products/asaas',
+  '/asaas-support': '/products/asaas-support',
+  '/anfaa-support': '/products/anfaa-support',
   '/products-and-services': '/products',
   '/clients': '/about',
   '/articles': '/products',
