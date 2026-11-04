@@ -10,7 +10,7 @@ import CTAButton from '../../../components/CTAButton.astro';
 const resources = [
   { label: 'دليل البدء', href: '/ar/products/asaas-getting-started', desc: 'شرح تفصيلي من الاشتراك وحتى نشر أول منطقة هبوط.' },
   { label: 'طلبات Marketplace', href: 'https://console.cloud.google.com/marketplace/orders', desc: 'عرض وإدارة اشتراكك في أساس، والفوترة، وتفاصيل الخطة.' },
-  { label: 'بوابة أساس', href: 'https://asaas.c9ine.com', desc: 'تحقق من حالة حسابك، والاستحقاقات النشطة، وتفاصيل الاشتراك.' },
+  { label: 'بوابة أساس', href: 'https://asaas.c9ine.com/marketplace', desc: 'تحقق من حالة حسابك، والاستحقاقات النشطة، وتفاصيل الاشتراك.' },
   { label: 'دعم Google Cloud', href: 'https://cloud.google.com/support', desc: 'للمشكلات المتعلقة ببنية Google Cloud التحتية، أو الفوترة، أو منصة Marketplace.' },
 ];
 
@@ -126,7 +126,7 @@ const requestChecklist = [
       <div class="support-cards">
         <div class="support-card">
           <h3>Google Cloud Marketplace</h3>
-          <p>استخدم رابط "الدعم" في صفحة قائمة أساس للأسئلة الخاصة بـ Marketplace.</p>
+          <p>استخدم رابط "الدعم" في <a href="https://console.cloud.google.com/marketplace">صفحة قائمة أساس</a> للأسئلة الخاصة بـ Marketplace.</p>
         </div>
         <div class="support-card">
           <h3>استفسارات عامة</h3>
@@ -173,6 +173,10 @@ const requestChecklist = [
     margin-top: 0.6rem;
     color: var(--silver);
     line-height: 1.5;
+  }
+
+  .support-card p a {
+    color: var(--aquamarine);
   }
 
   .support-card__link {

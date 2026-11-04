@@ -6,7 +6,7 @@ import CTAButton from '../../components/CTAButton.astro';
 const resources = [
   { label: 'Getting Started Guide', href: '/products/asaas-getting-started', desc: 'Step-by-step walkthrough from subscription to first landing zone deployment.' },
   { label: 'Marketplace Orders', href: 'https://console.cloud.google.com/marketplace/orders', desc: 'View and manage your aSaaS (أساس) subscription, billing, and plan details.' },
-  { label: 'aSaaS Portal', href: 'https://asaas.c9ine.com', desc: 'Check your account status, active entitlements, and subscription details.' },
+  { label: 'aSaaS Portal', href: 'https://asaas.c9ine.com/marketplace', desc: 'Check your account status, active entitlements, and subscription details.' },
   { label: 'Google Cloud Support', href: 'https://cloud.google.com/support', desc: 'For issues related to Google Cloud infrastructure, billing, or the Marketplace platform.' },
 ];
 
@@ -121,7 +121,7 @@ const requestChecklist = [
       <div class="support-cards">
         <div class="support-card">
           <h3>Google Cloud Marketplace</h3>
-          <p>Use the "Support" link on the aSaaS (أساس) listing page for Marketplace-specific questions.</p>
+          <p>Use the "Support" link on the <a href="https://console.cloud.google.com/marketplace">aSaaS (أساس) listing page</a> for Marketplace-specific questions.</p>
         </div>
         <div class="support-card">
           <h3>General Inquiries</h3>
@@ -168,6 +168,10 @@ const requestChecklist = [
     margin-top: 0.6rem;
     color: var(--silver);
     line-height: 1.5;
+  }
+
+  .support-card p a {
+    color: var(--aquamarine);
   }
 
   .support-card__link {
